@@ -1,0 +1,711 @@
+---
+// A concept site for an imaginary yoga studio in Scottsdale, made to show what Maui could build
+// for a studio. A mixed-style studio, so the page helps people pick a class: by how they feel,
+// by day, by style. The saguaro on the hero does the poses; every drawing is code.
+import '@fontsource-variable/bricolage-grotesque/standard.css';
+import { site } from '../../site';
+
+// Each style has a color, a heat (how hard it works you, 1 to 5) and a one-line promise.
+const styles = [
+  { key: 'vinyasa', name: 'Vinyasa Flow', heat: 3, color: '#ffc531', about: 'Breath-led flow that links one pose to the next. The class most people fall for.' },
+  { key: 'power', name: 'Power', heat: 5, color: '#ff4f7b', about: 'Strength, long holds and a lot of chaturangas. Bring water.' },
+  { key: 'hot', name: 'Hot Vinyasa', heat: 4, color: '#ff8a1f', about: 'Vinyasa in a 95°F room. You will sweat; that is the point.' },
+  { key: 'slow', name: 'Slow Flow', heat: 2, color: '#4cc9e8', about: 'The same flow at half the speed, with time to feel each pose.' },
+  { key: 'yin', name: 'Yin', heat: 1, color: '#b59cff', about: 'Floor poses held for minutes. Quiet, deep and harder than it looks.' },
+  { key: 'basics', name: 'Beginners', heat: 2, color: '#7ad67a', about: 'Never done yoga? Start here. We teach the names, the shapes and how to breathe.' },
+];
+const teachers = ['Rosa', 'Dev', 'Kai', 'June', 'Marisol', 'Theo'];
+// The week. Times are clock hours in Scottsdale (17.5 is 5:30 PM).
+const week: Record<string, { at: number; style: string; mins: number; teacher: string }[]> = {
+  Mon: [
+    { at: 6, style: 'power', mins: 60, teacher: 'Dev' },
+    { at: 9, style: 'slow', mins: 60, teacher: 'June' },
+    { at: 12, style: 'vinyasa', mins: 45, teacher: 'Rosa' },
+    { at: 17.5, style: 'hot', mins: 60, teacher: 'Kai' },
+    { at: 19, style: 'yin', mins: 75, teacher: 'Marisol' },
+  ],
+  Tue: [
+    { at: 6, style: 'vinyasa', mins: 60, teacher: 'Rosa' },
+    { at: 9, style: 'basics', mins: 60, teacher: 'Theo' },
+    { at: 12, style: 'power', mins: 45, teacher: 'Dev' },
+    { at: 17.5, style: 'vinyasa', mins: 60, teacher: 'June' },
+    { at: 19, style: 'slow', mins: 60, teacher: 'Marisol' },
+  ],
+  Wed: [
+    { at: 6, style: 'hot', mins: 60, teacher: 'Kai' },
+    { at: 9, style: 'yin', mins: 75, teacher: 'Marisol' },
+    { at: 12, style: 'vinyasa', mins: 45, teacher: 'Rosa' },
+    { at: 17.5, style: 'power', mins: 60, teacher: 'Dev' },
+    { at: 19, style: 'basics', mins: 60, teacher: 'Theo' },
+  ],
+  Thu: [
+    { at: 6, style: 'vinyasa', mins: 60, teacher: 'June' },
+    { at: 9, style: 'slow', mins: 60, teacher: 'Theo' },
+    { at: 12, style: 'hot', mins: 45, teacher: 'Kai' },
+    { at: 17.5, style: 'vinyasa', mins: 60, teacher: 'Rosa' },
+    { at: 19, style: 'yin', mins: 75, teacher: 'Marisol' },
+  ],
+  Fri: [
+    { at: 6, style: 'power', mins: 60, teacher: 'Dev' },
+    { at: 9, style: 'vinyasa', mins: 60, teacher: 'June' },
+    { at: 12, style: 'slow', mins: 45, teacher: 'Theo' },
+    { at: 17.5, style: 'hot', mins: 60, teacher: 'Kai' },
+  ],
+  Sat: [
+    { at: 8, style: 'vinyasa', mins: 75, teacher: 'Rosa' },
+    { at: 10, style: 'basics', mins: 60, teacher: 'Theo' },
+    { at: 12, style: 'power', mins: 60, teacher: 'Dev' },
+    { at: 16, style: 'yin', mins: 75, teacher: 'Marisol' },
+  ],
+  Sun: [
+    { at: 8, style: 'slow', mins: 75, teacher: 'June' },
+    { at: 10, style: 'hot', mins: 60, teacher: 'Kai' },
+    { at: 17, style: 'yin', mins: 90, teacher: 'Marisol' },
+  ],
+};
+const days = Object.keys(week);
+const clock = (at: number) => {
+  const h = Math.floor(at);
+  const m = Math.round((at % 1) * 60);
+  return `${h % 12 || 12}:${String(m).padStart(2, '0')} ${h < 12 ? 'AM' : 'PM'}`;
+};
+const styleOf = (key: string) => styles.find((s) => s.key === key)!;
+
+// How you feel today, and the style that answers it.
+const moods = [
+  { key: 'stiff', label: 'Stiff', style: 'yin', why: 'Long, quiet holds that let tight hips and backs let go.' },
+  { key: 'stressed', label: 'Stressed', style: 'slow', why: 'Slow breathing and slower moving. You will leave lighter.' },
+  { key: 'restless', label: 'Restless', style: 'power', why: 'Give the extra energy somewhere to go. Then lie down.' },
+  { key: 'sweaty', label: 'Ready to sweat', style: 'hot', why: 'A warm room and a steady flow. Bring a towel.' },
+  { key: 'new', label: 'Brand new', style: 'basics', why: 'Every pose explained, nobody watching, all levels welcome.' },
+];
+
+// The saguaro's poses: upper arm and forearm angles for each side, and a lean.
+// Left arm points left at 0°, right arm points right; positive turns clockwise.
+const poses = [
+  { key: 'cactus', name: 'Cactus arms', l: [0, 90], r: [0, -90], lean: 0 },
+  { key: 'salute', name: 'Upward salute', l: [62, 20], r: [-62, -20], lean: 0 },
+  { key: 'warrior', name: 'Warrior II', l: [0, 0], r: [0, 0], lean: 0 },
+  { key: 'tree', name: 'Tree', l: [86, 42], r: [-86, -42], lean: 0 },
+  { key: 'moon', name: 'Half moon', l: [84, 0], r: [84, 0], lean: -16 },
+  { key: 'mountain', name: 'Mountain', l: [-78, 0], r: [78, 0], lean: 0 },
+];
+
+// Imaginary, so the details are too: 555-01xx numbers are reserved for fiction, and .example
+// addresses never deliver anywhere.
+const visit = {
+  place: 'Old Town Scottsdale',
+  city: 'Scottsdale, AZ',
+  phone: '(480) 555-0142',
+  tel: '+14805550142',
+  email: 'hello@saguaroyoga.example',
+};
+const contact = (subject: string) => `mailto:${visit.email}?subject=${encodeURIComponent(subject)}`;
+const mail = `mailto:${site.email}?subject=${encodeURIComponent('A website for my yoga studio')}`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Saguaro Yoga Club, a concept yoga studio site by {site.name}</title>
+    <meta name="description" content={`A concept website for an imaginary yoga studio in Scottsdale, designed and built by ${site.name}.`} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body class="sag" data-week={JSON.stringify(week)} data-styles={JSON.stringify(styles.map(({ key, name, color }) => ({ key, name, color })))}>
+    <p class="concept-bar">
+      An imaginary yoga studio, built by <a href="/">{site.name}</a> to show what a studio site could be.
+    </p>
+
+    <header class="hero">
+      <div class="hero-words">
+        <p class="wordmark">Saguaro Yoga Club</p>
+        <h1 class="headline">Stand tall.<br />Bend a little.</h1>
+        <p class="hero-line">
+          A yoga studio in {visit.place} with six kinds of class, from a sweaty power hour to an evening of lying very still.
+          First week, unlimited, $29.
+        </p>
+        <p class="next" id="next">Next class: see the schedule.</p>
+        <div class="hero-actions">
+          <a class="button" href="#schedule">Find a class</a>
+          <a class="button button-quiet" href="#first-week">First week for $29</a>
+        </div>
+      </div>
+
+      <div class="stage">
+        <svg class="desert" viewBox="0 0 400 460" role="img" aria-labelledby="pose-name">
+          <title id="pose-name">A saguaro cactus doing Cactus arms</title>
+          <defs>
+            <clipPath id="window"><path d="M24 444 V214 A176 176 0 0 1 376 214 V444 Z" /></clipPath>
+            <linearGradient id="dawn" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#ff9fb6" />
+              <stop offset="0.55" stop-color="#ffd18a" />
+            </linearGradient>
+          </defs>
+          <g clip-path="url(#window)">
+            <rect x="0" y="0" width="400" height="460" fill="url(#dawn)" />
+            <circle class="sun" cx="290" cy="150" r="58" fill="#ffc531" />
+            <path d="M0 370 Q100 334 200 352 T400 340 V460 H0 Z" fill="#f6c27a" />
+            <path d="M0 404 Q120 380 220 394 T400 386 V460 H0 Z" fill="#eaa85a" />
+            <!-- Two small friends far away, doing nothing in particular. -->
+            <g fill="#1e8a52" stroke="#2b1433" stroke-width="3">
+              <rect x="56" y="298" width="16" height="60" rx="8" />
+              <rect x="44" y="314" width="10" height="24" rx="5" />
+              <rect x="334" y="312" width="12" height="44" rx="6" />
+            </g>
+          </g>
+          <path d="M24 444 V214 A176 176 0 0 1 376 214 V444 Z" fill="none" stroke="#2b1433" stroke-width="6" stroke-linejoin="round" />
+          <g class="saguaro" id="saguaro">
+            <!-- Arms first, so the body covers the shoulders. Each arm is an upper arm and a forearm. -->
+            {
+              (['l', 'r'] as const).map((side) => {
+                const dir = side === 'l' ? -1 : 1;
+                const sx = 200 + dir * 26;
+                const ex = sx + dir * 62;
+                const fx = ex + dir * 64;
+                return (
+                  <g class={`arm arm-${side}`} style={`transform-origin: ${sx}px 180px`}>
+                    <path d={`M${sx} 180 H${ex}`} class="limb-line" />
+                    <path d={`M${sx} 180 H${ex}`} class="limb" />
+                    <g class="fore" style={`transform-origin: ${ex}px 180px`}>
+                      <path d={`M${ex} 180 H${fx}`} class="limb-line" />
+                      <path d={`M${ex} 180 H${fx}`} class="limb" />
+                    </g>
+                  </g>
+                );
+              })
+            }
+            <rect x="166" y="96" width="68" height="290" rx="34" fill="#1e8a52" stroke="#2b1433" stroke-width="6" />
+            <g stroke="#126b3c" stroke-width="4" stroke-linecap="round">
+              <path d="M184 120 V370" /><path d="M200 112 V376" /><path d="M216 120 V370" />
+            </g>
+            <g class="face">
+              <ellipse class="eye" cx="188" cy="150" rx="5" ry="7" fill="#2b1433" />
+              <ellipse class="eye" cx="212" cy="150" rx="5" ry="7" fill="#2b1433" />
+              <path d="M190 168 Q200 177 210 168" fill="none" stroke="#2b1433" stroke-width="4" stroke-linecap="round" />
+              <circle cx="181" cy="164" r="5" fill="#ff4f7b" opacity="0.55" />
+              <circle cx="219" cy="164" r="5" fill="#ff4f7b" opacity="0.55" />
+            </g>
+            <!-- The bloom on top. -->
+            <g class="bloom" style="transform-origin: 200px 96px">
+              {[0, 72, 144, 216, 288].map((a) => <ellipse cx="200" cy="80" rx="9" ry="16" fill="#ff4f7b" stroke="#2b1433" stroke-width="3" transform={`rotate(${a} 200 96)`} />)}
+              <circle cx="200" cy="96" r="8" fill="#ffc531" stroke="#2b1433" stroke-width="3" />
+            </g>
+          </g>
+          <!-- The mat. -->
+          <rect x="110" y="384" width="180" height="14" rx="7" fill="#b59cff" stroke="#2b1433" stroke-width="4" />
+        </svg>
+        <div class="poses" role="group" aria-label="Pick a pose for the saguaro">
+          {poses.map((p, i) => (
+            <button type="button" class="pose" data-pose={p.key} aria-pressed={i === 0 ? 'true' : 'false'}>
+              {p.name}
+            </button>
+          ))}
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="band mood-band" aria-labelledby="mood-title">
+        <h2 class="title" id="mood-title">How do you feel today?</h2>
+        <div class="moods" role="group" aria-label="How you feel">
+          {moods.map((m) => (
+            <button type="button" class="mood" data-mood={m.key} data-style={m.style} data-why={m.why} aria-pressed="false">
+              {m.label}
+            </button>
+          ))}
+        </div>
+        <div class="pick" id="pick" aria-live="polite" hidden>
+          <p class="pick-style" id="pick-style"></p>
+          <p class="pick-why" id="pick-why"></p>
+          <p class="pick-when" id="pick-when"></p>
+        </div>
+      </section>
+
+      <section class="band classes-band" aria-labelledby="classes-title">
+        <h2 class="title" id="classes-title">Six kinds of class</h2>
+        <p class="lede">More dots, more sweat.</p>
+        <ul class="styles" role="list">
+          {styles.map((s) => (
+            <li class="style-card" style={`--tone: ${s.color}`}>
+              <h3>{s.name}</h3>
+              <p class="heat" aria-label={`Intensity ${s.heat} of 5`}>
+                {Array.from({ length: 5 }, (_, i) => <span class={i < s.heat ? 'on' : ''} aria-hidden="true">●</span>)}
+              </p>
+              <p>{s.about}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="band schedule-band" id="schedule" aria-labelledby="schedule-title">
+        <h2 class="title" id="schedule-title">This week</h2>
+        <div class="day-tabs" role="tablist" aria-label="Day of the week">
+          {days.map((d) => (
+            <button type="button" role="tab" class="day-tab" data-day={d} aria-selected="false" aria-controls={`day-${d}`} id={`tab-${d}`}>
+              {d}
+            </button>
+          ))}
+        </div>
+        <div class="filters" role="group" aria-label="Show only one kind of class">
+          <button type="button" class="filter" data-filter="all" aria-pressed="true">All classes</button>
+          {styles.map((s) => (
+            <button type="button" class="filter" data-filter={s.key} aria-pressed="false" style={`--tone: ${s.color}`}>{s.name}</button>
+          ))}
+        </div>
+        {days.map((d) => (
+          <ol class="day" id={`day-${d}`} role="tabpanel" aria-labelledby={`tab-${d}`} hidden>
+            {week[d].map((c) => (
+              <li class="slot" data-style={c.style} data-at={c.at} style={`--tone: ${styleOf(c.style).color}`}>
+                <span class="slot-time">{clock(c.at)}</span>
+                <span class="slot-name">{styleOf(c.style).name}</span>
+                <span class="slot-meta">{c.mins} min, with {c.teacher}</span>
+              </li>
+            ))}
+            <li class="slot-empty" hidden>Nothing of that kind today. Try another day or another class.</li>
+          </ol>
+        ))}
+        <p class="small">Walk in or book at the desk. Classes cap at 24 mats.</p>
+      </section>
+
+      <section class="band price-band" id="first-week" aria-labelledby="price-title">
+        <h2 class="title" id="price-title">Come for a week</h2>
+        <div class="prices">
+          <div class="price price-star">
+            <p class="price-name">First week</p>
+            <p class="price-amount">$29</p>
+            <p>Seven days of every class, for new students. Mat and towel on us.</p>
+            <a class="button" href={contact('My first week')}>Start my week</a>
+          </div>
+          <div class="price">
+            <p class="price-name">Drop in</p>
+            <p class="price-amount">$24</p>
+            <p>One class, any style.</p>
+          </div>
+          <div class="price">
+            <p class="price-name">Ten classes</p>
+            <p class="price-amount">$210</p>
+            <p>Good for a year, shareable with a friend.</p>
+          </div>
+          <div class="price">
+            <p class="price-name">Unlimited</p>
+            <p class="price-amount">$149<span>/mo</span></p>
+            <p>Every class, every day. Pause anytime.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="band faq-band" aria-labelledby="faq-title">
+        <h2 class="title" id="faq-title">Your first class</h2>
+        <div class="faq">
+          <details>
+            <summary>What do I bring?</summary>
+            <p>Clothes you can move in and some water. We have mats ($3 to rent, free your first week), blocks, straps and towels.</p>
+          </details>
+          <details>
+            <summary>When should I get there?</summary>
+            <p>Ten minutes early the first time, so we can show you around and ask about any injuries.</p>
+          </details>
+          <details>
+            <summary>I can't touch my toes.</summary>
+            <p>Most people can't. Yoga is how you get closer, not something you need to be good at first. Start with Beginners or Slow Flow.</p>
+          </details>
+          <details>
+            <summary>How hot is Hot Vinyasa?</summary>
+            <p>About 95°F with some humidity. Every other class is at a normal room temperature.</p>
+          </details>
+          <details>
+            <summary>Showers and parking?</summary>
+            <p>Two showers and lockers. Free parking in the garage behind the studio.</p>
+          </details>
+        </div>
+      </section>
+
+      <section class="band visit-band" id="visit" aria-labelledby="visit-title">
+        <h2 class="title" id="visit-title">Come say hi</h2>
+        <div class="visit">
+          <div><h3>Where</h3><p>{visit.place}<br />{visit.city}</p></div>
+          <div><h3>Desk hours</h3><p>Every day, 30 minutes before the first class until the last one ends.</p></div>
+          <div><h3>Call or write</h3><p><a href={`tel:${visit.tel}`}>{visit.phone}</a><br /><a href={contact('Hello')}>{visit.email}</a></p></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="concept-foot">
+      <p>Saguaro Yoga Club is imaginary. This site is a concept by {site.name}: every cactus drawn and coded by hand.</p>
+      <a class="foot-ask" href={mail}>I want a site like this for my studio</a>
+      <a href="/">Back to {site.name}</a>
+    </footer>
+  </body>
+</html>
+
+<script>
+  import { nowAt } from '../../lib/sky';
+  import { here } from '../../site';
+
+  type Slot = { at: number; style: string; mins: number; teacher: string };
+  const week: Record<string, Slot[]> = JSON.parse(document.body.dataset.week!);
+  const styles: { key: string; name: string; color: string }[] = JSON.parse(document.body.dataset.styles!);
+  const days = Object.keys(week);
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const el = (id: string) => document.getElementById(id)!;
+  const clock = (at: number) => {
+    const h = Math.floor(at);
+    const m = Math.round((at % 1) * 60);
+    return `${h % 12 || 12}:${String(m).padStart(2, '0')} ${h < 12 ? 'AM' : 'PM'}`;
+  };
+  const nameOf = (key: string) => styles.find((s) => s.key === key)!.name;
+
+  // Where the week stands in Scottsdale right now.
+  const today = () => new Intl.DateTimeFormat('en-US', { timeZone: here.timeZone, weekday: 'short' }).format(new Date());
+  // The next class (of one style, or any), looking ahead up to a week.
+  const nextClass = (style?: string) => {
+    const now = nowAt(here).hour;
+    const start = days.indexOf(today());
+    for (let ahead = 0; ahead < 8; ahead++) {
+      const day = days[(start + ahead) % 7];
+      const slot = week[day].find((c) => (!style || c.style === style) && (ahead > 0 || c.at > now));
+      if (slot) return { day, slot, when: ahead === 0 ? 'today' : ahead === 1 ? 'tomorrow' : `on ${day}` };
+    }
+    return null;
+  };
+  const showNext = () => {
+    const n = nextClass();
+    if (n) el('next').innerHTML = `<b>Next class:</b> ${nameOf(n.slot.style)}, ${n.when} at ${clock(n.slot.at)} with ${n.slot.teacher}.`;
+  };
+  showNext();
+  setInterval(showNext, 60_000);
+
+  // The saguaro: each pose sets the arm angles, and the body leans.
+  const poses: Record<string, { l: number[]; r: number[]; lean: number; name: string }> = {
+    cactus: { name: 'Cactus arms', l: [0, 90], r: [0, -90], lean: 0 },
+    salute: { name: 'Upward salute', l: [62, 20], r: [-62, -20], lean: 0 },
+    warrior: { name: 'Warrior II', l: [0, 0], r: [0, 0], lean: 0 },
+    tree: { name: 'Tree', l: [86, 42], r: [-86, -42], lean: 0 },
+    moon: { name: 'Half moon', l: [84, 0], r: [84, 0], lean: -16 },
+    mountain: { name: 'Mountain', l: [-78, 0], r: [78, 0], lean: 0 },
+  };
+  const saguaro = el('saguaro');
+  const strike = (key: string) => {
+    const p = poses[key];
+    const set = (sel: string, deg: number) => (saguaro.querySelector<SVGGElement>(sel)!.style.rotate = `${deg}deg`);
+    set('.arm-l', p.l[0]);
+    set('.arm-l .fore', p.l[1]);
+    set('.arm-r', p.r[0]);
+    set('.arm-r .fore', p.r[1]);
+    saguaro.style.rotate = `${p.lean}deg`;
+    el('pose-name').textContent = `A saguaro cactus doing ${p.name}`;
+    document.querySelectorAll('.pose').forEach((b) => b.setAttribute('aria-pressed', String((b as HTMLElement).dataset.pose === key)));
+  };
+  strike('cactus');
+  // It practices on its own until someone picks a pose.
+  const order = Object.keys(poses);
+  let step = 0;
+  let practice = calm ? 0 : window.setInterval(() => strike(order[++step % order.length]), 2600);
+  document.querySelectorAll<HTMLButtonElement>('.pose').forEach((b) =>
+    b.addEventListener('click', () => {
+      clearInterval(practice);
+      practice = 0;
+      strike(b.dataset.pose!);
+    }),
+  );
+
+  // How you feel: pick a mood, get a class and the next time it runs.
+  document.querySelectorAll<HTMLButtonElement>('.mood').forEach((b) =>
+    b.addEventListener('click', () => {
+      document.querySelectorAll('.mood').forEach((m) => m.setAttribute('aria-pressed', String(m === b)));
+      const style = b.dataset.style!;
+      const tone = styles.find((s) => s.key === style)!.color;
+      const n = nextClass(style);
+      el('pick').hidden = false;
+      el('pick').style.setProperty('--tone', tone);
+      el('pick-style').textContent = `Try ${nameOf(style)}.`;
+      el('pick-why').textContent = b.dataset.why!;
+      el('pick-when').textContent = n ? `Next one: ${n.when} at ${clock(n.slot.at)} with ${n.slot.teacher}.` : '';
+    }),
+  );
+
+  // The schedule: a tab per day, opening on today, and a filter by style.
+  let filter = 'all';
+  const showDay = (day: string) => {
+    document.querySelectorAll<HTMLButtonElement>('.day-tab').forEach((t) => {
+      const on = t.dataset.day === day;
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+      const isToday = t.dataset.day === today();
+      t.classList.toggle('is-today', isToday);
+      t.textContent = isToday ? 'Today' : t.dataset.day!;
+    });
+    days.forEach((d) => (el(`day-${d}`).hidden = d !== day));
+    applyFilter();
+  };
+  const applyFilter = () => {
+    document.querySelectorAll<HTMLElement>('.day').forEach((list) => {
+      let shown = 0;
+      list.querySelectorAll<HTMLElement>('.slot').forEach((s) => {
+        const on = filter === 'all' || s.dataset.style === filter;
+        s.hidden = !on;
+        if (on) shown++;
+        // Classes already over today are marked as past.
+        const isToday = list.id === `day-${today()}`;
+        s.classList.toggle('is-past', isToday && Number(s.dataset.at) < nowAt(here).hour);
+      });
+      list.querySelector<HTMLElement>('.slot-empty')!.hidden = shown > 0;
+    });
+  };
+  const tabs = [...document.querySelectorAll<HTMLButtonElement>('.day-tab')];
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => showDay(t.dataset.day!));
+    // Arrow keys move between days, as tabs should.
+    t.addEventListener('keydown', (e) => {
+      const move = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!move) return;
+      const next = tabs[(i + move + tabs.length) % tabs.length];
+      next.focus();
+      showDay(next.dataset.day!);
+    });
+  });
+  document.querySelectorAll<HTMLButtonElement>('.filter').forEach((f) =>
+    f.addEventListener('click', () => {
+      filter = f.dataset.filter!;
+      document.querySelectorAll('.filter').forEach((x) => x.setAttribute('aria-pressed', String(x === f)));
+      applyFilter();
+    }),
+  );
+  showDay(today());
+</script>
+
+<style is:global>
+  .sag {
+    --plum: #2b1433;
+    --sand: #fff1d6;
+    --green: #1e8a52;
+    --sun: #ffc531;
+    --bloom: #ff4f7b;
+    --sky: #4cc9e8;
+    --type: 'Bricolage Grotesque Variable', 'Arial Rounded MT Bold', system-ui, sans-serif;
+    --edge: clamp(1.25rem, 5vw, 4.5rem);
+    margin: 0;
+    color: var(--plum);
+    background: var(--sand);
+    font-family: var(--type);
+    font-size: 1.125rem;
+    line-height: 1.5;
+    font-variation-settings: 'opsz' 18;
+  }
+  .sag *, .sag *::before, .sag *::after { box-sizing: border-box; }
+  .sag a { color: inherit; text-underline-offset: 0.2em; }
+  .sag :focus-visible { outline: 3px solid var(--plum); outline-offset: 3px; }
+  .sag button { font: inherit; color: inherit; cursor: pointer; }
+
+  .concept-bar {
+    margin: 0;
+    padding: 0.55rem var(--edge);
+    background: var(--plum);
+    color: var(--sand);
+    font-size: 0.85rem;
+    text-align: center;
+  }
+
+  /* Hero: sky above, desert below, a saguaro on a mat. */
+  .hero {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    align-items: center;
+    gap: 2rem;
+    padding: clamp(2rem, 5vw, 4rem) var(--edge) clamp(2.5rem, 5vw, 4rem);
+    background: linear-gradient(#4cc9e8, #9fe3f0 70%, #ffe3a8);
+  }
+  .wordmark {
+    display: inline-block;
+    margin: 0;
+    padding: 0.3rem 0.8rem;
+    border: 3px solid var(--plum);
+    border-radius: 999px;
+    background: var(--sand);
+    font-weight: 800;
+    font-size: 1rem;
+  }
+  .headline {
+    margin: 1rem 0 0;
+    font-size: clamp(3.4rem, 9vw, 7.5rem);
+    font-weight: 800;
+    font-variation-settings: 'opsz' 96, 'wdth' 80;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    color: var(--plum);
+  }
+  .hero-line { max-width: 33rem; margin: 1.25rem 0 0; font-size: clamp(1.1rem, 2vw, 1.3rem); }
+  .next { max-width: 33rem; margin: 1rem 0 0; padding: 0.6rem 0.9rem; border-left: 0; border-radius: 0.8rem; background: rgb(255 241 214 / 0.75); }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
+  .button {
+    display: inline-block;
+    padding: 0.8rem 1.3rem;
+    border: 3px solid var(--plum);
+    border-radius: 999px;
+    background: var(--bloom);
+    color: #fff !important;
+    font-weight: 800;
+    text-decoration: none;
+    box-shadow: 0 5px 0 var(--plum);
+    transition: translate 0.15s, box-shadow 0.15s;
+  }
+  .button:hover { translate: 0 2px; box-shadow: 0 3px 0 var(--plum); }
+  .button:active { translate: 0 5px; box-shadow: 0 0 0 var(--plum); }
+  .button-quiet { background: var(--sand); color: var(--plum) !important; }
+
+  .stage { display: grid; gap: 1rem; justify-items: center; }
+  .desert { display: block; width: 100%; max-width: 30rem; overflow: visible; }
+  .saguaro { transform-box: view-box; transform-origin: 200px 386px; transition: rotate 0.9s cubic-bezier(0.45, 0, 0.2, 1); }
+  .arm, .fore { transform-box: view-box; transition: rotate 0.9s cubic-bezier(0.45, 0, 0.2, 1); }
+  .limb-line { stroke: var(--plum); stroke-width: 36; stroke-linecap: round; fill: none; }
+  .limb { stroke: var(--green); stroke-width: 26; stroke-linecap: round; fill: none; }
+  @media (prefers-reduced-motion: no-preference) {
+    .eye { transform-box: fill-box; transform-origin: center; animation: blink 5s infinite; }
+    .bloom { animation: sway 4s ease-in-out infinite alternate; transform-box: view-box; }
+    .sun { transform-box: fill-box; transform-origin: center; animation: glow 6s ease-in-out infinite alternate; }
+    @keyframes blink { 0%, 94%, 100% { transform: scaleY(1); } 97% { transform: scaleY(0.1); } }
+    @keyframes sway { from { rotate: -6deg; } to { rotate: 6deg; } }
+    @keyframes glow { to { transform: scale(1.06); } }
+  }
+  .poses { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; max-width: 30rem; }
+  .pose, .mood, .filter, .day-tab {
+    padding: 0.45rem 0.95rem;
+    border: 3px solid var(--plum);
+    border-radius: 999px;
+    background: var(--sand);
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+  .pose[aria-pressed='true'] { background: var(--plum); color: var(--sand); }
+
+  /* Bands: each section is a field of its own color. */
+  .band { padding: clamp(3.5rem, 9vh, 6rem) var(--edge); }
+  .title {
+    margin: 0;
+    font-size: clamp(2.4rem, 6.5vw, 4.75rem);
+    font-weight: 800;
+    font-variation-settings: 'opsz' 96, 'wdth' 80;
+    line-height: 0.95;
+    letter-spacing: -0.015em;
+  }
+  .lede { margin: 0.75rem 0 0; font-size: 1.2rem; }
+  .small { margin: 1.5rem 0 0; font-size: 0.95rem; }
+
+  .mood-band { background: var(--sun); }
+  .moods { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; }
+  .mood { padding: 0.9rem 1.4rem; font-size: clamp(1.1rem, 2.4vw, 1.5rem); font-weight: 800; box-shadow: 0 5px 0 var(--plum); }
+  .mood[aria-pressed='true'] { background: var(--plum); color: var(--sun); translate: 0 3px; box-shadow: 0 2px 0 var(--plum); }
+  .pick {
+    max-width: 40rem;
+    margin-top: 2rem;
+    padding: 1.5rem 1.75rem;
+    border: 4px solid var(--plum);
+    border-radius: 1.5rem;
+    background: var(--tone, var(--sand));
+    box-shadow: 8px 8px 0 var(--plum);
+  }
+  .pick-style { margin: 0; font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; font-variation-settings: 'opsz' 72, 'wdth' 85; line-height: 1; }
+  .pick-why { margin: 0.6rem 0 0; font-size: 1.2rem; }
+  .pick-when { margin: 0.6rem 0 0; font-weight: 800; }
+  @media (prefers-reduced-motion: no-preference) {
+    .pick:not([hidden]) { animation: pop 0.35s cubic-bezier(0.2, 0.9, 0.3, 1); }
+    @keyframes pop { from { scale: 0.94; opacity: 0; } }
+  }
+
+  .classes-band { background: var(--sand); }
+  .styles { list-style: none; margin: 2.25rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .style-card {
+    padding: 1.4rem 1.4rem 1.5rem;
+    border: 3px solid var(--plum);
+    border-radius: 1.5rem 1.5rem 1.5rem 0.4rem;
+    background: var(--tone);
+  }
+  .style-card:nth-child(even) { border-radius: 1.5rem 1.5rem 0.4rem 1.5rem; }
+  .style-card h3 { margin: 0; font-size: 1.6rem; font-weight: 800; font-variation-settings: 'opsz' 48, 'wdth' 85; line-height: 1.05; }
+  .style-card p { margin: 0.5rem 0 0; }
+  .heat { display: flex; gap: 0.2rem; font-size: 1.1rem; letter-spacing: 0.05em; }
+  .heat span { color: rgb(43 20 51 / 0.22); }
+  .heat span.on { color: var(--plum); }
+
+  .schedule-band { background: #fff; border-block: 4px solid var(--plum); }
+  .day-tabs { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 2rem; }
+  .day-tab { min-width: 4.2rem; font-size: 1.05rem; }
+  .day-tab[aria-selected='true'] { background: var(--plum); color: var(--sand); }
+  .day-tab.is-today { background: var(--sun); }
+  .day-tab.is-today[aria-selected='true'] { background: var(--plum); color: var(--sun); }
+  .filters { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.75rem; }
+  .filter { font-size: 0.9rem; border-width: 2px; }
+  .filter[aria-pressed='true'] { background: var(--tone, var(--plum)); color: var(--plum); box-shadow: inset 0 0 0 2px var(--plum); }
+  .filter[data-filter='all'][aria-pressed='true'] { color: var(--sand); }
+  .day { list-style: none; margin: 1.75rem 0 0; padding: 0; max-width: 46rem; }
+  .slot {
+    display: grid;
+    grid-template-columns: 7.5rem 1fr auto;
+    align-items: baseline;
+    gap: 0.25rem 1rem;
+    padding: 1rem 1rem 1rem 1.1rem;
+    border: 3px solid var(--plum);
+    border-radius: 1rem;
+    background: linear-gradient(90deg, var(--tone) 0 0.6rem, #fff 0.6rem);
+  }
+  .slot + .slot { margin-top: 0.6rem; }
+  .slot-time { white-space: nowrap; font-weight: 800; font-variant-numeric: tabular-nums; padding-left: 0.5rem; }
+  .slot-name { font-weight: 800; font-size: 1.25rem; }
+  .slot-meta { font-size: 0.95rem; }
+  .slot.is-past { opacity: 0.5; }
+  .slot.is-past .slot-name::after { content: ' (done for today)'; font-weight: 500; font-size: 0.9rem; }
+  .slot-empty { padding: 1rem 0; }
+
+  .price-band { background: var(--bloom); }
+  .prices { display: grid; grid-template-columns: 1.4fr repeat(3, 1fr); gap: 1.25rem; margin-top: 2.25rem; align-items: stretch; }
+  .price { padding: 1.4rem; border: 3px solid var(--plum); border-radius: 1.5rem; background: var(--sand); }
+  .price p { margin: 0.4rem 0 0; }
+  .price-name { margin: 0 !important; font-weight: 800; font-size: 1.15rem; }
+  .price-amount { font-size: clamp(2.6rem, 5vw, 3.6rem); font-weight: 800; font-variation-settings: 'opsz' 96, 'wdth' 80; line-height: 1; }
+  .price-amount span { font-size: 0.4em; }
+  .price-star { background: var(--sun); box-shadow: 8px 8px 0 var(--plum); rotate: -1.5deg; }
+  .price-star .button { margin-top: 1rem; }
+
+  .faq-band { background: var(--sand); }
+  .faq { max-width: 46rem; margin-top: 2rem; }
+  .faq details { border-top: 3px solid var(--plum); }
+  .faq details:last-child { border-bottom: 3px solid var(--plum); }
+  .faq summary { padding: 1.1rem 0; font-weight: 800; font-size: 1.3rem; cursor: pointer; list-style: none; display: flex; justify-content: space-between; gap: 1rem; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: '+'; font-size: 1.6rem; line-height: 1; transition: rotate 0.2s; }
+  .faq details[open] summary::after { rotate: 45deg; }
+  .faq details p { margin: 0 0 1.2rem; max-width: 38rem; }
+
+  .visit-band { background: var(--green); color: var(--sand); }
+  .visit { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 2rem; margin-top: 2rem; }
+  .visit h3 { margin: 0; font-size: 1.3rem; font-weight: 800; }
+  .visit p { margin: 0.4rem 0 0; }
+  .sag .visit-band :focus-visible { outline-color: var(--sun); }
+
+  .concept-foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 2rem;
+    padding: 2.5rem var(--edge) 3rem;
+    background: var(--plum);
+    color: var(--sand);
+  }
+  .concept-foot p { flex-basis: 100%; max-width: 40rem; margin: 0; }
+  .foot-ask { padding: 0.7rem 1.2rem; border: 3px solid var(--sand); border-radius: 999px; background: var(--sun); color: var(--plum) !important; font-weight: 800; text-decoration: none; }
+  .sag .concept-foot :focus-visible { outline-color: var(--sun); }
+
+  @media (max-width: 820px) {
+    .hero { grid-template-columns: 1fr; }
+    .prices { grid-template-columns: 1fr 1fr; }
+    .styles { grid-template-columns: 1fr 1fr; }
+    .price-star { grid-column: 1 / -1; }
+    .slot { grid-template-columns: 6.4rem 1fr; }
+    .slot-meta { grid-column: 2; }
+  }
+  @media (max-width: 520px) {
+    .styles { grid-template-columns: 1fr; }
+  }
+</style>

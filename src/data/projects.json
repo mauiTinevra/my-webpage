@@ -1,5 +1,11 @@
 [
   {
+    "name": "Saguaro Yoga Club",
+    "description": "A concept site for an imaginary yoga studio in Scottsdale. A cartoon saguaro does the poses, a mood picker suggests a class, and the schedule opens on today and filters by style. Every cactus is code.",
+    "url": "/work/saguaro",
+    "year": 2026
+  },
+  {
     "name": "El Único Taquería",
     "description": "A concept site for an imaginary taquería that sells one taco. Build three tacos al pastor, pour La Única, take a bite of chocoflan, and come back after closing to see the whole place lit in neon. Every drawing is code.",
     "url": "/work/el-unico",
