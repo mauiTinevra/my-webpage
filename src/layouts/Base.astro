@@ -1,0 +1,57 @@
+---
+import '@fontsource-variable/bricolage-grotesque';
+import '@fontsource-variable/literata';
+import '../styles/global.css';
+import { site, sections } from '../site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  fabric?: 'cord' | 'canvas' | 'denim' | 'gingham';
+}
+
+const { title, description = site.intro, fabric } = Astro.props;
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+const pageTitle = title ? `${title} | ${site.name}` : site.name;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+  </head>
+  <body class={fabric ? `on-${fabric}` : undefined}>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site-header">
+      <a class="wordmark" href="/" aria-current={isCurrent('/') ? 'page' : undefined}>{site.name}</a>
+      <nav aria-label="Sections">
+        <ul>
+          <li><a href="/" aria-current={isCurrent('/') ? 'page' : undefined}>Home</a></li>
+          {
+            sections.map((s) => (
+              <li>
+                <a href={s.href} aria-current={isCurrent(s.href) ? 'page' : undefined}>
+                  {s.name}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </header>
+    {fabric && <div class={`strip fabric ${fabric}`} aria-hidden="true" />}
+    <main id="main">
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <span>{site.name}, {new Date().getFullYear()}</span>
+      <ul>
+        {site.links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+      </ul>
+    </footer>
+  </body>
+</html>

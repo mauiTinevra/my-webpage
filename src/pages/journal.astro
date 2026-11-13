@@ -1,0 +1,35 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import { formatDate } from '../lib/date';
+
+const sorted = (await getCollection('journal')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const entries = await Promise.all(
+  sorted.map(async (entry) => ({ entry, Content: (await render(entry)).Content })),
+);
+---
+
+<Base title="Journal" fabric="gingham">
+  <header class="page-head">
+    <h1>Journal</h1>
+    <p>Short notes, day by day.</p>
+  </header>
+
+  {
+    entries.length === 0 ? (
+      <p class="empty">No entries yet.</p>
+    ) : (
+      <div class="entries">
+        {entries.map(({ entry, Content }) => (
+          <article class="entry" id={entry.id}>
+            <time datetime={entry.data.date.toISOString()}>{formatDate(entry.data.date)}</time>
+            {entry.data.title && <h2>{entry.data.title}</h2>}
+            <div class="prose">
+              <Content />
+            </div>
+          </article>
+        ))}
+      </div>
+    )
+  }
+</Base>

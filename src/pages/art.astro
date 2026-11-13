@@ -1,0 +1,39 @@
+---
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+
+// Every image in src/assets/art/ shows up here. The file name becomes the caption.
+const files = import.meta.glob<{ default: ImageMetadata }>('../assets/art/*.{jpg,jpeg,png,webp,avif,gif}', {
+  eager: true,
+});
+
+const pieces = Object.entries(files)
+  .map(([path, mod]) => {
+    const file = path.split('/').pop()!.replace(/\.[^.]+$/, '');
+    return { src: mod.default, title: file.replace(/^\d+[-_]/, '').replace(/[-_]+/g, ' ') };
+  })
+  .reverse();
+---
+
+<Base title="Art" fabric="canvas">
+  <header class="page-head">
+    <h1>Art</h1>
+    <p>Things I made.</p>
+  </header>
+
+  {
+    pieces.length === 0 ? (
+      <p class="empty">Nothing on the wall yet.</p>
+    ) : (
+      <div class="gallery">
+        {pieces.map((piece) => (
+          <figure>
+            <Image src={piece.src} alt={piece.title} widths={[480, 960]} sizes="(max-width: 600px) 100vw, 33vw" />
+            <figcaption>{piece.title}</figcaption>
+          </figure>
+        ))}
+      </div>
+    )
+  }
+</Base>

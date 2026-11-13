@@ -1,0 +1,27 @@
+---
+import Base from '../layouts/Base.astro';
+import projects from '../data/projects.json';
+---
+
+<Base title="Code" fabric="denim">
+  <header class="page-head">
+    <h1>Code</h1>
+    <p>Things I built.</p>
+  </header>
+
+  {
+    projects.length === 0 ? (
+      <p class="empty">No projects listed yet.</p>
+    ) : (
+      <ul class="projects">
+        {projects.map((project) => (
+          <li>
+            <h2>{project.url ? <a href={project.url}>{project.name}</a> : project.name}</h2>
+            <time>{project.year}</time>
+            <p>{project.description}</p>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</Base>

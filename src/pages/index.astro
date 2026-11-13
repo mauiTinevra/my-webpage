@@ -1,0 +1,26 @@
+---
+import Base from '../layouts/Base.astro';
+import { site, sections } from '../site';
+---
+
+<Base>
+  <section class="hello">
+    <h1>{site.name}</h1>
+    <p>{site.intro}</p>
+  </section>
+
+  <ul class="board">
+    {
+      sections.map((s) => (
+        <li>
+          <a class={`swatch fabric ${s.fabric}`} href={s.href}>
+            <span class="tag">
+              <strong>{s.name}</strong>
+              <span>{s.note}</span>
+            </span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</Base>
