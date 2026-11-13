@@ -6,6 +6,7 @@ import PosterRow from '../components/rows/PosterRow.astro';
 import PinataRow from '../components/rows/PinataRow.astro';
 import WardrobeRow from '../components/rows/WardrobeRow.astro';
 import Nube from '../components/Nube.astro';
+import PageTwo from '../components/PageTwo.astro';
 import { formatDate } from '../lib/date';
 import projects from '../data/projects.json';
 
@@ -67,11 +68,7 @@ const backs = {
   <div class="journey" id="journey">
     <div class="viewport">
       <div class="world" id="world">
-        <section class="next-page" id="next-page">
-          <h2 class="rotulo">Page two</h2>
-          <p class="painted">Four more rows are on their way.</p>
-          <button class="next-page-back" type="button" id="back-to-start">Back to the street</button>
-        </section>
+        <PageTwo />
         <div class="ascent-sky" aria-hidden="true" />
         <StreetRow inside={inside} />
         <PosterRow backs={backs} />
@@ -235,6 +232,17 @@ const backs = {
   addEventListener('pointerdown', (e) => watch(e.clientX, e.clientY), { passive: true });
   // The clouds move while the pointer rests, so keep them looking as you scroll.
   addEventListener('scroll', () => pointer && watch(pointer[0], pointer[1]), { passive: true });
+
+  // The picture on page two shifts a little with the pointer, nearer layers more than far ones.
+  const piece = document.getElementById('next-page')!;
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    piece.addEventListener('pointermove', (e) => {
+      if (e.pointerType !== 'mouse') return;
+      const box = piece.getBoundingClientRect();
+      piece.style.setProperty('--px', ((e.clientX - box.left) / box.width - 0.5).toFixed(3));
+      piece.style.setProperty('--py', ((e.clientY - box.top) / box.height - 0.5).toFixed(3));
+    });
+  }
 
   // Sideways swipes walk the row too, in whichever direction it runs.
   let lastX = 0;

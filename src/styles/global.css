@@ -254,33 +254,48 @@ a:hover { text-decoration-thickness: 2px; }
 .ascent-sky .nube:nth-child(2) { right: 14%; bottom: 38%; }
 .ascent-sky .nube:nth-child(3) { left: 38%; bottom: 62%; }
 
-.next-page {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  gap: 1rem;
-  padding: 0 var(--edge);
-  color: var(--cream);
-  background:
-    radial-gradient(circle, #fbf4e4 0 1.2px, transparent 1.6px) 0 0 / 137px 113px,
-    radial-gradient(circle, #f2cb3a 0 1px, transparent 1.4px) 61px 47px / 211px 173px,
-    #1b1147;
-  --shade: #f0508f;
+/* Page two is one picture. */
+.next-page { overflow: hidden; background: #1b1147; }
+.piece { position: absolute; inset: 0; width: 100%; height: 100%; }
+.piece .nube { width: auto; height: auto; max-height: none; }
+.piece .depth {
+  transform: translate(calc(var(--px, 0) * var(--d) * -1px), calc(var(--py, 0) * var(--d) * -0.6px));
+  transition: transform 0.25s ease-out;
 }
-.next-page .rotulo { font-size: clamp(3rem, 12vw, 8rem); }
-.next-page .painted { margin: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .piece .twinkle { animation: twinkle 3.6s ease-in-out infinite; }
+  @keyframes twinkle { 50% { opacity: 0.15; } }
+}
+
+/* The label beside the picture, as in a gallery. */
+.placard {
+  position: absolute;
+  left: var(--edge);
+  bottom: clamp(1rem, 4vh, 2rem);
+  display: grid;
+  gap: 0.35rem;
+  justify-items: start;
+  padding: 0.8rem 1rem 0.9rem;
+  background: var(--cream);
+  color: var(--ink);
+  border: 3px solid var(--ink);
+  box-shadow: 5px 5px 0 #f0508f;
+  font-family: var(--display);
+}
+.placard h2 { font-size: 1.25rem; }
+.placard p { margin: 0; font-weight: 500; font-size: 0.95rem; color: var(--muted); }
 .next-page-back {
-  padding: 0.5rem 1rem;
-  border: 3px solid var(--cream);
-  background: none;
+  margin-top: 0.35rem;
+  padding: 0.35rem 0.7rem;
+  border: 3px solid var(--ink);
+  background: var(--ink);
   color: var(--cream);
   font-family: var(--display);
-  font-weight: 800;
-  font-size: 1rem;
+  font-weight: 700;
+  font-size: 0.9rem;
   cursor: pointer;
 }
-.next-page-back:hover { background: var(--cream); color: var(--ink); }
+.next-page-back:hover { background: var(--cobalt); }
 
 /* Every other row runs the other way, so the path snakes down the page. */
 [data-reverse] .track { flex-direction: row-reverse; }

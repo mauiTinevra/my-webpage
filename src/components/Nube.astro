@@ -4,9 +4,11 @@ interface Props {
   variant?: 0 | 1 | 2;
   fill?: string;
   line?: string;
+  // Extra attributes for the svg element, e.g. x, y, width and height when placed inside another drawing.
+  attrs?: Record<string, string | number>;
 }
 
-const { variant = 0, fill = '#fff', line = '#121a3a' } = Astro.props;
+const { variant = 0, fill = '#fff', line = '#121a3a', attrs = {} } = Astro.props;
 
 const shapes = [
   [
@@ -41,7 +43,7 @@ const eyes = [
 ];
 ---
 
-<svg class="nube" viewBox="0 0 280 180" aria-hidden="true" data-nube>
+<svg class="nube" viewBox="0 0 280 180" aria-hidden="true" data-nube {...attrs}>
   <g fill={line} stroke={line} stroke-width="16">
     {bubbles.map(([cx, cy, r]) => <circle cx={cx} cy={cy} r={r} />)}
   </g>
