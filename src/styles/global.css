@@ -254,6 +254,19 @@ a:hover { text-decoration-thickness: 2px; }
 .ascent-sky .nube:nth-child(2) { right: 14%; bottom: 38%; }
 .ascent-sky .nube:nth-child(3) { left: 38%; bottom: 62%; }
 
+/* On page two the picture owns the whole window: the header bar turns to its night sky as
+   you arrive, and the footer continues its dark foreground. */
+.is-street {
+  --header-bg: color-mix(in srgb, #1b1147 calc(var(--arrive, 0) * 100%), var(--paper));
+  --header-ink: color-mix(in srgb, var(--cream) calc(var(--arrive, 0) * 100%), var(--ink));
+}
+.is-street .site-header { background: var(--header-bg); }
+.is-street .site-header .wordmark,
+.is-street .site-header nav a { color: var(--header-ink); }
+.is-street .site-header nav a[aria-current='page'] { border-bottom-color: var(--header-ink); }
+.is-street .site-footer { background: var(--ink); color: var(--cream); }
+.is-street .site-footer a { color: var(--cream); }
+
 /* Page two is one picture. */
 .next-page { overflow: hidden; background: #1b1147; }
 .piece { position: absolute; inset: 0; width: 100%; height: 100%; }
