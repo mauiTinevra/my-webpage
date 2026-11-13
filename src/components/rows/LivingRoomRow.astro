@@ -1,7 +1,5 @@
 ---
-// Row three: Sam's living room, drawn from his photos and laid out like the panels of his
-// golf poster: cream paper, ink borders, a dry-brush green swash, halftone dots and heavy
-// italic lettering. Two-storey windows showing the sky
+// Row three: Sam's living room, drawn from his photos. Two-storey windows showing the sky
 // over Scottsdale right now, the disco ball and hanging speakers, papel picado across the
 // ceiling, the teal sofa under his three paintings, the yellow egg chair, the glass table
 // on the orange zebra rug, the speaker with the teal lamp, his mural wall, and the dog.
@@ -39,6 +37,8 @@ const tufts = [100, 150, 200, 250, 300];
 <div class="row row-room" data-row>
   <div class="scene">
     <div class="track">
+      <div class="room-papel" aria-hidden="true"></div>
+
       <section class="spot spot-intro">
         <div class="stage">
           <svg viewBox="0 0 760 460" aria-hidden="true" stroke={ink} stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
@@ -94,12 +94,13 @@ const tufts = [100, 150, 200, 250, 300];
             <rect x="124" y="380" width="8" height="38" fill="#b9bec6" stroke-width="4" />
             <rect x="114" y="372" width="28" height="10" rx="3" fill="#d8a56c" />
           </svg>
-          <div class="turf">
-            <h2 class="panel-title">{site.name}</h2>
+          <!-- The half wall with Sam's mural. -->
+          <div class="frame">
+            <h2>{site.name}</h2>
+            <p>{site.intro}</p>
+            <p class="frame-small">Come in. The keyboard plays, the lamp has a switch, and the dog likes being petted. The window shows the sky over Scottsdale right now.</p>
           </div>
         </div>
-        <p class="credit">{site.intro}</p>
-        <p class="credit credit-small">The keyboard plays, the lamp has a switch, and the dog likes being petted. The window shows the sky over Scottsdale right now.</p>
       </section>
 
       {
@@ -254,12 +255,11 @@ const tufts = [100, 150, 200, 250, 300];
                   Put it back
                 </button>
               </div>
-              <div class="turf">
-                <h2 class="panel-title">{s.name}</h2>
-              </div>
             </div>
-            <p class="credit">{things[s.place]}</p>
-            <p class="credit credit-small">{s.note}</p>
+            <h2 class="spot-name">{s.name}</h2>
+            <p class="spot-note">
+              {things[s.place]}. {s.note}.
+            </p>
           </section>
         ))
       }
