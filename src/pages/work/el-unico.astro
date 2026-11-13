@@ -19,6 +19,26 @@ const menu = {
 };
 // Open Tuesday to Sunday, 11 AM to 10 PM. Monday is for the trompo to rest.
 const hours = { open: 11, close: 22, closedDay: 'Mon' };
+// Days that differ from the usual hours. A closing hour of 0 means closed all day.
+const specialDays = [
+  { date: '2026-11-26', close: 0, note: 'Closed for Thanksgiving' },
+  { date: '2026-12-24', close: 16, note: 'Christmas Eve: open until 4 PM' },
+  { date: '2026-12-25', close: 0, note: 'Closed for Christmas' },
+  { date: '2026-12-31', close: 18, note: "New Year's Eve: open until 6 PM" },
+  { date: '2027-01-01', close: 0, note: "Closed for New Year's Day" },
+];
+// Imaginary, so the details are too: 555-01xx numbers are reserved for fiction, and .example
+// addresses never deliver anywhere.
+const visit = {
+  place: 'Inside Scottsdale Fashion Square',
+  street: '7014 E Camelback Rd',
+  city: 'Scottsdale, AZ 85251',
+  phone: '(480) 555-0199',
+  tel: '+14805550199',
+  email: 'hola@elunico.example',
+  directions: 'https://www.google.com/maps/search/?api=1&query=Scottsdale+Fashion+Square+7014+E+Camelback+Rd+Scottsdale+AZ',
+};
+const contact = (subject: string) => `mailto:${visit.email}?subject=${encodeURIComponent(subject)}`;
 
 // Toppings land in the same places every time.
 let seed = 11;
@@ -45,7 +65,7 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('A website for m
     <meta name="description" content={`A concept website for an imaginary taquería with one taco, designed and built by ${site.name}.`} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
-  <body class="unico" data-open={hours.open} data-close={hours.close} data-closed-day={hours.closedDay}>
+  <body class="unico" data-open={hours.open} data-close={hours.close} data-closed-day={hours.closedDay} data-special={JSON.stringify(specialDays)}>
     <p class="concept-bar">
       An imaginary taquería, built by <a href="/">{site.name}</a> to show what a restaurant site could be.
     </p>
@@ -99,6 +119,13 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('A website for m
     </header>
 
     <main>
+      <section class="block story-block" aria-labelledby="story-title">
+        <h2 class="visually-hidden" id="story-title">Why one taco</h2>
+        <p class="story">
+          Why only one taco? Because once you find the love of your life, you don't need many options.
+        </p>
+      </section>
+
       <section class="block taco-block" aria-labelledby="taco-title">
         <div class="block-words">
           <h2 class="block-title" id="taco-title">The taco</h2>
@@ -239,16 +266,79 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('A website for m
         </div>
       </section>
 
-      <section class="block visit-block" aria-labelledby="visit-title">
+      <section class="block visit-block" id="visit" aria-labelledby="visit-title">
         <div class="block-words">
-          <h2 class="block-title" id="visit-title">Come by</h2>
+          <h2 class="block-title" id="visit-title">Come early</h2>
           <p class="block-line">
-            Tuesday to Sunday, 11 AM to 10 PM. Closed Mondays. Scottsdale, Arizona.
+            Walk-in only. No reservations, no delivery, no apps: you have to come in. There's always a line, so come early.
           </p>
-          <p class="block-line small">
-            The neon and the lights follow our real hours, in Scottsdale time. After closing, the whole site goes dark.
-          </p>
-          <button type="button" class="again" id="after-hours">See it after closing</button>
+          <div class="line-up" aria-hidden="true">
+            <svg viewBox="0 0 520 120">
+              <rect x="430" y="10" width="80" height="100" rx="4" fill="#f0508f" stroke="#121a3a" stroke-width="4" />
+              <rect x="444" y="24" width="52" height="86" fill="#1b1147" stroke="#121a3a" stroke-width="3" />
+              <text x="470" y="58" text-anchor="middle" font-family="Literata Variable, Georgia, serif" font-style="italic" font-size="13" fill="#7cf7d4">tacos</text>
+              {[0, 1, 2, 3, 4, 5, 6].map((i) => (
+                <g class="person" style={`--i:${i}`} transform={`translate(${390 - i * 54} 0)`}>
+                  <circle cx="0" cy="40" r="11" fill={['#c98f5f', '#8a5523', '#e0b48a', '#6b3f22'][i % 4]} stroke="#121a3a" stroke-width="3" />
+                  <path d="M-15 110 V70 Q-15 56 0 56 Q15 56 15 70 V110 Z" fill={['#1f3fcf', '#2f8f4e', '#f2cb3a', '#f07a1e', '#7b2d8e', '#1e9fea', '#b5402b'][i]} stroke="#121a3a" stroke-width="3" />
+                </g>
+              ))}
+            </svg>
+          </div>
+        </div>
+
+        <div class="visit-facts">
+          <div class="fact">
+            <h3>Where</h3>
+            <p>{visit.place}<br />{visit.street}<br />{visit.city}</p>
+            <a class="fact-button" href={visit.directions} target="_blank" rel="noopener">Get directions</a>
+          </div>
+          <div class="fact">
+            <h3>Hours</h3>
+            <p>Tuesday to Sunday<br />11 AM to 10 PM<br />Closed Mondays</p>
+            <ul class="special" id="special-days"></ul>
+          </div>
+          <div class="fact">
+            <h3>Call</h3>
+            <p>Questions, big groups, lost sunglasses.</p>
+            <a class="fact-button" href={`tel:${visit.tel}`}>{visit.phone}</a>
+          </div>
+        </div>
+        <button type="button" class="again" id="after-hours">See it after closing</button>
+      </section>
+
+      <section class="block details-block" aria-labelledby="details-title">
+        <div class="block-words">
+          <h2 class="block-title" id="details-title">Good to know</h2>
+        </div>
+        <dl class="details">
+          <div><dt>In the taco</dt><dd>Pork al pastor, pineapple, onion, cilantro and salsa verde on a corn tortilla. Gluten-free.</dd></div>
+          <div><dt>Vegetarian</dt><dd>Not here. We make one taco and it's pork.</dd></div>
+          <div><dt>Allergens</dt><dd>Horchata is made with milk. Both desserts have eggs, milk and wheat.</dd></div>
+          <div><dt>Paying</dt><dd>Cards and cash.</dd></div>
+          <div><dt>Getting in</dt><dd>Step-free from the mall concourse, with room for wheelchairs and strollers in line.</dd></div>
+          <div><dt>Parking</dt><dd>Any of the Fashion Square garages.</dd></div>
+        </dl>
+      </section>
+
+      <section class="block more-block" aria-labelledby="more-title">
+        <h2 class="visually-hidden" id="more-title">More from El Único</h2>
+        <div class="more">
+          <article class="more-card">
+            <h3>Catering and events</h3>
+            <p>We bring the trompo to you. Birthdays, weddings, office parties: one taco, as many as you need.</p>
+            <a href={contact('Catering')}>Ask about catering</a>
+          </article>
+          <article class="more-card">
+            <h3>Gift cards</h3>
+            <p>For anyone who has found their love and needs it handed to them. Any amount, at the counter or by email.</p>
+            <a href={contact('Gift card')}>Get a gift card</a>
+          </article>
+          <article class="more-card">
+            <h3>We're hiring</h3>
+            <p>Taqueros, cashiers and someone who can flick a pineapple. Experience helps; love for one taco is required.</p>
+            <a href={contact('Working at El Único')}>Apply by email</a>
+          </article>
         </div>
       </section>
     </main>
@@ -259,7 +349,14 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('A website for m
       </p>
       <a class="foot-ask" href={mail}>I want a site like this for my restaurant</a>
       <a class="foot-back" href="/">Back to {site.name}</a>
+      <p class="foot-small">El Único, {visit.street}, {visit.city}. {visit.phone}. {visit.email}</p>
     </footer>
+
+    <nav class="action-bar" aria-label="Quick actions">
+      <a href={`tel:${visit.tel}`}>Call</a>
+      <a href={visit.directions} target="_blank" rel="noopener">Directions</a>
+      <a href="#visit">Hours</a>
+    </nav>
 
     <div class="lights-out" aria-hidden="true"></div>
   </body>
@@ -271,6 +368,21 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('A website for m
 
   const { dataset } = document.body;
   const hours = { open: Number(dataset.open), close: Number(dataset.close), closedDay: dataset.closedDay! };
+  const special: { date: string; close: number; note: string }[] = JSON.parse(dataset.special ?? '[]');
+
+  // Today's date in Scottsdale, for holiday hours.
+  const today = () => new Intl.DateTimeFormat('en-CA', { timeZone: here.timeZone }).format(new Date());
+  // The next few days with special hours.
+  const list = document.getElementById('special-days')!;
+  special
+    .filter((d) => d.date >= today())
+    .slice(0, 3)
+    .forEach((d) => {
+      const item = document.createElement('li');
+      const when = new Date(`${d.date}T12:00:00`).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      item.textContent = `${when}: ${d.note}`;
+      list.append(item);
+    });
   const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const el = (id: string) => document.getElementById(id)!;
 
@@ -283,13 +395,16 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('A website for m
   const update = () => {
     const now = nowAt(here);
     const weekday = new Intl.DateTimeFormat('en-US', { timeZone: here.timeZone, weekday: 'short' }).format(new Date());
-    const openDay = weekday !== hours.closedDay;
-    const realOpen = openDay && now.hour >= hours.open && now.hour < hours.close;
+    const holiday = special.find((d) => d.date === today());
+    const close = holiday ? holiday.close : hours.close;
+    const openDay = weekday !== hours.closedDay && close > 0;
+    const realOpen = openDay && now.hour >= hours.open && now.hour < close;
     const open = forced ?? realOpen;
     document.body.classList.toggle('is-closed', !open);
     el('neon-word').textContent = open ? 'Abierto' : 'Cerrado';
     if (forced === false) el('status').textContent = 'This is how the site looks after closing.';
-    else if (open) el('status').textContent = `Open now. We close at ${say(hours.close)}.`;
+    else if (open) el('status').textContent = `Open now. We close at ${say(close)}. Walk-in only, so come early.`;
+    else if (holiday && close === 0) el('status').textContent = `${holiday.note}. See you tomorrow.`;
     else if (openDay && now.hour < hours.open) el('status').textContent = `Closed. We open today at ${say(hours.open)}.`;
     else el('status').textContent = `Closed. We open at ${say(hours.open)}${weekday === 'Sun' && !openDay ? ' on Tuesday' : ''}.`;
   };
@@ -529,7 +644,85 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('A website for m
     text-underline-offset: 0.2em;
     cursor: pointer;
   }
-  .visit-block .again { margin: 1.25rem 0 0; font-family: var(--display); }
+  .visit-block .again { justify-self: start; margin: 0; font-family: var(--display); }
+
+  .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+  .story-block { grid-template-columns: 1fr; padding-block: clamp(3rem, 9vh, 5rem); background: var(--ink); color: var(--cream); }
+  .story {
+    max-width: 52rem;
+    margin: 0;
+    font-family: var(--reading);
+    font-style: italic;
+    font-size: clamp(1.75rem, 4.5vw, 3.25rem);
+    line-height: 1.2;
+  }
+
+  .visit-block { grid-template-columns: 1fr; }
+  .line-up { max-width: 34rem; margin-top: 1.5rem; }
+  .line-up svg { display: block; width: 100%; }
+  @media (prefers-reduced-motion: no-preference) {
+    .person { animation: shuffle 2.8s ease-in-out infinite; animation-delay: calc(var(--i) * -0.4s); }
+    @keyframes shuffle { 50% { translate: 4px -2px; } }
+  }
+  .visit-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 2rem; }
+  .fact h3, .more-card h3 { margin: 0; font-family: var(--display); font-weight: 900; font-size: 1.35rem; }
+  .fact p { margin: 0.4rem 0 0; }
+  .fact-button {
+    display: inline-block;
+    margin-top: 0.9rem;
+    padding: 0.55rem 1rem;
+    border: 3px solid var(--ink);
+    background: var(--yellow);
+    color: var(--ink);
+    font-family: var(--display);
+    font-weight: 800;
+    text-decoration: none;
+    box-shadow: 4px 4px 0 var(--ink);
+  }
+  .fact-button:hover { background: var(--pink); color: #fff; }
+  .special { margin: 0.75rem 0 0; padding: 0; list-style: none; font-family: var(--display); font-size: 0.9rem; color: var(--pink); font-weight: 700; }
+  .special li + li { margin-top: 0.2rem; }
+
+  .details-block { grid-template-columns: 1fr 2fr; align-items: start; }
+  .details { margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1.5rem 2.5rem; }
+  .details dt { font-family: var(--display); font-weight: 800; }
+  .details dd { margin: 0.25rem 0 0; }
+
+  .more-block { grid-template-columns: 1fr; }
+  .more { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1.5rem; }
+  .more-card { padding: 1.4rem 1.4rem 1.6rem; background: #fbfaf6; border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--green); }
+  .more-card p { margin: 0.5rem 0 0; }
+  .more-card a { display: inline-block; margin-top: 0.9rem; font-family: var(--display); font-weight: 800; }
+
+  .foot-small { font-size: 0.85rem; opacity: 0.75; }
+
+  /* On phones, the three things a hungry person wants, always in reach. */
+  .action-bar { display: none; }
+  @media (max-width: 760px) {
+    .action-bar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 7;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 3px solid var(--ink);
+      background: var(--yellow);
+    }
+    .action-bar a {
+      padding: 0.9rem 0.5rem calc(0.9rem + env(safe-area-inset-bottom));
+      text-align: center;
+      font-family: var(--display);
+      font-weight: 800;
+      text-decoration: none;
+      color: var(--ink);
+    }
+    .action-bar a + a { border-left: 3px solid var(--ink); }
+    .concept-foot { padding-bottom: 6rem; }
+    .details-block { grid-template-columns: 1fr; }
+  }
 
   .plate svg { display: block; width: 100%; max-width: 30rem; margin: 0 auto; filter: drop-shadow(0 10px 0 rgb(18 26 58 / 0.12)); }
   .layer { opacity: 0; }
