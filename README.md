@@ -9,7 +9,7 @@ The home page is a stack of rows. Scrolling walks along a row from Sam to Journa
 then drops down to the next row, which presents the same five places a different way.
 
 - Row 1, the street: `src/components/rows/StreetRow.astro`
-- Row 2, the posters: `src/components/rows/PosterRow.astro`
+- Row 2, the living room: `src/components/rows/LivingRoomRow.astro`
 - Row 3, the posada (Christmas piñatas): `src/components/rows/PinataRow.astro`
 - Row 4, the outfitter's (clothes on a rail): `src/components/rows/WardrobeRow.astro`
 

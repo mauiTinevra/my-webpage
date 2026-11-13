@@ -1,0 +1,281 @@
+---
+// Row two: Sam's living room. Tall windows showing the sky over Scottsdale right now, the
+// mat and blocks on a dark wood floor, the black cabinets with the bonsai, the ledge of
+// pictures over the white blinds, the desk with the laptop and the keyboard, and a lamp.
+// The keyboard plays, the lamp switches the room light, and each thing opens what it holds.
+import { Image } from 'astro:assets';
+import { site, sections } from '../../site';
+import soloSport from '../../assets/art/solo-sport.jpg';
+import ghost from '../../assets/art/ghost.png';
+import selfPortraits from '../../assets/art/self-portraits.jpg';
+
+interface Item {
+  label: string;
+  href?: string;
+}
+interface Props {
+  backs: Record<string, Item[]>;
+}
+const { backs } = Astro.props;
+
+const things: Record<string, string> = {
+  blog: 'The books on the cabinet',
+  art: 'The pictures on the ledge',
+  code: 'The laptop on the desk',
+  journal: 'The notebook under the lamp',
+};
+const ink = '#121a3a';
+const dark = '#1c1c26';
+const slats = Array.from({ length: 13 }, (_, i) => 56 + i * 26);
+// One octave of white keys, C to C.
+const keys = [261.63, 293.66, 329.63, 349.23, 392.0, 440.0, 493.88, 523.25, 587.33, 659.25];
+---
+
+<div class="row row-room" data-row data-reverse>
+  <div class="scene">
+    <div class="track">
+      <section class="spot spot-intro">
+        <div class="stage">
+          <svg viewBox="0 0 760 460" aria-hidden="true" stroke={ink} stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
+            <defs>
+              <linearGradient id="window-sky" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" style="stop-color: var(--sky0, #1b1147)" />
+                <stop offset="0.5" style="stop-color: var(--sky1, #5a2484)" />
+                <stop offset="0.82" style="stop-color: var(--sky2, #f0508f)" />
+                <stop offset="1" style="stop-color: var(--sky3, #ffb37a)" />
+              </linearGradient>
+            </defs>
+            <!-- The tall windows, with the roller blind part of the way down. -->
+            <rect x="30" y="14" width="470" height="342" fill="#fbfaf6" />
+            <rect x="44" y="28" width="442" height="314" fill="url(#window-sky)" stroke-width="4" />
+            <path d="M44 300 h40 v-26 h34 v40 h30 v-58 h26 v44 h44 v-30 h30 v52 h36 v-70 h28 v48 h40 v-22 h36 v36 h30 v-46 h28 v32 h40 v28 H44 Z" style="fill: var(--sky-far, #7b2d8e)" stroke="none" />
+            <rect x="44" y="28" width="442" height="46" fill="#efe4c8" stroke-width="4" />
+            <path d="M44 122 H486 M191 28 V342 M339 28 V342" fill="none" stroke="#fbfaf6" stroke-width="14" />
+            <path d="M44 122 H486 M191 28 V342 M339 28 V342" fill="none" stroke-width="0" />
+            <rect x="44" y="28" width="442" height="314" fill="none" stroke-width="4" />
+            <!-- A black cabinet with a plant. -->
+            <rect x="560" y="262" width="160" height="156" fill={dark} />
+            <path d="M574 418 v14 M706 418 v14" fill="none" />
+            <path d="M610 262 q-6 -34 30 -34 q36 0 30 34 Z" fill="#fbfaf6" />
+            <g fill="#2f8f4e">
+              <ellipse cx="620" cy="212" rx="20" ry="13" transform="rotate(-30 620 212)" />
+              <ellipse cx="660" cy="210" rx="20" ry="13" transform="rotate(30 660 210)" />
+              <ellipse cx="640" cy="196" rx="14" ry="20" />
+            </g>
+            <!-- The mat, the blocks and the handstand canes. -->
+            <polygon points="50,428 470,428 510,456 10,456" fill="#f0508f" />
+            <rect x="330" y="392" width="34" height="42" fill="#c9935a" />
+            <rect x="300" y="408" width="34" height="42" fill="#d8a56c" />
+            <ellipse cx="190" cy="440" rx="36" ry="9" fill="#d8a56c" />
+            <rect x="185" y="388" width="10" height="50" fill="#b9bec6" stroke-width="4" />
+            <rect x="174" y="378" width="32" height="12" rx="3" fill="#d8a56c" />
+            <ellipse cx="246" cy="430" rx="36" ry="9" fill="#d8a56c" />
+            <rect x="241" y="378" width="10" height="50" fill="#b9bec6" stroke-width="4" />
+            <rect x="230" y="368" width="32" height="12" rx="3" fill="#d8a56c" />
+          </svg>
+          <div class="frame">
+            <h2>{site.name}</h2>
+            <p>{site.intro}</p>
+            <p class="frame-small">Come in. The keyboard plays and the lamp has a switch. The window shows the sky over Scottsdale right now.</p>
+          </div>
+        </div>
+      </section>
+
+      {
+        sections.map((s) => (
+          <section class={`spot spot-${s.place}`}>
+            <div class="stage">
+              <svg viewBox="0 0 420 460" stroke={ink} stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
+                <g class="spot-open" role="button" tabindex="0" aria-label={`${things[s.place]}: open ${s.name}`}>
+                  {s.place === 'blog' && (
+                    <g>
+                      <rect x="60" y="270" width="300" height="150" fill={dark} />
+                      <path d="M210 270 V420 M76 420 v14 M344 420 v14" fill="none" />
+                      <circle cx="196" cy="345" r="5" fill="#b9bec6" stroke-width="3" />
+                      <circle cx="224" cy="345" r="5" fill="#b9bec6" stroke-width="3" />
+                      <rect x="84" y="246" width="78" height="24" rx="4" fill="#1f3fcf" />
+                      <path d="M122 246 q-6 -30 10 -46 q14 -14 6 -34" fill="none" stroke="#6b4a2c" stroke-width="9" />
+                      <g fill="#2f8f4e">
+                        <ellipse cx="104" cy="186" rx="30" ry="15" />
+                        <ellipse cx="150" cy="160" rx="32" ry="16" />
+                        <ellipse cx="128" cy="136" rx="24" ry="13" />
+                      </g>
+                      <rect x="206" y="244" width="130" height="26" fill="#1f3fcf" />
+                      <rect x="216" y="220" width="116" height="24" fill="#b5402b" />
+                      <rect x="202" y="198" width="122" height="22" fill="#f2cb3a" />
+                      <path d="M214 257 h30 M226 232 h26 M212 209 h34" fill="none" stroke="#fbf4e4" stroke-width="4" />
+                    </g>
+                  )}
+                  {s.place === 'art' && (
+                    <g>
+                      <rect x="40" y="164" width="340" height="256" fill="#fbfaf6" />
+                      <g fill="none" stroke-width="3">
+                        {slats.map((x) => <path d={`M${x} 164 V420`} />)}
+                      </g>
+                      <rect x="16" y="148" width="388" height="16" fill="#fbfaf6" />
+                    </g>
+                  )}
+                  {s.place === 'code' && (
+                    <g>
+                      <path d="M52 262 V430 M388 262 V430" fill="none" stroke-width="8" />
+                      <rect x="28" y="246" width="384" height="18" fill={dark} />
+                      <rect x="136" y="132" width="190" height="112" rx="6" fill={dark} />
+                      <rect x="146" y="142" width="170" height="92" fill="#0d1022" stroke-width="0" />
+                      <g fill="none" stroke-width="6">
+                        <path d="M158 158 h44" stroke="#f0508f" />
+                        <path d="M212 158 h62" stroke="#f2cb3a" />
+                        <path d="M170 176 h80" stroke="#1e9fea" />
+                        <path d="M170 194 h36" stroke="#fbf4e4" />
+                        <path d="M216 194 h52" stroke="#f0508f" />
+                        <path d="M158 212 h30" stroke="#f2cb3a" />
+                      </g>
+                      <rect x="116" y="238" width="230" height="10" rx="3" fill="#b9bec6" />
+                      <!-- The keyboard on its stand; its keys are real buttons laid over this. -->
+                      <path d="M96 344 L64 430 M324 344 L356 430" fill="none" stroke-width="7" />
+                      <rect x="40" y="296" width="340" height="50" rx="5" fill={dark} />
+                    </g>
+                  )}
+                  {s.place === 'journal' && (
+                    <g>
+                      <path d="M306 426 V128" fill="none" stroke-width="8" />
+                      <ellipse cx="306" cy="428" rx="46" ry="9" fill={dark} />
+                      <polygon points="262,66 350,66 374,132 238,132" fill="#f2cb3a" />
+                      <path d="M150 338 V424 M112 430 h76" fill="none" stroke-width="8" />
+                      <ellipse cx="150" cy="336" rx="96" ry="18" fill="#c9935a" />
+                      <g transform="rotate(-8 150 318)">
+                        <rect x="100" y="298" width="96" height="32" rx="3" fill="#f0508f" />
+                        <path d="M116 298 v32" fill="none" stroke-width="3" />
+                      </g>
+                      <path d="M196 306 l40 14" fill="none" stroke="#1f3fcf" stroke-width="7" />
+                    </g>
+                  )}
+                  {s.place === 'art' && (
+                    <foreignObject x="24" y="14" width="372" height="136">
+                      <span class="ledge">
+                        <Image src={soloSport} alt="" widths={[160, 320]} sizes="110px" />
+                        <Image src={selfPortraits} alt="" widths={[160, 320]} sizes="110px" />
+                        <Image src={ghost} alt="" widths={[200, 400]} sizes="130px" />
+                      </span>
+                    </foreignObject>
+                  )}
+                </g>
+                {s.place === 'code' && (
+                  <foreignObject x="48" y="302" width="324" height="38">
+                    <div class="keys" role="group" aria-label="Keyboard">
+                      {keys.map((hz, i) => (
+                        <button class="key" type="button" data-hz={hz} aria-label={`Play note ${i + 1}`} />
+                      ))}
+                    </div>
+                  </foreignObject>
+                )}
+                {s.place === 'journal' && (
+                  <foreignObject x="338" y="130" width="28" height="62">
+                    <button class="lamp-switch" type="button" id="lamp-switch" aria-pressed="true">
+                      <span class="visually-hidden">Room light</span>
+                    </button>
+                  </foreignObject>
+                )}
+              </svg>
+
+              <div class="room-card" hidden>
+                <p class="room-card-title">{s.name}</p>
+                <ul>
+                  {backs[s.place].map((item) => (
+                    <li>{item.href ? <a href={item.href}>{item.label}</a> : item.label}</li>
+                  ))}
+                </ul>
+                <a class="room-card-go" href={s.href}>
+                  Go to {s.name.toLowerCase()}
+                </a>
+                <button class="room-card-close" type="button">
+                  Put it back
+                </button>
+              </div>
+            </div>
+            <h2 class="spot-name">{s.name}</h2>
+            <p class="spot-note">
+              {things[s.place]}. {s.note}.
+            </p>
+          </section>
+        ))
+      }
+
+      <div class="dark" aria-hidden="true"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { scottsdaleNow, skyAt } from '../../lib/sky';
+
+  const row = document.querySelector<HTMLElement>('.row-room')!;
+  const track = row.querySelector<HTMLElement>('.track')!;
+
+  // The window looks out on the real sky over Scottsdale. ?hour=6.5 previews a time of day.
+  const asked = new URLSearchParams(location.search).get('hour');
+  const lookOut = () => {
+    const now = scottsdaleNow();
+    const hour = asked !== null && !Number.isNaN(Number(asked)) ? Number(asked) % 24 : now.hour;
+    const sky = skyAt(hour, now.day);
+    sky.sky.forEach((color, i) => row.style.setProperty(`--sky${i}`, color));
+    row.style.setProperty('--sky-far', sky.near);
+  };
+  lookOut();
+  setInterval(lookOut, 60_000);
+
+  // Each thing opens a card of what it holds.
+  row.querySelectorAll<HTMLElement>('.spot').forEach((spot) => {
+    const open = spot.querySelector<SVGGElement>('.spot-open');
+    const card = spot.querySelector<HTMLElement>('.room-card');
+    const close = spot.querySelector<HTMLButtonElement>('.room-card-close');
+    if (!open || !card || !close) return;
+    const show = (on: boolean) => {
+      card.hidden = !on;
+      (on ? card.querySelector<HTMLElement>('a, button') : open)?.focus({ preventScroll: true });
+    };
+    open.addEventListener('click', () => show(card.hidden));
+    open.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      e.preventDefault();
+      show(card.hidden);
+    });
+    close.addEventListener('click', () => show(false));
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') show(false);
+    });
+  });
+
+  // The keyboard plays.
+  let audio: AudioContext | undefined;
+  const play = (hz: number) => {
+    audio ??= new AudioContext();
+    const start = audio.currentTime;
+    const tone = audio.createOscillator();
+    const volume = audio.createGain();
+    tone.type = 'triangle';
+    tone.frequency.value = hz;
+    volume.gain.setValueAtTime(0.0001, start);
+    volume.gain.exponentialRampToValueAtTime(0.22, start + 0.015);
+    volume.gain.exponentialRampToValueAtTime(0.0001, start + 1.1);
+    tone.connect(volume).connect(audio.destination);
+    tone.start(start);
+    tone.stop(start + 1.15);
+  };
+  row.querySelectorAll<HTMLButtonElement>('.key').forEach((key) => {
+    key.addEventListener('pointerdown', () => play(Number(key.dataset.hz)));
+    key.addEventListener('keydown', (e) => {
+      if ((e.key === 'Enter' || e.key === ' ') && !e.repeat) play(Number(key.dataset.hz));
+    });
+  });
+
+  // The lamp switches the room light. With it off, only the lamp's corner stays lit.
+  const lamp = document.getElementById('lamp-switch') as HTMLButtonElement;
+  lamp.addEventListener('click', () => {
+    const off = row.classList.toggle('lights-off');
+    lamp.setAttribute('aria-pressed', String(!off));
+    const at = lamp.getBoundingClientRect();
+    const base = track.getBoundingClientRect();
+    track.style.setProperty('--lamp-x', `${at.left + at.width / 2 - base.left}px`);
+    track.style.setProperty('--lamp-y', `${at.top - base.top}px`);
+  });
+</script>
