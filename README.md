@@ -49,6 +49,13 @@ The post itself.
 
 A journal entry only needs a `date` (a `title` is optional).
 
+## Being found
+
+- The page title, description and contact email used by search engines are in `src/site.ts`.
+- `/web-design` is the plain-words page about hiring Sam (`src/pages/web-design.astro`).
+- The site's public address is set in `astro.config.mjs`. Change it there when a custom domain is connected, and in `public/robots.txt`.
+- `public/og.png` is the picture shown when the site is shared in a message or on social media.
+
 ## Running it locally
 
 ```sh

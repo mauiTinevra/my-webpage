@@ -1,7 +1,9 @@
 ---
 // The last page: the pitch. A black wall that the visitor's pointer paints as it moves,
 // lettering that swells toward the pointer, and one thing to do: write to Sam.
-const email = 'sam.tinevra@gmail.com';
+import { site } from '../site';
+
+const email = site.email;
 const subject = encodeURIComponent('I want a website');
 const lines = ['Want a site', 'like this?'];
 ---
@@ -31,6 +33,7 @@ const lines = ['Want a site', 'like this?'];
         <span id="sell-email">{email}</span>
         <button class="sell-copy" type="button" id="sell-copy" data-email={email}>Copy address</button>
       </span>
+      <a class="sell-more" href="/web-design">What I offer</a>
     </div>
   </div>
 </section>

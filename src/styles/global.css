@@ -401,6 +401,7 @@ a:hover { text-decoration-thickness: 2px; }
 .sell-button:hover { background: #f0508f; color: #fff; box-shadow: 6px 6px 0 var(--yellow); }
 .sell-button:focus-visible, .sell-copy:focus-visible { outline: 3px solid var(--sky); outline-offset: 4px; }
 .sell-address { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 1rem; font-weight: 600; font-size: 1.05rem; text-shadow: 0 0 0.5em #000, 0 0 0.25em #000; }
+.sell-more { color: var(--cream); font-weight: 600; text-underline-offset: 0.2em; text-shadow: 0 0 0.5em #000, 0 0 0.25em #000; }
 .sell-copy {
   padding: 0;
   border: 0;
@@ -1262,6 +1263,8 @@ time { font-family: var(--display); font-weight: 600; font-size: 0.95rem; color:
 .prose h2 { font-size: 1.75rem; margin-top: 2.25em; }
 .prose h3 { font-size: 1.3rem; margin-top: 2em; }
 .prose p { margin-bottom: 0; }
+.prose ul { padding-left: 1.2rem; }
+.prose li + li { margin-top: 0.4em; }
 .prose img { max-width: 100%; height: auto; }
 .prose blockquote {
   margin-inline: 0;

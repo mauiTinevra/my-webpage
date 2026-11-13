@@ -3,6 +3,11 @@ export const site = {
   name: 'Sam Tinevra',
   intro:
     'I practice Ashtanga yoga, I engineer and I design, but I just call myself an artist. Mexican, Italian and Korean, currently based in Scottsdale, Arizona.',
+  // What search engines and link previews say about the site.
+  tagline: 'Web designer in Scottsdale, Arizona',
+  description:
+    'Sam Tinevra is a web designer and developer in Scottsdale, Arizona, making custom, interactive websites for people and small businesses. Email to start a project.',
+  email: 'sam.tinevra@gmail.com',
   // Add or remove links freely, e.g. { label: 'Instagram', href: 'https://instagram.com/yourname' }
   links: [{ label: 'GitHub', href: 'https://github.com/mauiTinevra' }],
 };

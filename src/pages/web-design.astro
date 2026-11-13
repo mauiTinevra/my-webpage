@@ -1,0 +1,53 @@
+---
+// The plain-words page about hiring Sam. The home page is mostly pictures and play, so this
+// is where search engines, and people in a hurry, can read what he offers.
+import Base from '../layouts/Base.astro';
+import { site } from '../site';
+
+const mail = `mailto:${site.email}?subject=${encodeURIComponent('I want a website')}`;
+---
+
+<Base
+  title="Custom website design in Scottsdale, Arizona"
+  description="Sam Tinevra designs and builds custom, interactive websites for people and small businesses. Based in Scottsdale, Arizona. Email to start a project."
+>
+  <header class="page-head">
+    <h1 class="rotulo">Custom website design</h1>
+    <p>
+      I'm Sam Tinevra, a web designer and developer in Scottsdale, Arizona. I design and build websites that feel
+      like the person or business they belong to.
+    </p>
+  </header>
+
+  <div class="prose">
+    <h2>What I make</h2>
+    <p>
+      One-of-a-kind websites, designed and coded by hand. No templates. Each site starts from who you are, what you
+      make and how you want people to feel when they arrive, and the design is built around that.
+    </p>
+    <p>
+      <a href="/">This site</a> is the example. Its home page is a street you walk along, a living room you can
+      poke around in, a desert whose sky follows the real time in Scottsdale, and a small arcade game. Yours would
+      be nothing like it, because it would be about you.
+    </p>
+
+    <h2>What you get</h2>
+    <ul>
+      <li>A custom design for your portfolio, personal site or small business website</li>
+      <li>Interactive details and animation made for your site alone</li>
+      <li>A site that works on phones as well as on a desktop</li>
+      <li>The finished site built, launched and handed over to you</li>
+    </ul>
+
+    <h2>Who it's for</h2>
+    <p>
+      Artists, designers, studios, shops, restaurants and anyone who wants a website people remember. I work with
+      clients in Scottsdale, Phoenix and the rest of Arizona.
+    </p>
+
+    <h2>Start a project</h2>
+    <p>
+      Tell me who you are and what you have in mind. Email <a href={mail}>{site.email}</a>.
+    </p>
+  </div>
+</Base>
