@@ -1,0 +1,164 @@
+---
+// Row three: Christmas, the way a posada does it. Star piñatas hang under papel picado,
+// luminarias line the ground, and each piñata breaks open to show what is inside.
+import { site, sections } from '../../site';
+
+interface Item {
+  label: string;
+  href?: string;
+}
+interface Props {
+  backs: Record<string, Item[]>;
+}
+const { backs } = Astro.props;
+
+const palettes: Record<string, string[]> = {
+  blog: ['#f0508f', '#f2cb3a', '#1e9fea'],
+  art: ['#1f3fcf', '#fbf4e4', '#f0508f'],
+  code: ['#2f8f4e', '#f6b7cf', '#f2cb3a'],
+  journal: ['#7b2d8e', '#f2cb3a', '#1e9fea'],
+};
+
+// A posada piñata is a star with seven points.
+const cones = Array.from({ length: 7 }, (_, k) => {
+  const a = ((-90 + (k * 360) / 7) * Math.PI) / 180;
+  const pt = (r: number, da = 0) => `${(150 + r * Math.cos(a + da)).toFixed(1)},${(150 + r * Math.sin(a + da)).toFixed(1)}`;
+  return {
+    cone: `${pt(54, -0.44)} ${pt(54, 0.44)} ${pt(140)}`,
+    band: `${pt(54, -0.44)} ${pt(54, 0.44)} ${pt(84, 0.26)} ${pt(84, -0.26)}`,
+    tip: pt(138).split(','),
+    streamers: [pt(166, -0.09), pt(172), pt(166, 0.09)].map((p) => p.split(',')),
+  };
+});
+---
+
+<div class="row row-posada" data-row>
+  <div class="scene">
+    <div class="track">
+      <div class="papel" aria-hidden="true"></div>
+      <div class="ground" aria-hidden="true"></div>
+
+      <section class="posada posada-intro">
+        <h2 class="rotulo">{site.name}</h2>
+        <p class="painted">{site.intro}</p>
+        <p class="painted small">It's posada season. Hit a piñata until it breaks to see what's inside.</p>
+      </section>
+
+      {
+        sections.map((s) => {
+          const [a, b, c] = palettes[s.place];
+          return (
+            <section class={`posada posada-${s.place}`} data-colors={palettes[s.place].join(',')}>
+              <div class="hang">
+                <span class="string" />
+                <button class="pinata" type="button" aria-label={`Hit the ${s.name} piñata`}>
+                  <svg viewBox="-28 -28 356 356" aria-hidden="true">
+                    {cones.map((k) => (
+                      <g>
+                        {k.streamers.map(([x, y], i) => (
+                          <line x1={k.tip[0]} y1={k.tip[1]} x2={x} y2={y} stroke={[a, c, b][i]} stroke-width="5" stroke-linecap="round" />
+                        ))}
+                        <polygon points={k.cone} fill={b} stroke="#121a3a" stroke-width="5" stroke-linejoin="round" />
+                        <polygon points={k.band} fill={c} stroke="#121a3a" stroke-width="5" stroke-linejoin="round" />
+                      </g>
+                    ))}
+                    <circle cx="150" cy="150" r="60" fill={a} stroke="#121a3a" stroke-width="5" />
+                    <g fill="none" stroke-width="9" stroke-dasharray="7 6">
+                      <circle cx="150" cy="150" r="46" stroke={c} />
+                      <circle cx="150" cy="150" r="31" stroke={b} />
+                      <circle cx="150" cy="150" r="16" stroke={c} />
+                    </g>
+                  </svg>
+                </button>
+                <div class="spill" hidden>
+                  <ul>
+                    {backs[s.place].map((item) => (
+                      <li>{item.href ? <a href={item.href}>{item.label}</a> : item.label}</li>
+                    ))}
+                  </ul>
+                  <a class="spill-go" href={s.href}>
+                    Go to {s.name.toLowerCase()}
+                  </a>
+                  <button class="spill-again" type="button">
+                    Hang a new one
+                  </button>
+                </div>
+              </div>
+              <h2 class="rotulo">{s.name}</h2>
+              <p class="painted small" data-hint>{s.note}</p>
+            </section>
+          );
+        })
+      }
+    </div>
+  </div>
+</div>
+
+<script>
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const HITS = calm ? 1 : 3;
+
+  document.querySelectorAll<HTMLElement>('.posada[data-colors]').forEach((posada) => {
+    const hang = posada.querySelector<HTMLElement>('.hang')!;
+    const pinata = posada.querySelector<HTMLButtonElement>('.pinata')!;
+    const spill = posada.querySelector<HTMLElement>('.spill')!;
+    const again = posada.querySelector<HTMLButtonElement>('.spill-again')!;
+    const hint = posada.querySelector<HTMLElement>('[data-hint]')!;
+    const note = hint.textContent!;
+    const colors = posada.dataset.colors!.split(',');
+    let hits = 0;
+
+    const candy = () => {
+      const from = pinata.getBoundingClientRect();
+      const home = posada.getBoundingClientRect();
+      const x0 = from.left + from.width / 2 - home.left;
+      const y0 = from.top + from.height / 2 - home.top;
+      const floor = home.height * 0.93;
+      for (let i = 0; i < 34; i++) {
+        const piece = document.createElement('span');
+        piece.className = `candy${i % 3 === 0 ? ' round' : ''}`;
+        piece.style.background = colors[i % colors.length];
+        piece.style.left = `${x0}px`;
+        piece.style.top = `${y0}px`;
+        posada.append(piece);
+        const dx = (Math.random() - 0.5) * home.width * 0.9;
+        const rise = 40 + Math.random() * 90;
+        piece.animate(
+          [
+            { translate: '0 0', rotate: '0deg' },
+            { translate: `${dx * 0.5}px ${-rise}px`, rotate: `${Math.random() * 300}deg`, offset: 0.3 },
+            { translate: `${dx}px ${floor - y0 - Math.random() * 14}px`, rotate: `${Math.random() * 720}deg` },
+          ],
+          { duration: 800 + Math.random() * 700, easing: 'cubic-bezier(0.3, 0, 0.7, 1)', fill: 'forwards' },
+        );
+      }
+    };
+
+    const open = () => {
+      if (!calm) candy();
+      pinata.hidden = true;
+      spill.hidden = false;
+      hint.textContent = note;
+      spill.querySelector<HTMLElement>('a, button')?.focus({ preventScroll: true });
+    };
+
+    pinata.addEventListener('click', () => {
+      hits += 1;
+      if (hits >= HITS) return open();
+      const swing = 9 * hits;
+      hang.animate(
+        [{ rotate: '0deg' }, { rotate: `${swing}deg` }, { rotate: `${-swing * 0.7}deg` }, { rotate: `${swing * 0.35}deg` }, { rotate: '0deg' }],
+        { duration: 1000, easing: 'ease-in-out' },
+      );
+      hint.textContent = hits === HITS - 1 ? 'One more' : 'Again';
+    });
+
+    again.addEventListener('click', () => {
+      hits = 0;
+      posada.querySelectorAll('.candy').forEach((c) => c.remove());
+      spill.hidden = true;
+      pinata.hidden = false;
+      pinata.focus({ preventScroll: true });
+    });
+  });
+</script>

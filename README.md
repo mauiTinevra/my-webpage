@@ -10,6 +10,7 @@ then drops down to the next row, which presents the same five places a different
 
 - Row 1, the street: `src/components/rows/StreetRow.astro`
 - Row 2, the posters: `src/components/rows/PosterRow.astro`
+- Row 3, the posada (Christmas piñatas): `src/components/rows/PinataRow.astro`
 
 To add a row, create another component in that folder and place it in `src/pages/index.astro`.
 

@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import StreetRow from '../components/rows/StreetRow.astro';
 import PosterRow from '../components/rows/PosterRow.astro';
+import PinataRow from '../components/rows/PinataRow.astro';
 import { formatDate } from '../lib/date';
 import projects from '../data/projects.json';
 
@@ -50,6 +51,7 @@ const backs = {
 <Base street>
   <StreetRow inside={inside} />
   <PosterRow backs={backs} />
+  <PinataRow backs={backs} />
 </Base>
 
 <script>

@@ -588,6 +588,152 @@ a:hover { text-decoration-thickness: 2px; }
   .cartel-card { transition: none; }
 }
 
+/* Row three: a posada. Star piñatas under papel picado, luminarias along the ground. */
+
+.row-posada .scene {
+  --night: #1b1147;
+  background:
+    radial-gradient(circle, #fbf4e4 0 1.2px, transparent 1.6px) 0 0 / 137px 113px,
+    radial-gradient(circle, #f2cb3a 0 1px, transparent 1.4px) 61px 47px / 211px 173px,
+    var(--night);
+}
+.row-posada .track { padding-right: clamp(1rem, 4vw, 4rem); }
+
+.papel {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: clamp(3.5rem, 13vh, 7.25rem);
+  background: url('/papel-picado.svg') left top / auto 100% repeat-x;
+}
+.ground {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: clamp(3.5rem, 13vh, 6.5rem);
+  background:
+    url('/luminaria.svg') 1rem 100% / auto 110% repeat-x,
+    linear-gradient(180deg, transparent 0 62%, #3a2148 62%);
+}
+
+.posada {
+  position: relative;
+  flex: none;
+  width: min(84vw, 27rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 1rem clamp(4.25rem, 15vh, 7.5rem);
+  text-align: center;
+  --letter: var(--cream);
+}
+.posada-intro {
+  width: min(90vw, 40rem);
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: clamp(3.5rem, 13vh, 7.25rem);
+  padding-left: clamp(1.25rem, 5vw, 4rem);
+  text-align: left;
+  color: var(--cream);
+  --shade: #f0508f;
+}
+.posada-intro .rotulo { font-size: clamp(2.5rem, min(11vh, 10vw), 6rem); }
+.posada-blog { --shade: #f0508f; }
+.posada-art { --shade: var(--cobalt); }
+.posada-code { --shade: var(--green); }
+.posada-journal { --shade: var(--purple); }
+
+.posada .rotulo { font-size: clamp(2rem, 8vh, 4rem); }
+.posada > .painted { color: var(--cream); margin-top: 0.4rem; }
+
+.hang {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform-origin: 50% 0;
+}
+.string { flex: 0 0 24%; width: 3px; background: var(--cream); }
+
+.pinata {
+  flex: 1;
+  min-height: 0;
+  aspect-ratio: 1;
+  max-width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  transition: scale 0.15s ease;
+}
+.pinata svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.pinata:hover { scale: 1.04; }
+.pinata:active { scale: 0.96; }
+.pinata:focus-visible { outline: 4px solid var(--yellow); outline-offset: 2px; border-radius: 50%; }
+
+.spill {
+  flex: 1;
+  min-height: 0;
+  width: min(100%, 20rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem 1.1rem;
+  overflow: auto;
+  background: var(--cream);
+  color: var(--ink);
+  border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--shade);
+  font-family: var(--display);
+  font-size: 1rem;
+  line-height: 1.3;
+  text-align: left;
+}
+.spill[hidden], .pinata[hidden] { display: none; }
+.spill ul { margin: 0; padding: 0; list-style: none; font-weight: 700; }
+.spill li { padding: 0.5rem 0; border-top: 3px solid var(--ink); }
+.spill li:last-child { border-bottom: 3px solid var(--ink); }
+.spill li::first-letter { text-transform: uppercase; }
+.spill a { color: var(--ink); }
+.spill-go {
+  align-self: flex-start;
+  margin-top: auto;
+  padding: 0.45rem 0.85rem;
+  background: var(--shade);
+  color: #fff !important;
+  font-weight: 800;
+  text-decoration: none;
+  border: 3px solid var(--ink);
+}
+.spill-again {
+  align-self: flex-start;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  cursor: pointer;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .spill:not([hidden]) { animation: spill-in 0.35s ease-out backwards; }
+  @keyframes spill-in { from { opacity: 0; scale: 0.6; } }
+}
+
+.candy {
+  position: absolute;
+  z-index: 3;
+  width: 0.9rem;
+  height: 0.5rem;
+  border: 2px solid var(--ink);
+  border-radius: 0.15rem;
+  pointer-events: none;
+}
+.candy.round { width: 0.7rem; height: 0.7rem; border-radius: 50%; }
+
 /* Section pages */
 
 .page-head { padding: clamp(2rem, 6vw, 3.5rem) 0 2.5rem; }
