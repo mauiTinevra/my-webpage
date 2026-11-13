@@ -28,6 +28,7 @@ To add a row, create another component in that folder and place it in `src/pages
 | Journal entries | add a Markdown file to `src/content/journal/` |
 | Art | drop images into `src/assets/art/` (the file name becomes the caption) |
 | Code projects | `src/data/projects.json` |
+| Paintings in the living room | `src/assets/room/` |
 | Photos on the home wall | `src/assets/photos/` and `src/pages/index.astro` |
 | Colors, fonts, layout | `src/styles/global.css` |
 

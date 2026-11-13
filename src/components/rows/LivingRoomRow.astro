@@ -1,13 +1,15 @@
 ---
-// Row three: Sam's living room. Tall windows showing the sky over Scottsdale right now, the
-// mat and blocks on a dark wood floor, the black cabinets with the bonsai, the ledge of
-// pictures over the white blinds, the desk with the laptop and the keyboard, and a lamp.
-// The keyboard plays, the lamp switches the room light, and each thing opens what it holds.
+// Row three: Sam's living room, drawn from his photos. Two-storey windows showing the sky
+// over Scottsdale right now, the disco ball and hanging speakers, papel picado across the
+// ceiling, the teal sofa under his three paintings, the yellow egg chair, the glass table
+// on the orange zebra rug, the speaker with the teal lamp, his mural wall, and the dog.
+// The keyboard plays, the lamp switches the room light, the dog likes being petted, and
+// each thing opens what it holds.
 import { Image } from 'astro:assets';
 import { site, sections } from '../../site';
-import soloSport from '../../assets/art/solo-sport.jpg';
-import ghost from '../../assets/art/ghost.png';
-import selfPortraits from '../../assets/art/self-portraits.jpg';
+import painting1 from '../../assets/room/painting-1.jpg';
+import painting2 from '../../assets/room/painting-2.jpg';
+import painting3 from '../../assets/room/painting-3.jpg';
 
 interface Item {
   label: string;
@@ -19,21 +21,24 @@ interface Props {
 const { backs } = Astro.props;
 
 const things: Record<string, string> = {
-  blog: 'The books on the cabinet',
-  art: 'The pictures on the ledge',
-  code: 'The laptop on the desk',
-  journal: 'The notebook under the lamp',
+  blog: 'The books in the yellow chair',
+  art: 'The paintings over the sofa',
+  code: 'The laptop on the glass table',
+  journal: 'The notebook by the lamp',
 };
 const ink = '#121a3a';
 const dark = '#1c1c26';
-const slats = Array.from({ length: 13 }, (_, i) => 56 + i * 26);
-// One octave of white keys, C to C.
+const teal = '#1f6f86';
+// One octave and a bit of white keys, from middle C.
 const keys = [261.63, 293.66, 329.63, 349.23, 392.0, 440.0, 493.88, 523.25, 587.33, 659.25];
+const tufts = [100, 150, 200, 250, 300];
 ---
 
 <div class="row row-room" data-row>
   <div class="scene">
     <div class="track">
+      <div class="room-papel" aria-hidden="true"></div>
+
       <section class="spot spot-intro">
         <div class="stage">
           <svg viewBox="0 0 760 460" aria-hidden="true" stroke={ink} stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
@@ -45,38 +50,55 @@ const keys = [261.63, 293.66, 329.63, 349.23, 392.0, 440.0, 493.88, 523.25, 587.
                 <stop offset="1" style="stop-color: var(--sky3, #ffb37a)" />
               </linearGradient>
             </defs>
-            <!-- The tall windows, with the roller blind part of the way down. -->
-            <rect x="30" y="14" width="470" height="342" fill="#fbfaf6" />
-            <rect x="44" y="28" width="442" height="314" fill="url(#window-sky)" stroke-width="4" />
-            <path d="M44 300 h40 v-26 h34 v40 h30 v-58 h26 v44 h44 v-30 h30 v52 h36 v-70 h28 v48 h40 v-22 h36 v36 h30 v-46 h28 v32 h40 v28 H44 Z" style="fill: var(--sky-far, #7b2d8e)" stroke="none" />
-            <rect x="44" y="28" width="442" height="46" fill="#efe4c8" stroke-width="4" />
-            <path d="M44 122 H486 M191 28 V342 M339 28 V342" fill="none" stroke="#fbfaf6" stroke-width="14" />
-            <path d="M44 122 H486 M191 28 V342 M339 28 V342" fill="none" stroke-width="0" />
-            <rect x="44" y="28" width="442" height="314" fill="none" stroke-width="4" />
-            <!-- A black cabinet with a plant. -->
-            <rect x="560" y="262" width="160" height="156" fill={dark} />
-            <path d="M574 418 v14 M706 418 v14" fill="none" />
-            <path d="M610 262 q-6 -34 30 -34 q36 0 30 34 Z" fill="#fbfaf6" />
-            <g fill="#2f8f4e">
-              <ellipse cx="620" cy="212" rx="20" ry="13" transform="rotate(-30 620 212)" />
-              <ellipse cx="660" cy="210" rx="20" ry="13" transform="rotate(30 660 210)" />
-              <ellipse cx="640" cy="196" rx="14" ry="20" />
+            <!-- The two-storey windows. -->
+            <rect x="56" y="34" width="380" height="336" fill="#fbfaf6" />
+            <rect x="68" y="46" width="356" height="312" fill="url(#window-sky)" stroke-width="4" />
+            <path d="M68 322 h30 v-22 h28 v34 h26 v-50 h22 v38 h36 v-26 h26 v44 h30 v-60 h24 v42 h34 v-20 h30 v30 h26 v-40 h24 v28 h20 v38 H68 Z" style="fill: var(--sky-far, #7b2d8e)" stroke="none" />
+            <path d="M68 132 H424" fill="none" stroke="#fbfaf6" stroke-width="26" />
+            <rect x="68" y="145" width="356" height="26" fill="#efe4c8" stroke-width="0" />
+            <path d="M187 46 V358 M305 46 V358" fill="none" stroke="#fbfaf6" stroke-width="12" />
+            <rect x="68" y="46" width="356" height="312" fill="none" stroke-width="4" />
+            <!-- Speakers hanging from the ceiling, and the disco ball. -->
+            <path d="M40 0 V26 M452 0 V26" fill="none" stroke-width="3" />
+            <polygon points="14,26 66,26 78,58 40,76 2,58" fill="#6b4a2c" />
+            <polygon points="426,26 478,26 490,58 452,76 414,58" fill="#6b4a2c" />
+            <path d="M246 0 V40" fill="none" stroke-width="3" />
+            <circle cx="246" cy="72" r="32" fill="#cfd6e0" />
+            <g fill="none" stroke-width="2.5">
+              <path d="M214 72 H278 M220 56 H272 M220 88 H272 M246 40 V104 M230 44 Q220 72 230 100 M262 44 Q272 72 262 100" />
             </g>
-            <!-- The mat, the blocks and the handstand canes. -->
-            <polygon points="50,428 470,428 510,456 10,456" fill="#f0508f" />
-            <rect x="330" y="392" width="34" height="42" fill="#c9935a" />
-            <rect x="300" y="408" width="34" height="42" fill="#d8a56c" />
-            <ellipse cx="190" cy="440" rx="36" ry="9" fill="#d8a56c" />
-            <rect x="185" y="388" width="10" height="50" fill="#b9bec6" stroke-width="4" />
-            <rect x="174" y="378" width="32" height="12" rx="3" fill="#d8a56c" />
-            <ellipse cx="246" cy="430" rx="36" ry="9" fill="#d8a56c" />
-            <rect x="241" y="378" width="10" height="50" fill="#b9bec6" stroke-width="4" />
-            <rect x="230" y="368" width="32" height="12" rx="3" fill="#d8a56c" />
+            <!-- Floor speakers with the bonsai and a plant on top. -->
+            <rect x="26" y="300" width="60" height="124" fill={dark} />
+            <circle cx="56" cy="336" r="13" fill="#3a3a48" stroke-width="4" />
+            <circle cx="56" cy="386" r="20" fill="#3a3a48" stroke-width="4" />
+            <path d="M56 300 q-4 -18 8 -28" fill="none" stroke="#6b4a2c" stroke-width="7" />
+            <g fill="#2f8f4e">
+              <ellipse cx="46" cy="268" rx="22" ry="11" />
+              <ellipse cx="74" cy="256" rx="20" ry="10" />
+            </g>
+            <rect x="406" y="300" width="60" height="124" fill={dark} />
+            <circle cx="436" cy="336" r="13" fill="#3a3a48" stroke-width="4" />
+            <circle cx="436" cy="386" r="20" fill="#3a3a48" stroke-width="4" />
+            <path d="M420 300 q-4 -26 16 -26 q20 0 16 26 Z" fill="#fbfaf6" />
+            <g fill="#2f8f4e">
+              <ellipse cx="424" cy="258" rx="16" ry="11" transform="rotate(-30 424 258)" />
+              <ellipse cx="450" cy="256" rx="16" ry="11" transform="rotate(30 450 256)" />
+              <ellipse cx="437" cy="244" rx="11" ry="16" />
+            </g>
+            <!-- Two mats, the cork blocks and the handstand canes. -->
+            <polygon points="96,424 360,424 392,452 64,452" fill="#f0508f" />
+            <polygon points="150,410 300,418 372,458 196,458" fill="#f2cb3a" />
+            <rect x="332" y="396" width="32" height="24" fill="#d8a56c" />
+            <rect x="350" y="382" width="32" height="24" fill="#c9935a" />
+            <ellipse cx="128" cy="418" rx="26" ry="7" fill="#d8a56c" />
+            <rect x="124" y="380" width="8" height="38" fill="#b9bec6" stroke-width="4" />
+            <rect x="114" y="372" width="28" height="10" rx="3" fill="#d8a56c" />
           </svg>
+          <!-- The half wall with Sam's mural. -->
           <div class="frame">
             <h2>{site.name}</h2>
             <p>{site.intro}</p>
-            <p class="frame-small">Come in. The keyboard plays and the lamp has a switch. The window shows the sky over Scottsdale right now.</p>
+            <p class="frame-small">Come in. The keyboard plays, the lamp has a switch, and the dog likes being petted. The window shows the sky over Scottsdale right now.</p>
           </div>
         </div>
       </section>
@@ -87,80 +109,122 @@ const keys = [261.63, 293.66, 329.63, 349.23, 392.0, 440.0, 493.88, 523.25, 587.
             <div class="stage">
               <svg viewBox="0 0 420 460" stroke={ink} stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
                 <g class="spot-open" role="button" tabindex="0" aria-label={`${things[s.place]}: open ${s.name}`}>
-                  {s.place === 'blog' && (
-                    <g>
-                      <rect x="60" y="270" width="300" height="150" fill={dark} />
-                      <path d="M210 270 V420 M76 420 v14 M344 420 v14" fill="none" />
-                      <circle cx="196" cy="345" r="5" fill="#b9bec6" stroke-width="3" />
-                      <circle cx="224" cy="345" r="5" fill="#b9bec6" stroke-width="3" />
-                      <rect x="84" y="246" width="78" height="24" rx="4" fill="#1f3fcf" />
-                      <path d="M122 246 q-6 -30 10 -46 q14 -14 6 -34" fill="none" stroke="#6b4a2c" stroke-width="9" />
-                      <g fill="#2f8f4e">
-                        <ellipse cx="104" cy="186" rx="30" ry="15" />
-                        <ellipse cx="150" cy="160" rx="32" ry="16" />
-                        <ellipse cx="128" cy="136" rx="24" ry="13" />
-                      </g>
-                      <rect x="206" y="244" width="130" height="26" fill="#1f3fcf" />
-                      <rect x="216" y="220" width="116" height="24" fill="#b5402b" />
-                      <rect x="202" y="198" width="122" height="22" fill="#f2cb3a" />
-                      <path d="M214 257 h30 M226 232 h26 M212 209 h34" fill="none" stroke="#fbf4e4" stroke-width="4" />
-                    </g>
-                  )}
                   {s.place === 'art' && (
                     <g>
-                      <rect x="40" y="164" width="340" height="256" fill="#fbfaf6" />
-                      <g fill="none" stroke-width="3">
-                        {slats.map((x) => <path d={`M${x} 164 V420`} />)}
-                      </g>
-                      <rect x="16" y="148" width="388" height="16" fill="#fbfaf6" />
+                      <foreignObject x="20" y="64" width="380" height="150">
+                        <span class="ledge">
+                          <Image src={painting1} alt="" widths={[200, 400]} sizes="120px" />
+                          <Image src={painting2} alt="" widths={[200, 400]} sizes="120px" />
+                          <Image src={painting3} alt="" widths={[200, 400]} sizes="130px" />
+                        </span>
+                      </foreignObject>
+                      <!-- The teal sofa with the plaid blanket. -->
+                      <path d="M24 300 q0 -22 22 -22 h20 v130 h-42 Z" fill={teal} />
+                      <path d="M396 300 q0 -22 -22 -22 h-20 v130 h42 Z" fill={teal} />
+                      <path d="M62 262 q0 -18 18 -18 h260 q18 0 18 18 v80 H62 Z" fill={teal} />
+                      {tufts.map((x) => <circle cx={x + 10} cy="282" r="3" fill={ink} stroke-width="0" />)}
+                      <rect x="62" y="334" width="296" height="62" fill={teal} />
+                      <path d="M150 334 h150 v70 h-150 Z" fill="#c9935a" />
+                      <path d="M150 352 h150 M150 372 h150 M150 390 h150 M186 334 v70 M224 334 v70 M262 334 v70" fill="none" stroke="#fbf4e4" stroke-width="3" />
+                      <rect x="96" y="290" width="54" height="46" rx="6" fill="#f0e2c4" transform="rotate(-8 123 313)" />
+                      <rect x="270" y="290" width="54" height="46" rx="6" fill="#f0e2c4" transform="rotate(8 297 313)" />
+                      <path d="M52 408 v16 M368 408 v16" fill="none" />
+                    </g>
+                  )}
+                  {s.place === 'blog' && (
+                    <g>
+                      <!-- The yellow egg chair, holding the books. -->
+                      <ellipse cx="180" cy="424" rx="54" ry="10" fill="#b9bec6" />
+                      <path d="M180 424 V350" fill="none" stroke-width="10" />
+                      <path d="M180 424 V350" fill="none" stroke="#b9bec6" stroke-width="4" />
+                      <path d="M70 236 q-8 124 110 124 q118 0 110 -124 q-110 -60 -220 0 Z" fill="#f2cb3a" />
+                      <ellipse cx="180" cy="240" rx="110" ry="34" fill="#d9a520" />
+                      <rect x="112" y="226" width="96" height="20" fill="#1f3fcf" transform="rotate(-6 160 236)" />
+                      <rect x="124" y="206" width="90" height="20" fill="#f0508f" transform="rotate(4 169 216)" />
+                      <rect x="118" y="188" width="84" height="18" fill="#fbf4e4" transform="rotate(-3 160 197)" />
+                      <path d="M128 237 h28 M138 217 h26 M130 198 h30" fill="none" stroke={ink} stroke-width="3" />
+                      <!-- The orange amp and the mint guitar. -->
+                      <rect x="296" y="356" width="78" height="68" rx="6" fill="#f07a1e" />
+                      <rect x="306" y="378" width="58" height="38" fill="#e9dcc0" stroke-width="3" />
+                      <path d="M306 368 h58" fill="none" stroke-width="3" />
+                      <path d="M344 150 L330 330" fill="none" stroke-width="12" />
+                      <path d="M344 150 L330 330" fill="none" stroke="#c9935a" stroke-width="6" />
+                      <path d="M334 140 l18 -18 l8 30 Z" fill="#c9935a" />
+                      <path d="M300 300 q-16 30 4 52 q26 22 52 0 q18 -22 2 -52 q-10 -14 -22 -4 q-8 -22 -22 -6 q-8 2 -14 10 Z" fill="#9fe0c4" />
+                      <path d="M316 322 h30 M316 336 h30" fill="none" stroke-width="3" />
                     </g>
                   )}
                   {s.place === 'code' && (
                     <g>
-                      <path d="M52 262 V430 M388 262 V430" fill="none" stroke-width="8" />
-                      <rect x="28" y="246" width="384" height="18" fill={dark} />
-                      <rect x="136" y="132" width="190" height="112" rx="6" fill={dark} />
-                      <rect x="146" y="142" width="170" height="92" fill="#0d1022" stroke-width="0" />
-                      <g fill="none" stroke-width="6">
-                        <path d="M158 158 h44" stroke="#f0508f" />
-                        <path d="M212 158 h62" stroke="#f2cb3a" />
-                        <path d="M170 176 h80" stroke="#1e9fea" />
-                        <path d="M170 194 h36" stroke="#fbf4e4" />
-                        <path d="M216 194 h52" stroke="#f0508f" />
-                        <path d="M158 212 h30" stroke="#f2cb3a" />
+                      <!-- The orange zebra rug, the glass table, and the skateboard under it. -->
+                      <clipPath id="rug-shape"><polygon points="40,398 380,398 416,452 4,452" /></clipPath>
+                      <polygon points="40,398 380,398 416,452 4,452" fill="#f07a1e" />
+                      <g clip-path="url(#rug-shape)" fill="none" stroke="#f6e7cf" stroke-width="7">
+                        <path d="M-10 410 q40 -14 80 0 t80 0 t80 0 t80 0 t80 0 t80 0" />
+                        <path d="M-10 426 q40 14 80 0 t80 0 t80 0 t80 0 t80 0 t80 0" />
+                        <path d="M-10 442 q40 -14 80 0 t80 0 t80 0 t80 0 t80 0 t80 0" />
                       </g>
-                      <rect x="116" y="238" width="230" height="10" rx="3" fill="#b9bec6" />
-                      <!-- The keyboard on its stand; its keys are real buttons laid over this. -->
-                      <path d="M96 344 L64 430 M324 344 L356 430" fill="none" stroke-width="7" />
-                      <rect x="40" y="296" width="340" height="50" rx="5" fill={dark} />
+                      <polygon points="40,398 380,398 416,452 4,452" fill="none" />
+                      <rect x="120" y="392" width="180" height="16" rx="8" fill="#f2cb3a" />
+                      <path d="M150 400 h30 M200 400 h20 M240 400 h34" fill="none" stroke="#7b2d8e" stroke-width="5" />
+                      <path d="M46 418 V318 q0 -14 14 -14 H360 q14 0 14 14 V418" fill="none" stroke-width="12" />
+                      <path d="M46 418 V318 q0 -14 14 -14 H360 q14 0 14 14 V418" fill="none" stroke="#cfe9f3" stroke-width="6" />
+                      <!-- The laptop. The keyboard's keys are real buttons laid over this. -->
+                      <rect x="238" y="198" width="140" height="94" rx="6" fill={dark} />
+                      <rect x="246" y="206" width="124" height="78" fill="#0d1022" stroke-width="0" />
+                      <g fill="none" stroke-width="5">
+                        <path d="M256 220 h30" stroke="#f0508f" />
+                        <path d="M294 220 h46" stroke="#f2cb3a" />
+                        <path d="M266 236 h62" stroke="#1e9fea" />
+                        <path d="M266 252 h26" stroke="#fbf4e4" />
+                        <path d="M300 252 h40" stroke="#f0508f" />
+                        <path d="M256 268 h24" stroke="#f2cb3a" />
+                      </g>
+                      <rect x="226" y="290" width="164" height="9" rx="3" fill="#b9bec6" />
+                      <rect x="34" y="258" width="190" height="42" rx="5" fill={dark} />
                     </g>
                   )}
                   {s.place === 'journal' && (
                     <g>
-                      <path d="M306 426 V128" fill="none" stroke-width="8" />
-                      <ellipse cx="306" cy="428" rx="46" ry="9" fill={dark} />
-                      <polygon points="262,66 350,66 374,132 238,132" fill="#f2cb3a" />
-                      <path d="M150 338 V424 M112 430 h76" fill="none" stroke-width="8" />
-                      <ellipse cx="150" cy="336" rx="96" ry="18" fill="#c9935a" />
-                      <g transform="rotate(-8 150 318)">
-                        <rect x="100" y="298" width="96" height="32" rx="3" fill="#f0508f" />
-                        <path d="M116 298 v32" fill="none" stroke-width="3" />
+                      <!-- A blue director's chair with the notebook on it. -->
+                      <path d="M66 424 L176 300 M176 424 L66 300 M62 300 V232 M180 300 V232" fill="none" stroke-width="10" />
+                      <path d="M66 424 L176 300 M176 424 L66 300 M62 300 V232 M180 300 V232" fill="none" stroke="#b9bec6" stroke-width="4" />
+                      <rect x="56" y="230" width="130" height="34" rx="4" fill="#3d7fc4" />
+                      <rect x="50" y="296" width="142" height="16" rx="4" fill="#3d7fc4" />
+                      <g transform="rotate(-6 122 284)">
+                        <rect x="84" y="270" width="78" height="26" rx="3" fill="#f0508f" />
+                        <path d="M98 270 v26" fill="none" stroke-width="3" />
                       </g>
-                      <path d="M196 306 l40 14" fill="none" stroke="#1f3fcf" stroke-width="7" />
+                      <!-- The black speaker with the teal lamp and the lava lamp. -->
+                      <rect x="252" y="262" width="96" height="162" fill={dark} />
+                      <circle cx="300" cy="304" r="15" fill="#3a3a48" stroke-width="4" />
+                      <circle cx="300" cy="372" r="28" fill="#3a3a48" stroke-width="4" />
+                      <path d="M300 262 V186" fill="none" stroke-width="12" />
+                      <path d="M300 262 V186" fill="none" stroke="#b9bec6" stroke-width="5" />
+                      <ellipse cx="300" cy="260" rx="24" ry="6" fill="#b9bec6" />
+                      <polygon points="262,118 338,118 348,186 252,186" fill={teal} />
+                      <path d="M360 262 l6 -34 h10 l6 34 Z" fill="#e23a3a" stroke-width="4" />
+                      <rect x="356" y="254" width="30" height="8" fill="#b9bec6" stroke-width="3" />
                     </g>
                   )}
-                  {s.place === 'art' && (
-                    <foreignObject x="24" y="14" width="372" height="136">
-                      <span class="ledge">
-                        <Image src={soloSport} alt="" widths={[160, 320]} sizes="110px" />
-                        <Image src={selfPortraits} alt="" widths={[160, 320]} sizes="110px" />
-                        <Image src={ghost} alt="" widths={[200, 400]} sizes="130px" />
-                      </span>
-                    </foreignObject>
-                  )}
                 </g>
+                {s.place === 'art' && (
+                  <g class="dog" role="button" tabindex="0" aria-label="Pet the dog">
+                    <rect x="66" y="392" width="196" height="64" fill="transparent" stroke="none" />
+                    <path class="dog-tail" d="M96 428 q-22 -6 -24 -26" fill="none" stroke-width="12" />
+                    <path class="dog-tail" d="M96 428 q-22 -6 -24 -26" fill="none" stroke="#fbfaf6" stroke-width="6" />
+                    <ellipse cx="150" cy="432" rx="62" ry="22" fill="#fbfaf6" />
+                    <path d="M196 440 h44 M120 448 h-30" fill="none" stroke-width="13" />
+                    <path d="M196 440 h44 M120 448 h-30" fill="none" stroke="#fbfaf6" stroke-width="7" />
+                    <path d="M196 404 q4 -18 26 -16 q26 2 28 24 q2 22 -24 24 q-26 2 -30 -32 Z" fill="#fbfaf6" />
+                    <path d="M204 394 q-12 -4 -12 12 q8 4 14 -4 Z" fill="#f6b7cf" stroke-width="4" />
+                    <circle cx="232" cy="408" r="3.5" fill={ink} stroke-width="0" />
+                    <ellipse cx="249" cy="420" rx="5" ry="4" fill={ink} stroke-width="0" />
+                    <path class="dog-heart" d="M262 372 q-10 -14 -18 -4 q-6 10 18 24 q24 -14 18 -24 q-8 -10 -18 4 Z" fill="#f0508f" stroke-width="4" />
+                  </g>
+                )}
                 {s.place === 'code' && (
-                  <foreignObject x="48" y="302" width="324" height="38">
+                  <foreignObject x="42" y="264" width="174" height="30">
                     <div class="keys" role="group" aria-label="Keyboard">
                       {keys.map((hz, i) => (
                         <button class="key" type="button" data-hz={hz} aria-label={`Play note ${i + 1}`} />
@@ -169,7 +233,7 @@ const keys = [261.63, 293.66, 329.63, 349.23, 392.0, 440.0, 493.88, 523.25, 587.
                   </foreignObject>
                 )}
                 {s.place === 'journal' && (
-                  <foreignObject x="338" y="130" width="28" height="62">
+                  <foreignObject x="318" y="186" width="28" height="60">
                     <button class="lamp-switch" type="button" id="lamp-switch" aria-pressed="true">
                       <span class="visually-hidden">Room light</span>
                     </button>
@@ -268,7 +332,22 @@ const keys = [261.63, 293.66, 329.63, 349.23, 392.0, 440.0, 493.88, 523.25, 587.
     });
   });
 
-  // The lamp switches the room light. With it off, only the lamp's corner stays lit.
+  // The dog wags when petted.
+  const dog = row.querySelector<SVGGElement>('.dog')!;
+  let calmDown = 0;
+  const pet = () => {
+    dog.classList.add('is-happy');
+    clearTimeout(calmDown);
+    calmDown = window.setTimeout(() => dog.classList.remove('is-happy'), 1800);
+  };
+  dog.addEventListener('click', pet);
+  dog.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    e.preventDefault();
+    pet();
+  });
+
+  // The lamp switches the room light. With it off, the lamp's corner stays lit and the disco ball throws its dots.
   const lamp = document.getElementById('lamp-switch') as HTMLButtonElement;
   lamp.addEventListener('click', () => {
     const off = row.classList.toggle('lights-off');
