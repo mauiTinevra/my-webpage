@@ -32,6 +32,13 @@ Plus two tints, never new hues:
 No green, yellow, orange, brown or a second blue anywhere. If something needs to stand out and
 it isn't an action, it gets size or weight, not a new color.
 
+## The one exception: the shop window
+
+The first row (the hero) is the shop window. It's the only place that breaks the palette, on
+purpose: the trompo turns in full color with its grill glowing, the name is a rosa neon tube, and
+an Abierto/Cerrado sign lights up when the shop is open and goes dark when it's closed. Nothing
+below the hero glows or animates on its own.
+
 ## Type
 
 One family: **Archivo** (variable, with width).
