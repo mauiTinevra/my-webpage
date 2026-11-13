@@ -1,7 +1,9 @@
 ---
-// Page two: one picture that takes the whole page. A desert at dusk, a figure in crow pose
-// on a pink mat on top of a mesa, and a very large cloud watching.
+// Page two: one picture that takes the whole page, and it is alive. The sky follows the real
+// time of day in Scottsdale, Arizona, and the figure on the mesa works through the Ashtanga
+// primary series, rests in Savasana, then the second series, and starts again.
 import Nube from './Nube.astro';
+import { poses, draw } from '../lib/yogi';
 
 const ink = '#121a3a';
 
@@ -24,34 +26,36 @@ const saguaro = (x: number, y: number, s: number) =>
 ---
 
 <section class="next-page" id="next-page" aria-labelledby="piece-title">
-  <svg class="piece" viewBox="-240 -150 2080 1170" preserveAspectRatio="xMidYMid slice" role="img" aria-label="A desert at dusk. On top of a blue mesa a small figure balances in crow pose on a pink mat, under a huge white cloud with eyes. A yellow moon sets behind purple mesas, with saguaros in the foreground.">
+  <svg class="piece" id="piece" viewBox="-240 -150 2080 1170" preserveAspectRatio="xMidYMid slice" role="img" aria-label="A desert under the sky as it is right now in Scottsdale, Arizona. On top of a mesa a small figure practises Ashtanga yoga on a pink mat, under a huge white cloud with eyes. Saguaros stand in the foreground.">
     <defs>
       <linearGradient id="dusk" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="900">
-        <stop offset="0" stop-color="#1b1147" />
-        <stop offset="0.38" stop-color="#3a1a6e" />
-        <stop offset="0.56" stop-color="#7b2d8e" />
-        <stop offset="0.68" stop-color="#f0508f" />
-        <stop offset="0.76" stop-color="#ffb37a" />
+        <stop id="sky0" offset="0" stop-color="#1b1147" />
+        <stop id="sky1" offset="0.42" stop-color="#5a2484" />
+        <stop id="sky2" offset="0.68" stop-color="#f0508f" />
+        <stop id="sky3" offset="0.78" stop-color="#ffb37a" />
       </linearGradient>
     </defs>
     <rect x="-300" y="-200" width="2200" height="1300" fill="url(#dusk)" />
 
     <g class="depth" style="--d:4">
-      {
-        stars.map((s) => (
-          <circle class={s.twinkle ? 'star twinkle' : 'star'} cx={s.x} cy={s.y} r={s.r} fill={s.gold ? '#f2cb3a' : '#fbf4e4'} style={s.twinkle ? `animation-delay:${s.delay}s` : undefined} />
-        ))
-      }
+      <g id="stars">
+        {
+          stars.map((s) => (
+            <circle class={s.twinkle ? 'star twinkle' : 'star'} cx={s.x} cy={s.y} r={s.r} fill={s.gold ? '#f2cb3a' : '#fbf4e4'} style={s.twinkle ? `animation-delay:${s.delay}s` : undefined} />
+          ))
+        }
+      </g>
     </g>
 
     <g class="depth" style="--d:8">
-      <circle cx="1150" cy="505" r="150" fill="#f2cb3a" />
-      <g fill="#f6b7cf">
+      <circle id="sun" cx="1150" cy="505" r="130" fill="#ff9a4a" />
+      <path id="moon" d="M0 -46 A46 46 0 1 0 0 46 A64 64 0 0 1 0 -46 Z" fill="#fbf4e4" visibility="hidden" />
+      <g id="band-a" fill="#f6b7cf">
         <rect x="90" y="330" width="430" height="30" rx="15" />
         <rect x="200" y="368" width="250" height="22" rx="11" />
         <rect x="1280" y="330" width="330" height="28" rx="14" />
       </g>
-      <g fill="#f0508f">
+      <g id="band-b" fill="#f0508f">
         <rect x="980" y="430" width="380" height="26" rx="13" />
         <rect x="1060" y="468" width="220" height="20" rx="10" />
         <rect x="-200" y="486" width="460" height="24" rx="12" />
@@ -60,7 +64,7 @@ const saguaro = (x: number, y: number, s: number) =>
     </g>
 
     <g class="depth" style="--d:14">
-      <path d="M-300 640 V540 H120 L150 500 H330 L360 560 H520 L560 470 H700 L730 560 H980 L1010 520 H1180 L1210 580 H1420 L1450 510 H1900 V640 Z" fill="#7b2d8e" />
+      <path id="far" d="M-300 640 V540 H120 L150 500 H330 L360 560 H520 L560 470 H700 L730 560 H980 L1010 520 H1180 L1210 580 H1420 L1450 510 H1900 V640 Z" fill="#7b2d8e" />
     </g>
 
     <g class="depth" style="--d:22">
@@ -68,24 +72,12 @@ const saguaro = (x: number, y: number, s: number) =>
       <Nube variant={2} fill="#f6b7cf" attrs={{ x: 1250, y: 130, width: 210, height: 135 }} />
     </g>
 
-    <g class="depth" style="--d:30" stroke={ink} stroke-width="6" stroke-linejoin="round">
-      <path d="M-300 720 V610 H200 L240 560 H420 L450 640 H590 L640 600 H960 L1000 660 H1150 L1190 590 H1330 L1360 650 H1900 V720 Z" fill="#1f3fcf" />
-      <!-- The figure in crow pose, on a pink mat on the mesa. -->
-      <g transform="translate(648 333) scale(1.5)" stroke-linecap="round">
-        <rect x="6" y="169" width="190" height="9" rx="2" fill="#f0508f" stroke-width="4" />
-        <path d="M140 96 L108 127" fill="none" stroke-width="22" />
-        <path d="M140 96 L108 127" fill="none" stroke="#c98f5f" stroke-width="13" />
-        <path d="M108 127 L166 128" fill="none" stroke-width="19" />
-        <path d="M108 127 L166 128" fill="none" stroke="#c98f5f" stroke-width="10" />
-        <ellipse cx="172" cy="126" rx="10" ry="6" fill="#c98f5f" stroke-width="4" />
-        <ellipse cx="114" cy="101" rx="34" ry="18" transform="rotate(-35 114 101)" fill="#fbf4e4" stroke-width="4.5" />
-        <ellipse cx="139" cy="88" rx="21" ry="18" fill="#1f3fcf" stroke-width="4.5" />
-        <path d="M96 118 L103 166" fill="none" stroke-width="21" />
-        <path d="M96 118 L103 166" fill="none" stroke="#fbf4e4" stroke-width="12" />
-        <ellipse cx="100" cy="168" rx="13" ry="5" fill="#c98f5f" stroke-width="4" />
-        <circle cx="76" cy="130" r="14" fill="#c98f5f" stroke-width="4.5" />
-        <path d="M63 126 a14 14 0 0 1 22 -7 q-10 2 -12 12 Z" fill={ink} stroke-width="3" />
-        <circle cx="62" cy="118" r="7" fill={ink} stroke-width="3" />
+    <g class="depth" style="--d:30">
+      <path id="mid" d="M-300 720 V610 H200 L240 560 H420 L450 640 H590 L640 600 H960 L1000 660 H1150 L1190 590 H1330 L1360 650 H1900 V720 Z" fill="#1f3fcf" stroke={ink} stroke-width="6" stroke-linejoin="round" />
+      <!-- The figure on a pink mat on the mesa. The script below keeps it moving. -->
+      <g transform="translate(800 598)">
+        <rect x="-152" y="-9" width="304" height="10" rx="2" fill="#f0508f" stroke={ink} stroke-width="5" />
+        <g id="yogi" transform="translate(0 -9) scale(-1.7 1.7)" set:html={draw(poses.samasthiti)} />
       </g>
     </g>
 
@@ -95,13 +87,104 @@ const saguaro = (x: number, y: number, s: number) =>
       <path d={saguaro(1130, 716, 0.7)} fill="#2f8f4e" />
       <path d={saguaro(-130, 736, 0.95)} fill="#2f8f4e" />
       <path d={saguaro(1730, 768, 0.85)} fill="#2f8f4e" />
-      <path d="M-300 1100 V720 H260 L300 690 H520 L560 740 H1040 L1090 700 H1300 L1340 750 H1900 V1100 Z" fill={ink} />
+      <path id="near" d="M-300 1100 V720 H260 L300 690 H520 L560 740 H1040 L1090 700 H1300 L1340 750 H1900 V1100 Z" fill={ink} />
     </g>
   </svg>
 
   <div class="placard">
-    <h2 id="piece-title">Bakasana at dusk</h2>
-    <p>Page two</p>
+    <h2 id="piece-title">Practice at <span id="piece-phase">dusk</span></h2>
+    <p><span id="piece-clock"></span> Scottsdale, Arizona</p>
+    <p><span id="piece-series">Primary series</span>: <span id="piece-asana">Samasthiti</span></p>
     <button class="next-page-back" type="button" id="back-to-start">Back to the street</button>
   </div>
 </section>
+
+<script>
+  import { poses, practice, blend, draw } from '../lib/yogi';
+  import { scottsdaleNow, skyAt, formatHour } from '../lib/sky';
+
+  const el = (id: string) => document.getElementById(id)!;
+
+  // The sky. Add ?hour=6.5 to the address to see any time of day.
+  const asked = new URLSearchParams(location.search).get('hour');
+  const paintSky = () => {
+    const now = scottsdaleNow();
+    const hour = asked !== null && !Number.isNaN(Number(asked)) ? Number(asked) % 24 : now.hour;
+    const sky = skyAt(hour, now.day);
+
+    sky.sky.forEach((color, i) => el(`sky${i}`).setAttribute('stop-color', color));
+    el('far').setAttribute('fill', sky.far);
+    el('mid').setAttribute('fill', sky.mid);
+    el('near').setAttribute('fill', sky.near);
+    el('band-a').setAttribute('fill', sky.bandA);
+    el('band-b').setAttribute('fill', sky.bandB);
+    el('stars').setAttribute('opacity', String(sky.stars));
+
+    // The sun and the moon each cross the sky in an arc, from the left horizon to the right.
+    const arc = (at: number) => [120 + at * 1360, 620 - Math.sin(Math.PI * at) * 520];
+    const sun = el('sun');
+    if (sky.sunAt === null) sun.setAttribute('visibility', 'hidden');
+    else {
+      const [x, y] = arc(sky.sunAt);
+      const height = Math.max(0, Math.sin(Math.PI * sky.sunAt));
+      sun.setAttribute('visibility', 'visible');
+      sun.setAttribute('cx', x.toFixed(0));
+      sun.setAttribute('cy', y.toFixed(0));
+      sun.setAttribute('r', (130 - height * 55).toFixed(0));
+      sun.setAttribute('fill', sky.sun);
+    }
+    const moon = el('moon');
+    if (sky.moonAt === null) moon.setAttribute('visibility', 'hidden');
+    else {
+      // The moon keeps to the right of the big cloud so it is never hidden behind it.
+      const x = 1050 + sky.moonAt * 750;
+      const y = 620 - Math.sin(Math.PI * sky.moonAt) * 600;
+      moon.setAttribute('visibility', 'visible');
+      moon.setAttribute('transform', `translate(${x.toFixed(0)} ${y.toFixed(0)}) rotate(-25)`);
+    }
+
+    el('piece-phase').textContent = sky.phase;
+    el('piece-clock').textContent = `${asked !== null ? formatHour(hour) : now.clock},`;
+    // The rest of the page takes its edges from the picture.
+    document.documentElement.style.setProperty('--sky-top', sky.sky[0]);
+    document.documentElement.style.setProperty('--ground', sky.near);
+  };
+  paintSky();
+  setInterval(paintSky, 30_000);
+
+  // The practice: primary series, Savasana, second series, Savasana, and round again.
+  const yogi = el('yogi');
+  const steps = practice.flatMap((part) => part.steps.map((s) => ({ ...s, series: part.series })));
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const MOVE = calm ? 0 : 1.4;
+  let index = 0;
+  // Begin already standing, not halfway out of the last pose.
+  let since = performance.now() - MOVE * 1000;
+  let settled = false;
+
+  const announce = () => {
+    el('piece-series').textContent = steps[index].series;
+    el('piece-asana').textContent = steps[index].name;
+  };
+  announce();
+
+  const tick = (time: number) => {
+    const step = steps[index];
+    const previous = steps[(index - 1 + steps.length) % steps.length];
+    const elapsed = (time - since) / 1000;
+    if (elapsed < MOVE) {
+      const k = elapsed / MOVE;
+      yogi.innerHTML = draw(blend(poses[previous.pose], poses[step.pose], k * k * (3 - 2 * k)));
+      settled = false;
+    } else if (!settled) {
+      yogi.innerHTML = draw(poses[step.pose]);
+      settled = true;
+    } else if (elapsed > MOVE + step.hold) {
+      index = (index + 1) % steps.length;
+      since = time;
+      announce();
+    }
+    requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+</script>
