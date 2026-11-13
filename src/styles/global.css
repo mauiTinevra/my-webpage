@@ -172,7 +172,25 @@ a:hover { text-decoration-thickness: 2px; }
   overflow: hidden;
   touch-action: pan-y;
 }
-.is-street .site-header { position: fixed; inset: 0 0 auto 0; opacity: calc(1 - var(--arrive, 0)); }
+.is-street .site-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  /* On page two the bar itself dissolves. The lettering stays, turned light with a dark
+     edge so it reads over both the night sky and the white cloud. */
+  --arrived: calc(var(--arrive, 0) * 100%);
+  --header-ink: color-mix(in srgb, var(--cream) var(--arrived), var(--ink));
+  --header-edge: color-mix(in srgb, var(--ink) var(--arrived), transparent);
+  background: color-mix(in srgb, transparent var(--arrived), var(--paper));
+  text-shadow:
+    1.5px 0 0 var(--header-edge), -1.5px 0 0 var(--header-edge),
+    0 1.5px 0 var(--header-edge), 0 -1.5px 0 var(--header-edge),
+    1.5px 1.5px 0 var(--header-edge), -1.5px -1.5px 0 var(--header-edge),
+    1.5px -1.5px 0 var(--header-edge), -1.5px 1.5px 0 var(--header-edge),
+    3px 3px 0 var(--header-edge);
+}
+.is-street .site-header .wordmark,
+.is-street .site-header nav a { color: var(--header-ink); }
+.is-street .site-header nav a[aria-current='page'] { border-bottom-color: var(--header-ink); }
 
 .world { will-change: transform; }
 

@@ -154,10 +154,8 @@ const backs = {
     haze.style.opacity = String(smooth(0, 0.6, t) * 0.94 * clearing);
     hazeSky.style.transform = `translate3d(0, ${-(1 - t) * 80}%, 0)`;
     drift.style.opacity = String(smooth(0, 0.06, t) * clearing);
-    // On arrival the header bar fades away so the picture has the whole window.
-    const arrive = smooth(0.8, 0.97, t);
-    document.body.style.setProperty('--arrive', arrive.toFixed(3));
-    header.style.visibility = arrive > 0.99 ? 'hidden' : '';
+    // On arrival the header's bar dissolves and only its lettering stays, floating on the picture.
+    document.body.style.setProperty('--arrive', smooth(0.8, 0.97, t).toFixed(3));
     for (const c of driftClouds) {
       c.el.style.transform = `translate3d(0, ${(-0.32 - c.off + t * c.speed * 1.3) * sceneH}px, 0)`;
     }
