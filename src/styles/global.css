@@ -124,6 +124,19 @@ a:hover { text-decoration-thickness: 2px; }
 }
 .site-header nav a:hover { border-bottom-color: var(--muted); }
 .site-header nav a[aria-current='page'] { border-bottom-color: var(--accent); }
+.cta {
+  padding: 0.45rem 0.9rem;
+  background: var(--yellow);
+  color: var(--ink);
+  border: 2.5px solid var(--ink);
+  font-weight: 800;
+  font-size: 0.9rem;
+  text-decoration: none;
+  text-shadow: none;
+}
+.cta:hover { background: #f0508f; color: #fff; }
+.cta:focus-visible { outline: 3px solid var(--cobalt); outline-offset: 3px; }
+@media (max-width: 640px) { .cta { display: none; } }
 
 /* Roll-up shutter metal: used for the shutters on the street and the strip on each page. */
 
@@ -327,6 +340,204 @@ a:hover { text-decoration-thickness: 2px; }
 }
 .space-play:hover { background: #f0508f; color: #fff; }
 .space-play:focus-visible { outline: 3px solid var(--sky); outline-offset: 3px; }
+
+/* Over the paper section the header bar is solid again, whatever page two did to it. */
+body.over-paper .site-header { --arrived: 0%; }
+
+/* Trust: how it was made. Paper, ink and plain type after all the play. */
+.trust {
+  padding: clamp(4rem, 12vh, 8rem) var(--edge) clamp(4rem, 10vh, 7rem);
+  background: var(--paper);
+  color: var(--ink);
+}
+.trust-head, .desire-head { max-width: 46rem; }
+.trust-title, .desire-title {
+  font-size: clamp(2.4rem, 6.5vw, 5rem);
+  font-weight: 900;
+  font-stretch: 112%;
+  line-height: 0.98;
+  letter-spacing: -0.01em;
+}
+.trust-lede, .desire-lede {
+  margin: 1.25rem 0 0;
+  max-width: 36rem;
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  line-height: 1.55;
+  color: var(--muted);
+}
+.exhibits {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr));
+  gap: clamp(2.5rem, 5vw, 4.5rem) clamp(2rem, 4vw, 4rem);
+  margin-top: clamp(3rem, 8vh, 5rem);
+}
+.exhibit h3 { margin-top: 1.25rem; font-size: 1.5rem; font-weight: 800; font-stretch: 100%; }
+.exhibit p { margin: 0.5rem 0 0; max-width: 32rem; line-height: 1.6; }
+.exhibit b { font-family: var(--display); font-weight: 700; white-space: nowrap; }
+
+.demo {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border: 3px solid var(--ink);
+  background: #fff;
+  overflow: hidden;
+}
+.demo-control {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.8rem;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.demo-control input { flex: 1; accent-color: var(--cobalt); }
+
+.demo-sky-fill { position: absolute; inset: 0; transition: background 0.2s linear; }
+.demo-sky-sun {
+  position: absolute;
+  width: 2.25rem;
+  height: 2.25rem;
+  translate: -50% -50%;
+  border-radius: 50%;
+  border: 3px solid var(--ink);
+  transition: left 0.2s linear, top 0.2s linear, opacity 0.3s;
+}
+.demo-sky::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 22%;
+  background: var(--ink);
+  clip-path: polygon(0 40%, 18% 40%, 24% 0, 46% 0, 52% 45%, 70% 45%, 76% 15%, 100% 15%, 100% 100%, 0 100%);
+}
+.demo-sky-time {
+  position: absolute;
+  left: 1rem;
+  top: 0.75rem;
+  margin: 0;
+  color: #fff;
+  font-family: var(--display);
+  font-weight: 200;
+  font-size: 2rem;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 1px 8px rgb(0 0 0 / 0.35);
+}
+
+.demo-body { background: #eef4fa; }
+.demo-body svg { position: absolute; inset: 6% 0 14%; width: 100%; height: 80%; }
+.demo-readout {
+  position: absolute;
+  left: 0.75rem;
+  right: 0.75rem;
+  bottom: 0.6rem;
+  margin: 0;
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  font-size: 0.75rem;
+  white-space: pre;
+  overflow: hidden;
+  color: var(--muted);
+}
+.demo-chips, .idea-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.8rem; }
+.chip {
+  padding: 0.4rem 0.8rem;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.chip:hover { background: rgb(18 26 58 / 0.08); }
+.chip[aria-pressed='true'], .chip[aria-selected='true'] { background: var(--ink); color: var(--cream); }
+.chip:focus-visible { outline: 3px solid var(--cobalt); outline-offset: 2px; }
+
+.demo-path { display: grid; grid-template-rows: 1fr auto; background: #fbf4e4; }
+.demo-path svg { width: 100%; height: 100%; min-height: 0; padding: 0.75rem 1rem 0; }
+.demo-code {
+  margin: 0;
+  padding: 0.7rem 1rem;
+  background: var(--ink);
+  color: var(--cream);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  overflow-x: auto;
+}
+
+.exhibit-numbers .numbers {
+  aspect-ratio: 16 / 10;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 3px solid var(--ink);
+  background: var(--yellow);
+}
+.numbers div { display: flex; flex-direction: column-reverse; justify-content: center; padding: 0.75rem 1rem; border: 1.5px solid var(--ink); }
+.numbers dt { font-family: var(--display); font-weight: 600; font-size: 0.85rem; }
+.numbers dd { margin: 0; font-family: var(--display); font-weight: 900; font-stretch: 112%; font-size: clamp(1.9rem, 4vw, 2.75rem); line-height: 1; font-variant-numeric: tabular-nums; }
+
+/* Desire: what yours could be, and how we would get there. */
+.desire {
+  padding: clamp(4rem, 12vh, 8rem) var(--edge) clamp(4rem, 10vh, 7rem);
+  background: var(--cobalt);
+  color: var(--cream);
+}
+.desire-lede { color: rgb(251 244 228 / 0.8); }
+.ideas { max-width: 52rem; margin-top: 2rem; }
+.desire .chip { border-color: var(--cream); color: var(--cream); }
+.desire .chip:hover { background: rgb(251 244 228 / 0.12); }
+.desire .chip[aria-selected='true'] { background: var(--yellow); border-color: var(--yellow); color: var(--ink); }
+.desire .chip:focus-visible { outline-color: var(--yellow); }
+.idea { margin-top: 1.75rem; }
+.idea[hidden] { display: none; }
+.idea-text {
+  margin: 0;
+  font-family: var(--reading);
+  font-style: italic;
+  font-size: clamp(1.4rem, 3.2vw, 2.25rem);
+  line-height: 1.3;
+}
+.idea-ask {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 0.7rem 1.3rem;
+  background: var(--yellow);
+  color: var(--ink);
+  border: 3px solid var(--ink);
+  box-shadow: 5px 5px 0 var(--ink);
+  font-family: var(--display);
+  font-weight: 800;
+  text-decoration: none;
+}
+.idea-ask:hover { background: #f0508f; color: #fff; }
+.idea-ask:focus-visible, .idea-else a:focus-visible { outline: 3px solid var(--yellow); outline-offset: 4px; }
+.idea-else { margin: 1.5rem 0 0; font-family: var(--display); color: rgb(251 244 228 / 0.85); }
+.idea-else a { color: var(--cream); }
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+  gap: 2rem;
+  margin: clamp(4rem, 10vh, 6rem) 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+}
+.step { padding-top: 1rem; border-top: 2px solid rgb(251 244 228 / 0.5); counter-increment: step; }
+.step::before {
+  content: counter(step, decimal-leading-zero);
+  display: block;
+  font-family: var(--display);
+  font-weight: 200;
+  font-size: 2.5rem;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.step h3 { margin-top: 0.6rem; font-size: 1.3rem; font-weight: 800; font-stretch: 100%; }
+.step p { margin: 0.4rem 0 0; line-height: 1.5; color: rgb(251 244 228 / 0.85); }
 
 /* The last page: the pitch. */
 .sell {
@@ -544,6 +755,7 @@ a:hover { text-decoration-thickness: 2px; }
   font-size: clamp(1rem, 2.4vh, 1.3rem);
   line-height: 1.35;
 }
+.painted.offer { margin-top: 0.6rem; font-weight: 800; font-size: clamp(1.1rem, 2.8vh, 1.5rem); }
 .painted.small { font-size: clamp(0.9rem, 2vh, 1.05rem); font-weight: 500; opacity: 0.92; }
 .painted.links { display: flex; gap: 1.25rem; list-style: none; padding: 0; }
 .painted a { color: inherit; }

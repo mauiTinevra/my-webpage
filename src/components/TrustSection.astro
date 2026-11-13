@@ -1,0 +1,206 @@
+---
+// Trust: after the wonder, show the workings. Four pieces of this site taken apart, each with
+// a live demo running the real code, and numbers counted from the source at build time.
+import { poses, draw } from '../lib/yogi';
+import { here } from '../site';
+
+// Count the lines of the site's own source, so the number is always true.
+const sources = import.meta.glob('/src/**/*.{astro,ts,css}', { query: '?raw', import: 'default', eager: true }) as Record<string, string>;
+const lines = Object.values(sources).reduce((sum, text) => sum + text.split('\n').length, 0);
+const files = Object.keys(sources).length;
+const drawings = Object.keys(sources).filter((path) => path.includes('/components/')).length;
+
+const picks = ['samasthiti', 'utkatasana', 'navasana', 'bakasana', 'urdhvaDhanurasana', 'sirsasana'] as const;
+const names: Record<(typeof picks)[number], string> = {
+  samasthiti: 'Samasthiti',
+  utkatasana: 'Utkatasana',
+  navasana: 'Navasana',
+  bakasana: 'Bakasana',
+  urdhvaDhanurasana: 'Urdhva Dhanurasana',
+  sirsasana: 'Sirsasana',
+};
+const glide = `const k = 1 - Math.exp(-dt / GLIDE);
+shown.y += (target.y - shown.y) * k;`;
+---
+
+<section class="trust" id="how" aria-labelledby="trust-title">
+  <header class="trust-head">
+    <h2 class="trust-title" id="trust-title">Everything you just played with, I built.</h2>
+    <p class="trust-lede">
+      No templates, no page builders, no stock art. Every drawing on this site is code, and every moving part is
+      something I wrote. Here are four of them, taken apart and still running.
+    </p>
+  </header>
+
+  <div class="exhibits">
+    <article class="exhibit">
+      <div class="demo demo-sky" id="demo-sky">
+        <div class="demo-sky-fill" id="demo-sky-fill"></div>
+        <span class="demo-sky-sun" id="demo-sky-sun"></span>
+        <p class="demo-sky-time" id="demo-sky-time">12:00 PM</p>
+      </div>
+      <label class="demo-control">
+        <span>Drag the hour</span>
+        <input type="range" id="demo-sky-hour" min="0" max="24" step="0.25" value="12" />
+      </label>
+      <h3>The sky is real</h3>
+      <p>
+        The yoga scene reads the time in {here.city} and works out where the sun is from its latitude and the date:
+        sunrise, sunset, dusk, the colours in between. Today the sun rises at <b id="demo-sky-rise">—</b> and sets at
+        <b id="demo-sky-set">—</b>.
+      </p>
+    </article>
+
+    <article class="exhibit">
+      <div class="demo demo-body">
+        <svg viewBox="-110 -190 220 210" aria-hidden="true">
+          <rect x="-100" y="0" width="200" height="8" rx="2" fill="#f0508f" />
+          <g id="demo-body-figure" transform="scale(-1.15 1.15)" set:html={draw(poses.samasthiti)}></g>
+        </svg>
+        <p class="demo-readout" id="demo-body-angles"></p>
+      </div>
+      <div class="demo-chips" role="group" aria-label="Choose a pose">
+        {
+          picks.map((key, i) => (
+            <button type="button" class="chip" data-pose={key} aria-pressed={i === 0 ? 'true' : 'false'}>
+              {names[key]}
+            </button>
+          ))
+        }
+      </div>
+      <h3>A body made of angles</h3>
+      <p>
+        The figure practising Ashtanga is {Object.keys(poses).length} poses, each one a handful of joint angles. Moving
+        between them is a calculation, not an animation file, so every transition turns each joint the short way round.
+      </p>
+    </article>
+
+    <article class="exhibit">
+      <div class="demo demo-path">
+        <svg viewBox="0 0 320 220" aria-hidden="true">
+          <path id="demo-path-line" d="M20 30 H300 C315 30 315 70 300 70 H20 C5 70 5 110 20 110 H300 C315 110 315 150 300 150 H20 C5 150 5 190 160 205" fill="none" stroke="#121a3a" stroke-width="3" stroke-dasharray="1 7" stroke-linecap="round" />
+          <circle id="demo-path-dot" r="8" fill="#f0508f" stroke="#121a3a" stroke-width="3" cx="20" cy="30" />
+        </svg>
+        <pre class="demo-code"><code>{glide}</code></pre>
+      </div>
+      <h3>One scroll, one camera</h3>
+      <p>
+        The home page is a single scroll driving a camera along a snaking path: four rows, a sunset, a descent. The
+        camera follows a beat behind your scroll, so corners come out rounded instead of square.
+      </p>
+    </article>
+
+    <article class="exhibit exhibit-numbers">
+      <dl class="numbers">
+        <div><dt>Lines of code</dt><dd>{lines.toLocaleString('en-US')}</dd></div>
+        <div><dt>Source files</dt><dd>{files}</dd></div>
+        <div><dt>Drawn components</dt><dd>{drawings}</dd></div>
+        <div><dt>Templates used</dt><dd>0</dd></div>
+      </dl>
+      <h3>Counted, not claimed</h3>
+      <p>
+        These numbers are counted from the site's own source every time it is published. It is built with Astro and
+        TypeScript, drawn in SVG and Canvas, and plays sound with the Web Audio API.
+      </p>
+    </article>
+  </div>
+</section>
+
+<script>
+  import { poses, draw, blend } from '../lib/yogi';
+  import { nowAt, skyAt, sunTimes, formatHour } from '../lib/sky';
+  import { here } from '../site';
+
+  const el = (id: string) => document.getElementById(id)!;
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // The sky: the same code as the yoga scene, at whatever hour you drag to.
+  const now = nowAt(here);
+  const hourInput = el('demo-sky-hour') as HTMLInputElement;
+  const paint = () => {
+    const hour = Number(hourInput.value) % 24;
+    const sky = skyAt(hour, now.day, here, now.offset);
+    el('demo-sky-fill').style.background = `linear-gradient(180deg, ${sky.sky.join(', ')})`;
+    const sun = el('demo-sky-sun');
+    if (sky.sunAt === null) sun.style.opacity = '0';
+    else {
+      sun.style.opacity = '1';
+      sun.style.left = `${(8 + sky.sunAt * 84).toFixed(1)}%`;
+      sun.style.top = `${(78 - Math.sin(Math.PI * sky.sunAt) * 62).toFixed(1)}%`;
+      sun.style.background = sky.sun;
+    }
+    const clock = formatHour(hour);
+    el('demo-sky-time').textContent = `${clock.time} ${clock.half}`;
+    hourInput.setAttribute('aria-valuetext', `${clock.time} ${clock.half}`);
+  };
+  hourInput.value = String(Math.round(now.hour * 4) / 4);
+  hourInput.addEventListener('input', paint);
+  paint();
+  const times = sunTimes(now.day, here, now.offset);
+  const say = (h: number) => {
+    const c = formatHour(h);
+    return `${c.time} ${c.half}`;
+  };
+  el('demo-sky-rise').textContent = say(times.rise);
+  el('demo-sky-set').textContent = say(times.set);
+
+  // The body: pick a pose and the figure turns into it, joint by joint.
+  const figure = el('demo-body-figure');
+  const readout = el('demo-body-angles');
+  const chips = [...document.querySelectorAll<HTMLButtonElement>('.demo-chips .chip')];
+  let current = poses.samasthiti;
+  const describe = (p: typeof current) => {
+    const r = (n: number) => `${Math.round(n)}°`;
+    readout.textContent = `torso ${r(p.T)}  arm ${r(p.aU)} / ${r(p.aF)}  leg ${r(p.lU)} / ${r(p.lL)}`;
+  };
+  describe(current);
+  chips.forEach((chip) =>
+    chip.addEventListener('click', () => {
+      chips.forEach((c) => c.setAttribute('aria-pressed', String(c === chip)));
+      const from = current;
+      const to = poses[chip.dataset.pose!];
+      current = to;
+      if (calm) {
+        figure.innerHTML = draw(to);
+        describe(to);
+        return;
+      }
+      const start = performance.now();
+      const step = (time: number) => {
+        const k = Math.min(1, (time - start) / 900);
+        const pose = blend(from, to, k * k * (3 - 2 * k));
+        figure.innerHTML = draw(pose);
+        describe(pose);
+        if (k < 1 && current === to) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    }),
+  );
+
+  // Over this paper section the header gets its solid bar back, so the menu stays readable.
+  const section = el('how');
+  const header = document.querySelector<HTMLElement>('.site-header')!;
+  const solid = () => {
+    const box = section.getBoundingClientRect();
+    const line = header.offsetHeight;
+    document.body.classList.toggle('over-paper', box.top <= line && box.bottom > line);
+  };
+  addEventListener('scroll', solid, { passive: true });
+  solid();
+
+  // The path: a dot travels the route the camera takes.
+  const line = el('demo-path-line') as unknown as SVGPathElement;
+  const dot = el('demo-path-dot');
+  const length = line.getTotalLength();
+  if (!calm) {
+    const travel = (time: number) => {
+      const k = (time / 9000) % 1;
+      const eased = k * k * (3 - 2 * k);
+      const point = line.getPointAtLength(eased * length);
+      dot.setAttribute('cx', point.x.toFixed(1));
+      dot.setAttribute('cy', point.y.toFixed(1));
+      requestAnimationFrame(travel);
+    };
+    requestAnimationFrame(travel);
+  }
+</script>

@@ -3,6 +3,8 @@ export const site = {
   name: 'Maui Tinevra',
   intro:
     'I practice Ashtanga yoga, I engineer and I design, but I just call myself an artist. Mexican, Italian and Korean, currently based in Scottsdale, Arizona.',
+  // What Maui sells, in one line, from the first screen.
+  offer: 'Interactive websites, designed and engineered by one artist.',
   // What search engines and link previews say about the site.
   tagline: 'Web designer in Scottsdale, Arizona',
   description:

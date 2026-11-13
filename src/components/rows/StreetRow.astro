@@ -28,9 +28,10 @@ const cans = [
       <section class="facade facade-intro">
         <div class="wall">
           <h1 class="rotulo">{site.name}</h1>
+          <p class="painted offer">{site.offer}</p>
           <p class="painted">{site.intro}</p>
           <p class="painted small">
-            Keep scrolling to walk the street. Roll up a shutter to go in. Pick up a can and leave your mark.
+            Keep scrolling to walk the street, or <a href="#how">skip to how it's made</a>.
           </p>
           <ul class="painted links">
             {site.links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}

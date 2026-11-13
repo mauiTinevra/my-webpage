@@ -1,0 +1,120 @@
+---
+// Desire: turn "this is different" into "I want one". The visitor picks what they do and sees
+// what their site could be, then how working together goes.
+import { site } from '../site';
+
+const ideas = [
+  {
+    who: 'A restaurant',
+    about: 'my restaurant',
+    idea: 'The menu is the kitchen pass. Plates slide out as you scroll, the specials board is chalk you can wipe and rewrite, and after closing time the lights go down and the site says so.',
+  },
+  {
+    who: 'A musician',
+    about: 'my music',
+    idea: 'Your album as a room. Every track is an object on a shelf; pick one up and it plays, and the light in the room follows the song.',
+  },
+  {
+    who: 'A tattoo studio',
+    about: 'my tattoo studio',
+    idea: 'A flash sheet on the shop wall. Visitors peel designs off like stickers, try them on a sketch of an arm, and book the one that stuck.',
+  },
+  {
+    who: 'A yoga studio',
+    about: 'my yoga studio',
+    idea: 'The schedule is a sunrise. Each class sits where the sun will be when it starts, and the page breathes at the pace of the morning practice.',
+  },
+  {
+    who: 'A shop',
+    about: 'my shop',
+    idea: 'The shop window, open at your real hours. Products sit in the window; tap the glass to step inside and they are on the counter, ready to buy.',
+  },
+  {
+    who: 'A photographer',
+    about: 'my photography',
+    idea: 'A darkroom. Prints develop as you hover over them, and the red safelight comes on when you scroll into the night shoots.',
+  },
+];
+
+const steps = [
+  { title: 'We talk', text: 'You tell me who you are, what you make and who your site is for.' },
+  { title: 'I sketch', text: 'Before any code, you see the concept drawn out: what the site is, how it moves, how it feels.' },
+  { title: 'I build', text: 'Designed and engineered by me, by hand, and tested on phones and desktops.' },
+  { title: 'It goes live', text: 'Launched on your own domain and handed over to you.' },
+];
+
+const mail = (about: string) => `mailto:${site.email}?subject=${encodeURIComponent(`A website for ${about}`)}`;
+---
+
+<section class="desire" id="yours" aria-labelledby="desire-title">
+  <header class="desire-head">
+    <h2 class="desire-title" id="desire-title">What would yours be?</h2>
+    <p class="desire-lede">Pick what you do. This is the kind of idea your site would start from.</p>
+  </header>
+
+  <div class="ideas">
+    <div class="idea-chips" role="tablist" aria-label="What you do">
+      {
+        ideas.map((idea, i) => (
+          <button
+            type="button"
+            class="chip"
+            role="tab"
+            id={`idea-tab-${i}`}
+            aria-selected={i === 0 ? 'true' : 'false'}
+            aria-controls={`idea-${i}`}
+            tabindex={i === 0 ? 0 : -1}
+          >
+            {idea.who}
+          </button>
+        ))
+      }
+    </div>
+    {
+      ideas.map((idea, i) => (
+        <div class="idea" role="tabpanel" id={`idea-${i}`} aria-labelledby={`idea-tab-${i}`} hidden={i !== 0}>
+          <p class="idea-text">{idea.idea}</p>
+          <a class="idea-ask" href={mail(idea.about)}>
+            I want this for {idea.about}
+          </a>
+        </div>
+      ))
+    }
+    <p class="idea-else">
+      Something else? <a href={mail('what I do')}>Tell me what you do</a> and the idea starts there.
+    </p>
+  </div>
+
+  <ol class="steps" aria-label="How we would work together">
+    {
+      steps.map((step) => (
+        <li class="step">
+          <h3>{step.title}</h3>
+          <p>{step.text}</p>
+        </li>
+      ))
+    }
+  </ol>
+</section>
+
+<script>
+  const tabs = [...document.querySelectorAll<HTMLButtonElement>('.idea-chips .chip')];
+  const show = (index: number) => {
+    tabs.forEach((tab, i) => {
+      const on = i === index;
+      tab.setAttribute('aria-selected', String(on));
+      tab.tabIndex = on ? 0 : -1;
+      document.getElementById(tab.getAttribute('aria-controls')!)!.hidden = !on;
+    });
+  };
+  tabs.forEach((tab, i) => {
+    tab.addEventListener('click', () => show(i));
+    tab.addEventListener('keydown', (e) => {
+      const move = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!move) return;
+      const next = (i + move + tabs.length) % tabs.length;
+      show(next);
+      tabs[next].focus();
+    });
+  });
+</script>

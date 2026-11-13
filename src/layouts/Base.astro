@@ -83,6 +83,7 @@ const bodyClass = [place && `at-${place}`, street && 'is-street'].filter(Boolean
           }
         </ul>
       </nav>
+      <a class="cta" href={`mailto:${site.email}?subject=${encodeURIComponent('I want a website')}`}>Start a project</a>
     </header>
     {place && <div class="slats strip" aria-hidden="true" />}
     <main id="main">

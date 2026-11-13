@@ -9,6 +9,8 @@ import Nube from '../components/Nube.astro';
 import PageTwo from '../components/PageTwo.astro';
 import SpacePage from '../components/SpacePage.astro';
 import SellPage from '../components/SellPage.astro';
+import TrustSection from '../components/TrustSection.astro';
+import DesireSection from '../components/DesireSection.astro';
 import { formatDate } from '../lib/date';
 import projects from '../data/projects.json';
 
@@ -95,6 +97,9 @@ const backs = {
   <!-- Page three follows in the ordinary way: keep scrolling down from page two. -->
   <div class="fade-to-black" aria-hidden="true"></div>
   <SpacePage />
+  <!-- After the wonder: how it was made, then what yours could be, then the ask. -->
+  <TrustSection />
+  <DesireSection />
   <SellPage />
 </Base>
 
