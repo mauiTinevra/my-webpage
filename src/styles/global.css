@@ -155,13 +155,14 @@ a:hover { text-decoration-thickness: 2px; }
     0.07em 0.07em 0 var(--shade, var(--ink));
 }
 
-/* Rows: scrolling down walks each row sideways, then drops to the next one. */
+/* The journey: scrolling walks each row sideways, drops to the next, and after the fourth
+   row climbs straight back up past all of them, through a changing sky, to the next page. */
 
 .is-street main { padding: 0; }
 
-.row { position: relative; }
+.journey { position: relative; }
 
-.scene {
+.viewport {
   position: sticky;
   top: var(--header-h, 4rem);
   height: calc(100vh - var(--header-h, 4rem));
@@ -170,6 +171,15 @@ a:hover { text-decoration-thickness: 2px; }
   touch-action: pan-y;
 }
 
+.world { will-change: transform; }
+
+.row,
+.next-page {
+  position: relative;
+  height: var(--scene-h, calc(100dvh - var(--header-h, 4rem)));
+}
+.scene { position: relative; height: 100%; overflow: hidden; }
+
 .track {
   position: relative;
   display: flex;
@@ -177,6 +187,53 @@ a:hover { text-decoration-thickness: 2px; }
   height: 100%;
   will-change: transform;
 }
+
+/* The sky you climb through after the last row: day at the bottom, night at the top. */
+.ascent-sky {
+  position: relative;
+  height: calc(var(--scene-h, 100vh) * 1.5);
+  background: linear-gradient(
+    0deg,
+    var(--sky) 0%,
+    #7fc4f0 18%,
+    #f6b7cf 40%,
+    #f0508f 55%,
+    var(--purple) 74%,
+    #1b1147 100%
+  );
+}
+.ascent-sky .nube { position: absolute; width: clamp(7rem, 16vw, 13rem); height: auto; max-height: none; }
+.ascent-sky .nube:nth-child(1) { left: 12%; bottom: 14%; }
+.ascent-sky .nube:nth-child(2) { right: 14%; bottom: 38%; }
+.ascent-sky .nube:nth-child(3) { left: 38%; bottom: 62%; }
+
+.next-page {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0 var(--edge);
+  color: var(--cream);
+  background:
+    radial-gradient(circle, #fbf4e4 0 1.2px, transparent 1.6px) 0 0 / 137px 113px,
+    radial-gradient(circle, #f2cb3a 0 1px, transparent 1.4px) 61px 47px / 211px 173px,
+    #1b1147;
+  --shade: #f0508f;
+}
+.next-page .rotulo { font-size: clamp(3rem, 12vw, 8rem); }
+.next-page .painted { margin: 0; }
+.next-page-back {
+  padding: 0.5rem 1rem;
+  border: 3px solid var(--cream);
+  background: none;
+  color: var(--cream);
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.next-page-back:hover { background: var(--cream); color: var(--ink); }
 
 /* Every other row runs the other way, so the path snakes down the page. */
 [data-reverse] .track { flex-direction: row-reverse; }

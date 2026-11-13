@@ -13,6 +13,8 @@ then drops down to the next row, which presents the same five places a different
 - Row 3, the posada (Christmas piñatas): `src/components/rows/PinataRow.astro`
 - Row 4, the outfitter's (clothes on a rail): `src/components/rows/WardrobeRow.astro`
 
+A page is always four rows. After the fourth, scrolling climbs straight back up past all of them and through a sky to the next page (`.next-page` in `src/pages/index.astro`).
+
 Rows alternate direction (right, left, right, left). A row with `data-reverse` on its root runs right to left.
 
 To add a row, create another component in that folder and place it in `src/pages/index.astro`.
