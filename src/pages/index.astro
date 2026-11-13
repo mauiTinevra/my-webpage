@@ -124,13 +124,14 @@ const backs = {
 
   let headerH = 0;
   let sceneH = 0;
+  let rowH = 0;
   let firstRowY = 0;
   let climb = 0;
   let total = 0;
   let active: (typeof rows)[number] | undefined;
 
   const place = () => {
-    let p = Math.min(Math.max(headerH - journey.getBoundingClientRect().top, 0), total);
+    let p = Math.min(Math.max(-journey.getBoundingClientRect().top, 0), total);
     let y = firstRowY;
     active = undefined;
     rows.forEach((r, i) => {
@@ -139,8 +140,8 @@ const backs = {
       r.track.style.transform = `translate3d(${r.reverse ? x - r.max : -x}px, 0, 0)`;
       p -= r.max;
       if (i < rows.length - 1) {
-        y += Math.min(Math.max(p, 0), sceneH);
-        p -= sceneH;
+        y += Math.min(Math.max(p, 0), rowH);
+        p -= rowH;
       }
     });
     if (p > 0) y -= Math.min(p, climb) * CLIMB_SPEED;
@@ -153,8 +154,10 @@ const backs = {
     haze.style.opacity = String(smooth(0, 0.6, t) * 0.94 * clearing);
     hazeSky.style.transform = `translate3d(0, ${-(1 - t) * 80}%, 0)`;
     drift.style.opacity = String(smooth(0, 0.06, t) * clearing);
-    // On arrival the page-two night takes over the header bar as well.
-    document.body.style.setProperty('--arrive', smooth(0.86, 1, t).toFixed(3));
+    // On arrival the header bar fades away so the picture has the whole window.
+    const arrive = smooth(0.8, 0.97, t);
+    document.body.style.setProperty('--arrive', arrive.toFixed(3));
+    header.style.visibility = arrive > 0.99 ? 'hidden' : '';
     for (const c of driftClouds) {
       c.el.style.transform = `translate3d(0, ${(-0.32 - c.off + t * c.speed * 1.3) * sceneH}px, 0)`;
     }
@@ -165,14 +168,16 @@ const backs = {
     document.documentElement.style.setProperty('--header-h', `${headerH}px`);
     sceneH = viewport.clientHeight;
     document.documentElement.style.setProperty('--scene-h', `${sceneH}px`);
-    firstRowY = rows[0].row.offsetTop;
+    rowH = sceneH - headerH;
+    // The camera rests with a row's top edge just under the header bar.
+    firstRowY = rows[0].row.offsetTop - headerH;
     total = 0;
     rows.forEach((r, i) => {
       r.max = Math.max(0, r.track.scrollWidth - r.scene.clientWidth);
       r.start = total;
-      total += r.max + (i < rows.length - 1 ? sceneH : 0);
+      total += r.max + (i < rows.length - 1 ? rowH : 0);
     });
-    climb = (firstRowY + (rows.length - 1) * sceneH) / CLIMB_SPEED;
+    climb = (firstRowY + (rows.length - 1) * rowH) / CLIMB_SPEED;
     total += climb;
     journey.style.height = `${total + sceneH}px`;
     place();
@@ -269,7 +274,7 @@ const backs = {
     const box = el.getBoundingClientRect();
     const view = viewport.getBoundingClientRect();
     if (box.left >= 0 && box.right <= innerWidth && box.top >= view.top && box.bottom <= view.bottom) return;
-    const base = journey.offsetTop - headerH;
+    const base = journey.offsetTop;
     const r = rows.find((row) => row.track.contains(el));
     if (r) {
       const shift = Math.min(Math.max(box.left - r.track.getBoundingClientRect().left - innerWidth * 0.15, 0), r.max);
