@@ -11,7 +11,10 @@ export const site = {
     'Maui Tinevra is a web designer and developer in Scottsdale, Arizona, making custom, interactive websites for people and small businesses. Email to start a project.',
   email: 'sam.tinevra@gmail.com',
   // Add or remove links freely, e.g. { label: 'Instagram', href: 'https://instagram.com/yourname' }
-  links: [{ label: 'GitHub', href: 'https://github.com/mauiTinevra' }],
+  links: [
+    { label: 'Instagram', href: 'https://www.instagram.com/maui_tinevra/' },
+    { label: 'GitHub', href: 'https://github.com/mauiTinevra' },
+  ],
 };
 
 // Where Maui is right now. The yoga page shows this place: its time, its sky and its scenery.
