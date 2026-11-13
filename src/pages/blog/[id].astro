@@ -12,7 +12,7 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 ---
 
-<Base title={post.data.title} description={post.data.summary} fabric="cord">
+<Base title={post.data.title} description={post.data.summary} place="blog">
   <article>
     <header class="page-head">
       <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>

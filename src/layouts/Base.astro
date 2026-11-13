@@ -1,19 +1,21 @@
 ---
-import '@fontsource-variable/bricolage-grotesque';
+import '@fontsource-variable/archivo/wdth.css';
 import '@fontsource-variable/literata';
 import '../styles/global.css';
-import { site, sections } from '../site';
+import { site, sections, type Place } from '../site';
 
 interface Props {
   title?: string;
   description?: string;
-  fabric?: 'cord' | 'canvas' | 'denim' | 'gingham';
+  place?: Place;
+  street?: boolean;
 }
 
-const { title, description = site.intro, fabric } = Astro.props;
+const { title, description = site.intro, place, street = false } = Astro.props;
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
 const pageTitle = title ? `${title} | ${site.name}` : site.name;
+const bodyClass = [place && `at-${place}`, street && 'is-street'].filter(Boolean).join(' ');
 ---
 
 <!doctype html>
@@ -23,8 +25,9 @@ const pageTitle = title ? `${title} | ${site.name}` : site.name;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
-  <body class={fabric ? `on-${fabric}` : undefined}>
+  <body class={bodyClass || undefined}>
     <a class="skip" href="#main">Skip to content</a>
     <header class="site-header">
       <a class="wordmark" href="/" aria-current={isCurrent('/') ? 'page' : undefined}>{site.name}</a>
@@ -43,15 +46,25 @@ const pageTitle = title ? `${title} | ${site.name}` : site.name;
         </ul>
       </nav>
     </header>
-    {fabric && <div class={`strip fabric ${fabric}`} aria-hidden="true" />}
+    {place && <div class="slats strip" aria-hidden="true" />}
     <main id="main">
       <slot />
     </main>
-    <footer class="site-footer">
-      <span>{site.name}, {new Date().getFullYear()}</span>
-      <ul>
-        {site.links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
-      </ul>
-    </footer>
+    {
+      !street && (
+        <footer class="site-footer">
+          <span>
+            {site.name}, {new Date().getFullYear()}
+          </span>
+          <ul>
+            {site.links.map((l) => (
+              <li>
+                <a href={l.href}>{l.label}</a>
+              </li>
+            ))}
+          </ul>
+        </footer>
+      )
+    }
   </body>
 </html>

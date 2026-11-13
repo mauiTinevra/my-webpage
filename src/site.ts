@@ -7,9 +7,12 @@ export const site = {
   links: [{ label: 'GitHub', href: 'https://github.com/mauiTinevra' }],
 };
 
+// Each section is a storefront on the street: a painted wall and a roll-up shutter.
 export const sections = [
-  { href: '/blog', name: 'Blog', fabric: 'cord', note: 'Longer writing' },
-  { href: '/art', name: 'Art', fabric: 'canvas', note: 'Things I made' },
-  { href: '/code', name: 'Code', fabric: 'denim', note: 'Things I built' },
-  { href: '/journal', name: 'Journal', fabric: 'gingham', note: 'Short notes, day by day' },
+  { href: '/blog', name: 'Blog', place: 'blog', note: 'Longer writing' },
+  { href: '/art', name: 'Art', place: 'art', note: 'Things I made' },
+  { href: '/code', name: 'Code', place: 'code', note: 'Things I built' },
+  { href: '/journal', name: 'Journal', place: 'journal', note: 'Short notes, day by day' },
 ] as const;
+
+export type Place = (typeof sections)[number]['place'];

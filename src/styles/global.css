@@ -1,29 +1,35 @@
 :root {
-  --paper: #f1f2f4;
-  --ink: #1c2440;
-  --muted: #5a6078;
-  --label: #fcfcfa;
+  /* Colours taken from Sam's photos: painted walls, shutters, the pink mat, the blue shorts. */
+  --paper: #f3f1ec;
+  --ink: #121a3a;
+  --muted: #565c74;
+  --cream: #fbf4e4;
 
-  --denim: #2b4a7f;
-  --cord: #c99a1e;
-  --cord-ink: #7a5c0c;
-  --gingham: #b8323f;
-  --canvas: #d9d0bc;
-  --canvas-ink: #6b5b45;
+  --sky: #1e9fea;
+  --cobalt: #1f3fcf;
+  --ochre: #e3b565;
+  --terracotta: #b5402b;
+  --rosa: #c9566b;
+  --yellow: #f2cb3a;
+  --purple: #7b2d8e;
+  --green: #2f8f4e;
+  --concrete: #a4a8ad;
+  --sidewalk: #cfccc5;
 
   --accent: var(--ink);
+  --slat: var(--ink);
 
-  --display: 'Bricolage Grotesque Variable', system-ui, sans-serif;
+  --display: 'Archivo Variable', 'Arial Black', system-ui, sans-serif;
   --reading: 'Literata Variable', Georgia, serif;
 
   --edge: clamp(1.25rem, 5vw, 4rem);
   --measure: 38rem;
 }
 
-.on-cord { --accent: var(--cord-ink); }
-.on-canvas { --accent: var(--canvas-ink); }
-.on-denim { --accent: var(--denim); }
-.on-gingham { --accent: var(--gingham); }
+.at-blog { --accent: #a63a26; --slat: var(--terracotta); }
+.at-art { --accent: var(--cobalt); --slat: var(--cobalt); }
+.at-code { --accent: #1f7a3f; --slat: var(--green); }
+.at-journal { --accent: var(--purple); --slat: var(--purple); }
 
 *, *::before, *::after { box-sizing: border-box; }
 
@@ -32,6 +38,7 @@ html { -webkit-text-size-adjust: 100%; }
 body {
   margin: 0;
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
   background: var(--paper);
@@ -45,9 +52,10 @@ main { flex: 1; padding: 0 var(--edge) 5rem; }
 
 h1, h2, h3 {
   font-family: var(--display);
-  font-weight: 700;
+  font-stretch: 112%;
+  font-weight: 800;
   line-height: 1.05;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
   margin: 0;
 }
 
@@ -55,14 +63,23 @@ a { color: var(--accent); text-underline-offset: 0.2em; }
 a:hover { text-decoration-thickness: 2px; }
 :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
 
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 .skip {
   position: absolute;
   left: -999px;
-  background: var(--label);
+  background: var(--cream);
   padding: 0.5rem 1rem;
   font-family: var(--display);
 }
-.skip:focus { left: var(--edge); top: 0.5rem; z-index: 10; }
+.skip:focus { left: var(--edge); top: 0.5rem; z-index: 30; }
 
 /* Header */
 
@@ -71,15 +88,15 @@ a:hover { text-decoration-thickness: 2px; }
   flex-wrap: wrap;
   align-items: baseline;
   justify-content: space-between;
-  gap: 0.5rem 2rem;
-  padding: 1.5rem var(--edge);
+  gap: 0.25rem 2rem;
+  padding: 1rem var(--edge);
   font-family: var(--display);
 }
 
 .wordmark {
-  font-weight: 800;
-  font-size: 1.25rem;
-  letter-spacing: -0.02em;
+  font-weight: 900;
+  font-stretch: 125%;
+  font-size: 1.1rem;
   color: var(--ink);
   text-decoration: none;
 }
@@ -97,172 +114,309 @@ a:hover { text-decoration-thickness: 2px; }
 .site-header nav a {
   color: var(--ink);
   text-decoration: none;
-  font-weight: 500;
-  padding-bottom: 0.2rem;
-  border-bottom: 2px dashed transparent;
+  font-weight: 600;
+  padding-bottom: 0.15rem;
+  border-bottom: 3px solid transparent;
 }
 .site-header nav a:hover { border-bottom-color: var(--muted); }
-/* The current page is stitched in. */
 .site-header nav a[aria-current='page'] { border-bottom-color: var(--accent); }
 
-/* Fabrics */
+/* Roll-up shutter metal: used for the shutters on the street and the strip on each page. */
 
-.fabric.denim {
-  background-color: var(--denim);
-  background-image:
-    repeating-linear-gradient(45deg, rgb(255 255 255 / 0.14) 0 1px, transparent 1px 4px),
-    repeating-linear-gradient(-45deg, rgb(0 0 0 / 0.14) 0 1px, transparent 1px 7px);
-}
-.fabric.cord {
-  background-color: var(--cord);
+.slats {
+  background-color: var(--slat);
   background-image: repeating-linear-gradient(
-    90deg,
-    rgb(0 0 0 / 0.16) 0 2px,
-    transparent 2px 5px,
-    rgb(255 255 255 / 0.2) 5px 7px,
-    transparent 7px 10px
+    180deg,
+    rgb(255 255 255 / 0.16) 0 2px,
+    transparent 2px 9px,
+    rgb(0 0 0 / 0.22) 9px 12px,
+    transparent 12px 14px
   );
 }
-.fabric.gingham {
-  background-color: #fff;
-  background-image:
-    linear-gradient(90deg, rgb(184 50 63 / 0.55) 50%, transparent 50%),
-    linear-gradient(rgb(184 50 63 / 0.55) 50%, transparent 50%);
-  background-size: 28px 28px;
-}
-.fabric.canvas {
-  background-color: var(--canvas);
-  background-image:
-    repeating-linear-gradient(0deg, rgb(107 91 69 / 0.22) 0 1px, transparent 1px 3px),
-    repeating-linear-gradient(90deg, rgb(107 91 69 / 0.22) 0 1px, transparent 1px 3px);
+
+.strip { height: 2.75rem; border-bottom: 5px solid var(--ink); }
+
+/* Hand-painted sign lettering, the kind on shopfronts: heavy letters with a hard shadow. */
+
+.rotulo {
+  font-family: var(--display);
+  font-weight: 900;
+  font-stretch: 125%;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  line-height: 0.92;
+  color: var(--letter, var(--cream));
+  text-shadow:
+    0.035em 0.035em 0 var(--shade, var(--ink)),
+    0.07em 0.07em 0 var(--shade, var(--ink));
 }
 
-/* A strip of the section's fabric, cut with pinking shears along the bottom. */
-.strip {
-  height: 3rem;
-  -webkit-mask:
-    linear-gradient(#000 0 0) top / 100% calc(100% - 7px) no-repeat,
-    conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / 14px 8px repeat-x;
-  mask:
-    linear-gradient(#000 0 0) top / 100% calc(100% - 7px) no-repeat,
-    conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / 14px 8px repeat-x;
+/* The street */
+
+.is-street { height: 100vh; height: 100dvh; overflow: hidden; }
+.is-street main { padding: 0; min-height: 0; display: flex; }
+
+.street {
+  flex: 1;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+}
+.street:focus-visible { outline-offset: -3px; }
+
+.street-inner {
+  position: relative;
+  display: flex;
+  width: max-content;
+  height: 100%;
 }
 
-/* Home */
-
-.hello {
-  padding: clamp(2rem, 8vw, 6rem) 0 clamp(2.5rem, 6vw, 4.5rem);
-}
-.hello h1 {
-  font-size: clamp(3rem, 13vw, 11rem);
-  font-weight: 800;
-  letter-spacing: -0.045em;
-  line-height: 0.9;
-  overflow-wrap: anywhere;
-}
-.hello p {
-  max-width: 30rem;
-  margin: 1.75rem 0 0;
-  font-size: 1.3rem;
-  line-height: 1.5;
-}
-
-.board {
+.facade {
+  flex: none;
+  width: min(84vw, 34rem);
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: clamp(0.75rem, 2.5vw, 2rem);
-  list-style: none;
-  margin: 0;
-  padding: 0 0 3rem;
+  grid-template-rows: 1fr clamp(3.5rem, 12vh, 6.5rem);
+  border-right: 6px solid rgb(0 0 0 / 0.28);
+}
+.facade-intro { width: min(92vw, 52rem); }
+
+.wall {
+  position: relative;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.25rem, 4vh, 2.75rem) clamp(1.25rem, 3vw, 2.5rem) 0;
+  background: var(--wall);
+  color: var(--letter, var(--cream));
+  /* Plaster: a paler band under the roofline and a dark painted base, as on the real walls. */
+  box-shadow:
+    inset 0 0.9rem 0 rgb(255 255 255 / 0.22),
+    inset 0 -1.1rem 0 rgb(0 0 0 / 0.3);
 }
 
-.swatch {
+.sidewalk {
+  background:
+    linear-gradient(90deg, transparent 49.7%, rgb(0 0 0 / 0.16) 49.7% 50.3%, transparent 50.3%),
+    linear-gradient(180deg, rgb(0 0 0 / 0.32) 0 6px, transparent 6px),
+    var(--sidewalk);
+}
+
+.facade-intro { --wall: var(--sky); --letter: var(--cream); --shade: var(--ink); }
+.facade-blog { --wall: var(--ochre); --letter: var(--cream); --shade: var(--terracotta); --slat: var(--terracotta); --frame: #7c2a1c; }
+.facade-art { --wall: var(--rosa); --letter: var(--cream); --shade: var(--cobalt); --slat: var(--cobalt); --frame: #8f8a80; }
+.facade-code { --wall: var(--concrete); --letter: var(--cream); --shade: #1c5a31; --slat: var(--green); --frame: #5f646a; }
+.facade-journal { --wall: var(--yellow); --letter: var(--purple); --shade: var(--cream); --slat: var(--purple); --frame: #4d1b5a; }
+
+.facade .rotulo { font-size: clamp(2.75rem, 11vh, 5.5rem); }
+.facade-intro .rotulo { font-size: clamp(2.75rem, min(13vh, 9.5vw), 7rem); }
+
+.painted {
+  margin: 0.9rem 0 0;
+  max-width: 27rem;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(1rem, 2.4vh, 1.3rem);
+  line-height: 1.35;
+}
+.painted.small { font-size: clamp(0.9rem, 2vh, 1.05rem); font-weight: 500; opacity: 0.92; }
+.painted.links { display: flex; gap: 1.25rem; list-style: none; padding: 0; }
+.painted a { color: inherit; }
+.facade-journal .painted { color: var(--ink); }
+
+/* Photos, wheat-pasted to the wall. */
+.posters {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  margin-top: 1rem;
+}
+.poster {
+  position: absolute;
+  bottom: 1.1rem;
+  height: min(100%, 26rem);
+  width: auto;
+  border: 0.4rem solid var(--cream);
+  box-shadow: 0.3rem 0.4rem 0 rgb(0 0 0 / 0.25);
+}
+.poster-a { left: 2%; rotate: -2.5deg; }
+.poster-b { left: clamp(9.5rem, 34%, 17rem); rotate: 2deg; }
+
+@media (min-width: 900px) and (min-height: 620px) {
+  .facade-intro { width: min(96vw, 80rem); }
+  .facade-intro .wall { display: grid; grid-template-columns: 1fr auto; grid-template-rows: repeat(4, auto) 1fr; column-gap: 2.5rem; }
+  .facade-intro .rotulo, .facade-intro .painted { grid-column: 1; }
+  .facade-intro .posters {
+    grid-column: 2;
+    grid-row: 1 / -1;
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    margin: 0;
+    padding-top: 0.5rem;
+  }
+  .facade-intro .poster { position: static; height: min(46vh, 23rem); }
+  .facade-intro .poster-b { margin-top: 3.5rem; }
+}
+
+/* A doorway with a roll-up shutter. The shutter lifts a little when you approach and all the way when you go in. */
+.doorway {
   position: relative;
   display: block;
-  aspect-ratio: 3 / 4;
+  flex: 1;
+  min-height: 7rem;
+  width: min(100%, 24rem);
+  margin: 1.25rem auto 0;
+  overflow: hidden;
+  border: 0.7rem solid var(--frame);
+  border-bottom: 0;
+  background: #0d1022;
+  color: var(--cream);
   text-decoration: none;
-  rotate: var(--tilt, 0deg);
-  translate: 0 var(--drop, 0);
-  transition: rotate 0.25s ease, translate 0.25s ease;
-  -webkit-mask:
-    conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) top / 14px 51% repeat-x,
-    conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / 14px 51% repeat-x;
-  mask:
-    conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) top / 14px 51% repeat-x,
-    conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / 14px 51% repeat-x;
 }
-.board li:nth-child(1) .swatch { --tilt: -2deg; }
-.board li:nth-child(2) .swatch { --tilt: 1.5deg; --drop: 2.5rem; }
-.board li:nth-child(3) .swatch { --tilt: -1deg; --drop: 0.75rem; }
-.board li:nth-child(4) .swatch { --tilt: 2.5deg; --drop: 3.25rem; }
+.doorway:focus-visible { outline: 4px solid var(--cream); outline-offset: 4px; }
 
-.swatch:hover,
-.swatch:focus-visible {
-  rotate: 0deg;
-  translate: 0 calc(var(--drop, 0rem) - 0.5rem);
-}
-.swatch:focus-visible { outline: none; }
-.swatch:focus-visible .tag { outline: 3px solid var(--ink); outline-offset: 3px; }
-
-/* The woven label sewn onto each swatch. */
-.tag {
+.inside {
   position: absolute;
-  left: 12%;
-  right: 12%;
-  bottom: 14%;
-  padding: 0.7rem 1.1rem 0.8rem;
-  background: var(--label);
-  color: var(--ink);
-  border-inline: 2px dashed var(--muted);
+  inset: auto 0 0 0;
+  padding: 0.9rem 1rem 1.1rem;
   font-family: var(--display);
-}
-.tag strong {
-  display: block;
-  font-size: clamp(1.25rem, 2.4vw, 2rem);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
-}
-.tag span {
-  display: block;
-  margin-top: 0.15rem;
-  font-size: 0.875rem;
+  font-weight: 600;
+  font-size: 1rem;
   line-height: 1.3;
-  color: var(--muted);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .board li { animation: lay 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) backwards; }
-  .board li:nth-child(2) { animation-delay: 0.08s; }
-  .board li:nth-child(3) { animation-delay: 0.16s; }
-  .board li:nth-child(4) { animation-delay: 0.24s; }
-  @keyframes lay {
-    from { opacity: 0; translate: 0 -1.5rem; rotate: -4deg; }
-  }
+.shutter {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border-bottom: 0.6rem solid rgb(0 0 0 / 0.45);
+  transition: translate 0.5s cubic-bezier(0.3, 0.7, 0.2, 1);
+}
+/* The same slats again on top, so the painting reads as sprayed onto the metal. */
+.shutter::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    180deg,
+    transparent 0 9px,
+    rgb(0 0 0 / 0.2) 9px 12px,
+    transparent 12px 14px
+  );
+  pointer-events: none;
+}
+.nube, .tag-art { width: 78%; height: auto; max-height: 80%; object-fit: contain; }
+
+.doorway:hover .shutter,
+.doorway:focus-visible .shutter { translate: 0 -28%; }
+.doorway.is-open .shutter { translate: 0 -101%; }
+
+@media (prefers-reduced-motion: reduce) {
+  .shutter { transition: none; }
 }
 
-@media (max-width: 760px) {
-  .board { grid-template-columns: repeat(2, 1fr); row-gap: 1.5rem; }
-  .board li:nth-child(n) .swatch { --drop: 0rem; }
-  .board li:nth-child(even) .swatch { --drop: 1.5rem; }
-  .tag { left: 8%; right: 8%; padding: 0.5rem 0.75rem 0.6rem; }
+/* Visitors' spray paint sits over the whole street. */
+.paint {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
+.is-painting .paint { pointer-events: auto; touch-action: none; cursor: crosshair; }
+
+.cans {
+  position: fixed;
+  left: 50%;
+  bottom: 0.6rem;
+  translate: -50% 0;
+  z-index: 20;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem 0.6rem;
+  max-width: calc(100vw - 1rem);
+  padding: 0.5rem 0.9rem;
+  background: var(--cream);
+  border: 3px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.cans-label { text-align: center; }
+@media (max-width: 560px) {
+  .cans { width: max-content; padding: 0.4rem 0.7rem; }
+  .cans-label { flex-basis: 100%; }
+}
+
+.can {
+  position: relative;
+  width: 1.7rem;
+  height: 2.5rem;
+  margin-top: 0.5rem;
+  padding: 0;
+  border: 3px solid var(--ink);
+  border-radius: 0.3rem 0.3rem 0.2rem 0.2rem;
+  background: var(--can);
+  cursor: pointer;
+  transition: translate 0.15s ease;
+}
+.can::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: -0.6rem;
+  translate: -50% 0;
+  width: 0.7rem;
+  height: 0.45rem;
+  border: 3px solid var(--ink);
+  border-bottom: 0;
+  border-radius: 0.15rem 0.15rem 0 0;
+  background: var(--cream);
+}
+.can:hover { translate: 0 -3px; }
+.can[aria-pressed='true'] { translate: 0 -8px; }
+
+.can-action {
+  padding: 0.35rem 0.7rem;
+  border: 3px solid var(--ink);
+  background: var(--ink);
+  color: var(--cream);
+  font: inherit;
+  cursor: pointer;
+}
+.can-action:hover { background: var(--cobalt); }
 
 /* Section pages */
 
-.page-head { padding: clamp(2rem, 6vw, 4rem) 0 2.5rem; }
-.page-head h1 { font-size: clamp(2.75rem, 9vw, 6rem); font-weight: 800; letter-spacing: -0.04em; }
-.page-head p { max-width: var(--measure); margin: 1rem 0 0; color: var(--muted); }
+.page-head { padding: clamp(2rem, 6vw, 3.5rem) 0 2.5rem; }
+.page-head h1 {
+  font-size: clamp(3rem, 11vw, 7rem);
+  --letter: var(--accent);
+  --shade: var(--yellow);
+}
+.at-journal .page-head h1 { --shade: var(--yellow); }
+.at-blog .page-head h1 { --shade: var(--ochre); }
+.at-art .page-head h1 { --shade: #f0508f; }
+.at-code .page-head h1 { --shade: var(--ink); }
+.page-head p { max-width: var(--measure); margin: 1.25rem 0 0; color: var(--muted); }
+.page-head time + h1 { margin-top: 0.5rem; font-size: clamp(2.25rem, 7vw, 4.5rem); }
 
 .empty { max-width: var(--measure); color: var(--muted); }
 
-time { font-family: var(--display); font-size: 0.95rem; color: var(--muted); }
+time { font-family: var(--display); font-weight: 600; font-size: 0.95rem; color: var(--muted); }
 
 /* Blog list */
 
 .posts { list-style: none; margin: 0; padding: 0; max-width: 46rem; }
-.posts li { padding: 1.5rem 0; border-top: 2px dashed rgb(90 96 120 / 0.35); }
-.posts li:last-child { border-bottom: 2px dashed rgb(90 96 120 / 0.35); }
+.posts li { padding: 1.5rem 0; border-top: 3px solid var(--ink); }
+.posts li:last-child { border-bottom: 3px solid var(--ink); }
 .posts h2 { font-size: 1.75rem; margin: 0.25rem 0; }
 .posts h2 a { color: var(--ink); text-decoration: none; }
 .posts h2 a:hover { color: var(--accent); text-decoration: underline; }
@@ -279,29 +433,35 @@ time { font-family: var(--display); font-size: 0.95rem; color: var(--muted); }
 .prose blockquote {
   margin-inline: 0;
   padding-left: 1.25rem;
-  border-left: 2px dashed var(--accent);
+  border-left: 5px solid var(--accent);
   font-style: italic;
 }
-.prose code { font-size: 0.9em; background: rgb(28 36 64 / 0.07); padding: 0.1em 0.35em; }
+.prose code { font-size: 0.9em; background: rgb(18 26 58 / 0.08); padding: 0.1em 0.35em; }
 .prose pre { overflow-x: auto; padding: 1rem; background: var(--ink); color: var(--paper); }
 .prose pre code { background: none; padding: 0; }
 
-.back { display: inline-block; margin-top: 3rem; font-family: var(--display); }
+.back { display: inline-block; margin-top: 3rem; font-family: var(--display); font-weight: 700; }
 
 /* Journal */
 
 .entries { max-width: var(--measure); }
-.entry { padding: 1.75rem 0; border-top: 2px dashed rgb(90 96 120 / 0.35); }
+.entry { padding: 1.75rem 0; border-top: 3px solid var(--ink); }
 .entry h2 { font-size: 1.4rem; margin: 0.35rem 0 0; }
 .entry .prose { margin-top: 0.5rem; }
 .entry .prose > :first-child { margin-top: 0; }
 
 /* Art */
 
-.gallery { columns: 3 16rem; column-gap: 1.25rem; }
-.gallery figure { margin: 0 0 1.25rem; break-inside: avoid; }
-.gallery img { display: block; width: 100%; height: auto; }
-.gallery figcaption { margin-top: 0.4rem; font-family: var(--display); font-size: 0.95rem; color: var(--muted); }
+.gallery { columns: 3 16rem; column-gap: 1.5rem; }
+.gallery figure { margin: 0 0 1.5rem; break-inside: avoid; }
+.gallery img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 3px solid var(--ink);
+  background: #fff;
+}
+.gallery figcaption { margin-top: 0.4rem; font-family: var(--display); font-weight: 600; font-size: 0.95rem; }
 
 /* Code */
 
@@ -311,9 +471,9 @@ time { font-family: var(--display); font-size: 0.95rem; color: var(--muted); }
   grid-template-columns: 1fr auto;
   gap: 0.25rem 1.5rem;
   padding: 1.5rem 0;
-  border-top: 2px dashed rgb(90 96 120 / 0.35);
+  border-top: 3px solid var(--ink);
 }
-.projects li:last-child { border-bottom: 2px dashed rgb(90 96 120 / 0.35); }
+.projects li:last-child { border-bottom: 3px solid var(--ink); }
 .projects h2 { font-size: 1.5rem; }
 .projects h2 a { color: var(--ink); }
 .projects h2 a:hover { color: var(--accent); }
@@ -328,6 +488,7 @@ time { font-family: var(--display); font-size: 0.95rem; color: var(--muted); }
   gap: 0.5rem 2rem;
   padding: 1.5rem var(--edge) 2rem;
   font-family: var(--display);
+  font-weight: 500;
   font-size: 0.95rem;
   color: var(--muted);
 }

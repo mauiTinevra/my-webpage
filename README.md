@@ -1,6 +1,6 @@
 # my-webpage
 
-A personal site with five pages: home, blog, art, code and journal. Built with
+A personal site built as a street: painted walls, roll-up shutters for the blog, art, code and journal, and spray cans for visitors. Built with
 [Astro](https://astro.build) and hosted on Vercel. Every push to `main` redeploys it.
 
 ## Changing things
@@ -12,6 +12,7 @@ A personal site with five pages: home, blog, art, code and journal. Built with
 | Journal entries | add a Markdown file to `src/content/journal/` |
 | Art | drop images into `src/assets/art/` (the file name becomes the caption) |
 | Code projects | `src/data/projects.json` |
+| Photos on the home wall | `src/assets/photos/` and `src/pages/index.astro` |
 | Colors, fonts, layout | `src/styles/global.css` |
 
 A blog post starts like this:
