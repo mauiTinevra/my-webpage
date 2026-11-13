@@ -9,8 +9,8 @@ The home page is a stack of rows. Scrolling walks along a row from Sam to Journa
 then drops down to the next row, which presents the same five places a different way.
 
 - Row 1, the street: `src/components/rows/StreetRow.astro`
-- Row 2, the living room: `src/components/rows/LivingRoomRow.astro`
-- Row 3, the posada (Christmas piñatas): `src/components/rows/PinataRow.astro`
+- Row 2, the posada (Christmas piñatas): `src/components/rows/PinataRow.astro`
+- Row 3, the living room: `src/components/rows/LivingRoomRow.astro`
 - Row 4, the outfitter's (clothes on a rail): `src/components/rows/WardrobeRow.astro`
 
 A page is always four rows. After the fourth, scrolling climbs straight back up past all of them and through a sky to page two, a single full-page picture (`src/components/PageTwo.astro`). The picture is live: its sky follows the real time in Scottsdale, Arizona (`src/lib/sky.ts`), and the figure works through a selection of the Ashtanga primary and second series (`src/lib/yogi.ts`). Add `?hour=6.5` to the address to preview any time of day.

@@ -550,7 +550,7 @@ a:hover { text-decoration-thickness: 2px; }
 }
 .can-action:hover { background: var(--cobalt); }
 
-/* Row two: Sam's living room. Warm white walls, a dark plank floor, black cabinets. */
+/* Row three: Sam's living room. Warm white walls, a dark plank floor, black cabinets. */
 
 .row-room .scene {
   --floor-h: clamp(8.5rem, 27vh, 13rem);
@@ -748,7 +748,7 @@ a:hover { text-decoration-thickness: 2px; }
   cursor: pointer;
 }
 
-/* Row three: a posada. Star piñatas under papel picado, luminarias along the ground. */
+/* Row two: a posada. Star piñatas under papel picado, luminarias along the ground. */
 
 .row-posada .scene {
   --night: #1b1147;
