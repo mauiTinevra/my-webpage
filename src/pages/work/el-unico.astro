@@ -1,6 +1,6 @@
 ---
 // A concept site for an imaginary taquería, made to show what Maui could build for a restaurant.
-// One taco, three aguas frescas, two desserts. Everything on the page is drawn in code.
+// One taco, one cocktail, three aguas frescas, two desserts. Everything on the page is drawn in code.
 import '@fontsource-variable/archivo/wdth.css';
 import '@fontsource-variable/literata';
 import { site } from '../../site';
@@ -12,6 +12,7 @@ const menu = {
     { key: 'jamaica', name: 'Jamaica', about: 'Hibiscus flowers, steeped cold.', price: '$3', color: '#a3123a', ice: '#e0507a' },
     { key: 'tamarindo', name: 'Tamarindo', about: 'Tamarind, sweet and sour.', price: '$3', color: '#8a5523', ice: '#c08850' },
   ],
+  cocktail: { name: 'La Única', price: '$12', about: 'Bacardi, lime nieve de garrafa, Coke, lime and salt. 21 and over.' },
   desserts: [
     { key: 'chocoflan', name: 'Chocoflan', about: 'Chocolate cake under a layer of flan, baked together.', price: '$5' },
     { key: 'tresleches', name: 'Tres leches', about: 'Sponge cake soaked in three milks.', price: '$5' },
@@ -135,6 +136,24 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('A website for m
         </p>
       </section>
 
+      <section class="block menu-block" aria-labelledby="menu-title">
+        <div class="board">
+          <h2 class="board-title" id="menu-title">Menú</h2>
+          <ul class="board-rows" role="list">
+            <li class="board-row board-star"><span>{menu.taco.name}</span><span class="dots" aria-hidden="true"></span><span>{menu.taco.price}</span></li>
+            <li class="board-note">Three to an order. Pineapple, onion, cilantro, salsa verde.</li>
+            <li class="board-row"><span>{menu.cocktail.name}</span><span class="dots" aria-hidden="true"></span><span>{menu.cocktail.price}</span></li>
+            <li class="board-note">Bacardi over lime nieve, Coke, lime, salt. 21 and over.</li>
+            <li class="board-row"><span>Aguas frescas</span><span class="dots" aria-hidden="true"></span><span>{menu.drinks[0].price}</span></li>
+            <li class="board-note">{menu.drinks.map((d) => d.name).join(', ').replace(/, ([^,]*)$/, ' or $1')}</li>
+            {menu.desserts.map((d) => (
+              <li class="board-row"><span>{d.name}</span><span class="dots" aria-hidden="true"></span><span>{d.price}</span></li>
+            ))}
+          </ul>
+          <p class="board-foot">Cards and cash. No substitutions; it's already perfect.</p>
+        </div>
+      </section>
+
       <section class="block taco-block" aria-labelledby="taco-title">
         <div class="block-words">
           <h2 class="block-title" id="taco-title">The taco</h2>
@@ -249,52 +268,10 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('A website for m
         </div>
       </section>
 
-      <section class="block drinks-block" aria-labelledby="drinks-title">
-        <div class="block-words">
-          <h2 class="block-title" id="drinks-title">Three aguas frescas</h2>
-          <p class="block-line">Tap a jar to pour a glass.</p>
-        </div>
-        <div class="jars">
-          {
-            menu.drinks.map((d) => (
-              <div class="jar-spot">
-                <button type="button" class="jar" data-drink={d.key} aria-label={`Pour a glass of ${d.name}`}>
-                  <svg viewBox="0 0 140 220" aria-hidden="true">
-                    <rect x="20" y="30" width="100" height="160" rx="22" fill="#e8f4fa" stroke="#121a3a" stroke-width="5" />
-                    <rect x="27" y="62" width="86" height="121" rx="16" fill={d.color} />
-                    <g fill={d.ice} opacity="0.85">
-                      <rect x="40" y="70" width="16" height="14" rx="3" transform="rotate(-12 48 77)" />
-                      <rect x="70" y="80" width="16" height="14" rx="3" transform="rotate(14 78 87)" />
-                      <rect x="52" y="100" width="14" height="12" rx="3" />
-                    </g>
-                    <rect x="16" y="20" width="108" height="16" rx="5" fill="#fbfaf6" stroke="#121a3a" stroke-width="5" />
-                    <path d="M95 10 V70" stroke="#121a3a" stroke-width="5" />
-                    <ellipse cx="95" cy="74" rx="12" ry="6" fill="#9aa0a8" stroke="#121a3a" stroke-width="4" />
-                  </svg>
-                </button>
-                <div class="glass" aria-hidden="true">
-                  <svg viewBox="0 0 70 100">
-                    <defs>
-                      <clipPath id={`glass-${d.key}`}><path d="M10 8 L18 92 H52 L60 8 Z" /></clipPath>
-                    </defs>
-                    <g clip-path={`url(#glass-${d.key})`}>
-                      <rect class="pour" x="0" y="8" width="70" height="84" fill={d.color} />
-                    </g>
-                    <path d="M10 8 L18 92 H52 L60 8 Z" fill="none" stroke="#121a3a" stroke-width="4" stroke-linejoin="round" />
-                  </svg>
-                </div>
-                <h3 class="item-name">{d.name}</h3>
-                <p class="item-about">{d.about}</p>
-                <p class="item-price">{d.price}</p>
-              </div>
-            ))
-          }
-        </div>
-      </section>
 
       <section class="block drink-block" aria-labelledby="drink-title">
         <div class="block-words">
-          <h2 class="block-title" id="drink-title">One drink, too</h2>
+          <h2 class="block-title" id="drink-title">One drink</h2>
           <p class="block-line">
             <b>La Única.</b> Bacardi over a scoop of lime nieve de garrafa, a splash of Coke, fresh lime and salt.
             It's the only one we pour.
@@ -342,6 +319,46 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('A website for m
               </g>
             </g>
           </svg>
+        </div>
+        <div class="aguas">
+          <h3 class="aguas-title">Without the rum: three aguas frescas</h3>
+          <p class="block-line">Tap a jar to pour a glass.</p>
+          <div class="jars">
+          {
+            menu.drinks.map((d) => (
+              <div class="jar-spot">
+                <button type="button" class="jar" data-drink={d.key} aria-label={`Pour a glass of ${d.name}`}>
+                  <svg viewBox="0 0 140 220" aria-hidden="true">
+                    <rect x="20" y="30" width="100" height="160" rx="22" fill="#e8f4fa" stroke="#121a3a" stroke-width="5" />
+                    <rect x="27" y="62" width="86" height="121" rx="16" fill={d.color} />
+                    <g fill={d.ice} opacity="0.85">
+                      <rect x="40" y="70" width="16" height="14" rx="3" transform="rotate(-12 48 77)" />
+                      <rect x="70" y="80" width="16" height="14" rx="3" transform="rotate(14 78 87)" />
+                      <rect x="52" y="100" width="14" height="12" rx="3" />
+                    </g>
+                    <rect x="16" y="20" width="108" height="16" rx="5" fill="#fbfaf6" stroke="#121a3a" stroke-width="5" />
+                    <path d="M95 10 V70" stroke="#121a3a" stroke-width="5" />
+                    <ellipse cx="95" cy="74" rx="12" ry="6" fill="#9aa0a8" stroke="#121a3a" stroke-width="4" />
+                  </svg>
+                </button>
+                <div class="glass" aria-hidden="true">
+                  <svg viewBox="0 0 70 100">
+                    <defs>
+                      <clipPath id={`glass-${d.key}`}><path d="M10 8 L18 92 H52 L60 8 Z" /></clipPath>
+                    </defs>
+                    <g clip-path={`url(#glass-${d.key})`}>
+                      <rect class="pour" x="0" y="8" width="70" height="84" fill={d.color} />
+                    </g>
+                    <path d="M10 8 L18 92 H52 L60 8 Z" fill="none" stroke="#121a3a" stroke-width="4" stroke-linejoin="round" />
+                  </svg>
+                </div>
+                <h3 class="item-name">{d.name}</h3>
+                <p class="item-about">{d.about}</p>
+                <p class="item-price">{d.price}</p>
+              </div>
+            ))
+          }
+        </div>
         </div>
       </section>
 
@@ -531,7 +548,7 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('A website for m
     document.body.classList.toggle('is-closed', !open);
     el('neon-word').textContent = open ? 'Abierto' : 'Cerrado';
     if (forced === false) el('status').textContent = 'This is how the site looks after closing.';
-    else if (open) el('status').textContent = `Open now. We close at ${say(close)}. Walk-in only, so come early.`;
+    else if (open) el('status').innerHTML = `<b>Open now, until ${say(close)}.</b> Walk-in only, so come early.`;
     else if (holiday && close === 0) el('status').textContent = `${holiday.note}. See you tomorrow.`;
     else if (openDay && now.hour < hours.open) el('status').textContent = `Closed. We open today at ${say(hours.open)}.`;
     else el('status').textContent = `Closed. We open at ${say(hours.open)}${weekday === 'Sun' && !openDay ? ' on Tuesday' : ''}.`;
@@ -660,6 +677,7 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('A website for m
     --pink: #f0508f;
     --orange: #f07a1e;
     --green: #2f8f4e;
+    --green-text: #1f6b37;
     --cobalt: #1f3fcf;
     --yellow: #f2cb3a;
     --display: 'Archivo Variable', 'Arial Black', system-ui, sans-serif;
@@ -722,7 +740,9 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('A website for m
     color: var(--green);
   }
   .hero-line { max-width: 30rem; margin: 1.5rem 0 0; font-size: clamp(1.15rem, 2.2vw, 1.45rem); line-height: 1.45; }
-  .status { margin: 1rem 0 0; font-family: var(--display); font-weight: 700; }
+  .status { margin: 1.1rem 0 0; font-family: var(--display); font-weight: 700; font-size: clamp(1.05rem, 1.8vw, 1.25rem); }
+  .status b { display: block; font-weight: 900; font-stretch: 112%; font-size: clamp(1.6rem, 3.4vw, 2.5rem); line-height: 1.05; color: var(--green-text); }
+  .is-closed .status b { color: #dcffe8; text-shadow: var(--neon-green); }
 
   /* Neon in the window: open or closed. */
   .neon {
@@ -759,7 +779,34 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('A website for m
     border-top: 0.9rem solid transparent;
     border-image: repeating-linear-gradient(90deg, var(--cobalt) 0 1.2rem, var(--yellow) 1.2rem 1.6rem, var(--cobalt) 1.6rem 2.8rem, #fbfaf6 2.8rem 3.2rem) 1;
   }
-  .drinks-block, .desserts-block { grid-template-columns: 1fr; }
+  .desserts-block { grid-template-columns: minmax(16rem, 1fr) 2fr; }
+  .desserts-block .slices { margin-top: 0; grid-template-columns: repeat(2, 1fr); }
+  .aguas { grid-column: 1 / -1; padding-top: 2.5rem; border-top: 2px dashed rgb(251 244 228 / 0.3); }
+  .aguas-title { margin: 0; font-family: var(--display); font-weight: 900; font-stretch: 112%; font-size: clamp(1.4rem, 3vw, 2rem); line-height: 1.1; }
+  .drink-block .item-price { color: #8ff0ae; }
+
+  /* The menu: a felt letter board behind the counter. */
+  .menu-block { grid-template-columns: 1fr; justify-items: center; }
+  .board {
+    width: min(100%, 40rem);
+    padding: clamp(1.5rem, 4vw, 2.5rem) clamp(1.25rem, 5vw, 3rem) clamp(1.5rem, 4vw, 2.25rem);
+    border: clamp(10px, 1.6vw, 16px) solid #8a5523;
+    outline: 4px solid var(--ink);
+    box-shadow: 0 18px 0 -6px rgb(18 26 58 / 0.18);
+    background: repeating-linear-gradient(#202027 0 7px, #16161b 7px 9px);
+    color: #f4f0e6;
+    font-family: var(--display);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .board-title { margin: 0 0 1.25rem; text-align: center; font-weight: 800; font-size: clamp(1.6rem, 4vw, 2.4rem); letter-spacing: 0.3em; }
+  .board-rows { margin: 0; padding: 0; list-style: none; }
+  .board-row { display: flex; align-items: baseline; gap: 0.6rem; margin-top: 1rem; font-weight: 700; font-size: clamp(1rem, 2.4vw, 1.3rem); }
+  .board-row:first-child { margin-top: 0; }
+  .board-star { font-size: clamp(1.2rem, 3vw, 1.65rem); color: #ffd84a; }
+  .dots { flex: 1; border-bottom: 3px dotted rgb(244 240 230 / 0.45); transform: translateY(-0.3em); }
+  .board-note { margin-top: 0.2rem; font-size: clamp(0.7rem, 1.6vw, 0.8rem); font-weight: 600; letter-spacing: 0.06em; color: rgb(244 240 230 / 0.75); }
+  .board-foot { margin: 1.5rem 0 0; text-align: center; font-size: 0.75rem; font-weight: 600; color: rgb(244 240 230 / 0.75); }
   .block-title {
     margin: 0;
     font-family: var(--display);
@@ -791,8 +838,8 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('A website for m
   }
   .step::before { content: counter(step) '. '; }
   .step:hover:not(:disabled) { background: var(--pink); color: #fff; }
-  .step:disabled { cursor: default; box-shadow: none; background: transparent; opacity: 0.45; }
-  .step.is-done { opacity: 1; background: transparent; text-decoration: line-through; text-decoration-thickness: 2px; }
+  .step:disabled { cursor: default; box-shadow: none; background: transparent; color: #4e5470; border-color: #8d92a8; }
+  .step.is-done { color: var(--ink); border-color: var(--ink); background: transparent; text-decoration: line-through; text-decoration-thickness: 2px; }
   .price-line { margin: 1.5rem 0 0; font-family: var(--display); font-size: 1.15rem; }
   .again {
     margin-left: 0.4rem;
@@ -843,7 +890,7 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('A website for m
     box-shadow: 4px 4px 0 var(--ink);
   }
   .fact-button:hover { background: var(--pink); color: #fff; }
-  .special { margin: 0.75rem 0 0; padding: 0; list-style: none; font-family: var(--display); font-size: 0.9rem; color: var(--pink); font-weight: 700; }
+  .special { margin: 0.75rem 0 0; padding: 0; list-style: none; font-family: var(--display); font-size: 0.9rem; color: #b81f5c; font-weight: 700; }
   .special li + li { margin-top: 0.2rem; }
 
   .details-block { grid-template-columns: 1fr 2fr; align-items: start; }
@@ -884,6 +931,7 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('A website for m
     .action-bar a + a { border-left: 3px solid var(--ink); }
     .concept-foot { padding-bottom: 6rem; }
     .details-block { grid-template-columns: 1fr; }
+    .desserts-block .slices { margin-top: 1.5rem; grid-template-columns: 1fr; }
   }
 
   .plate svg { display: block; width: 100%; max-width: 30rem; margin: 0 auto; filter: drop-shadow(0 10px 0 rgb(18 26 58 / 0.12)); }
@@ -907,8 +955,8 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('A website for m
   }
   .drink-block { background: #1b1147; color: var(--cream); }
   .drink-block .block-title { text-shadow: 0.04em 0.04em 0 #000; }
-  .drink-block .step:disabled { color: var(--cream); border-color: rgb(251 244 228 / 0.6); }
-  .drink-block .step.is-done { color: var(--cream); }
+  .drink-block .step:disabled { color: rgb(251 244 228 / 0.72); border-color: rgb(251 244 228 / 0.5); }
+  .drink-block .step.is-done { color: var(--cream); border-color: var(--cream); }
   .drink-block .again { color: var(--cream); }
   /* The bar is always dark, so its glass is drawn in cream, day or night. */
   .drink-block svg [stroke='#121a3a'] { stroke: var(--cream); }
@@ -953,7 +1001,7 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('A website for m
   .slice svg { display: block; width: 100%; max-width: 20rem; }
   .item-name { margin: 1rem 0 0; font-family: var(--display); font-weight: 900; font-size: 1.5rem; line-height: 1.1; }
   .item-about { margin: 0.3rem 0 0; max-width: 22rem; }
-  .item-price { margin: 0.3rem 0 0; font-family: var(--display); font-weight: 800; color: var(--green); }
+  .item-price { margin: 0.3rem 0 0; font-family: var(--display); font-weight: 800; color: var(--green-text); }
 
   .concept-foot {
     display: flex;
@@ -1015,7 +1063,8 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('A website for m
 
   /* Buttons and cards. */
   .is-closed .step { border-color: var(--lamp); box-shadow: 4px 4px 0 rgb(241 226 194 / 0.3); }
-  .is-closed .step:disabled, .is-closed .step.is-done { color: var(--cream); box-shadow: none; }
+  .is-closed .step:disabled { color: rgb(251 244 228 / 0.72); border-color: rgb(241 226 194 / 0.5); box-shadow: none; }
+  .is-closed .step.is-done { color: var(--cream); box-shadow: none; }
   .is-closed .fact-button { color: var(--ink); border-color: var(--lamp); box-shadow: 4px 4px 0 rgb(241 226 194 / 0.3); }
   .is-closed .more-card { background: #1b1447; border-color: var(--lamp); box-shadow: 6px 6px 0 #2bff7a, 0 0 22px rgb(43 255 122 / 0.25); }
   .is-closed .story-block { background: #0a0620; }

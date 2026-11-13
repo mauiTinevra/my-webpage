@@ -3,3 +3,7 @@ dist/
 .astro/
 .vercel/
 .DS_Store
+
+# Impeccable downloads its engine on first run; keep it out of git.
+.claude/skills/impeccable/scripts/bin/
+.impeccable/
