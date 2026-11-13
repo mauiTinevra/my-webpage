@@ -1,0 +1,198 @@
+---
+// Row four: an old-fashioned outfitter's. Sam's own clothes hang on a brass rail in front of
+// shirting-stripe wallpaper, captioned like a mail-order catalogue. The rail sways as you
+// walk past, and each piece comes down to show what is inside.
+import '@fontsource-variable/bodoni-moda/wght.css';
+import '@fontsource-variable/bodoni-moda/wght-italic.css';
+import { site, sections } from '../../site';
+
+interface Item {
+  label: string;
+  href?: string;
+}
+interface Props {
+  backs: Record<string, Item[]>;
+}
+const { backs } = Astro.props;
+
+const pieces: Record<string, { garment: string; no: string }> = {
+  blog: { garment: 'The jacket', no: 'No. 1' },
+  art: { garment: 'The scarf', no: 'No. 2' },
+  code: { garment: 'The trousers', no: 'No. 3' },
+  journal: { garment: 'The watch', no: 'No. 4' },
+};
+const ink = '#121a3a';
+const stripes = [112, 142, 172, 202, 232, 262, 292, 322];
+const links = Array.from({ length: 17 }, (_, i) => 96 + i * 14);
+---
+
+<div class="row row-wardrobe" data-row data-reverse>
+  <div class="scene">
+    <div class="track">
+      <div class="rail" aria-hidden="true"></div>
+      <div class="floor" aria-hidden="true"></div>
+
+      <section class="outfit outfit-intro">
+        <div class="label">
+          <p class="label-small">Outfitter to himself</p>
+          <h2>{site.name}</h2>
+          <p class="label-small">Artist</p>
+        </div>
+        <p class="copy">{site.intro}</p>
+        <p class="copy small">Everything on the rail is mine. Take a piece down to see what's in it.</p>
+      </section>
+
+      {
+        sections.map((s) => (
+          <section class={`outfit outfit-${s.place}`}>
+            <div class="hang">
+              <button class="garment" type="button" aria-label={`Take down ${pieces[s.place].garment.toLowerCase()}: ${s.name}`}>
+                <svg viewBox="0 0 300 420" aria-hidden="true" stroke={ink} stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+                  <path d="M150 2 v6 q16 0 16 15 q0 11 -16 15 v10" fill="none" />
+                  {s.place === 'blog' && (
+                    <g>
+                      <path d="M150 48 L44 98 H256 Z" fill="#b98a4a" />
+                      <polygon points="68,110 40,128 22,330 58,336 72,180" fill="#c9a26b" />
+                      <polygon points="232,110 260,128 278,330 242,336 228,180" fill="#c9a26b" />
+                      <polygon points="96,84 204,84 232,110 236,362 64,362 68,110" fill="#c9a26b" />
+                      <polygon points="150,116 112,80 96,84 102,122 138,152" fill="#d9502e" />
+                      <polygon points="150,116 188,80 204,84 198,122 162,152" fill="#d9502e" />
+                      <path d="M150 116 V362" fill="none" />
+                      <rect x="84" y="252" width="46" height="52" fill="#c9a26b" />
+                      <rect x="170" y="252" width="46" height="52" fill="#c9a26b" />
+                      <rect x="174" y="164" width="36" height="36" fill="#c9a26b" />
+                      {[176, 226, 276, 326].map((y) => <circle cx="160" cy={y} r="5" fill="#fbf4e4" stroke-width="3" />)}
+                    </g>
+                  )}
+                  {s.place === 'art' && (
+                    <g>
+                      <path d="M150 48 L44 98 H256 Z" fill="#b98a4a" />
+                      <clipPath id="scarf-shape">
+                        <path d="M62 92 H238 L262 318 L196 262 L150 352 L104 262 L38 318 Z" />
+                      </clipPath>
+                      <path d="M62 92 H238 L262 318 L196 262 L150 352 L104 262 L38 318 Z" fill="#fbf4e4" />
+                      <g clip-path="url(#scarf-shape)" fill="none" stroke-width="13">
+                        {stripes.map((y, i) => (
+                          <path d={`M20 ${y} q38 ${i % 2 ? 22 : -22} 76 0 t76 0 t76 0 t76 0`} />
+                        ))}
+                      </g>
+                      <path d="M62 92 H238 L262 318 L196 262 L150 352 L104 262 L38 318 Z" fill="none" stroke="#d9502e" stroke-width="7" />
+                      <path d="M62 92 H238 L262 318 L196 262 L150 352 L104 262 L38 318 Z" fill="none" />
+                    </g>
+                  )}
+                  {s.place === 'code' && (
+                    <g>
+                      <path d="M150 48 V62 M64 62 H236" fill="none" />
+                      <rect x="76" y="56" width="16" height="22" fill="#b9bec6" />
+                      <rect x="208" y="56" width="16" height="22" fill="#b9bec6" />
+                      <polygon points="150,96 216,96 250,398 156,398" fill="#3f6f63" />
+                      <polygon points="84,96 150,96 144,398 50,398" fill="#3f6f63" />
+                      <rect x="82" y="72" width="136" height="24" fill="#3f6f63" />
+                      <path d="M112 96 L96 398 M188 96 L204 398" fill="none" stroke-width="3" />
+                      <circle cx="150" cy="84" r="5" fill="#fbf4e4" stroke-width="3" />
+                    </g>
+                  )}
+                  {s.place === 'journal' && (
+                    <g>
+                      <path d="M150 48 V64" fill="none" />
+                      <rect x="66" y="64" width="168" height="316" fill="#fbf4e4" />
+                      <rect x="128" y="90" width="44" height="264" fill="#b9bec6" />
+                      <g stroke-width="2.5">
+                        {links.map((y) => (
+                          <path d={`M128 ${y} H172`} />
+                        ))}
+                      </g>
+                      <circle cx="150" cy="222" r="50" fill="#b9bec6" />
+                      <circle cx="150" cy="222" r="38" fill="#f2cb3a" />
+                      <path d="M150 222 V196 M150 222 L168 232" fill="none" />
+                      <g stroke-width="3">
+                        <path d="M150 188 v6 M150 250 v6 M116 222 h6 M178 222 h6" />
+                      </g>
+                    </g>
+                  )}
+                </svg>
+              </button>
+              <div class="listing" hidden>
+                <p class="listing-no">
+                  {pieces[s.place].no}, {s.name}
+                </p>
+                <ul>
+                  {backs[s.place].map((item) => (
+                    <li>{item.href ? <a href={item.href}>{item.label}</a> : item.label}</li>
+                  ))}
+                </ul>
+                <a class="listing-go" href={s.href}>
+                  Go to {s.name.toLowerCase()}
+                </a>
+                <button class="listing-back" type="button">
+                  Hang it back up
+                </button>
+              </div>
+            </div>
+            <p class="caption-no">{pieces[s.place].no}</p>
+            <h2 class="caption-name">{s.name}</h2>
+            <p class="caption-note">
+              {pieces[s.place].garment}. {s.note}.
+            </p>
+          </section>
+        ))
+      }
+    </div>
+  </div>
+</div>
+
+<script>
+  const row = document.querySelector<HTMLElement>('.row-wardrobe')!;
+
+  row.querySelectorAll<HTMLElement>('.outfit').forEach((outfit) => {
+    const garment = outfit.querySelector<HTMLButtonElement>('.garment');
+    const listing = outfit.querySelector<HTMLElement>('.listing');
+    const back = outfit.querySelector<HTMLButtonElement>('.listing-back');
+    if (!garment || !listing || !back) return;
+    const show = (open: boolean) => {
+      garment.hidden = open;
+      listing.hidden = !open;
+      (open ? listing.querySelector<HTMLElement>('a, button') : garment)?.focus({ preventScroll: true });
+    };
+    garment.addEventListener('click', () => show(true));
+    back.addEventListener('click', () => show(false));
+    listing.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') show(false);
+    });
+  });
+
+  // Clothes on a rail swing when you walk past them, then settle.
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let lastY = scrollY;
+    let angle = 0;
+    let speed = 0;
+    let running = false;
+    const step = () => {
+      // A damped spring pulling the clothes back to hanging straight.
+      speed += -angle * 0.08;
+      speed *= 0.9;
+      angle += speed;
+      row.style.setProperty('--sway', `${angle.toFixed(2)}deg`);
+      if (Math.abs(angle) > 0.05 || Math.abs(speed) > 0.05) requestAnimationFrame(step);
+      else {
+        running = false;
+        row.style.removeProperty('--sway');
+      }
+    };
+    addEventListener(
+      'scroll',
+      () => {
+        const dy = scrollY - lastY;
+        lastY = scrollY;
+        const box = row.getBoundingClientRect();
+        if (box.bottom < 0 || box.top > innerHeight) return;
+        speed += Math.max(-1.2, Math.min(1.2, dy * 0.03));
+        if (!running) {
+          running = true;
+          requestAnimationFrame(step);
+        }
+      },
+      { passive: true },
+    );
+  }
+</script>

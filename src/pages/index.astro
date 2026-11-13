@@ -4,11 +4,13 @@ import Base from '../layouts/Base.astro';
 import StreetRow from '../components/rows/StreetRow.astro';
 import PosterRow from '../components/rows/PosterRow.astro';
 import PinataRow from '../components/rows/PinataRow.astro';
+import WardrobeRow from '../components/rows/WardrobeRow.astro';
 import { formatDate } from '../lib/date';
 import projects from '../data/projects.json';
 
 // The home page is a stack of rows. Scrolling walks along a row from Sam to Journal,
 // then drops to the next row, which tells the same five places another way.
+// Rows alternate direction: add data-reverse to every second row so the path snakes.
 // To add a row: build a component in src/components/rows/ whose root is
 // <div class="row" data-row><div class="scene"><div class="track">…</div></div></div>
 // and place it below.
@@ -52,6 +54,7 @@ const backs = {
   <StreetRow inside={inside} />
   <PosterRow backs={backs} />
   <PinataRow backs={backs} />
+  <WardrobeRow backs={backs} />
 </Base>
 
 <script>
@@ -61,6 +64,7 @@ const backs = {
     row,
     scene: row.querySelector<HTMLElement>('.scene')!,
     track: row.querySelector<HTMLElement>('.track')!,
+    reverse: row.hasAttribute('data-reverse'),
     max: 0,
   }));
   const header = document.querySelector<HTMLElement>('.site-header')!;
@@ -69,7 +73,7 @@ const backs = {
   const place = () => {
     for (const r of rows) {
       const x = Math.min(Math.max(headerH - r.row.getBoundingClientRect().top, 0), r.max);
-      r.track.style.transform = `translate3d(${-x}px, 0, 0)`;
+      r.track.style.transform = `translate3d(${r.reverse ? x - r.max : -x}px, 0, 0)`;
     }
   };
 
@@ -112,7 +116,13 @@ const backs = {
       const dx = t.clientX - lastX;
       const dy = t.clientY - lastY;
       [lastX, lastY] = [t.clientX, t.clientY];
-      if (Math.abs(dx) > Math.abs(dy) && !document.querySelector('.is-painting')) scrollBy(0, -dx);
+      if (Math.abs(dx) <= Math.abs(dy) || document.querySelector('.is-painting')) return;
+      // Swiping pulls the row along in whichever direction it runs.
+      const active = rows.find((r) => {
+        const box = r.row.getBoundingClientRect();
+        return box.top <= headerH + 1 && box.bottom >= innerHeight - 1;
+      });
+      scrollBy(0, active?.reverse ? dx : -dx);
     },
     { passive: true },
   );
@@ -124,7 +134,7 @@ const backs = {
     if (!r) return;
     const box = el.getBoundingClientRect();
     if (box.left >= 0 && box.right <= innerWidth) return;
-    const x = box.left - r.track.getBoundingClientRect().left - innerWidth * 0.15;
-    scrollTo({ top: r.row.offsetTop - headerH + Math.min(Math.max(x, 0), r.max) });
+    const shift = Math.min(Math.max(box.left - r.track.getBoundingClientRect().left - innerWidth * 0.15, 0), r.max);
+    scrollTo({ top: r.row.offsetTop - headerH + (r.reverse ? r.max - shift : shift) });
   });
 </script>
