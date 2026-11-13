@@ -212,19 +212,27 @@ a:hover { text-decoration-thickness: 2px; }
 }
 
 /* The last stretch of sky above the first row, meeting the night of the next page. */
-.ascent-sky {
-  height: calc(var(--scene-h, 100vh) * 1.5);
-  background: linear-gradient(0deg, #f0508f 0%, var(--purple) 50%, var(--sky-top, #1b1147) 100%);
+/* The sky between the last row and page two: dusk at the top, page two's sky at the bottom. */
+.descent-sky {
+  height: calc(var(--scene-h, 100vh) * 1.4);
+  background: linear-gradient(
+    180deg,
+    #ffc2a0 0%,
+    #f6a3c0 22%,
+    #f0508f 44%,
+    var(--purple) 70%,
+    var(--sky-top, #1b1147) 100%
+  );
 }
 
-/* The sunset that settles over everything from the moment the climb begins.
-   It is a tall strip of sky that slides from warm dusk at the bottom to night at the top. */
+/* The sunset that settles over everything as the descent begins. It is a tall strip of sky
+   that rises past you, from warm dusk at the top to page two's sky at the bottom. */
 .haze, .drift { position: absolute; inset: 0; pointer-events: none; opacity: 0; }
 .haze { overflow: hidden; }
 .haze-sky {
   height: 500%;
   background: linear-gradient(
-    0deg,
+    180deg,
     #ffd9a8 0%,
     #ffc2a0 14%,
     #f6a3c0 32%,
@@ -259,23 +267,6 @@ a:hover { text-decoration-thickness: 2px; }
 }
 
 /* The sky you climb through after the last row: day at the bottom, night at the top. */
-.ascent-sky {
-  position: relative;
-  height: calc(var(--scene-h, 100vh) * 1.5);
-  background: linear-gradient(
-    0deg,
-    var(--sky) 0%,
-    #7fc4f0 18%,
-    #f6b7cf 40%,
-    #f0508f 55%,
-    var(--purple) 74%,
-    #1b1147 100%
-  );
-}
-.ascent-sky .nube { position: absolute; width: clamp(7rem, 16vw, 13rem); height: auto; max-height: none; }
-.ascent-sky .nube:nth-child(1) { left: 12%; bottom: 14%; }
-.ascent-sky .nube:nth-child(2) { right: 14%; bottom: 38%; }
-.ascent-sky .nube:nth-child(3) { left: 38%; bottom: 62%; }
 
 /* The footer continues the dark foreground of the page-two picture. */
 /* The footer follows the black of page three. */

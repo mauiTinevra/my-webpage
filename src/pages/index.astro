@@ -43,7 +43,7 @@ const inside = {
   journal: entries[0] ? `Last entry: ${formatDate(entries[0].data.date)}` : 'No entries yet',
 };
 
-// Clouds that drift past during the climb: where each sits, how big, how soon and how fast.
+// Clouds that drift up past you during the descent: where each sits, how big, how soon and how fast.
 const clouds = [
   { x: 6, w: 17, off: 0, speed: 1.5, fill: '#ffffff' },
   { x: 62, w: 13, off: 0.2, speed: 1.9, fill: '#f6b7cf' },
@@ -72,14 +72,14 @@ const backs = {
   <div class="journey" id="journey">
     <div class="viewport">
       <div class="world" id="world">
-        <PageTwo />
-        <div class="ascent-sky" aria-hidden="true" />
         <StreetRow inside={inside} />
         <PinataRow backs={backs} />
         <LivingRoomRow backs={backs} />
         <WardrobeRow backs={backs} />
+        <div class="descent-sky" aria-hidden="true" />
+        <PageTwo />
       </div>
-      <!-- The sunset you rise into. It starts the moment the climb does, over the rows. -->
+      <!-- The sunset you sink through on the way down to page two. It begins over the last row. -->
       <div class="haze" id="haze" aria-hidden="true"><div class="haze-sky" id="haze-sky"></div></div>
       <div class="drift" id="drift" aria-hidden="true">
         {
@@ -100,8 +100,8 @@ const backs = {
 
 <script>
   // One long scroll drives a camera through the world. It walks row one to the right, drops,
-  // walks row two to the left, and so on. After the last row it climbs straight back up past
-  // every row and through the sky to the next page, which sits above the first row.
+  // walks row two to the left, and so on. After the last row it keeps going down, through a
+  // sunset, to page two, which holds for a while before the page moves on.
   const journey = document.getElementById('journey')!;
   const viewport = journey.querySelector<HTMLElement>('.viewport')!;
   const world = document.getElementById('world')!;
@@ -114,8 +114,8 @@ const backs = {
     max: 0,
     start: 0,
   }));
-  // The climb covers a lot of ground, so it moves faster than the scroll.
-  const CLIMB_SPEED = 1.6;
+  // The descent covers a lot of ground, so it moves a little faster than the scroll.
+  const DESCENT_SPEED = 1.15;
 
   const haze = document.getElementById('haze')!;
   const hazeSky = document.getElementById('haze-sky')!;
@@ -135,6 +135,7 @@ const backs = {
   let rowH = 0;
   let firstRowY = 0;
   let climb = 0;
+  let descent = 0;
   let drop = 0;
   let hold = 0;
   const pageTwo = document.getElementById('next-page')!;
@@ -159,9 +160,11 @@ const backs = {
       }
       return x;
     });
-    if (p > 0) y -= Math.min(p, climb) * CLIMB_SPEED;
-    // Past the climb there is a stretch of scrolling where page two simply holds still.
-    return { xs, y: Math.max(y, 0), t: climb ? Math.min(Math.max(p / climb, 0), 1) : 0 };
+    // After the last row the camera sinks on down to page two, easing in and out.
+    const t = climb ? Math.min(Math.max(p / climb, 0), 1) : 0;
+    y += descent * smooth(0, 1, t);
+    // Past the descent there is a stretch of scrolling where page two simply holds still.
+    return { xs, y, t };
   };
 
   const render = ({ xs, y, t }: View) => {
@@ -170,16 +173,16 @@ const backs = {
     });
     world.style.transform = `translate3d(0, ${(-y).toFixed(1)}px, 0)`;
 
-    // The climb, from 0 as it starts to 1 on arrival. The sunset thickens over the rows as
-    // you pass them, deepens to night, and clears as page two arrives.
+    // The descent, from 0 as it starts to 1 on arrival. The sunset thickens over the last row
+    // as you leave it, deepens toward page two's sky, and clears as page two arrives.
     const clearing = 1 - smooth(0.88, 1, t);
     haze.style.opacity = String(smooth(0, 0.6, t) * 0.94 * clearing);
-    hazeSky.style.transform = `translate3d(0, ${-(1 - t) * 80}%, 0)`;
+    hazeSky.style.transform = `translate3d(0, ${-t * 80}%, 0)`;
     drift.style.opacity = String(smooth(0, 0.06, t) * clearing);
     // On arrival the header's bar dissolves and only its lettering stays, floating on the picture.
     document.body.style.setProperty('--arrive', smooth(0.8, 0.97, t).toFixed(3));
     for (const c of driftClouds) {
-      c.el.style.transform = `translate3d(0, ${(-0.32 - c.off + t * c.speed * 1.3) * sceneH}px, 0)`;
+      c.el.style.transform = `translate3d(0, ${(1.05 + c.off - t * c.speed * 1.3) * sceneH}px, 0)`;
     }
   };
 
@@ -239,7 +242,9 @@ const backs = {
       r.start = total;
       total += r.max + (i < rows.length - 1 ? drop : 0);
     });
-    climb = (firstRowY + (rows.length - 1) * rowH) / CLIMB_SPEED;
+    // From the last row down to page two, which fills the whole window, header and all.
+    descent = pageTwo.offsetTop - (firstRowY + (rows.length - 1) * rowH);
+    climb = descent / DESCENT_SPEED;
     total += climb + hold;
     journey.style.height = `${total + sceneH}px`;
     jump();
