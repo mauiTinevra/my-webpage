@@ -1,5 +1,6 @@
 ---
 import '@fontsource-variable/archivo/wdth.css';
+import '@fontsource-variable/archivo/wdth-italic.css';
 import '@fontsource-variable/literata';
 import '../styles/global.css';
 import { site, sections, type Place } from '../site';
@@ -25,6 +26,7 @@ const bodyClass = [place && `at-${place}`, street && 'is-street'].filter(Boolean
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
+    <noscript><style>.scene{overflow-x:auto}</style></noscript>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
   <body class={bodyClass || undefined}>
@@ -50,21 +52,17 @@ const bodyClass = [place && `at-${place}`, street && 'is-street'].filter(Boolean
     <main id="main">
       <slot />
     </main>
-    {
-      !street && (
-        <footer class="site-footer">
-          <span>
-            {site.name}, {new Date().getFullYear()}
-          </span>
-          <ul>
-            {site.links.map((l) => (
-              <li>
-                <a href={l.href}>{l.label}</a>
-              </li>
-            ))}
-          </ul>
-        </footer>
-      )
-    }
+    <footer class="site-footer">
+      <span>
+        {site.name}, {new Date().getFullYear()}
+      </span>
+      <ul>
+        {site.links.map((l) => (
+          <li>
+            <a href={l.href}>{l.label}</a>
+          </li>
+        ))}
+      </ul>
+    </footer>
   </body>
 </html>

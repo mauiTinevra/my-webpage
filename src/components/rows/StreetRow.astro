@@ -1,0 +1,227 @@
+---
+// Row one: the street. Painted walls, roll-up shutters, and spray cans for visitors.
+import { Image } from 'astro:assets';
+import Nube from '../Nube.astro';
+import { site, sections } from '../../site';
+import yellowWall from '../../assets/photos/yellow-wall.jpg';
+import crow from '../../assets/photos/crow.jpg';
+import ghost from '../../assets/stickers/ghost.png';
+
+interface Props {
+  // What you glimpse behind each shutter before it rolls up.
+  inside: Record<string, string>;
+}
+const { inside } = Astro.props;
+
+const cans = [
+  { name: 'Cobalt', color: '#1f3fcf' },
+  { name: 'Pink', color: '#f0508f' },
+  { name: 'Yellow', color: '#f2cb3a' },
+  { name: 'White', color: '#ffffff' },
+  { name: 'Black', color: '#121a3a' },
+];
+---
+
+<div class="row row-street" data-row>
+  <div class="scene" id="street">
+    <div class="track" id="street-inner">
+      <section class="facade facade-intro">
+        <div class="wall">
+          <h1 class="rotulo">{site.name}</h1>
+          <p class="painted">{site.intro}</p>
+          <p class="painted small">
+            Keep scrolling to walk the street. Roll up a shutter to go in. Pick up a can and leave your mark.
+          </p>
+          <ul class="painted links">
+            {site.links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+          </ul>
+          <div class="posters">
+            <Image class="poster poster-a" src={yellowWall} alt="Sam crouching in front of a yellow wall, smiling, hand in his curls" widths={[360, 720]} sizes="(max-width: 700px) 42vw, 300px" />
+            <Image class="poster poster-b" src={crow} alt="Sam in crow pose on a pink mat in front of a red shutter painted with a blue and white cloud" widths={[360, 720]} sizes="(max-width: 700px) 42vw, 300px" />
+          </div>
+        </div>
+        <div class="sidewalk"></div>
+      </section>
+
+      {
+        sections.map((s, i) => (
+          <section class={`facade facade-${s.place}`}>
+            <div class="wall">
+              <h2 class="rotulo">{s.name}</h2>
+              <p class="painted small">{s.note}</p>
+              <a class="doorway" href={s.href} aria-label={`${s.name}: ${s.note}. ${inside[s.place]}.`}>
+                <span class="inside">{inside[s.place]}</span>
+                <span class="shutter slats">
+                  {s.place === 'art' ? (
+                    <Image class="tag-art" src={ghost} alt="" widths={[300, 600]} sizes="260px" />
+                  ) : (
+                    <Nube variant={(i % 3) as 0 | 1 | 2} fill={s.place === 'journal' ? '#f2cb3a' : s.place === 'code' ? '#f6b7cf' : '#ffffff'} />
+                  )}
+                </span>
+              </a>
+            </div>
+            <div class="sidewalk"></div>
+          </section>
+        ))
+      }
+
+      <canvas id="paint" class="paint" aria-hidden="true"></canvas>
+    </div>
+  </div>
+</div>
+
+<div class="cans" id="cans" role="group" aria-label="Spray paint">
+  <span class="cans-label" id="cans-label">Pick up a can</span>
+  {
+    cans.map((c) => (
+      <button class="can" type="button" data-color={c.color} aria-pressed="false" style={`--can:${c.color}`}>
+        <span class="visually-hidden">{c.name} spray paint</span>
+      </button>
+    ))
+  }
+  <button class="can-action" type="button" id="can-down" hidden>Put the can down</button>
+  <button class="can-action" type="button" id="wall-clean" hidden>Clean the wall</button>
+</div>
+
+<script>
+  const street = document.getElementById('street')!;
+  const inner = document.getElementById('street-inner')!;
+  const tray = document.getElementById('cans')!;
+  const canvas = document.getElementById('paint') as HTMLCanvasElement;
+  const ctx = canvas.getContext('2d')!;
+  const cans = [...document.querySelectorAll<HTMLButtonElement>('.can')];
+  const label = document.getElementById('cans-label')!;
+  const downBtn = document.getElementById('can-down') as HTMLButtonElement;
+  const cleanBtn = document.getElementById('wall-clean') as HTMLButtonElement;
+  const KEY = 'sam-tinevra-wall';
+  const MAX_POINTS = 6000;
+
+  // A stroke is a colour and a list of points, stored relative to the wall's height
+  // so the paint stays put when the window changes size.
+  type Stroke = { c: string; p: number[] };
+  let strokes: Stroke[] = [];
+  let color: string | null = null;
+  let current: Stroke | null = null;
+
+  try {
+    strokes = JSON.parse(localStorage.getItem(KEY) || '[]');
+  } catch {
+    strokes = [];
+  }
+
+  const save = () => {
+    let total = strokes.reduce((n, s) => n + s.p.length / 2, 0);
+    while (total > MAX_POINTS && strokes.length > 1) total -= strokes.shift()!.p.length / 2;
+    try {
+      localStorage.setItem(KEY, JSON.stringify(strokes));
+    } catch {
+      /* Storage unavailable: the paint lasts until the page closes. */
+    }
+  };
+
+  const puff = (x: number, y: number, c: string) => {
+    const r = Math.max(10, canvas.height * 0.022);
+    const g = ctx.createRadialGradient(x, y, 0, x, y, r);
+    g.addColorStop(0, c);
+    g.addColorStop(0.55, c);
+    g.addColorStop(1, 'transparent');
+    ctx.globalAlpha = 0.5;
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  };
+
+  const line = (x0: number, y0: number, x1: number, y1: number, c: string) => {
+    const steps = Math.max(1, Math.ceil(Math.hypot(x1 - x0, y1 - y0) / 4));
+    for (let i = 1; i <= steps; i++) puff(x0 + ((x1 - x0) * i) / steps, y0 + ((y1 - y0) * i) / steps, c);
+  };
+
+  const redraw = () => {
+    canvas.width = inner.scrollWidth;
+    canvas.height = inner.clientHeight;
+    const h = canvas.height;
+    for (const s of strokes) {
+      for (let i = 0; i < s.p.length; i += 2) {
+        if (i === 0) puff(s.p[0] * h, s.p[1] * h, s.c);
+        else line(s.p[i - 2] * h, s.p[i - 1] * h, s.p[i] * h, s.p[i + 1] * h, s.c);
+      }
+    }
+    cleanBtn.hidden = strokes.length === 0 && !color;
+  };
+
+  const setCan = (c: string | null) => {
+    color = c;
+    cans.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.color === c)));
+    street.classList.toggle('is-painting', !!c);
+    label.textContent = c ? 'Drag on the wall to paint' : 'Pick up a can';
+    downBtn.hidden = !c;
+    cleanBtn.hidden = strokes.length === 0 && !c;
+  };
+
+  cans.forEach((b) => b.addEventListener('click', () => setCan(color === b.dataset.color ? null : b.dataset.color!)));
+  downBtn.addEventListener('click', () => setCan(null));
+  cleanBtn.addEventListener('click', () => {
+    strokes = [];
+    save();
+    redraw();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && color) setCan(null);
+  });
+
+  const point = (e: PointerEvent) => {
+    const r = canvas.getBoundingClientRect();
+    return [e.clientX - r.left, e.clientY - r.top];
+  };
+
+  canvas.addEventListener('pointerdown', (e) => {
+    if (!color) return;
+    e.preventDefault();
+    canvas.setPointerCapture(e.pointerId);
+    const [x, y] = point(e);
+    current = { c: color, p: [x / canvas.height, y / canvas.height] };
+    strokes.push(current);
+    puff(x, y, color);
+  });
+  canvas.addEventListener('pointermove', (e) => {
+    if (!current) return;
+    const [x, y] = point(e);
+    const h = canvas.height;
+    const n = current.p.length;
+    line(current.p[n - 2] * h, current.p[n - 1] * h, x, y, current.c);
+    current.p.push(x / h, y / h);
+  });
+  const end = () => {
+    if (!current) return;
+    current = null;
+    save();
+  };
+  canvas.addEventListener('pointerup', end);
+  canvas.addEventListener('pointercancel', end);
+
+  // The cans belong to this row: they leave with the street and the can is put down.
+  new IntersectionObserver(
+    ([entry]) => {
+      tray.classList.toggle('is-away', !entry.isIntersecting);
+      if (!entry.isIntersecting && color) setCan(null);
+    },
+    { threshold: 0.4 },
+  ).observe(street);
+
+  // Rolling a shutter all the way up before going in.
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll<HTMLAnchorElement>('.doorway').forEach((door) => {
+    door.addEventListener('click', (e) => {
+      if (calm || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+      e.preventDefault();
+      door.classList.add('is-open');
+      setTimeout(() => (location.href = door.href), 520);
+    });
+  });
+  addEventListener('pageshow', () => document.querySelectorAll('.doorway.is-open').forEach((d) => d.classList.remove('is-open')));
+
+  new ResizeObserver(redraw).observe(inner);
+  redraw();
+</script>
