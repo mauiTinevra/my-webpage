@@ -288,7 +288,7 @@ a:hover { text-decoration-thickness: 2px; }
   background: linear-gradient(180deg, var(--ground, #121a3a) 0%, #000 100%);
 }
 
-/* Page three: Cloud Invaders. */
+/* Page three: the arcade game. */
 .space-page { position: relative; height: var(--scene-h, 100dvh); background: #000; color: var(--cream); overflow: hidden; }
 .space-page canvas { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; outline: none; }
 .space-hud {
@@ -321,7 +321,7 @@ a:hover { text-decoration-thickness: 2px; }
   --shade: #f0508f;
 }
 .space-panel[hidden] { display: none; }
-.space-panel .rotulo { font-size: clamp(2rem, 7vw, 3.5rem); }
+.space-title { font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: clamp(1.5rem, 5vw, 2.25rem); font-weight: 700; font-stretch: 100%; letter-spacing: 0.08em; text-transform: uppercase; }
 .space-panel p { margin: 0; font-weight: 600; line-height: 1.4; }
 .space-panel .space-keys { font-weight: 400; font-size: 0.9rem; color: #cfc9dc; }
 .space-play {

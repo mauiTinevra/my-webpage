@@ -1,21 +1,21 @@
 ---
-// Page three: Cloud Invaders. Above the desert the sky goes black, and the cloud characters
-// come down in rows. Your ship is a spray can from the street; it shoots paint, and the
-// clouds rain on you.
+// Page three: an arcade game in white pixels on black. Rows of small pixel creatures march
+// down the screen: an eye, a cloud, a saguaro, a piñata star and the dog. Your ship is a
+// spray can from the street; it shoots paint.
 ---
 
 <section class="space-page" id="space-page" aria-labelledby="space-title">
-  <canvas id="space-canvas" aria-label="Cloud Invaders game area"></canvas>
+  <canvas id="space-canvas" aria-label="Game area"></canvas>
 
-  <div class="space-hud" aria-live="off">
+  <div class="space-hud visually-hidden" aria-live="off">
     <span>Score <b id="space-score">0</b></span>
     <span>Best <b id="space-best">0</b></span>
     <span>Lives <b id="space-lives">3</b></span>
   </div>
 
   <div class="space-panel" id="space-panel">
-    <h2 id="space-title" class="rotulo">Cloud invaders</h2>
-    <p id="space-message">The clouds are coming down. Paint them before they reach you.</p>
+    <h2 id="space-title" class="space-title">Paint them out</h2>
+    <p id="space-message">They are coming down. Paint them before they reach you.</p>
     <p class="space-keys">
       Move with the arrow keys or your mouse. Shoot with the space bar or a click. On a phone, drag to move and
       the can sprays by itself. Press Escape to pause.
@@ -38,21 +38,43 @@
   const CREAM = '#fbf4e4';
   const INK = '#121a3a';
   const PAINTS = ['#f0508f', '#f2cb3a', '#1e9fea', '#ffffff'];
-  const CLOUDS = ['#ffffff', '#f6b7cf', '#f2cb3a', '#9fd8f6'];
-  const BEST_KEY = 'sam-tinevra-cloud-invaders-best';
-  // The cloud character: the same bubbles as the ones on the street, in a 280 by 180 box.
-  const BUBBLES = [
-    [70, 95, 42],
-    [120, 70, 52],
-    [178, 82, 46],
-    [222, 104, 34],
-    [150, 112, 44],
-    [100, 118, 36],
+  const BEST_KEY = 'sam-tinevra-arcade-best';
+  // The creatures, one kind per row, each with two frames it flips between as it marches.
+  // Every one is drawn on a 12 by 8 grid of pixels.
+  const SPRITES: [string[], string[]][] = [
+    // An eye that looks from side to side.
+    [
+      ['....####....', '..########..', '.###....###.', '###.##...###', '###.##...###', '.###....###.', '..########..', '....####....'],
+      ['....####....', '..########..', '.###....###.', '###...##.###', '###...##.###', '.###....###.', '..########..', '....####....'],
+    ],
+    // A cloud with eyes, dripping.
+    [
+      ['....####....', '..########..', '.##########.', '############', '##.##..##.##', '############', '.##########.', '..#..#..#...'],
+      ['....####....', '..########..', '.##########.', '############', '##.##..##.##', '############', '.##########.', '...#..#..#..'],
+    ],
+    // A saguaro waving its arms.
+    [
+      ['.....##.....', '.##..##.....', '.##..##..##.', '.##..##..##.', '.######..##.', '.....######.', '.....##.....', '....####....'],
+      ['.....##.....', '.....##..##.', '.##..##..##.', '.##..##..##.', '.##..######.', '.######.....', '.....##.....', '....####....'],
+    ],
+    // A piñata star.
+    [
+      ['.....##.....', '.#...##...#.', '..#.####.#..', '...######...', '####.##.####', '...######...', '..#.####.#..', '.#...##...#.'],
+      ['............', '.....##.....', '..#.####.#..', '...######...', '.###.##.###.', '...######...', '..#.####.#..', '.....##.....'],
+    ],
+    // The dog, ears down and ears up.
+    [
+      ['.##......##.', '####....####', '.##########.', '.##.####.##.', '.##########.', '.####..####.', '..########..', '....####....'],
+      ['##........##', '###......###', '.##########.', '.##.####.##.', '.##########.', '.####..####.', '..########..', '....####....'],
+    ],
   ];
-  // Clouds are sized to the screen in resize().
-  let CLOUD_W = 54;
-  let CLOUD_H = (CLOUD_W * 180) / 280;
-  const STAMP_W = 180;
+  const ROWS = SPRITES.length;
+  // The size of one pixel, set from the screen in resize().
+  let PX = 4;
+  let CLOUD_W = 48;
+  let CLOUD_H = 32;
+  let tick = 0;
+  let stepIn = 0;
 
   type Cloud = { col: number; row: number; alive: boolean };
   type Shot = { x: number; y: number; color: string };
@@ -81,7 +103,6 @@
   let last = 0;
   let auto = false;
   const held = new Set<string>();
-  const stars: [number, number, number][] = [];
 
   try {
     best = Number(localStorage.getItem(BEST_KEY)) || 0;
@@ -90,41 +111,18 @@
   }
   bestEl.textContent = String(best);
 
-  // Each colour of cloud is drawn once and stamped after that.
-  const stamps = CLOUDS.map((fill) => {
-    const stamp = document.createElement('canvas');
-    const scale = STAMP_W / 280;
-    stamp.width = STAMP_W;
-    stamp.height = (STAMP_W * 180) / 280;
-    const c = stamp.getContext('2d')!;
-    c.scale(scale, scale);
-    for (const [color, grow] of [
-      [INK, 8],
-      [fill, 0],
-    ] as const) {
-      c.fillStyle = color;
-      for (const [x, y, r] of BUBBLES) {
-        c.beginPath();
-        c.arc(x, y, r + grow, 0, Math.PI * 2);
-        c.fill();
-      }
-    }
-    return stamp;
-  });
-
-  const cellW = () => CLOUD_W + 20;
-  const cellH = () => CLOUD_H + 18;
+  const cellW = () => CLOUD_W + PX * 4;
+  const cellH = () => CLOUD_H + PX * 4;
   const shipY = () => height - 64;
   const cloudAt = (cloud: Cloud) => [groupX + cloud.col * cellW(), groupY + cloud.row * cellH()];
 
   const spawn = () => {
-    cols = Math.max(4, Math.min(9, Math.floor((width - 120) / cellW())));
+    cols = Math.max(4, Math.min(11, Math.floor((width - PX * 24) / cellW())));
     clouds = [];
-    for (let row = 0; row < 4; row++) for (let col = 0; col < cols; col++) clouds.push({ col, row, alive: true });
+    for (let row = 0; row < ROWS; row++) for (let col = 0; col < cols; col++) clouds.push({ col, row, alive: true });
     groupX = (width - cols * cellW()) / 2;
-    // Start just under the score line.
-    const hudLine = section.querySelector<HTMLElement>('.space-hud')!;
-    groupY = hudLine.offsetTop + hudLine.offsetHeight + 16;
+    // Start under the header and the score.
+    groupY = headerHeight() + PX * 14;
     direction = 1;
     shots = [];
     rain = [];
@@ -178,7 +176,7 @@
       }
     }
     hud();
-    show(`The clouds got you. You scored ${score}.`, 'Play again');
+    show(`They got you. You scored ${score}.`, 'Play again');
   };
 
   const burst = (x: number, y: number, color: string) => {
@@ -200,15 +198,18 @@
       cooldown = 0.26;
     }
 
-    // The clouds march sideways, and step down at each edge.
+    // They march in steps, quicker as their numbers thin, and drop a row at each edge.
     const alive = clouds.filter((c) => c.alive);
-    const pace = (30 + wave * 9) * (1 + (1 - alive.length / clouds.length) * 2.2);
-    groupX += direction * pace * dt;
-    const xs = alive.map((c) => cloudAt(c)[0]);
-    if (Math.min(...xs) < 12 || Math.max(...xs) + CLOUD_W > width - 12) {
-      direction *= -1;
-      groupX += direction * 4;
-      groupY += 18;
+    stepIn -= dt;
+    if (stepIn <= 0) {
+      stepIn = Math.max(0.05, (0.62 - wave * 0.05) * (0.12 + 0.88 * (alive.length / clouds.length)));
+      tick += 1;
+      const xs = alive.map((c) => cloudAt(c)[0]);
+      const next = direction * PX * 2;
+      if (Math.min(...xs) + next < PX * 2 || Math.max(...xs) + CLOUD_W + next > width - PX * 2) {
+        direction *= -1;
+        groupY += PX * 4;
+      } else groupX += next;
     }
 
     // Paint going up.
@@ -220,7 +221,7 @@
         const [x, y] = cloudAt(cloud);
         if (shot.x > x && shot.x < x + CLOUD_W && shot.y > y && shot.y < y + CLOUD_H) {
           cloud.alive = false;
-          score += 10 * (4 - cloud.row);
+          score += 10 * (ROWS - cloud.row);
           burst(x + CLOUD_W / 2, y + CLOUD_H / 2, shot.color);
           hud();
           return false;
@@ -234,7 +235,7 @@
     if (rainIn <= 0 && alive.length) {
       const cloud = alive[Math.floor(Math.random() * alive.length)];
       const [x, y] = cloudAt(cloud);
-      rain.push({ x: x + CLOUD_W / 2, y: y + CLOUD_H, color: '#1e9fea' });
+      rain.push({ x: x + CLOUD_W / 2, y: y + CLOUD_H, color: '#fff' });
       rainIn = Math.max(0.4, 1.15 - wave * 0.08) * (0.6 + Math.random() * 0.8);
     }
     for (const drop of rain) drop.y += (210 + wave * 14) * dt;
@@ -243,7 +244,7 @@
       if (safeFor <= 0 && Math.abs(drop.x - shipX) < 17 && drop.y > shipY() - 24 && drop.y < shipY() + 22) {
         lives -= 1;
         safeFor = 1.4;
-        burst(shipX, shipY(), '#1e9fea');
+        burst(shipX, shipY(), '#fff');
         hud();
         return false;
       }
@@ -267,77 +268,67 @@
 
   const draw = () => {
     ctx.clearRect(0, 0, width, height);
-    for (const [x, y, r] of stars) {
-      ctx.fillStyle = r > 1.4 ? '#f2cb3a' : CREAM;
-      ctx.beginPath();
-      ctx.arc(x * width, y * height, r, 0, Math.PI * 2);
-      ctx.fill();
-    }
 
+    ctx.fillStyle = '#fff';
     for (const cloud of clouds) {
       if (!cloud.alive) continue;
       const [x, y] = cloudAt(cloud);
-      ctx.drawImage(stamps[cloud.row % stamps.length], x, y, CLOUD_W, CLOUD_H);
-      // The eyes watch the can.
-      const scale = CLOUD_W / 280;
-      for (const ex of [118, 164]) {
-        const cx = x + ex * scale;
-        const cy = y + 92 * scale;
-        const angle = Math.atan2(shipY() - cy, shipX - cx);
-        ctx.fillStyle = '#fff';
-        ctx.strokeStyle = INK;
-        ctx.lineWidth = Math.max(1.2, 5 * scale);
-        ctx.beginPath();
-        ctx.ellipse(cx, cy, 13 * scale, 18 * scale, 0, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.stroke();
-        ctx.fillStyle = INK;
-        ctx.beginPath();
-        ctx.ellipse(cx + Math.cos(angle) * 6 * scale, cy + Math.sin(angle) * 8 * scale, 6 * scale, 9 * scale, 0, 0, Math.PI * 2);
-        ctx.fill();
+      const rows = SPRITES[cloud.row % SPRITES.length][tick % 2];
+      for (let r = 0; r < rows.length; r++) {
+        for (let c = 0; c < 12; c++) {
+          if (rows[r][c] === '#') ctx.fillRect(Math.round(x) + c * PX, Math.round(y) + r * PX, PX, PX);
+        }
       }
+    }
+
+    // The score and the best score, in pixel numerals, with a can for each life left.
+    const top = headerHeight() + PX * 2;
+    digits(String(score).padStart(4, '0'), PX * 6, top);
+    digits(String(Math.max(best, score)).padStart(4, '0'), PX * 6 + PX * 30, top);
+    for (let i = 0; i < lives; i++) {
+      ctx.fillRect(width - PX * 6 - i * PX * 6 - PX * 3, top + PX, PX * 3, PX * 4);
+      ctx.fillRect(width - PX * 6 - i * PX * 6 - PX * 2, top, PX, PX);
     }
 
     for (const shot of shots) {
       ctx.fillStyle = shot.color;
-      ctx.beginPath();
-      ctx.arc(shot.x, shot.y, 5, 0, Math.PI * 2);
-      ctx.fill();
+      ctx.fillRect(shot.x - PX / 2, shot.y - PX * 2, PX, PX * 4);
     }
-    ctx.fillStyle = '#1e9fea';
+    // What they drop: a zigzag of white pixels.
+    ctx.fillStyle = '#fff';
     for (const drop of rain) {
-      ctx.beginPath();
-      ctx.moveTo(drop.x, drop.y - 9);
-      ctx.quadraticCurveTo(drop.x + 6, drop.y + 2, drop.x, drop.y + 5);
-      ctx.quadraticCurveTo(drop.x - 6, drop.y + 2, drop.x, drop.y - 9);
-      ctx.fill();
+      for (let i = 0; i < 4; i++) ctx.fillRect(drop.x + ((i + tick) % 2 ? 0 : -PX), drop.y - PX * 2 + i * PX, PX, PX);
     }
     for (const splat of splats) {
       ctx.globalAlpha = Math.max(0, splat.life * 2);
       ctx.fillStyle = splat.color;
-      ctx.beginPath();
-      ctx.arc(splat.x, splat.y, 3.5, 0, Math.PI * 2);
-      ctx.fill();
+      ctx.fillRect(splat.x, splat.y, PX, PX);
     }
     ctx.globalAlpha = 1;
 
     // The spray can. It blinks while it shakes off a hit.
     if (safeFor <= 0 || Math.floor(safeFor * 10) % 2 === 0) {
       const y = shipY();
-      ctx.lineWidth = 3;
-      ctx.strokeStyle = CREAM;
+      ctx.fillStyle = '#fff';
+      ctx.fillRect(shipX - PX * 3, y - PX * 2, PX * 6, PX * 8);
+      ctx.fillRect(shipX - PX, y - PX * 5, PX * 2, PX * 3);
+      // The band on the can shows the colour it sprays next.
       ctx.fillStyle = PAINTS[paint % PAINTS.length];
-      ctx.beginPath();
-      ctx.roundRect(shipX - 13, y - 14, 26, 38, 4);
-      ctx.fill();
-      ctx.stroke();
-      ctx.fillStyle = CREAM;
-      ctx.beginPath();
-      ctx.roundRect(shipX - 6, y - 24, 12, 10, 2);
-      ctx.fill();
-      ctx.stroke();
+      ctx.fillRect(shipX - PX * 3, y + PX, PX * 6, PX * 2);
     }
   };
+
+  // Numerals on a 3 by 5 grid.
+  const NUMERALS = ['###/#.#/#.#/#.#/###', '.#./##./.#./.#./###', '###/..#/###/#../###', '###/..#/###/..#/###', '#.#/#.#/###/..#/..#', '###/#../###/..#/###', '###/#../###/#.#/###', '###/..#/..#/..#/..#', '###/#.#/###/#.#/###', '###/#.#/###/..#/###'];
+  const digits = (text: string, x: number, y: number) => {
+    ctx.fillStyle = '#fff';
+    [...text].forEach((char, i) => {
+      NUMERALS[Number(char)].split('/').forEach((row, r) => {
+        for (let c = 0; c < 3; c++) if (row[c] === '#') ctx.fillRect(x + i * PX * 5 + c * PX, y + r * PX, PX, PX);
+      });
+    });
+  };
+  const headerHeight = () => document.querySelector<HTMLElement>('.site-header')?.offsetHeight ?? 64;
 
   const frame = (time: number) => {
     if (state !== 'playing') return draw();
@@ -354,8 +345,9 @@
     const ratio = Math.min(2, devicePixelRatio || 1);
     width = canvas.clientWidth;
     height = canvas.clientHeight;
-    CLOUD_W = Math.max(42, Math.min(84, width / 15, height / 9));
-    CLOUD_H = (CLOUD_W * 180) / 280;
+    PX = Math.max(3, Math.min(5, Math.floor(width / 250), Math.floor(height / 170)));
+    CLOUD_W = PX * 12;
+    CLOUD_H = PX * 8;
     canvas.width = Math.round(width * ratio);
     canvas.height = Math.round(height * ratio);
     ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
@@ -363,10 +355,6 @@
     if (state === 'idle') spawn();
     draw();
   };
-
-  let seed = 3;
-  const rand = () => ((seed = (seed * 16807) % 2147483647) - 1) / 2147483646;
-  for (let i = 0; i < 110; i++) stars.push([rand(), rand(), 0.5 + rand() * 1.3]);
 
   playButton.addEventListener('click', start);
 

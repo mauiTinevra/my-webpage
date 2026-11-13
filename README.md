@@ -15,7 +15,7 @@ then drops down to the next row, which presents the same five places a different
 
 A page is always four rows. After the fourth, scrolling climbs straight back up past all of them and through a sky to page two, a single full-page picture (`src/components/PageTwo.astro`). The picture is live: its sky follows the real time in Scottsdale, Arizona (`src/lib/sky.ts`), and the figure works through a selection of the Ashtanga primary and second series (`src/lib/yogi.ts`). Add `?hour=6.5` to the address to preview any time of day.
 
-Scrolling on down from page two, the ground fades to black and page three is a game, Cloud Invaders (`src/components/SpacePage.astro`).
+Scrolling on down from page two, the ground fades to black and page three is an arcade game in white pixels (`src/components/SpacePage.astro`).
 
 Rows alternate direction (right, left, right, left). A row with `data-reverse` on its root runs right to left.
 
