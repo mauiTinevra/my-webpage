@@ -420,125 +420,77 @@ a:hover { text-decoration-thickness: 2px; }
   @keyframes twinkle { 50% { opacity: 0.15; } }
 }
 
-/* A trailhead sign standing in the scene: routed wooden planks on a post set in the ground. */
-.sign {
+/* Where Maui is, set directly on the picture: no box, just a line of type along the dark
+   ground at the foot of the scene, like the credits under a photograph. */
+.here-note {
   position: absolute;
+  left: var(--edge);
   right: var(--edge);
-  bottom: 0;
-  width: clamp(12rem, 20vw, 17rem);
+  bottom: clamp(1.25rem, 4.5vh, 2.75rem);
   display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 0.55rem;
-  padding-bottom: clamp(1.5rem, 7vh, 4rem);
-  color: #f3e6c8;
-  font-family: var(--display);
-  text-align: center;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.75rem clamp(1.5rem, 4vw, 4rem);
+  color: var(--cream);
+  text-shadow: 0 1px 12px rgb(0 0 0 / 0.45);
   z-index: 2;
 }
-.sign-post {
-  position: absolute;
-  left: 50%;
-  top: 1.5rem;
-  bottom: 0;
-  width: 1.5rem;
-  translate: -50% 0;
-  background:
-    repeating-linear-gradient(0deg, rgb(0 0 0 / 0.14) 0 2px, transparent 2px 11px),
-    #5a341c;
-  border: 3px solid var(--ink);
-  border-bottom: 0;
-  z-index: -1;
-}
-.plank {
-  position: relative;
-  padding: 0.6rem 1rem 0.65rem;
-  background:
-    repeating-linear-gradient(178deg, rgb(0 0 0 / 0.1) 0 2px, transparent 2px 9px, rgb(255 255 255 / 0.04) 9px 11px, transparent 11px 15px),
-    linear-gradient(180deg, #84512c, #6b3e20);
-  border: 3px solid var(--ink);
-  border-radius: 5px;
-  box-shadow: 0 4px 0 rgb(0 0 0 / 0.35);
-  /* Routed letters: cut into the wood, so lit from above and shadowed along the top edge. */
-  text-shadow: 0 -1.5px 0 rgb(0 0 0 / 0.55), 0 1px 0 rgb(255 240 210 / 0.15);
-}
-/* Bolt heads holding each plank to the post. */
-.plank::before {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 0.35rem;
-  width: 0.4rem;
-  height: 0.4rem;
-  translate: -50% 0;
-  border-radius: 50%;
-  background: #2b1a0e;
-  box-shadow: inset 1px 1px 0 rgb(255 255 255 / 0.25);
-}
-.sign p { margin: 0; }
-.sign-note { font-weight: 600; font-size: 0.78rem; line-height: 1.35; letter-spacing: 0.04em; opacity: 0.88; }
-.sign-place {
-  margin: 0.15rem 0 0.25rem;
-  font-family: var(--display);
-  font-weight: 900;
-  font-stretch: 112%;
-  font-size: clamp(1.45rem, 2.4vw, 2rem);
-  line-height: 0.95;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  color: inherit;
-}
-.sign-place span { display: block; margin-top: 0.15rem; font-size: 0.55em; font-weight: 700; letter-spacing: 0.08em; }
-.sign-clock {
-  font-weight: 900;
+.here-note p { margin: 0; }
+.here-group { display: grid; gap: 0.2rem; }
+.here-place {
+  font-family: var(--reading);
+  font-style: italic;
+  font-weight: 400;
   font-stretch: 100%;
-  font-size: clamp(1.9rem, 3vw, 2.5rem);
-  line-height: 1;
+  font-size: 1.05rem;
+  letter-spacing: 0;
+  line-height: 1.3;
+}
+.here-time {
+  font-family: var(--display);
+  font-weight: 200;
+  font-stretch: 100%;
+  font-size: clamp(2.75rem, 5vw, 4.25rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
   font-variant-numeric: tabular-nums;
 }
-.sign-half { margin-left: 0.25rem; font-size: 0.42em; font-weight: 800; vertical-align: 0.15em; }
-.sign-pose { margin: 0.1rem 0; font-weight: 800; font-stretch: 100%; font-size: clamp(1rem, 1.5vw, 1.2rem); line-height: 1.15; }
-
-/* The practice plank points toward the figure, and the last one back up the trail. */
-.plank-pose { margin-right: 1.4rem; padding-left: 2rem; clip-path: polygon(1.4rem 0, 100% 0, 100% 100%, 1.4rem 100%, 0 50%); border-left: 0; }
-.plank-back {
-  align-self: flex-end;
-  width: 75%;
-  margin-left: 1.4rem;
-  padding-right: 2rem;
-  clip-path: polygon(0 0, calc(100% - 1.4rem) 0, 100% 50%, calc(100% - 1.4rem) 100%, 0 100%);
-  border-right: 0;
-  color: inherit;
-  font: inherit;
-  font-weight: 800;
-  font-size: 0.85rem;
+.here-half { margin-left: 0.4rem; font-size: 0.3em; font-weight: 500; letter-spacing: 0.06em; vertical-align: 0.35em; }
+.here-sub { font-family: var(--display); font-weight: 400; font-size: 0.82rem; line-height: 1.4; opacity: 0.8; }
+.here-practice { padding-left: clamp(1.5rem, 4vw, 4rem); border-left: 1px solid rgb(251 244 228 / 0.35); }
+.here-pose { font-family: var(--reading); font-style: italic; font-size: 1.35rem; line-height: 1.2; }
+.here-back {
+  margin-left: auto;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--cream);
+  font-family: var(--display);
+  font-size: 0.82rem;
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+  text-decoration-thickness: 1px;
   cursor: pointer;
+  opacity: 0.85;
 }
-.plank-back:hover { filter: brightness(1.15); }
-.plank-back:focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; }
-.plank-pose::before, .plank-back::before { display: none; }
+.here-back:hover { opacity: 1; }
+.here-back:focus-visible { outline: 2px solid var(--cream); outline-offset: 4px; }
 
-/* On a phone the sign stands low across the foreground, below the butte top, so the
-   practice stays clear: the place across the top, the time and the pose side by side. */
-.next-page.is-tall .sign {
-  left: 0.75rem;
-  right: 0.75rem;
-  width: auto;
-  display: grid;
-  grid-template-columns: 1fr 1.15fr;
-  align-items: stretch;
-  gap: 0.4rem;
-  padding-bottom: 0.75rem;
+/* On a phone the lines stack at the foot of the picture, over a soft shade so they stay
+   readable against the butte. */
+.next-page.is-tall::after {
+  content: '';
+  position: absolute;
+  inset: 52% 0 0 0;
+  background: linear-gradient(180deg, transparent, rgb(8 6 24 / 0.6));
+  pointer-events: none;
+  z-index: 1;
 }
-.next-page.is-tall .plank { padding: 0.4rem 0.6rem 0.45rem; }
-.next-page.is-tall .plank-place { grid-column: 1 / -1; }
-.next-page.is-tall .sign-place { font-size: 1.35rem; font-stretch: 100%; margin: 0.1rem 0; }
-.next-page.is-tall .sign-place span { display: inline; margin: 0 0 0 0.35rem; }
-.next-page.is-tall .sign-note { font-size: 0.68rem; }
-.next-page.is-tall .sign-clock { font-size: 1.6rem; }
-.next-page.is-tall .sign-pose { font-size: 0.9rem; }
-.next-page.is-tall .plank-pose { margin-right: 0; padding-left: 1.5rem; }
-.next-page.is-tall .plank-back { grid-column: 1 / -1; justify-self: end; width: auto; padding: 0.35rem 2rem 0.4rem 0.9rem; font-size: 0.78rem; }
+.next-page.is-tall .here-note { left: 1.25rem; right: 1.25rem; bottom: 1.25rem; flex-direction: column; align-items: flex-start; gap: 0.55rem; }
+.next-page.is-tall .here-time { font-size: 2.75rem; }
+.next-page.is-tall .here-practice { padding: 0.6rem 0 0; border-left: 0; border-top: 1px solid rgb(251 244 228 / 0.35); align-self: stretch; }
+.next-page.is-tall .here-pose { font-size: 1.15rem; }
+.next-page.is-tall .here-back { margin-left: 0; }
 
 /* Every other row runs the other way, so the path snakes down the page. */
 [data-reverse] .track { flex-direction: row-reverse; }

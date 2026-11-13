@@ -166,27 +166,23 @@ const saguaro = (x: number, y: number, s: number) =>
     </g>
   </svg>
 
-  <!-- A trailhead sign standing in the scene: where Maui is, the time there, and the pose. -->
-  <div class="sign">
-    <div class="plank plank-place">
-      <p class="sign-note">Where I am now</p>
-      <h2 class="sign-place" id="piece-title">{here.city}<span>{here.region}</span></h2>
-      <p class="sign-note">Elev. {here.elevationFt.toLocaleString('en-US')} ft</p>
-      <p class="sign-note">{degrees(here.latitude, 'N', 'S')} {degrees(here.longitude, 'E', 'W')}</p>
+  <!-- Where Maui is and what he is practising, set quietly on the picture. -->
+  <div class="here-note">
+    <div class="here-group">
+      <h2 class="here-place" id="piece-title">{here.city}, {here.region}</h2>
+      <p class="here-time"><span id="clock-time">12:00</span><span class="here-half" id="clock-half">PM</span></p>
     </div>
-    <div class="plank plank-time">
-      <p class="sign-clock">
-        <span id="clock-time">12:00</span><span class="sign-half" id="clock-half">PM</span>
+    <div class="here-group">
+      <p class="here-sub" id="sun-note"></p>
+      <p class="here-sub">
+        {degrees(here.latitude, 'N', 'S')}, {degrees(here.longitude, 'E', 'W')}. Elev. {here.elevationFt.toLocaleString('en-US')} ft
       </p>
-      <p class="sign-note" id="sun-note"></p>
     </div>
-    <div class="plank plank-pose">
-      <p class="sign-note" id="piece-series">Primary series</p>
-      <p class="sign-pose" id="piece-asana">Samasthiti</p>
-      <p class="sign-note" id="piece-meaning">Equal standing</p>
+    <div class="here-group here-practice">
+      <p class="here-pose"><span id="piece-asana">Samasthiti</span></p>
+      <p class="here-sub"><span id="piece-meaning">Equal standing</span>. <span id="piece-series">Primary series</span></p>
     </div>
-    <button class="plank plank-back" type="button" id="back-to-start">Back to the street</button>
-    <div class="sign-post" aria-hidden="true"></div>
+    <button class="here-back" type="button" id="back-to-start">Back to the street</button>
   </div>
 </section>
 
