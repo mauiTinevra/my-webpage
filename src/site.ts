@@ -1,7 +1,8 @@
 // Everything about you that appears across the site lives here.
 export const site = {
-  name: 'mauiTinevra',
-  intro: 'This is where I keep what I write, what I make and what I build.',
+  name: 'Sam Tinevra',
+  intro:
+    'I practice Ashtanga yoga, I engineer and I design, but I just call myself an artist. Mexican, Italian and Korean, currently based in Scottsdale, Arizona.',
   // Add or remove links freely, e.g. { label: 'Instagram', href: 'https://instagram.com/yourname' }
   links: [{ label: 'GitHub', href: 'https://github.com/mauiTinevra' }],
 };
