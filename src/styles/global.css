@@ -278,8 +278,64 @@ a:hover { text-decoration-thickness: 2px; }
 .ascent-sky .nube:nth-child(3) { left: 38%; bottom: 62%; }
 
 /* The footer continues the dark foreground of the page-two picture. */
-.is-street .site-footer { background: var(--ground, var(--ink)); color: var(--cream); }
+/* The footer follows the black of page three. */
+.is-street .site-footer { background: #000; color: var(--cream); }
 .is-street .site-footer a { color: var(--cream); }
+
+/* Above page two the sky runs out into black. */
+.fade-to-black {
+  height: calc(var(--scene-h, 100vh) * 0.8);
+  background: linear-gradient(0deg, var(--sky-top, #1b1147) 0%, #000 100%);
+}
+
+/* Page three: Cloud Invaders. */
+.space-page { position: relative; height: var(--scene-h, 100dvh); background: #000; color: var(--cream); overflow: hidden; }
+.space-page canvas { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; outline: none; }
+.space-hud {
+  position: absolute;
+  left: var(--edge);
+  right: var(--edge);
+  top: calc(var(--header-h, 4rem) + 0.25rem);
+  display: flex;
+  gap: 1.5rem;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 0.95rem;
+  pointer-events: none;
+}
+.space-hud b { font-weight: 900; font-variant-numeric: tabular-nums; }
+.space-panel {
+  position: absolute;
+  left: 50%;
+  top: 54%;
+  translate: -50% -50%;
+  width: min(92%, 30rem);
+  display: grid;
+  gap: 0.8rem;
+  justify-items: center;
+  padding: 1.5rem;
+  background: rgb(0 0 0 / 0.82);
+  border: 3px solid var(--cream);
+  text-align: center;
+  font-family: var(--display);
+  --shade: #f0508f;
+}
+.space-panel[hidden] { display: none; }
+.space-panel .rotulo { font-size: clamp(2rem, 7vw, 3.5rem); }
+.space-panel p { margin: 0; font-weight: 600; line-height: 1.4; }
+.space-panel .space-keys { font-weight: 400; font-size: 0.9rem; color: #cfc9dc; }
+.space-play {
+  padding: 0.6rem 1.6rem;
+  border: 3px solid var(--cream);
+  background: var(--yellow);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 900;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+.space-play:hover { background: #f0508f; color: #fff; }
+.space-play:focus-visible { outline: 3px solid var(--sky); outline-offset: 3px; }
 
 /* Page two is one picture. */
 .next-page { overflow: hidden; background: var(--sky-top, #1b1147); }

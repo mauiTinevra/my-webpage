@@ -7,6 +7,7 @@ import PinataRow from '../components/rows/PinataRow.astro';
 import WardrobeRow from '../components/rows/WardrobeRow.astro';
 import Nube from '../components/Nube.astro';
 import PageTwo from '../components/PageTwo.astro';
+import SpacePage from '../components/SpacePage.astro';
 import { formatDate } from '../lib/date';
 import projects from '../data/projects.json';
 
@@ -14,7 +15,8 @@ import projects from '../data/projects.json';
 // then drops to the next row, which tells the same five places another way.
 // Rows alternate direction: add data-reverse to every second row so the path snakes.
 // A page is always four rows. After the fourth, scrolling climbs straight back up past all
-// of them, through a sky, to the next page, which sits above the first row.
+// of them, through a sky, to page two, which sits above the first row. Keep scrolling and
+// the sky above page two goes black and you arrive at page three, the game.
 // A row is a component in src/components/rows/ whose root is
 // <div class="row" data-row><div class="scene"><div class="track">…</div></div></div>.
 
@@ -68,6 +70,8 @@ const backs = {
   <div class="journey" id="journey">
     <div class="viewport">
       <div class="world" id="world">
+        <SpacePage />
+        <div class="fade-to-black" aria-hidden="true"></div>
         <PageTwo />
         <div class="ascent-sky" aria-hidden="true" />
         <StreetRow inside={inside} />
@@ -127,6 +131,11 @@ const backs = {
   let rowH = 0;
   let firstRowY = 0;
   let climb = 0;
+  let linger = 0;
+  let secondClimb = 0;
+  let pageTwoY = 0;
+  let pageTwoStop = 0;
+  const pageTwo = document.getElementById('next-page')!;
   let total = 0;
   let active: (typeof rows)[number] | undefined;
 
@@ -145,6 +154,9 @@ const backs = {
       }
     });
     if (p > 0) y -= Math.min(p, climb) * CLIMB_SPEED;
+    // Past page two there is a pause to look at it, then a second climb into black space.
+    const beyond = p - climb - linger;
+    if (beyond > 0) y -= Math.min(beyond, secondClimb);
     world.style.transform = `translate3d(0, ${-Math.max(y, 0)}px, 0)`;
 
     // The climb, from 0 as it starts to 1 on arrival. The sunset thickens over the rows as
@@ -175,8 +187,12 @@ const backs = {
       r.start = total;
       total += r.max + (i < rows.length - 1 ? rowH : 0);
     });
-    climb = (firstRowY + (rows.length - 1) * rowH) / CLIMB_SPEED;
-    total += climb;
+    pageTwoY = pageTwo.offsetTop;
+    climb = (firstRowY + (rows.length - 1) * rowH - pageTwoY) / CLIMB_SPEED;
+    linger = sceneH * 0.5;
+    secondClimb = pageTwoY;
+    pageTwoStop = total + climb;
+    total += climb + linger + secondClimb;
     journey.style.height = `${total + sceneH}px`;
     place();
   };
@@ -277,7 +293,9 @@ const backs = {
     if (r) {
       const shift = Math.min(Math.max(box.left - r.track.getBoundingClientRect().left - innerWidth * 0.15, 0), r.max);
       scrollTo({ top: base + r.start + (r.reverse ? r.max - shift : shift) });
-    } else if (document.getElementById('next-page')!.contains(el)) {
+    } else if (pageTwo.contains(el)) {
+      scrollTo({ top: base + pageTwoStop });
+    } else if (document.getElementById('space-page')!.contains(el)) {
       scrollTo({ top: base + total });
     }
   });
