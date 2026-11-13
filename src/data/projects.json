@@ -1,5 +1,11 @@
 [
   {
+    "name": "El Único Taquería",
+    "description": "A concept site for an imaginary taquería that sells one taco. Build three tacos al pastor, pour La Única, take a bite of chocoflan, and come back after closing to see the whole place lit in neon. Every drawing is code.",
+    "url": "/work/el-unico",
+    "year": 2026
+  },
+  {
     "name": "my-webpage",
     "description": "This site. Astro, plain CSS, hosted on Vercel.",
     "url": "https://github.com/mauiTinevra/my-webpage",
