@@ -270,17 +270,18 @@ const tufts = [100, 150, 200, 250, 300];
 </div>
 
 <script>
-  import { scottsdaleNow, skyAt } from '../../lib/sky';
+  import { nowAt, skyAt } from '../../lib/sky';
+  import { here } from '../../site';
 
   const row = document.querySelector<HTMLElement>('.row-room')!;
   const track = row.querySelector<HTMLElement>('.track')!;
 
-  // The window looks out on the real sky over Scottsdale. ?hour=6.5 previews a time of day.
+  // The window looks out on the real sky where Maui is. ?hour=6.5 previews a time of day.
   const asked = new URLSearchParams(location.search).get('hour');
   const lookOut = () => {
-    const now = scottsdaleNow();
+    const now = nowAt(here);
     const hour = asked !== null && !Number.isNaN(Number(asked)) ? Number(asked) % 24 : now.hour;
-    const sky = skyAt(hour, now.day);
+    const sky = skyAt(hour, now.day, here, now.offset);
     sky.sky.forEach((color, i) => row.style.setProperty(`--sky${i}`, color));
     row.style.setProperty('--sky-far', sky.near);
   };

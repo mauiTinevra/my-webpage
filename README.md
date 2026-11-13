@@ -26,6 +26,7 @@ To add a row, create another component in that folder and place it in `src/pages
 | To change | Edit |
 | --- | --- |
 | Your name, intro line, footer links | `src/site.ts` |
+| Where you are now (city, coordinates, time zone, scenery) | `here` in `src/site.ts` |
 | The pitch and contact email on the last page | `src/components/SellPage.astro` |
 | Blog posts | add a Markdown file to `src/content/blog/` |
 | Journal entries | add a Markdown file to `src/content/journal/` |

@@ -1,46 +1,63 @@
-// What the sky over Scottsdale, Arizona looks like at a given time of day.
-// Arizona keeps Mountain Standard Time all year, so the clock never shifts.
+// What the sky looks like at a given time of day, wherever Maui is (see `here` in site.ts).
 
-const LATITUDE = 33.49;
-// Scottsdale sits west of its time zone's meridian, so the sun is highest about 12:27.
-const SOLAR_NOON = 12.45;
+export interface Place {
+  latitude: number;
+  /** Degrees east; west is negative. */
+  longitude: number;
+  timeZone: string;
+}
 
 export interface Now {
-  /** Hours since midnight in Scottsdale, e.g. 19.5 for 7:30 PM. */
+  /** Hours since midnight at the place, e.g. 19.5 for 7:30 PM. */
   hour: number;
   /** Day of the year, 1 to 366. */
   day: number;
-  /** The clock time as people there would read it. */
-  clock: string;
+  /** The place's offset from UTC in hours, e.g. -7. */
+  offset: number;
 }
 
-export function scottsdaleNow(date = new Date()): Now {
+export function nowAt(place: Place, date = new Date()): Now {
   const parts = new Intl.DateTimeFormat('en-US', {
-    timeZone: 'America/Phoenix',
+    timeZone: place.timeZone,
     hourCycle: 'h23',
     year: 'numeric',
     month: 'numeric',
     day: 'numeric',
     hour: 'numeric',
     minute: 'numeric',
+    second: 'numeric',
   }).formatToParts(date);
   const get = (type: string) => Number(parts.find((p) => p.type === type)!.value);
+  const wall = Date.UTC(get('year'), get('month') - 1, get('day'), get('hour'), get('minute'), get('second'));
   const day = Math.round((Date.UTC(get('year'), get('month') - 1, get('day')) - Date.UTC(get('year'), 0, 0)) / 864e5);
-  const clock = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Phoenix', hour: 'numeric', minute: '2-digit' }).format(date);
-  return { hour: get('hour') + get('minute') / 60, day, clock };
+  const offset = Math.round((wall - Math.floor(date.getTime() / 1000) * 1000) / 36e5 * 4) / 4;
+  return { hour: get('hour') + get('minute') / 60 + get('second') / 3600, day, offset };
 }
 
-export function formatHour(hour: number): string {
+export function formatHour(hour: number): { time: string; half: 'AM' | 'PM' } {
   const h = Math.floor(hour) % 24;
   const m = Math.floor((hour % 1) * 60);
-  return `${h % 12 || 12}:${String(m).padStart(2, '0')} ${h < 12 ? 'AM' : 'PM'}`;
+  return { time: `${h % 12 || 12}:${String(m).padStart(2, '0')}`, half: h < 12 ? 'AM' : 'PM' };
 }
 
-/** Sunrise and sunset in hours, from the day of the year. Good to within a few minutes. */
-export function sunTimes(day: number) {
-  const tilt = (-23.44 * Math.cos((2 * Math.PI * (day + 10)) / 365) * Math.PI) / 180;
-  const halfDay = (Math.acos(-Math.tan((LATITUDE * Math.PI) / 180) * Math.tan(tilt)) * 12) / Math.PI;
-  return { rise: SOLAR_NOON - halfDay, set: SOLAR_NOON + halfDay };
+/** Sunrise and sunset in local clock hours, from the day of the year. Good to within a few minutes. */
+export function sunTimes(day: number, place: Place, offset: number) {
+  const rad = Math.PI / 180;
+  // The sun runs a little fast or slow of the clock through the year.
+  const b = (2 * Math.PI * (day - 81)) / 365;
+  const drift = (9.87 * Math.sin(2 * b) - 7.53 * Math.cos(b) - 1.5 * Math.sin(b)) / 60;
+  const noon = 12 - place.longitude / 15 + offset - drift;
+  const tilt = -23.44 * Math.cos((2 * Math.PI * (day + 10)) / 365) * rad;
+  const halfDay = (Math.acos(Math.max(-1, Math.min(1, -Math.tan(place.latitude * rad) * Math.tan(tilt)))) * 12) / Math.PI;
+  return { rise: noon - halfDay, set: noon + halfDay, noon };
+}
+
+/** The next sunrise or sunset, and how many hours away it is. */
+export function nextSun(hour: number, day: number, place: Place, offset: number) {
+  const today = sunTimes(day, place, offset);
+  if (hour < today.rise) return { event: 'Sunrise' as const, in: today.rise - hour };
+  if (hour < today.set) return { event: 'Sunset' as const, in: today.set - hour };
+  return { event: 'Sunrise' as const, in: sunTimes(day + 1, place, offset).rise + 24 - hour };
 }
 
 type Palette = {
@@ -114,8 +131,8 @@ export interface Sky extends Palette {
   moonAt: number | null;
 }
 
-export function skyAt(hour: number, day: number): Sky {
-  const { rise, set } = sunTimes(day);
+export function skyAt(hour: number, day: number, place: Place, offset: number): Sky {
+  const { rise, set, noon } = sunTimes(day, place, offset);
   // Hours of daylight either side: positive while the sun is up, negative while it is down.
   const up = hour >= rise && hour <= set;
   const fromHorizon = up ? Math.min(hour - rise, set - hour) : -Math.min((hour - set + 24) % 24, (rise - hour + 24) % 24);
@@ -127,7 +144,7 @@ export function skyAt(hour: number, day: number): Sky {
   else if (fromHorizon <= 2.4) palette = mixPalette(GOLDEN, DAY, ease((fromHorizon - 0.9) / 1.5));
   else palette = DAY;
 
-  const morning = hour < SOLAR_NOON;
+  const morning = hour < noon;
   const phase: Sky['phase'] =
     fromHorizon <= -1.3
       ? 'night'
@@ -135,7 +152,7 @@ export function skyAt(hour: number, day: number): Sky {
         ? morning
           ? 'dawn'
           : 'dusk'
-        : Math.abs(hour - SOLAR_NOON) < 1.5
+        : Math.abs(hour - noon) < 1.5
           ? 'midday'
           : morning
             ? 'morning'

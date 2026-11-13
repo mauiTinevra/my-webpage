@@ -3,10 +3,14 @@
 // wide picture for desktops, and a tall one for phones, where the mesa becomes a butte.
 // Both are alive at once and the screen's shape decides which is shown.
 // The sky follows the real
-// time of day in Scottsdale, Arizona, and the figure on the mesa works through the Ashtanga
+// time of day where Maui is, and the figure on the mesa works through the Ashtanga
 // primary series, rests in Savasana, then the second series, and starts again.
 import Nube from './Nube.astro';
 import { poses, draw } from '../lib/yogi';
+import { here } from '../site';
+
+const degrees = (value: number, positive: string, negative: string) =>
+  `${Math.abs(value).toFixed(2)}° ${value >= 0 ? positive : negative}`;
 
 const ink = '#121a3a';
 
@@ -32,7 +36,7 @@ const saguaro = (x: number, y: number, s: number) =>
 ---
 
 <section class="next-page" id="next-page" aria-labelledby="piece-title">
-  <svg class="piece piece-wide" viewBox="-240 -150 2080 1170" preserveAspectRatio="xMidYMid slice" role="img" data-sun="120 1360 620 520 130 55" data-moon="1050 750 620 600" aria-label="A desert under the sky as it is right now in Scottsdale, Arizona. On top of a mesa a small figure practises Ashtanga yoga on a pink mat, under a huge white cloud with eyes. Saguaros stand in the foreground.">
+  <svg class="piece piece-wide" viewBox="-240 -150 2080 1170" preserveAspectRatio="xMidYMid slice" role="img" data-sun="120 1360 620 520 130 55" data-moon="1050 750 620 600" aria-label="A desert under the sky as it is right now where Maui is. On top of a mesa a small figure practises Ashtanga yoga on a pink mat, under a huge white cloud with eyes. Saguaros stand in the foreground.">
     <defs>
       <linearGradient id="dusk-wide" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="900">
         <stop data-stop="0" offset="0" stop-color="#1b1147" />
@@ -97,7 +101,7 @@ const saguaro = (x: number, y: number, s: number) =>
     </g>
   </svg>
 
-  <svg class="piece piece-tall" viewBox="0 0 900 1600" preserveAspectRatio="xMidYMid slice" data-sun="100 700 1040 830 95 35" data-moon="700 120 1000 860" role="img" aria-label="A desert under the sky as it is right now in Scottsdale, Arizona. On top of a tall butte a figure practises Ashtanga yoga on a pink mat, under a huge white cloud with eyes. Saguaros stand in the foreground.">
+  <svg class="piece piece-tall" viewBox="0 0 900 1600" preserveAspectRatio="xMidYMid slice" data-sun="100 700 1040 830 95 35" data-moon="700 120 1000 860" role="img" aria-label="A desert under the sky as it is right now where Maui is. On top of a tall butte a figure practises Ashtanga yoga on a pink mat, under a huge white cloud with eyes. Saguaros stand in the foreground.">
     <defs>
       <linearGradient id="dusk-tall" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="1160">
         <stop data-stop="0" offset="0" stop-color="#1b1147" />
@@ -162,17 +166,34 @@ const saguaro = (x: number, y: number, s: number) =>
     </g>
   </svg>
 
-  <div class="placard">
-    <h2 id="piece-title">Practice at <span id="piece-phase">dusk</span></h2>
-    <p><span id="piece-clock"></span> Scottsdale, Arizona</p>
-    <p><span id="piece-series">Primary series</span>: <span id="piece-asana">Samasthiti</span></p>
-    <button class="next-page-back" type="button" id="back-to-start">Back to the street</button>
+  <!-- A trailhead sign standing in the scene: where Maui is, the time there, and the pose. -->
+  <div class="sign">
+    <div class="plank plank-place">
+      <p class="sign-note">Where I am now</p>
+      <h2 class="sign-place" id="piece-title">{here.city}<span>{here.region}</span></h2>
+      <p class="sign-note">Elev. {here.elevationFt.toLocaleString('en-US')} ft</p>
+      <p class="sign-note">{degrees(here.latitude, 'N', 'S')} {degrees(here.longitude, 'E', 'W')}</p>
+    </div>
+    <div class="plank plank-time">
+      <p class="sign-clock">
+        <span id="clock-time">12:00</span><span class="sign-half" id="clock-half">PM</span>
+      </p>
+      <p class="sign-note" id="sun-note"></p>
+    </div>
+    <div class="plank plank-pose">
+      <p class="sign-note" id="piece-series">Primary series</p>
+      <p class="sign-pose" id="piece-asana">Samasthiti</p>
+      <p class="sign-note" id="piece-meaning">Equal standing</p>
+    </div>
+    <button class="plank plank-back" type="button" id="back-to-start">Back to the street</button>
+    <div class="sign-post" aria-hidden="true"></div>
   </div>
 </section>
 
 <script>
   import { poses, practice, blend, draw } from '../lib/yogi';
-  import { scottsdaleNow, skyAt, formatHour } from '../lib/sky';
+  import { nowAt, skyAt, formatHour, nextSun } from '../lib/sky';
+  import { here } from '../site';
 
   const el = (id: string) => document.getElementById(id)!;
   const frame = el('next-page');
@@ -182,9 +203,9 @@ const saguaro = (x: number, y: number, s: number) =>
   // The sky. Add ?hour=6.5 to the address to see any time of day.
   const asked = new URLSearchParams(location.search).get('hour');
   const paintSky = () => {
-    const now = scottsdaleNow();
+    const now = nowAt(here);
     const hour = asked !== null && !Number.isNaN(Number(asked)) ? Number(asked) % 24 : now.hour;
-    const sky = skyAt(hour, now.day);
+    const sky = skyAt(hour, now.day, here, now.offset);
 
     frame.querySelectorAll('[data-stop]').forEach((stop) => stop.setAttribute('stop-color', sky.sky[Number((stop as HTMLElement).dataset.stop)]));
     const paint = { far: sky.far, mid: sky.mid, near: sky.near, 'band-a': sky.bandA, 'band-b': sky.bandB };
@@ -217,14 +238,21 @@ const saguaro = (x: number, y: number, s: number) =>
       }
     }
 
-    el('piece-phase').textContent = sky.phase;
-    el('piece-clock').textContent = `${asked !== null ? formatHour(hour) : now.clock},`;
+    // The sign: the time there, and how long until the sun next rises or sets.
+    const clock = formatHour(hour);
+    el('clock-time').textContent = clock.time;
+    el('clock-half').textContent = clock.half;
+    const sun = nextSun(hour, now.day, here, now.offset);
+    const hours = Math.floor(sun.in);
+    const minutes = Math.floor((sun.in - hours) * 60);
+    const phase = sky.phase[0].toUpperCase() + sky.phase.slice(1);
+    el('sun-note').textContent = `${phase}. ${sun.event} in ${hours ? `${hours} h ` : ''}${minutes} min`;
     // The rest of the page takes its edges from the picture.
     document.documentElement.style.setProperty('--sky-top', sky.sky[0]);
     document.documentElement.style.setProperty('--ground', sky.near);
   };
   paintSky();
-  setInterval(paintSky, 30_000);
+  setInterval(paintSky, 15_000);
 
   // Portrait screens get the tall picture.
   const fit = () => frame.classList.toggle('is-tall', frame.clientWidth / Math.max(1, frame.clientHeight) < 0.85);
@@ -241,9 +269,37 @@ const saguaro = (x: number, y: number, s: number) =>
   let since = performance.now() - MOVE * 1000;
   let settled = false;
 
+  // What each pose is called in English.
+  const meanings: Record<string, string> = {
+    Samasthiti: 'Equal standing',
+    'Surya Namaskara A': 'Sun salutation A',
+    'Chaturanga Dandasana': 'Four-limbed staff',
+    'Urdhva Mukha Svanasana': 'Upward-facing dog',
+    'Adho Mukha Svanasana': 'Downward-facing dog',
+    Utkatasana: 'Fierce pose',
+    'Virabhadrasana A': 'Warrior I',
+    Dandasana: 'Staff pose',
+    Paschimottanasana: 'Seated forward bend',
+    Purvottanasana: 'Upward plank',
+    Navasana: 'Boat pose',
+    'Urdhva Dhanurasana': 'Upward bow',
+    'Salamba Sarvangasana': 'Shoulder stand',
+    Halasana: 'Plough',
+    Sirsasana: 'Headstand',
+    Padmasana: 'Lotus',
+    Savasana: 'Rest',
+    Pasasana: 'Noose pose',
+    Shalabhasana: 'Locust',
+    Dhanurasana: 'Bow',
+    Ustrasana: 'Camel',
+    Bakasana: 'Crow',
+    'Pincha Mayurasana': 'Forearm balance',
+    Mayurasana: 'Peacock',
+  };
   const announce = () => {
     el('piece-series').textContent = steps[index].series;
     el('piece-asana').textContent = steps[index].name;
+    el('piece-meaning').textContent = meanings[steps[index].name] ?? '';
   };
   announce();
 

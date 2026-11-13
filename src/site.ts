@@ -12,6 +12,18 @@ export const site = {
   links: [{ label: 'GitHub', href: 'https://github.com/mauiTinevra' }],
 };
 
+// Where Maui is right now. The yoga page shows this place: its time, its sky and its scenery.
+// To move, change these and pick the scene that fits (only the desert is drawn so far).
+export const here = {
+  city: 'Scottsdale',
+  region: 'Arizona',
+  latitude: 33.49306,
+  longitude: -111.92611,
+  elevationFt: 1257,
+  timeZone: 'America/Phoenix',
+  scene: 'desert' as const,
+};
+
 // Each section is a storefront on the street: a painted wall and a roll-up shutter.
 export const sections = [
   { href: '/blog', name: 'Blog', place: 'blog', note: 'Longer writing' },
