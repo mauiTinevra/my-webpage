@@ -1,0 +1,150 @@
+---
+// The last page: the pitch. A black wall that the visitor's pointer paints as it moves,
+// lettering that swells toward the pointer, and one thing to do: write to Sam.
+const email = 'sam.tinevra@gmail.com';
+const subject = encodeURIComponent('I want a website');
+const lines = ['Want a site', 'like this?'];
+---
+
+<section class="sell" id="sell" aria-labelledby="sell-title">
+  <canvas class="sell-paint" id="sell-paint" aria-hidden="true"></canvas>
+
+  <div class="sell-inner">
+    <h2 class="sell-title" id="sell-title" aria-label={lines.join(' ')}>
+      {
+        lines.map((line) => (
+          <span class="sell-line" aria-hidden="true">
+            {[...line].map((char) => (char === ' ' ? <span class="sell-space"> </span> : <span class="sell-char">{char}</span>))}
+          </span>
+        ))
+      }
+    </h2>
+
+    <p class="sell-pitch">
+      I design and build websites that feel like the person they belong to. This one is mine. Yours would be
+      nothing like it.
+    </p>
+
+    <div class="sell-actions">
+      <a class="sell-button" href={`mailto:${email}?subject=${subject}`}>Email me</a>
+      <span class="sell-address">
+        <span id="sell-email">{email}</span>
+        <button class="sell-copy" type="button" id="sell-copy" data-email={email}>Copy address</button>
+      </span>
+    </div>
+  </div>
+</section>
+
+<script>
+  const section = document.getElementById('sell')!;
+  const canvas = document.getElementById('sell-paint') as HTMLCanvasElement;
+  const ctx = canvas.getContext('2d')!;
+  const chars = [...section.querySelectorAll<HTMLElement>('.sell-char')];
+  const PAINTS = ['#1f3fcf', '#f0508f', '#f2cb3a', '#1e9fea', '#2f8f4e', '#7b2d8e'];
+
+  // The wall takes paint wherever the pointer goes. Each pass across it is a new colour.
+  let from: [number, number] | null = null;
+  let color = 0;
+  let travelled = 0;
+
+  const size = () => {
+    const ratio = Math.min(2, devicePixelRatio || 1);
+    // Keep what has been painted when the window changes size.
+    const kept = document.createElement('canvas');
+    kept.width = canvas.width;
+    kept.height = canvas.height;
+    if (canvas.width && canvas.height) kept.getContext('2d')!.drawImage(canvas, 0, 0);
+    canvas.width = Math.round(canvas.clientWidth * ratio);
+    canvas.height = Math.round(canvas.clientHeight * ratio);
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    if (kept.width && kept.height) ctx.drawImage(kept, 0, 0, canvas.width, canvas.height);
+    ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+  };
+
+  const puff = (x: number, y: number, radius: number) => {
+    const paint = PAINTS[color % PAINTS.length];
+    const fade = ctx.createRadialGradient(x, y, 0, x, y, radius);
+    fade.addColorStop(0, paint);
+    fade.addColorStop(0.5, paint);
+    fade.addColorStop(1, 'transparent');
+    ctx.globalAlpha = 0.5;
+    ctx.fillStyle = fade;
+    ctx.beginPath();
+    ctx.arc(x, y, radius, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  };
+
+  const spray = (x: number, y: number) => {
+    const radius = Math.max(26, canvas.clientWidth * 0.035);
+    if (!from) {
+      puff(x, y, radius);
+    } else {
+      const distance = Math.hypot(x - from[0], y - from[1]);
+      const steps = Math.max(1, Math.ceil(distance / 7));
+      for (let i = 1; i <= steps; i++) puff(from[0] + ((x - from[0]) * i) / steps, from[1] + ((y - from[1]) * i) / steps, radius);
+      travelled += distance;
+      if (travelled > 520) {
+        travelled = 0;
+        color += 1;
+      }
+    }
+    from = [x, y];
+  };
+
+  // The letters swell toward the pointer.
+  const swell = (x: number, y: number) => {
+    for (const char of chars) {
+      const box = char.getBoundingClientRect();
+      const distance = Math.hypot(x - (box.left + box.width / 2), y - (box.top + box.height / 2));
+      const near = Math.max(0, 1 - distance / (innerWidth * 0.22 + 80));
+      char.style.fontStretch = `${(62 + near * near * 63).toFixed(0)}%`;
+    }
+  };
+  const settle = () => chars.forEach((char) => char.style.removeProperty('font-stretch'));
+
+  section.addEventListener('pointermove', (e) => {
+    const box = canvas.getBoundingClientRect();
+    if (e.pointerType === 'mouse') {
+      spray(e.clientX - box.left, e.clientY - box.top);
+      swell(e.clientX, e.clientY);
+    }
+  });
+  section.addEventListener('pointerdown', (e) => {
+    // A tap leaves a mark; dragging a finger still scrolls the page.
+    if (e.pointerType === 'mouse') return;
+    const box = canvas.getBoundingClientRect();
+    from = null;
+    color += 1;
+    // A splat: one big burst with smaller ones thrown around it.
+    const x = e.clientX - box.left;
+    const y = e.clientY - box.top;
+    for (let i = 0; i < 3; i++) puff(x, y, 70);
+    for (let i = 0; i < 7; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const reach = 50 + Math.random() * 70;
+      puff(x + Math.cos(angle) * reach, y + Math.sin(angle) * reach, 10 + Math.random() * 16);
+    }
+    swell(e.clientX, e.clientY);
+  });
+  section.addEventListener('pointerleave', () => {
+    from = null;
+    settle();
+  });
+
+  const copy = document.getElementById('sell-copy') as HTMLButtonElement;
+  copy.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(copy.dataset.email!);
+      copy.textContent = 'Copied';
+    } catch {
+      // No clipboard here: select the address so it can be copied by hand.
+      getSelection()?.selectAllChildren(document.getElementById('sell-email')!);
+      copy.textContent = 'Selected';
+    }
+    setTimeout(() => (copy.textContent = 'Copy address'), 2200);
+  });
+
+  new ResizeObserver(size).observe(canvas);
+  size();
+</script>

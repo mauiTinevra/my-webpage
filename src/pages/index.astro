@@ -8,6 +8,7 @@ import WardrobeRow from '../components/rows/WardrobeRow.astro';
 import Nube from '../components/Nube.astro';
 import PageTwo from '../components/PageTwo.astro';
 import SpacePage from '../components/SpacePage.astro';
+import SellPage from '../components/SellPage.astro';
 import { formatDate } from '../lib/date';
 import projects from '../data/projects.json';
 
@@ -93,6 +94,7 @@ const backs = {
   <!-- Page three follows in the ordinary way: keep scrolling down from page two. -->
   <div class="fade-to-black" aria-hidden="true"></div>
   <SpacePage />
+  <SellPage />
 </Base>
 
 <script>

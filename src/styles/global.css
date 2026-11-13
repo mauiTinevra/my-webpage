@@ -337,6 +337,82 @@ a:hover { text-decoration-thickness: 2px; }
 .space-play:hover { background: #f0508f; color: #fff; }
 .space-play:focus-visible { outline: 3px solid var(--sky); outline-offset: 3px; }
 
+/* The last page: the pitch. */
+.sell {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  padding: calc(var(--header-h, 4rem) + 2rem) var(--edge) 4rem;
+  background: #000;
+  color: var(--cream);
+  overflow: hidden;
+}
+.sell-paint { position: absolute; inset: 0; width: 100%; height: 100%; }
+.sell-inner { position: relative; width: 100%; }
+
+.sell-title { font-size: clamp(3.25rem, 15.5vw, 15rem); line-height: 0.86; }
+.sell-line { display: block; white-space: nowrap; }
+.sell-space { width: 0.22em; }
+.sell-char,
+.sell-space {
+  display: inline-block;
+  font-family: var(--display);
+  font-weight: 900;
+  font-stretch: 62%;
+  text-transform: uppercase;
+  white-space: pre;
+  text-shadow: 0.04em 0.04em 0 #000;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .sell-char { transition: font-stretch 0.18s ease-out; }
+}
+
+.sell-pitch {
+  max-width: 34rem;
+  margin: clamp(1.5rem, 4vh, 2.5rem) 0 0;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(1.1rem, 2.4vh, 1.4rem);
+  line-height: 1.4;
+  text-shadow: 0 0 0.5em #000, 0 0 0.25em #000;
+}
+
+.sell-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.75rem;
+  margin-top: clamp(1.5rem, 4vh, 2.5rem);
+  font-family: var(--display);
+}
+.sell-button {
+  padding: 0.9rem 2.2rem;
+  background: var(--yellow);
+  color: var(--ink);
+  border: 4px solid var(--cream);
+  box-shadow: 6px 6px 0 #f0508f;
+  font-weight: 900;
+  font-stretch: 112%;
+  font-size: clamp(1.25rem, 3vh, 1.75rem);
+  text-decoration: none;
+}
+.sell-button:hover { background: #f0508f; color: #fff; box-shadow: 6px 6px 0 var(--yellow); }
+.sell-button:focus-visible, .sell-copy:focus-visible { outline: 3px solid var(--sky); outline-offset: 4px; }
+.sell-address { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 1rem; font-weight: 600; font-size: 1.05rem; text-shadow: 0 0 0.5em #000, 0 0 0.25em #000; }
+.sell-copy {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--cream);
+  font: inherit;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  cursor: pointer;
+}
+
 /* Page two is one picture. */
 .next-page { overflow: hidden; background: var(--sky-top, #1b1147); }
 .piece { position: absolute; inset: 0; width: 100%; height: 100%; }
