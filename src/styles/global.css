@@ -294,35 +294,34 @@ a:hover { text-decoration-thickness: 2px; }
   @keyframes twinkle { 50% { opacity: 0.15; } }
 }
 
-/* The label beside the picture, as in a gallery. */
+/* The wall label, as in a museum: small, low and to the right of the work. */
 .placard {
   position: absolute;
-  left: var(--edge);
-  bottom: clamp(1rem, 4vh, 2rem);
-  display: grid;
-  gap: 0.35rem;
-  justify-items: start;
-  padding: 0.8rem 1rem 0.9rem;
-  background: var(--cream);
+  right: var(--edge);
+  bottom: clamp(0.9rem, 3.5vh, 1.75rem);
+  width: 11.5rem;
+  padding: 0.55rem 0.7rem 0.6rem;
+  background: #fbfaf6;
   color: var(--ink);
-  border: 3px solid var(--ink);
-  box-shadow: 5px 5px 0 #f0508f;
+  box-shadow: 0 1px 0 rgb(0 0 0 / 0.5), 0 3px 8px rgb(0 0 0 / 0.35);
   font-family: var(--display);
+  font-size: 0.7rem;
+  line-height: 1.35;
 }
-.placard h2 { font-size: 1.25rem; }
-.placard p { margin: 0; font-weight: 500; font-size: 0.95rem; color: var(--muted); }
+.placard h2 { font-size: 0.8rem; font-weight: 700; font-stretch: 100%; letter-spacing: 0; line-height: 1.25; }
+.placard p { margin: 0.1rem 0 0; font-weight: 400; color: var(--muted); }
 .next-page-back {
-  margin-top: 0.35rem;
-  padding: 0.35rem 0.7rem;
-  border: 3px solid var(--ink);
-  background: var(--ink);
-  color: var(--cream);
-  font-family: var(--display);
-  font-weight: 700;
-  font-size: 0.9rem;
+  margin-top: 0.4rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
   cursor: pointer;
 }
-.next-page-back:hover { background: var(--cobalt); }
+.next-page-back:hover { color: var(--cobalt); }
 
 /* Every other row runs the other way, so the path snakes down the page. */
 [data-reverse] .track { flex-direction: row-reverse; }
