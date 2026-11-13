@@ -975,18 +975,18 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('A website for m
   .foot-ask:hover { background: var(--pink); color: #fff !important; }
 
   /* After closing it's night at the mall. Nothing goes dark: the wall turns to
-     night, the drawings are outlined in lamplight, the grill keeps glowing,
+     night, the drawings are outlined in warm lamplight, the grill keeps glowing,
      and the lettering becomes neon. Pink for names, green for prices. */
   .lights-out { display: none; }
   .unico.is-closed {
     --night: #120c2e;
-    --lamp: #c9bff5;
+    --lamp: #f1e2c2;
     --neon-pink: 0 0 1px #fff, 0 0 6px #ff3d7f, 0 0 14px #ff3d7f, 0 0 32px rgb(255 61 127 / 0.55);
     --neon-green: 0 0 1px #fff, 0 0 5px #2bff7a, 0 0 12px #2bff7a, 0 0 26px rgb(43 255 122 / 0.5);
     color: var(--cream);
     background:
-      linear-gradient(90deg, rgb(201 191 245 / 0.07) 1.5px, transparent 1.5px) 0 0 / 4rem 4rem,
-      linear-gradient(rgb(201 191 245 / 0.07) 1.5px, transparent 1.5px) 0 0 / 4rem 4rem,
+      linear-gradient(90deg, rgb(241 226 194 / 0.06) 1.5px, transparent 1.5px) 0 0 / 4rem 4rem,
+      linear-gradient(rgb(241 226 194 / 0.06) 1.5px, transparent 1.5px) 0 0 / 4rem 4rem,
       var(--night);
   }
   .is-closed :focus-visible { outline-color: var(--yellow); }
@@ -998,7 +998,9 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('A website for m
 
   /* The drawings: outlines in lamplight so every shape still reads. */
   .is-closed svg [stroke='#121a3a'] { stroke: var(--lamp); }
-  .is-closed .plate svg { filter: drop-shadow(0 0 22px rgb(201 191 245 / 0.18)); }
+  /* Food on a white plate is under the counter light, so it keeps its ink lines. */
+  .is-closed .plate svg [stroke='#121a3a'], .is-closed .slice svg [stroke='#121a3a'] { stroke: #121a3a; }
+  .is-closed .plate svg { filter: drop-shadow(0 0 22px rgb(241 226 194 / 0.15)); }
 
   /* The trompo never goes cold. */
   .is-closed .heat { opacity: 1; }
@@ -1010,9 +1012,9 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('A website for m
   }
 
   /* Buttons and cards. */
-  .is-closed .step { border-color: var(--lamp); box-shadow: 4px 4px 0 rgb(201 191 245 / 0.35); }
+  .is-closed .step { border-color: var(--lamp); box-shadow: 4px 4px 0 rgb(241 226 194 / 0.3); }
   .is-closed .step:disabled, .is-closed .step.is-done { color: var(--cream); box-shadow: none; }
-  .is-closed .fact-button { color: var(--ink); border-color: var(--lamp); box-shadow: 4px 4px 0 rgb(201 191 245 / 0.35); }
+  .is-closed .fact-button { color: var(--ink); border-color: var(--lamp); box-shadow: 4px 4px 0 rgb(241 226 194 / 0.3); }
   .is-closed .more-card { background: #1b1447; border-color: var(--lamp); box-shadow: 6px 6px 0 #2bff7a, 0 0 22px rgb(43 255 122 / 0.25); }
   .is-closed .story-block { background: #0a0620; }
   .is-closed .status { color: var(--cream); }
