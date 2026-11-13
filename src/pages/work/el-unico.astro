@@ -100,7 +100,7 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('A website for m
           </defs>
           <ellipse class="heat" cx="215" cy="225" rx="70" ry="150" fill="url(#heat)" />
           <rect x="226" y="90" width="22" height="270" rx="6" fill="#3b3b44" stroke="#121a3a" stroke-width="5" />
-          <g fill="#ff8a2a"><rect x="230" y="110" width="14" height="40" rx="3" /><rect x="230" y="170" width="14" height="40" rx="3" /><rect x="230" y="230" width="14" height="40" rx="3" /><rect x="230" y="290" width="14" height="40" rx="3" /></g>
+          <g class="coils" fill="#ff8a2a"><rect x="230" y="110" width="14" height="40" rx="3" /><rect x="230" y="170" width="14" height="40" rx="3" /><rect x="230" y="230" width="14" height="40" rx="3" /><rect x="230" y="290" width="14" height="40" rx="3" /></g>
           <rect x="125" y="40" width="10" height="350" fill="#9aa0a8" stroke="#121a3a" stroke-width="4" />
           <g clip-path="url(#meat)">
             <rect x="40" y="110" width="200" height="230" fill="#b8411f" />
@@ -974,55 +974,57 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('A website for m
   }
   .foot-ask:hover { background: var(--pink); color: #fff !important; }
 
-  /* After closing: the lights go down, and only the neon stays bright. */
-  .lights-out {
-    position: fixed;
-    inset: 0;
-    background: rgb(10 8 30 / 0.5);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.8s ease;
-    z-index: 5;
+  /* After closing it's night at the mall. Nothing goes dark: the wall turns to
+     night, the drawings are outlined in lamplight, the grill keeps glowing,
+     and the lettering becomes neon. Pink for names, green for prices. */
+  .lights-out { display: none; }
+  .unico.is-closed {
+    --night: #120c2e;
+    --lamp: #c9bff5;
+    --neon-pink: 0 0 1px #fff, 0 0 6px #ff3d7f, 0 0 14px #ff3d7f, 0 0 32px rgb(255 61 127 / 0.55);
+    --neon-green: 0 0 1px #fff, 0 0 5px #2bff7a, 0 0 12px #2bff7a, 0 0 26px rgb(43 255 122 / 0.5);
+    color: var(--cream);
+    background:
+      linear-gradient(90deg, rgb(201 191 245 / 0.07) 1.5px, transparent 1.5px) 0 0 / 4rem 4rem,
+      linear-gradient(rgb(201 191 245 / 0.07) 1.5px, transparent 1.5px) 0 0 / 4rem 4rem,
+      var(--night);
   }
-  .is-closed .lights-out { opacity: 1; }
-  .is-closed .neon, .is-closed .concept-bar, .is-closed .visit-block .again, .is-closed .status { position: relative; z-index: 6; }
-  .is-closed .status { color: var(--cream); }
-  .is-closed .visit-block .again { color: var(--cream); }
+  .is-closed :focus-visible { outline-color: var(--yellow); }
 
-  /* Closed: the titles and the greens turn into neon tubes above the dark. */
-  .is-closed .sign, .is-closed .sign-sub, .is-closed .block-title, .is-closed .item-price { position: relative; z-index: 6; }
-  .is-closed .sign, .is-closed .block-title {
-    color: #ffe0ec;
-    text-shadow: 0 0 2px #fff, 0 0 7px #ff3d7f, 0 0 16px #ff3d7f, 0 0 36px rgb(255 61 127 / 0.7), 0 0 70px rgb(255 61 127 / 0.4);
-  }
-  .is-closed .sign-sub, .is-closed .item-price {
-    color: #d8ffe4;
-    text-shadow: 0 0 2px #fff, 0 0 7px #2bff7a, 0 0 16px #2bff7a, 0 0 34px rgb(43 255 122 / 0.6);
-  }
-  .more-card { position: relative; }
-  .is-closed .more-card { box-shadow: none; }
-  .is-closed .more-card::after {
-    content: '';
-    position: absolute;
-    inset: 4px -8px -8px 4px;
-    border: 3px solid #b8ffd0;
-    border-radius: 3px;
-    box-shadow: 0 0 6px #2bff7a, 0 0 18px #2bff7a, inset 0 0 8px #2bff7a;
-    pointer-events: none;
-    z-index: 6;
-  }
-  .is-closed [fill='#2f8f4e'], .is-closed [fill='#7fc24a'] { fill: #4dff8f; filter: drop-shadow(0 0 3px #2bff7a) drop-shadow(0 0 10px #2bff7a); }
-  .is-closed [stroke='#5aa832'] { stroke: #7dffaa; filter: drop-shadow(0 0 3px #2bff7a) drop-shadow(0 0 9px #2bff7a); }
+  /* The lettering. */
+  .is-closed .sign, .is-closed .block-title { color: #ffe3ee; text-shadow: var(--neon-pink); }
+  .is-closed .sign-sub, .is-closed .item-price, .is-closed .price-line b { color: #dcffe8; text-shadow: var(--neon-green); }
+  .is-closed .special { color: #ff9cc0; }
+
+  /* The drawings: outlines in lamplight so every shape still reads. */
+  .is-closed svg [stroke='#121a3a'] { stroke: var(--lamp); }
+  .is-closed .plate svg { filter: drop-shadow(0 0 22px rgb(201 191 245 / 0.18)); }
+
+  /* The trompo never goes cold. */
+  .is-closed .heat { opacity: 1; }
+  .is-closed .coils { fill: #ffc06a; filter: drop-shadow(0 0 4px #ff8a2a) drop-shadow(0 0 12px #ff6a2a); }
+  .is-closed .trompo svg { filter: drop-shadow(14px 0 40px rgb(255 120 40 / 0.35)); }
   @media (prefers-reduced-motion: no-preference) {
-    .is-closed .sign, .is-closed .block-title, .is-closed .sign-sub, .is-closed .item-price, .is-closed .more-card::after {
-      animation: flicker-on 1.6s steps(1, end) 0.4s backwards;
-    }
-    .is-closed .sign-sub, .is-closed .item-price, .is-closed .more-card::after { animation-delay: 0.9s; }
+    .is-closed .heat { animation-name: heat-night; }
+    @keyframes heat-night { to { opacity: 0.75; } }
+  }
+
+  /* Buttons and cards. */
+  .is-closed .step { border-color: var(--lamp); box-shadow: 4px 4px 0 rgb(201 191 245 / 0.35); }
+  .is-closed .step:disabled, .is-closed .step.is-done { color: var(--cream); box-shadow: none; }
+  .is-closed .fact-button { color: var(--ink); border-color: var(--lamp); box-shadow: 4px 4px 0 rgb(201 191 245 / 0.35); }
+  .is-closed .more-card { background: #1b1447; border-color: var(--lamp); box-shadow: 6px 6px 0 #2bff7a, 0 0 22px rgb(43 255 122 / 0.25); }
+  .is-closed .story-block { background: #0a0620; }
+  .is-closed .status { color: var(--cream); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .is-closed .sign { animation: flicker-on 1.4s steps(1, end) 0.3s backwards; }
     @keyframes flicker-on {
-      0%, 12%, 22%, 40% { opacity: 0.25; text-shadow: none; }
-      8%, 18%, 30% { opacity: 1; }
+      0%, 12%, 24% { opacity: 0.3; text-shadow: none; }
+      8%, 18%, 32% { opacity: 1; }
     }
   }
+
 
   @media (max-width: 760px) {
     .hero, .block { grid-template-columns: 1fr; }
