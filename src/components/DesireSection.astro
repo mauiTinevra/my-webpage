@@ -3,11 +3,12 @@
 // what their site could be, then how working together goes.
 import { site } from '../site';
 
-const ideas = [
+const ideas: { who: string; about: string; idea: string; example?: { href: string; label: string } }[] = [
   {
     who: 'A restaurant',
     about: 'my restaurant',
-    idea: 'The menu is the kitchen pass. Plates slide out as you scroll, the specials board is chalk you can wipe and rewrite, and after closing time the lights go down and the site says so.',
+    idea: 'One taco, cut from a trompo you can watch turn. Visitors build the taco step by step, pour themselves an agua fresca, and after closing time the lights go down and the neon says so.',
+    example: { href: '/work/el-unico', label: 'See it built: El Único, an imaginary taquería' },
   },
   {
     who: 'A musician',
@@ -77,6 +78,11 @@ const mail = (about: string) => `mailto:${site.email}?subject=${encodeURICompone
           <a class="idea-ask" href={mail(idea.about)}>
             I want this for {idea.about}
           </a>
+          {idea.example && (
+            <a class="idea-example" href={idea.example.href}>
+              {idea.example.label}
+            </a>
+          )}
         </div>
       ))
     }

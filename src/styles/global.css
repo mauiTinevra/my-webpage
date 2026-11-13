@@ -514,6 +514,8 @@ body.over-paper .site-header { --arrived: 0%; }
 }
 .idea-ask:hover { background: #f0508f; color: #fff; }
 .idea-ask:focus-visible, .idea-else a:focus-visible { outline: 3px solid var(--yellow); outline-offset: 4px; }
+.idea-example { display: inline-block; margin: 1.5rem 0 0 1.5rem; color: var(--cream); font-family: var(--display); font-weight: 700; text-underline-offset: 0.2em; }
+.idea-example:focus-visible { outline: 3px solid var(--yellow); outline-offset: 4px; }
 .idea-else { margin: 1.5rem 0 0; font-family: var(--display); color: rgb(251 244 228 / 0.85); }
 .idea-else a { color: var(--cream); }
 
