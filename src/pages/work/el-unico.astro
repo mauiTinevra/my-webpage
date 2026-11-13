@@ -17,8 +17,8 @@ const menu = {
     { key: 'tresleches', name: 'Tres leches', about: 'Sponge cake soaked in three milks.', price: '$5' },
   ],
 };
-// Open Tuesday to Sunday, 11 AM to 10 PM. Monday is for the trompo to rest.
-const hours = { open: 11, close: 22, closedDay: 'Mon' };
+// Open Tuesday to Sunday, 10 AM to 10 PM. Monday is for the trompo to rest.
+const hours = { open: 10, close: 22, closedDay: 'Mon' };
 // Days that differ from the usual hours. A closing hour of 0 means closed all day.
 const specialDays = [
   { date: '2026-11-26', close: 0, note: 'Closed for Thanksgiving' },
@@ -423,7 +423,7 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('A website for m
           </div>
           <div class="fact">
             <h3>Hours</h3>
-            <p>Tuesday to Sunday<br />11 AM to 10 PM<br />Closed Mondays</p>
+            <p>Tuesday to Sunday<br />10 AM to 10 PM<br />Closed Mondays</p>
             <ul class="special" id="special-days"></ul>
           </div>
           <div class="fact">
@@ -910,6 +910,8 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('A website for m
   .drink-block .step:disabled { color: var(--cream); border-color: rgb(251 244 228 / 0.6); }
   .drink-block .step.is-done { color: var(--cream); }
   .drink-block .again { color: var(--cream); }
+  /* The bar is always dark, so its glass is drawn in cream, day or night. */
+  .drink-block svg [stroke='#121a3a'] { stroke: var(--cream); }
   .cocktail svg { display: block; width: 100%; max-width: 20rem; margin: 0 auto; }
   .mix { opacity: 0; }
   .mix.is-on { opacity: 1; }
