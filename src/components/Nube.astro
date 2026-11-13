@@ -41,7 +41,7 @@ const eyes = [
 ];
 ---
 
-<svg class="nube" viewBox="0 0 280 180" aria-hidden="true">
+<svg class="nube" viewBox="0 0 280 180" aria-hidden="true" data-nube>
   <g fill={line} stroke={line} stroke-width="16">
     {bubbles.map(([cx, cy, r]) => <circle cx={cx} cy={cy} r={r} />)}
   </g>
@@ -50,9 +50,9 @@ const eyes = [
   </g>
   {
     eyes.map(([cx, cy]) => (
-      <g>
+      <g data-eye={`${cx},${cy}`}>
         <ellipse cx={cx} cy={cy} rx="13" ry="18" fill="#fff" stroke={line} stroke-width="5" />
-        <ellipse cx={cx + 3} cy={cy + 5} rx="6" ry="9" fill={line} />
+        <ellipse class="pupil" cx={cx} cy={cy} rx="6" ry="9" fill={line} />
       </g>
     ))
   }

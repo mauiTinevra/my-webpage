@@ -188,6 +188,53 @@ a:hover { text-decoration-thickness: 2px; }
   will-change: transform;
 }
 
+/* The last stretch of sky above the first row, meeting the night of the next page. */
+.ascent-sky {
+  height: calc(var(--scene-h, 100vh) * 1.5);
+  background: linear-gradient(0deg, #f0508f 0%, var(--purple) 50%, #1b1147 100%);
+}
+
+/* The sunset that settles over everything from the moment the climb begins.
+   It is a tall strip of sky that slides from warm dusk at the bottom to night at the top. */
+.haze, .drift { position: absolute; inset: 0; pointer-events: none; opacity: 0; }
+.haze { overflow: hidden; }
+.haze-sky {
+  height: 500%;
+  background: linear-gradient(
+    0deg,
+    #ffd9a8 0%,
+    #ffc2a0 14%,
+    #f6a3c0 32%,
+    #f0508f 52%,
+    var(--purple) 74%,
+    #1b1147 92%,
+    #1b1147 100%
+  );
+  will-change: transform;
+}
+.drift-cloud {
+  position: absolute;
+  top: 0;
+  width: max(5.5rem, calc(var(--w) * 1vw));
+  will-change: transform;
+}
+.drift-cloud .nube { display: block; width: 100%; height: auto; max-height: none; }
+.pupil { transform: translate(3px, 5px); transition: transform 0.12s ease-out; }
+
+.next-page {
+  position: relative;
+  height: var(--scene-h, calc(100dvh - var(--header-h, 4rem)));
+}
+.scene { position: relative; height: 100%; overflow: hidden; }
+
+.track {
+  position: relative;
+  display: flex;
+  width: max-content;
+  height: 100%;
+  will-change: transform;
+}
+
 /* The sky you climb through after the last row: day at the bottom, night at the top. */
 .ascent-sky {
   position: relative;
