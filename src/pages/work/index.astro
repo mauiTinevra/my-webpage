@@ -2,6 +2,9 @@
 // Work: each project as a short case study. What it was, what I did and why, and where to see it.
 import Base from '../../layouts/Base.astro';
 import { work } from '../../data/work';
+
+// The same color for each project as on the home page's Selected work, in the same order.
+const colors = ['var(--orange)', 'var(--yellow)', 'var(--pink)', 'var(--green)', 'var(--lilac)', 'var(--blue)'];
 ---
 
 <Base
@@ -14,9 +17,9 @@ import { work } from '../../data/work';
     <p class="w-lede">Websites for restaurants, studios and shops. Each project, what it needed, and what I did about it.</p>
   </header>
   {
-    work.map((w) => (
+    work.map((w, i) => (
       <article class="w-case" id={w.id} aria-labelledby={`${w.id}-title`}>
-        <a class="w-shot" href={w.links[0].href}>
+        <a class="w-shot" href={w.links[0].href} style={`--field: ${colors[i % colors.length]}`}>
           <img src={w.image} alt={w.alt} width="1200" height="750" loading="lazy" />
         </a>
         <div class="w-words">
@@ -54,7 +57,7 @@ import { work } from '../../data/work';
   .w-title { margin: 0; font-size: clamp(3.4rem, 12vw, 10rem); line-height: 0.86; letter-spacing: -0.045em; font-stretch: 120%; }
   .w-lede { margin: 1.25rem 0 0; font-size: 1.25rem; font-weight: 500; }
   .w-case { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 4rem); padding: clamp(2rem, 4vw, 3.5rem) var(--edge); scroll-margin-top: 5rem; }
-  .w-shot { display: block; align-self: start; padding: clamp(1.25rem, 3vw, 2.5rem) clamp(1.25rem, 3vw, 2.5rem) 0; border-radius: 1.4rem; background: #efede7; overflow: hidden; }
+  .w-shot { display: block; align-self: start; padding: clamp(1.25rem, 3vw, 2.5rem) clamp(1.25rem, 3vw, 2.5rem) 0; border-radius: 1.4rem; background: var(--field); overflow: hidden; }
   .w-shot img { display: block; width: 100%; height: auto; border-radius: 0.7rem 0.7rem 0 0; box-shadow: 0 10px 30px -14px rgb(0 0 0 / 0.35); }
   .w-kind { margin: 0; font-weight: 500; color: var(--muted); }
   .w-name { margin: 0.35rem 0 0; font-size: clamp(2rem, 4vw, 3.2rem); line-height: 0.95; }

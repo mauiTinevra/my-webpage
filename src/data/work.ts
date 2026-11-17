@@ -203,7 +203,7 @@ export const work: Work[] = [
     line: 'A clear home page for clients, and a walkable street with a yoga practice, all drawn in code.',
     href: '/work#this-site',
     image: '/work/street.jpg',
-    alt: 'This site\u2019s home page: the headline Web design for small businesses in Scottsdale, Arizona, beside a restaurant site shown on a laptop and a phone',
+    alt: 'This site\u2019s home page: the headline Striking, colorful, elegant design beside flat color blocks, with a figure practising yoga in the blue one',
     problem: 'Show what one person can build without templates, page builders or stock art.',
     did: [
       'A street of storefronts, a posada, a living room and a wardrobe, each drawn in code.',
