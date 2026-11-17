@@ -200,10 +200,10 @@ export const work: Work[] = [
     id: 'this-site',
     name: 'This site, and the street',
     kind: 'Personal site',
-    line: 'A figure practising Ashtanga under the real Scottsdale hour, and a walkable street, all drawn in code.',
+    line: 'A clear home page for clients, and a walkable street with a yoga practice, all drawn in code.',
     href: '/work#this-site',
     image: '/work/street.jpg',
-    alt: 'This site\u2019s home page: the name Maui Tinevra set huge in white on a blue field, with a small figure practising yoga',
+    alt: 'This site\u2019s home page: the headline Web design for small businesses in Scottsdale, Arizona, beside a restaurant site shown on a laptop and a phone',
     problem: 'Show what one person can build without templates, page builders or stock art.',
     did: [
       'A street of storefronts, a posada, a living room and a wardrobe, each drawn in code.',

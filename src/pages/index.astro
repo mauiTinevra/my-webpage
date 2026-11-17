@@ -1,8 +1,8 @@
 ---
-// The home page, for someone deciding whether to hire Maui: who he is and what he makes, the
-// work, what it costs, about, and how to start. Look: a blue field with the name set huge, then
-// a paper page where every project gets its own flat color. Archivo wide and Inter Tight.
-// The one moving thing is the figure practising Ashtanga in the opening.
+// The home page, for a small-business owner deciding whether to hire Maui: what he does and where,
+// the work, what it costs, about, and how to start. Color follows 60/30/10: paper, ink, and one
+// accent (blue) for the opening field, the actions and the contact band. Archivo wide for
+// display, Inter Tight for reading. The one moving thing is the small Ashtanga figure in About.
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import { site } from '../site';
@@ -31,85 +31,59 @@ const services = [
   },
 ];
 
-// Selected work: everything in src/data/work.ts, hand-built first, then the six gallery concepts,
-// each in its own color. The gallery sites were built by AI agents from Maui's briefs; the cards say so.
-const colors = ['var(--orange)', 'var(--yellow)', 'var(--pink)', 'var(--green)', 'var(--lilac)', 'var(--blue)'];
-const cards = work.map((w, i) => ({
-  href: w.ai ? w.links[0].href : w.href,
-  name: w.name,
-  kind: w.kind,
-  line: w.line,
-  image: w.image,
-  alt: w.alt,
-  ai: !!w.ai,
-  field: colors[i % colors.length],
-}));
+// Selected work: Maui's own projects. (The AI-built gallery concepts are left out of the portfolio.)
+const cards = work
+  .filter((w) => !w.ai)
+  .map((w) => ({ href: w.href, name: w.name, kind: w.kind, line: w.line, image: w.image, alt: w.alt }));
 ---
 
 <Base bare>
   <section class="b-hero" aria-labelledby="hero-title">
     <div class="b-words">
-      <h1 class="b-name" id="hero-title">Websites people remember.</h1>
-      <p class="b-offer">Designed and engineered by Maui Tinevra, one artist in Scottsdale, Arizona.</p>
+      <h1 class="b-name" id="hero-title">Web design for small businesses in Scottsdale, Arizona</h1>
+      <p class="b-offer">
+        Custom websites for restaurants, studios and shops, designed and built by me, Maui Tinevra. From $3,500, live in two to
+        three weeks.
+      </p>
       <div class="b-actions">
-        <a class="btn btn-dark" href="#contact">Start a project</a>
+        <a class="btn btn-accent" href="#contact">Start a project</a>
         <a class="btn" href="#work">See my work</a>
       </div>
-      <p class="b-now" id="now">Scottsdale, Arizona</p>
     </div>
-    <div class="b-blocks">
-      <figure class="b-stage">
-        <svg class="b-scene" viewBox="80 40 260 260" role="img" aria-labelledby="pose-label">
-          <title id="pose-label">A figure practising Ashtanga yoga</title>
-          <path id="trail" class="b-trail" d="" />
-          <g id="yogi" transform="translate(210 286) scale(-1.5 1.5)"></g>
-          <path class="b-mat" d="M96 290H324" />
-        </svg>
-        <figcaption class="b-caption">
-          <p class="b-pose"><span id="series">Primary series</span><strong id="pose-name">Samasthiti</strong></p>
-          <div class="b-controls" role="group" aria-label="The practice">
-            <button type="button" class="b-key" id="play" aria-pressed="true">Pause</button>
-            <button type="button" class="b-key" id="next">Next pose</button>
-            <button type="button" class="b-key" id="swap">Second series</button>
-          </div>
-        </figcaption>
-      </figure>
-      <div class="b-block" style="background: var(--orange)"></div>
-      <div class="b-block" style="background: var(--yellow)"></div>
-      <div class="b-block" style="background: var(--pink)"></div>
-      <div class="b-block" style="background: var(--green)"></div>
-    </div>
+    <a class="b-show" href="/work#el-unico" aria-label="El Único Taquería, a restaurant site by Maui Tinevra: see the case study">
+      <span class="b-browser">
+        <span class="b-bar" aria-hidden="true"><i></i><i></i><i></i></span>
+        <img src="/work/el-unico-desktop.webp" alt="" width="1200" height="750" fetchpriority="high" />
+      </span>
+      <span class="b-phone"><img src="/work/el-unico-phone.webp" alt="" width="480" height="1039" /></span>
+      <span class="b-show-label">El Único Taquería, ordering and hours first</span>
+    </a>
   </section>
 
   <section class="b-section" id="work" aria-labelledby="work-title">
     <div class="b-head">
       <h2 class="b-title" id="work-title">Selected work</h2>
-      <a href="/work">All work and what changed</a>
+      <a href="/work">See the case studies</a>
     </div>
     <ul class="b-work" role="list">
       {
         cards.map((c) => (
           <li>
-            <a class="b-card" href={c.href} style={`--field: ${c.field}`} data-light={c.field === 'var(--blue)' ? '' : undefined}>
+            <a class="b-card" href={c.href}>
               <span class="b-card-top">
                 <span class="b-card-name">{c.name}</span>
                 <span class="b-kind">{c.kind}</span>
               </span>
               <span class="b-card-line">{c.line}</span>
-              {c.ai && <span class="b-badge">Built with AI agents from my brief</span>}
               <img src={c.image} alt={c.alt} width="1200" height="750" loading="lazy" />
             </a>
           </li>
         ))
       }
     </ul>
-    <p class="b-note" id="gallery">
-      The last six are <a href="/gallery/">the gallery</a>: imaginary businesses around Phoenix whose sites I directed and AI agents
-      built in parallel, in an afternoon. <a href="/gallery/guide/">Here is exactly how</a>.
-    </p>
   </section>
 
-  <section class="b-section b-yellow" id="services" aria-labelledby="services-title">
+  <section class="b-section b-services-band" id="services" aria-labelledby="services-title">
     <div class="b-head">
       <h2 class="b-title" id="services-title">Services &amp; pricing</h2>
       <a href="/web-design">How a project works</a>
@@ -141,9 +115,20 @@ const cards = work.map((w, i) => ({
       </p>
       <p><a href="/art">See my art</a>, read the <a href="/journal">journal</a>, or try the <a href="/street">interactive site</a>.</p>
     </div>
-    <div class="b-photos">
+    <div class="b-about-side">
+      <div class="b-photos">
       <figure class="b-photo"><Image src={yellowWall} alt="Maui crouching in front of a yellow wall" widths={[320, 520]} sizes="(max-width: 760px) 45vw, 260px" /></figure>
       <figure class="b-photo b-photo-low"><Image src={crow} alt="Maui in crow pose on a yoga mat in front of a graffiti wall" widths={[320, 520]} sizes="(max-width: 760px) 45vw, 260px" /></figure>
+      </div>
+      <figure class="b-yoga">
+        <svg viewBox="70 40 280 262" role="img" aria-labelledby="yoga-label">
+          <title id="yoga-label">A small drawing of Maui practising the Ashtanga primary series</title>
+          <g id="yogi" transform="translate(210 286) scale(-1.5 1.5)"></g>
+          <path class="b-mat" d="M96 290H324" />
+        </svg>
+        <figcaption>Most mornings: the Ashtanga primary series, drawn in code.</figcaption>
+      </figure>
+    </div>
     </div>
   </section>
 
@@ -161,8 +146,6 @@ const cards = work.map((w, i) => ({
 
 <script>
   import { poses, practice, blendLag, breathe, drawFlat } from '../lib/yogi';
-  import { nowAt, nextSun, formatHour } from '../lib/sky';
-  import { here } from '../site';
 
   const el = (id: string) => document.getElementById(id)!;
   const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -178,50 +161,24 @@ const cards = work.map((w, i) => ({
     }
   });
 
-  // The real hour where Maui is.
-  const tell = () => {
-    const now = nowAt(here);
-    const clock = formatHour(now.hour);
-    const sun = nextSun(now.hour, now.day, here, now.offset);
-    const hours = Math.floor(sun.in);
-    const mins = Math.round((sun.in - hours) * 60);
-    el('now').textContent = `${clock.time} ${clock.half} in Scottsdale. ${sun.event} in ${hours ? `${hours} h ${mins} min` : `${mins} min`}.`;
-  };
-  tell();
-  setInterval(tell, 60_000);
-
-  // The practice. Each pose is a set of joint angles; a move runs every joint on its own slightly
-  // late clock so the body travels in a wave, and a held pose breathes. The near hand leaves a
-  // short trail while it moves.
-  const colors = { skin: '#e3a374', skinFar: '#b97d55', top: '#fbfaf7', topFar: '#c9cdf7', shorts: '#ff5a1f', shortsFar: '#d2440f', hair: '#111111' };
+  // The small figure in About practises the primary series on its own: each pose is a set of
+  // joint angles, a move runs every joint on its own slightly late clock, and a held pose breathes.
+  // It only animates while it is on screen, and stands still for reduced motion.
+  const colors = { skin: '#d8996c', skinFar: '#b07a53', top: '#111111', topFar: '#3a3a3a', shorts: '#2a35ff', shortsFar: '#1d27c4', hair: '#111111' };
   const yogi = el('yogi');
-  const trail = el('trail');
-  const MOVE = 1500; // ms for one move
-  const BREATH = 4200; // ms for one full breath
-  let series = 0;
+  const steps = practice[0].steps;
+  const MOVE = 1500;
+  const BREATH = 4200;
   let index = 0;
-  let playing = !calm;
   let phase: 'move' | 'hold' = 'hold';
   let since = performance.now();
   let from = poses.samasthiti;
   let current = poses.samasthiti;
-  const steps = () => practice[series].steps;
-  const marks: { x: number; y: number; at: number }[] = [];
+  let visible = false;
+  let frame = 0;
 
-  const label = () => {
-    el('series').textContent = practice[series].series;
-    el('pose-name').textContent = steps()[index].name;
-    el('pose-label').textContent = `A figure practising Ashtanga yoga, in ${steps()[index].name}`;
-  };
-  const go = (to: number) => {
-    from = current;
-    index = (to + steps().length) % steps().length;
-    phase = 'move';
-    since = performance.now();
-    label();
-  };
   const paint = (time: number) => {
-    const target = poses[steps()[index].pose];
+    const target = poses[steps[index].pose];
     if (phase === 'move') {
       const k = Math.min(1, (time - since) / MOVE);
       current = blendLag(from, target, k);
@@ -231,131 +188,119 @@ const cards = work.map((w, i) => ({
       }
     } else {
       current = breathe(target, Math.sin(((time % BREATH) / BREATH) * Math.PI * 2));
-      if (playing && time - since > steps()[index].hold * 1000 + 600) go(index + 1);
+      if (time - since > steps[index].hold * 1000 + 600) {
+        from = current;
+        index = (index + 1) % steps.length;
+        phase = 'move';
+        since = time;
+      }
     }
-    const drawn = drawFlat(current, colors);
-    yogi.innerHTML = drawn.svg;
-    // The trail, in the scene's own coordinates (the figure is mirrored and scaled).
-    if (phase === 'move') marks.push({ x: 210 - drawn.hand[0] * 1.5, y: 286 + drawn.hand[1] * 1.5, at: time });
-    while (marks.length && time - marks[0].at > 900) marks.shift();
-    trail.setAttribute('d', marks.length > 1 ? 'M' + marks.map((m) => `${m.x.toFixed(1)} ${m.y.toFixed(1)}`).join('L') : '');
+    yogi.innerHTML = drawFlat(current, colors).svg;
   };
   const tick = (time: number) => {
     paint(time);
-    requestAnimationFrame(tick);
+    frame = visible ? requestAnimationFrame(tick) : 0;
   };
-  const still = () => {
-    current = poses[steps()[index].pose];
-    yogi.innerHTML = drawFlat(current, colors).svg;
-  };
-  label();
-  if (calm) {
-    // Reduced motion: no loop. Each press of "Next pose" shows the next pose, still.
-    still();
-    el('play').hidden = true;
-  } else requestAnimationFrame(tick);
-
-  el('play').addEventListener('click', () => {
-    playing = !playing;
-    el('play').setAttribute('aria-pressed', String(playing));
-    el('play').textContent = playing ? 'Pause' : 'Play';
-    since = performance.now();
-  });
-  el('next').addEventListener('click', () => {
-    go(index + 1);
-    if (calm) still();
-  });
-  el('swap').addEventListener('click', () => {
-    series = 1 - series;
-    el('swap').textContent = series ? 'Primary series' : 'Second series';
-    go(0);
-    if (calm) still();
-  });
+  yogi.innerHTML = drawFlat(current, colors).svg;
+  if (!calm) {
+    new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      if (visible && !frame) {
+        since = performance.now();
+        frame = requestAnimationFrame(tick);
+      }
+    }).observe(yogi.closest('figure')!);
+  }
 </script>
 
 <style>
-  /* The opening: words on paper, beside a wall of flat color blocks. The figure practises in the blue one. */
-  .b-hero { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); min-height: calc(100svh - 4.6rem); }
-  .b-words { display: flex; flex-direction: column; justify-content: flex-end; padding: clamp(2rem, 5vw, 4rem) var(--edge) clamp(2rem, 4vw, 3.5rem); }
-  .b-name { margin: 0; max-width: 9ch; font-weight: 800; font-stretch: 118%; font-size: clamp(3rem, 6.6vw, 6.75rem); line-height: 0.92; letter-spacing: -0.04em; }
-  .b-offer { margin: 1.75rem 0 0; max-width: 27rem; color: var(--muted); font-size: clamp(1.15rem, 1.6vw, 1.4rem); line-height: 1.35; font-weight: 500; }
+  /* 60/30/10: paper, ink, and one accent, blue, for the opening field, the actions and the contact
+     band. The screenshots bring the rest of the color. */
+  .b-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); min-height: calc(100svh - 4.6rem); }
+  .b-words { display: flex; flex-direction: column; justify-content: center; padding: clamp(2.5rem, 6vw, 5rem) var(--edge); }
+  .b-name { margin: 0; max-width: 13ch; font-weight: 800; font-stretch: 112%; font-size: clamp(2.6rem, 5.2vw, 5.1rem); line-height: 0.95; letter-spacing: -0.035em; text-wrap: balance; }
+  .b-offer { margin: 1.75rem 0 0; max-width: 31rem; color: var(--muted); font-size: clamp(1.1rem, 1.5vw, 1.3rem); line-height: 1.45; font-weight: 500; text-wrap: pretty; }
   .b-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 2rem; }
-  .b-now { margin: 1.5rem 0 0; color: var(--muted); font-size: 0.92rem; font-variant-numeric: tabular-nums; }
-  .b-blocks { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1.2fr 1fr 1fr; min-height: 26rem; }
-  .b-stage { grid-row: span 2; position: relative; display: flex; flex-direction: column; justify-content: flex-end; margin: 0; padding: 1.25rem 1.25rem 0; background: var(--blue); color: var(--paper); overflow: hidden; }
-  .b-scene { display: block; width: 100%; max-height: 68%; height: auto; overflow: visible; margin-bottom: 1.5rem; }
-  .b-trail { fill: none; stroke: var(--yellow); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
-  .b-mat { stroke: var(--yellow); stroke-width: 5; stroke-linecap: round; }
-  .b-caption { position: absolute; left: 1.25rem; top: 1.25rem; right: 1.25rem; display: grid; gap: 0.6rem; }
-  .b-pose { margin: 0; display: grid; }
-  .b-pose span { opacity: 0.75; font-size: 0.88rem; }
-  .b-pose strong { font-weight: 600; font-size: 1.1rem; line-height: 1.2; }
-  .b-controls { display: flex; flex-wrap: wrap; gap: 0.35rem; }
-  .b-key { min-height: 2.75rem; padding: 0.3rem 0.85rem; border: 1.5px solid rgb(251 250 247 / 0.5); border-radius: 999px; background: transparent; color: var(--paper); font: 500 0.88rem var(--reading); cursor: pointer; }
-  .b-key:hover { border-color: var(--paper); }
-  .b-stage :focus-visible { outline-color: var(--paper); }
+
+  .b-show { position: relative; display: grid; place-items: center; padding: clamp(2rem, 5vw, 4.5rem) clamp(1.5rem, 4vw, 4rem) clamp(4rem, 7vw, 6rem); background: var(--blue); color: var(--paper); text-decoration: none; overflow: hidden; }
+  .b-browser { display: block; width: 100%; max-width: 40rem; border-radius: 0.75rem; overflow: hidden; background: var(--paper); box-shadow: 0 24px 60px -20px rgb(0 0 30 / 0.55); transition: translate 0.35s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .b-bar { display: flex; gap: 0.35rem; padding: 0.6rem 0.75rem; background: var(--paper); }
+  .b-bar i { width: 0.55rem; height: 0.55rem; border-radius: 50%; background: rgb(17 17 17 / 0.18); }
+  .b-browser img { display: block; width: 100%; height: auto; }
+  .b-phone { position: absolute; right: clamp(1rem, 3vw, 3rem); bottom: clamp(2.25rem, 4vw, 3.5rem); width: clamp(6.5rem, 11vw, 9.5rem); padding: 0.35rem; border-radius: 1.4rem; background: var(--ink); box-shadow: 0 24px 50px -16px rgb(0 0 30 / 0.6); transition: translate 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) 0.04s; }
+  .b-phone img { display: block; width: 100%; height: auto; border-radius: 1.1rem; }
+  .b-show-label { position: absolute; left: clamp(1.5rem, 4vw, 4rem); bottom: clamp(1.25rem, 2.5vw, 2rem); font-weight: 600; font-size: 0.95rem; }
+  .b-show-label::after { content: ''; display: inline-block; width: 0.5em; height: 0.5em; margin-left: 0.5em; border-top: 2px solid; border-right: 2px solid; rotate: 45deg; vertical-align: 0.1em; }
+  .b-show:hover .b-browser, .b-show:hover .b-phone { translate: 0 -0.4rem; }
+  .b-show:focus-visible { outline: 3px solid var(--ink); outline-offset: -3px; }
 
   .btn { display: inline-flex; align-items: center; min-height: 3rem; padding: 0.6rem 1.4rem; border: 1.5px solid var(--ink); border-radius: 999px; background: transparent; color: var(--ink); font: 600 1rem var(--reading); text-decoration: none; cursor: pointer; transition: background-color 0.2s, color 0.2s, border-color 0.2s; }
   .btn:hover { background: var(--ink); color: var(--paper); }
+  .btn-accent { background: var(--blue); border-color: var(--blue); color: var(--paper); }
+  .btn-accent:hover { background: var(--ink); border-color: var(--ink); }
   .btn-dark { background: var(--ink); color: var(--paper); }
-  .btn-dark:hover { background: var(--orange); border-color: var(--orange); color: var(--ink); }
-  .b-contact .btn-dark:hover { background: var(--paper); border-color: var(--paper); }
+  .btn-dark:hover { background: var(--blue); border-color: var(--blue); }
+  .b-contact .btn-dark { background: var(--paper); border-color: var(--paper); color: var(--ink); }
+  .b-contact .btn-dark:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); }
 
   .b-section { padding: clamp(3.5rem, 8vw, 7rem) var(--edge); }
-  .b-section a:not(.btn):not(.b-card):not(.b-mini) { color: inherit; text-underline-offset: 0.2em; }
+  .b-section a:not(.btn):not(.b-card) { color: inherit; text-underline-offset: 0.2em; }
   .b-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.5rem 2rem; }
   .b-head a { font-weight: 600; }
-  .b-title { margin: 0; font-size: clamp(2.6rem, 6.4vw, 5.5rem); line-height: 0.92; letter-spacing: -0.04em; }
+  .b-title { margin: 0; font-size: clamp(2.6rem, 6vw, 5rem); line-height: 0.92; letter-spacing: -0.04em; }
   .b-lead { max-width: 40rem; font-size: clamp(1.25rem, 2vw, 1.6rem); line-height: 1.35; font-weight: 500; }
 
   .b-work { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(0.9rem, 1.6vw, 1.4rem); margin: clamp(2rem, 4vw, 3.5rem) 0 0; padding: 0; list-style: none; }
   .b-work li { display: grid; }
-  .b-card { display: flex; flex-direction: column; gap: 0.6rem; padding: clamp(1.25rem, 2vw, 1.75rem) clamp(1.25rem, 2vw, 1.75rem) 0; border-radius: 1.4rem; background: var(--field); color: var(--ink); text-decoration: none; overflow: hidden; }
+  .b-card { display: flex; flex-direction: column; gap: 0.6rem; padding: clamp(1.25rem, 2vw, 1.75rem) clamp(1.25rem, 2vw, 1.75rem) 0; border-radius: 1.4rem; background: #efede7; color: var(--ink); text-decoration: none; overflow: hidden; transition: background-color 0.2s; }
+  .b-card:hover { background: #e7e5de; }
   .b-card-top { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
   .b-card-name { font-family: var(--display); font-weight: 800; font-stretch: 118%; font-size: clamp(1.5rem, 2.3vw, 2.1rem); line-height: 1; letter-spacing: -0.03em; }
-  .b-kind { font-size: 0.9rem; font-weight: 500; white-space: nowrap; }
+  .b-kind { color: var(--muted); font-size: 0.9rem; font-weight: 500; white-space: nowrap; }
   .b-card-line { max-width: 28rem; line-height: 1.45; }
-  .b-card img { display: block; width: 100%; height: auto; margin-top: auto; padding-top: 0; border-radius: 0.7rem 0.7rem 0 0; translate: 0 0.6rem; transition: translate 0.25s; }
+  .b-card img { display: block; width: 100%; height: auto; margin-top: auto; border-radius: 0.7rem 0.7rem 0 0; translate: 0 0.6rem; box-shadow: 0 10px 30px -14px rgb(0 0 0 / 0.35); transition: translate 0.25s; }
   .b-card:hover img { translate: 0 0; }
-  .b-card[data-light] { color: var(--paper); }
-  .b-badge { align-self: flex-start; padding: 0.25rem 0.6rem; border: 1.5px solid currentColor; border-radius: 999px; font-size: 0.8rem; font-weight: 600; }
-  .b-note { max-width: 46rem; margin: clamp(1.5rem, 3vw, 2.5rem) 0 0; color: var(--muted); line-height: 1.55; }
-
+  .b-card:hover .b-card-name { text-decoration: underline; text-decoration-color: var(--blue); text-decoration-thickness: 3px; text-underline-offset: 0.12em; }
   .b-card:focus-visible { outline-offset: 4px; }
 
-  .b-yellow { background: var(--yellow); }
+  .b-services-band { border-top: 1px solid var(--rule); }
   .b-services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem 3rem; margin: clamp(2rem, 4vw, 3.5rem) 0 0; padding: 0; list-style: none; }
   .b-service { padding-top: 1.25rem; border-top: 2px solid var(--ink); }
+  .b-service:first-child { border-top-color: var(--blue); }
   .b-service h3 { margin: 0; font-family: var(--reading); font-stretch: normal; font-weight: 600; font-size: 1.05rem; letter-spacing: 0; }
   .b-price { margin: 0.6rem 0 0; font-family: var(--display); font-weight: 800; font-stretch: 118%; font-size: clamp(1.9rem, 3.2vw, 2.9rem); line-height: 1; letter-spacing: -0.035em; }
-  .b-time { margin: 0.5rem 0 0; font-weight: 500; }
+  .b-time { margin: 0.5rem 0 0; color: var(--muted); font-weight: 500; }
   .b-service ul { margin: 1.1rem 0 0; padding: 0 0 0 1.1rem; display: grid; gap: 0.4rem; line-height: 1.45; }
 
-  .b-about { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(16rem, 1fr); gap: clamp(2rem, 6vw, 5rem); align-items: start; }
+  .b-about { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(16rem, 1fr); gap: clamp(2rem, 6vw, 5rem); align-items: start; border-top: 1px solid var(--rule); }
   .b-about-words p { margin: 0 0 1rem; max-width: 40rem; line-height: 1.6; }
   .b-about-words .b-lead { margin-top: 1.75rem; }
-  .b-about-words p:not(.b-lead) { color: var(--muted); }
+  .b-about-side { display: grid; gap: 1.5rem; }
   .b-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: start; }
   .b-photo { margin: 0; border-radius: 1.2rem; overflow: hidden; }
   .b-photo :global(img) { display: block; width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; }
   .b-photo-low { margin-top: 3rem; }
+  .b-yoga { display: grid; grid-template-columns: 11rem 1fr; align-items: end; gap: 1rem; margin: 0; padding-top: 1.25rem; border-top: 1px solid var(--rule); }
+  .b-yoga svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .b-yoga figcaption { padding-bottom: 0.3rem; color: var(--muted); font-size: 0.95rem; line-height: 1.4; }
+  .b-mat { stroke: var(--blue); stroke-width: 6; stroke-linecap: round; }
 
-  .b-contact { background: var(--orange); }
+  .b-contact { background: var(--blue); color: var(--paper); }
   .b-contact p { max-width: 40rem; }
   .b-contact .b-lead { margin: 1.5rem 0 0; }
+  .b-contact :focus-visible { outline-color: var(--paper); }
   .b-mail { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.5rem; margin: 2rem 0 0; }
   .b-address { font-family: var(--display); font-weight: 800; font-stretch: 112%; font-size: clamp(1.5rem, 5vw, 4rem); line-height: 1; letter-spacing: -0.035em; overflow-wrap: anywhere; text-decoration-thickness: 3px !important; }
   .b-copied { min-height: 1.5rem; margin: 0.5rem 0 0; font-weight: 600; }
 
   @media (max-width: 900px) {
     .b-hero { grid-template-columns: 1fr; min-height: 0; }
-    .b-blocks { min-height: 34rem; }
-    .b-key { padding-inline: 0.7rem; font-size: 0.82rem; }
+    .b-show { padding-bottom: 4.5rem; }
     .b-work, .b-services { grid-template-columns: 1fr; }
     .b-about { grid-template-columns: 1fr; }
-    .b-photos { max-width: 26rem; }
+    .b-about-side { max-width: 26rem; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .btn, .b-card img { transition: none; translate: 0 0; }
+    .btn, .b-card, .b-card img, .b-browser, .b-phone { transition: none; translate: 0 0; }
   }
 </style>
