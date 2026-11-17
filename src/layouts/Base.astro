@@ -1,7 +1,10 @@
 ---
 import '@fontsource-variable/archivo/wdth.css';
 import '@fontsource-variable/archivo/wdth-italic.css';
+import '@fontsource-variable/newsreader/opsz.css';
+import '@fontsource-variable/newsreader/opsz-italic.css';
 import '../styles/global.css';
+import Canopy from '../components/Canopy.astro';
 import { site, type Place } from '../site';
 
 interface Props {
@@ -11,9 +14,11 @@ interface Props {
   street?: boolean;
   /** Full-bleed pages: sections set their own padding. */
   bare?: boolean;
+  /** The ink-and-canopy look: Newsreader, forest ink, coral, a treetop strip over the footer. */
+  canopy?: boolean;
 }
 
-const { title, description = site.description, place, street = false, bare = false } = Astro.props;
+const { title, description = site.description, place, street = false, bare = false, canopy = false } = Astro.props;
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
 const pageTitle = title ? `${title} | ${site.name}` : `${site.name} | ${site.tagline}`;
@@ -48,7 +53,7 @@ const nav = [
   { href: '/#about', label: 'About' },
   { href: '/#contact', label: 'Contact' },
 ];
-const bodyClass = [place && `at-${place}`, street && 'is-street', bare && 'is-bare'].filter(Boolean).join(' ');
+const bodyClass = [place && `at-${place}`, street && 'is-street', bare && 'is-bare', canopy && 'is-canopy'].filter(Boolean).join(' ');
 ---
 
 <!doctype html>
@@ -96,6 +101,7 @@ const bodyClass = [place && `at-${place}`, street && 'is-street', bare && 'is-ba
     <main id="main">
       <slot />
     </main>
+    {canopy && <div class="footer-canopy"><Canopy variant="strip" /></div>}
     <footer class="site-footer">
       <div class="footer-grid">
         <div class="footer-about">

@@ -1,10 +1,11 @@
 ---
 // The home page, for someone deciding whether to hire Maui: who he is and what he makes, the
 // work, what it costs, proof it's hand-built, about, and how to start. Brand: docs/brand/BRAND.md
-// (paper 60, ink 30, wall yellow 10, Archivo only). The street is one click away, never in the way.
+// Look: the canopy (paper 60, forest ink 30, coral 10, Newsreader only, ink drawings). The street is one click away, never in the way.
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import TrustSection from '../components/TrustSection.astro';
+import Canopy from '../components/Canopy.astro';
 import { site } from '../site';
 import { work } from '../data/work';
 import yellowWall from '../assets/photos/yellow-wall.jpg';
@@ -32,7 +33,7 @@ const services = [
 ];
 ---
 
-<Base bare>
+<Base bare canopy>
   <section class="h-hero" aria-labelledby="hero-title">
     <div class="h-hero-words">
       <h1 class="h-name" id="hero-title">{site.name}</h1>
@@ -47,9 +48,8 @@ const services = [
       </div>
       <p class="h-street">Or take the long way in: <a href="/street">walk the street</a>, a whole neighborhood drawn in code.</p>
     </div>
-    <div class="h-photos">
-      <figure class="h-photo h-photo-a"><Image src={yellowWall} alt="Maui crouching in front of a yellow wall" widths={[320, 520]} sizes="(max-width: 760px) 45vw, 260px" /></figure>
-      <figure class="h-photo h-photo-b"><Image src={crow} alt="Maui in crow pose on a yoga mat in front of a graffiti wall" widths={[320, 520]} sizes="(max-width: 760px) 45vw, 260px" /></figure>
+    <div class="h-forest">
+      <Canopy variant="hero" />
     </div>
   </section>
 
@@ -100,8 +100,8 @@ const services = [
   <TrustSection title="Everything on this site, I built." />
 
   <section class="h-section h-about" id="about" aria-labelledby="about-title">
-    <h2 class="h-title" id="about-title">About</h2>
     <div class="h-about-words">
+      <h2 class="h-title" id="about-title">About</h2>
       <p class="h-lead">
         I'm Maui. I studied computer science and worked as a software engineer at Uber before going out on my own to make websites
         that feel like the people behind them.
@@ -112,6 +112,10 @@ const services = [
         call to launch day.
       </p>
       <p><a href="/art">See my art</a> or read the <a href="/journal">journal</a>.</p>
+    </div>
+    <div class="h-photos">
+      <figure class="h-photo h-photo-a"><Image src={yellowWall} alt="Maui crouching in front of a yellow wall" widths={[320, 520]} sizes="(max-width: 760px) 45vw, 260px" /></figure>
+      <figure class="h-photo h-photo-b"><Image src={crow} alt="Maui in crow pose on a yoga mat in front of a graffiti wall" widths={[320, 520]} sizes="(max-width: 760px) 45vw, 260px" /></figure>
     </div>
   </section>
 
@@ -142,93 +146,83 @@ const services = [
 </script>
 
 <style>
-  /* Brand: paper 60, ink 30, wall yellow 10 (always with an ink border). Archivo only. Flat. */
-  .h-hero {
-    display: grid;
-    grid-template-columns: minmax(0, 1.25fr) minmax(16rem, 1fr);
-    gap: clamp(2rem, 5vw, 4rem);
-    align-items: center;
-    padding: clamp(2.5rem, 6vw, 4.5rem) var(--edge) clamp(3rem, 6vw, 5rem);
-  }
-  .h-name {
-    margin: 0;
-    font-family: var(--display);
-    font-weight: 800;
-    font-stretch: 125%;
-    font-size: clamp(3rem, 8.5vw, 6.5rem);
-    line-height: 0.92;
-    letter-spacing: -0.02em;
-  }
-  .h-offer { margin: 1.25rem 0 0; max-width: 30rem; font-family: var(--display); font-weight: 700; font-size: clamp(1.3rem, 2.4vw, 1.7rem); line-height: 1.2; }
-  .h-line { margin: 1rem 0 0; max-width: 36rem; font-size: 1.1rem; line-height: 1.55; }
+  /* The canopy look: paper 60, forest ink 30, coral 10. Newsreader only, regular weight.
+     The one big moment is the drawn forest under the hero; everything else stays quiet. */
+  .h-hero { position: relative; background: var(--sky-art); }
+  .h-hero-words { position: relative; z-index: 1; max-width: 40rem; padding: clamp(2.5rem, 7vw, 6rem) var(--edge) 0; }
+  .h-name { font-size: clamp(3.2rem, 8vw, 6.75rem); line-height: 1; letter-spacing: -0.025em; }
+  .h-offer { margin: 1rem 0 0; font-size: clamp(1.3rem, 2.2vw, 1.75rem); line-height: 1.3; font-style: italic; }
+  .h-line { margin: 1rem 0 0; max-width: 34rem; line-height: 1.6; }
   .h-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.75rem; }
   .h-street { margin: 1.25rem 0 0; font-size: 0.98rem; }
-  .h-street a, .h-section a:not(.btn):not(.h-card-link) { color: inherit; text-decoration-thickness: 2px; text-underline-offset: 0.2em; }
+  .h-street a, .h-section a:not(.btn):not(.h-card-link) { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 0.22em; }
+  .h-forest { height: clamp(15rem, 37.5vw, 40rem); margin-top: clamp(-14rem, -12vw, -2rem); }
 
   .btn {
     display: inline-flex;
     align-items: center;
     min-height: 2.9rem;
     padding: 0.6rem 1.3rem;
-    border: 2px solid var(--ink);
-    background: transparent;
+    border: 1.5px solid var(--ink);
+    background: var(--paper);
     color: var(--ink);
-    font: 800 1rem var(--display);
+    font: 500 1rem var(--display);
+    letter-spacing: 0.01em;
     text-decoration: none;
     cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
   }
   .btn:hover { background: var(--ink); color: var(--paper); }
-  .btn-primary { background: var(--yellow); }
-  .btn-primary:hover { background: var(--ink); color: var(--yellow); }
-  .btn:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+  .btn-primary { background: var(--coral); }
+  .btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
 
-  .h-photos { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: start; }
-  .h-photo { margin: 0; border: 2px solid var(--ink); background: var(--ink); }
+  .h-section { padding: clamp(3.5rem, 8vw, 6rem) var(--edge); border-top: 1px solid rgb(23 39 29 / 0.25); }
+  .h-hero + .h-section { border-top: 0; }
+  .h-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.5rem 2rem; max-width: 76rem; }
+  .h-title { font-size: clamp(2.2rem, 4.6vw, 3.4rem); line-height: 1.05; }
+  .h-lead { max-width: 38rem; font-size: clamp(1.25rem, 2vw, 1.5rem); line-height: 1.45; }
+
+  .h-work { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 76rem; margin: 2.5rem 0 0; padding: 0; list-style: none; }
+  .h-card-link { display: grid; gap: 0.3rem; color: var(--ink); text-decoration: none; }
+  .h-card-link img { display: block; width: 100%; height: auto; border: 1.5px solid var(--ink); margin-bottom: 0.75rem; }
+  .h-card-kind { color: var(--muted); font-style: italic; font-size: 0.98rem; }
+  .h-card-name { font-size: 1.6rem; line-height: 1.15; }
+  .h-card-line { color: var(--muted); line-height: 1.55; }
+  .h-card-link:hover .h-card-name { text-decoration: underline; text-decoration-thickness: 1px; text-decoration-color: var(--coral); text-underline-offset: 0.18em; }
+  .h-card-link:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
+
+  .h-ink { background: var(--forest); color: var(--paper); border-top: 0; }
+  .h-ink .h-head a { color: var(--paper); }
+  .h-services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem 3rem; max-width: 76rem; margin: 2.5rem 0 0; padding: 0; list-style: none; }
+  .h-service { padding-top: 1.25rem; border-top: 1px solid rgb(242 237 225 / 0.3); }
+  .h-service:first-child { border-top-color: var(--coral); }
+  .h-service h3 { font-size: 1.35rem; }
+  .h-price { margin: 0.4rem 0 0; font-size: clamp(1.8rem, 3vw, 2.3rem); line-height: 1.1; font-variant-numeric: lining-nums; }
+  .h-time { margin: 0.2rem 0 0; font-style: italic; opacity: 0.85; }
+  .h-service ul { margin: 1.1rem 0 0; padding: 0 0 0 1.1rem; display: grid; gap: 0.4rem; line-height: 1.5; }
+  .h-ink :focus-visible { outline-color: var(--paper); }
+
+  .h-about { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(16rem, 1fr); gap: clamp(2rem, 6vw, 5rem); align-items: start; }
+  .h-about-words p { margin: 0 0 1rem; max-width: 38rem; line-height: 1.65; }
+  .h-about-words .h-lead { margin-top: 1.5rem; }
+  .h-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: start; }
+  .h-photo { margin: 0; border: 1.5px solid var(--ink); background: var(--ink); }
   .h-photo :global(img) { display: block; width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; }
   .h-photo-b { margin-top: 3rem; }
 
-  .h-section { padding: clamp(3rem, 7vw, 5rem) var(--edge); border-top: 2px solid var(--ink); }
-  .h-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.5rem 2rem; max-width: 76rem; }
-  .h-head a { font-family: var(--display); font-weight: 700; }
-  .h-title { margin: 0; font-family: var(--display); font-weight: 800; font-stretch: 118%; font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1; letter-spacing: -0.015em; }
-  .h-lead { max-width: 40rem; font-size: clamp(1.15rem, 2vw, 1.35rem); line-height: 1.45; }
-
-  .h-work { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 76rem; margin: 2rem 0 0; padding: 0; list-style: none; }
-  .h-card-link { display: grid; gap: 0.35rem; color: var(--ink); text-decoration: none; }
-  .h-card-link img { display: block; width: 100%; height: auto; border: 2px solid var(--ink); margin-bottom: 0.6rem; }
-  .h-card-kind { font-family: var(--display); font-weight: 700; font-size: 0.9rem; }
-  .h-card-name { font-family: var(--display); font-weight: 800; font-stretch: 112%; font-size: 1.4rem; line-height: 1.1; }
-  .h-card-line { line-height: 1.45; }
-  .h-card-link:hover .h-card-name { text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 0.18em; }
-  .h-card-link:hover img { border-color: var(--ink); outline: 3px solid var(--yellow); }
-  .h-card-link:focus-visible { outline: 3px solid var(--ink); outline-offset: 4px; }
-
-  .h-ink { background: var(--ink); color: var(--paper); border-top-color: var(--ink); }
-  .h-ink .h-head a { color: var(--paper); }
-  .h-services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 76rem; margin: 2rem 0 0; padding: 0; list-style: none; }
-  .h-service { padding: 1.5rem; border: 2px solid rgb(243 241 236 / 0.35); }
-  .h-service:first-child { border-color: var(--yellow); }
-  .h-service h3 { margin: 0; font-family: var(--display); font-weight: 800; font-size: 1.25rem; }
-  .h-price { margin: 0.5rem 0 0; font-family: var(--display); font-weight: 800; font-stretch: 112%; font-size: 1.9rem; line-height: 1.1; }
-  .h-service:first-child .h-price { color: var(--yellow); }
-  .h-time { margin: 0.25rem 0 0; opacity: 0.85; }
-  .h-service ul { margin: 1rem 0 0; padding: 0 0 0 1.1rem; display: grid; gap: 0.4rem; line-height: 1.45; }
-
-  .h-about { display: grid; grid-template-columns: minmax(12rem, 1fr) minmax(0, 2.2fr); gap: 2rem; }
-  .h-about-words p { margin: 0 0 1rem; max-width: 40rem; line-height: 1.6; }
-  .h-about-words .h-lead { margin-top: 0; }
-
-  .h-contact { background: var(--yellow); }
-  .h-contact p { max-width: 40rem; }
-  .h-mail { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.25rem; margin: 1.5rem 0 0; }
-  .h-mail-address { font-family: var(--display); font-weight: 800; font-stretch: 112%; font-size: clamp(1.4rem, 4vw, 2.4rem); line-height: 1.1; overflow-wrap: anywhere; }
-  .h-copied { min-height: 1.5rem; margin: 0.5rem 0 0; font-weight: 600; }
-  .h-contact .btn:hover { background: var(--ink); color: var(--yellow); }
+  .h-contact p { max-width: 38rem; }
+  .h-contact .h-lead { margin-top: 1rem; }
+  .h-mail { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.25rem; margin: 1.75rem 0 0; }
+  .h-mail-address { font-size: clamp(1.5rem, 4vw, 2.6rem); line-height: 1.1; overflow-wrap: anywhere; text-decoration-color: var(--coral) !important; }
+  .h-copied { min-height: 1.5rem; margin: 0.5rem 0 0; }
 
   @media (max-width: 820px) {
-    .h-hero { grid-template-columns: 1fr; }
-    .h-photos { max-width: 26rem; }
     .h-work, .h-services { grid-template-columns: 1fr; }
-    .h-about { grid-template-columns: 1fr; gap: 1rem; }
+    .h-about { grid-template-columns: 1fr; }
+    .h-photos { max-width: 26rem; }
+    .h-forest { margin-top: 1.5rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .btn { transition: none; }
   }
 </style>

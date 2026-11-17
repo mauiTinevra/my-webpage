@@ -1583,3 +1583,52 @@ time { font-family: var(--display); font-weight: 600; font-size: 0.95rem; color:
   .footer-about { grid-column: 1 / -1; }
 }
 
+
+/* The canopy look (home page first): ink drawings of a forest, one serif, coral as the rare
+   accent. Paper 60, forest ink 30, coral 10. The sky and leaf greens live in the drawing only. */
+.is-canopy {
+  --paper: #f2ede1;
+  --ink: #17271d;
+  --muted: #4b5a50;
+  --forest: #173a28;
+  --coral: #e8836b;
+  --sky-art: #8fd0ee;
+  --accent: var(--ink);
+  --display: 'Newsreader Variable', Georgia, serif;
+  --reading: 'Newsreader Variable', Georgia, serif;
+  font-optical-sizing: auto;
+  font-size: clamp(1.0625rem, 1.0136rem + 0.2174vw, 1.1875rem);
+}
+/* Paper grain over everything, like printed ink. */
+.is-canopy::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  opacity: 0.16;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.15 0 0 0 0 0.1 0 0 0 0.9 0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.is-canopy h1, .is-canopy h2, .is-canopy h3 { font-weight: 400; font-stretch: normal; letter-spacing: -0.015em; }
+.is-canopy .site-header { background: var(--sky-art); align-items: center; }
+.is-canopy .wordmark { font-weight: 500; font-stretch: normal; font-size: 1.25rem; letter-spacing: -0.01em; }
+.is-canopy .site-header nav a { font-weight: 450; border-bottom-width: 1.5px; }
+.is-canopy .site-header nav a:hover { border-bottom-color: var(--ink); }
+.is-canopy .cta { background: var(--coral); border-width: 1.5px; font-weight: 500; font-size: 0.95rem; padding: 0.55rem 1rem; }
+.is-canopy .cta:hover { background: var(--ink); color: var(--paper); }
+.is-canopy :focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+.footer-canopy { height: clamp(5rem, 11vw, 9.5rem); margin-bottom: -1px; }
+.is-canopy .site-footer { background: #0e2a1b; font-family: var(--reading); }
+.is-canopy .site-footer a:hover { text-decoration-color: var(--coral); }
+.is-canopy .footer-grid h2 { font-weight: 500; font-size: 1.05rem; }
+.is-canopy .footer-name { font-size: 1.3rem; }
+.is-canopy .trust-title { font-weight: 400; font-stretch: normal; font-size: clamp(2.2rem, 4.6vw, 3.4rem); line-height: 1.05; }
+.is-canopy .exhibit h3 { font-weight: 400; }
+.is-canopy .exhibit b { font-weight: 600; }
+.is-canopy .exhibit-numbers .numbers { background: transparent; border-color: var(--ink); }
+.is-canopy .numbers div { border-width: 1px; }
+.is-canopy .numbers dd { font-weight: 400; font-stretch: normal; font-variant-numeric: tabular-nums lining-nums; }
+.is-canopy .numbers dt { font-weight: 400; font-style: italic; font-size: 0.95rem; }
+.is-canopy .exhibit-numbers .numbers { border-width: 1.5px; }
+.is-canopy .chip { font-family: var(--reading); }
