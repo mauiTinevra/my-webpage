@@ -1,100 +1,211 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Blues Plumbing, Inc. | Plumbing in Wickenburg, AZ</title>
-<meta name="robots" content="noindex,nofollow"><meta name="description" content="Repairs, water heaters, drains and new installs, from a team that lives here too.">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Blues Plumbing, Inc. — Website Concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rozha+One&family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
-:root{--a:#1f6feb;--a2:#5ac8fa;--d:#0d1b2a;--bg:#faf8f5;--ink:#1c1c1c;--mut:#5d5d5d}
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Manrope', sans-serif;color:var(--ink);background:var(--bg);line-height:1.55}
+:root{--blue:#1f4e79;--blue-d:#143654;--sky:#dcebf5;--water:#3a87c4;--sun:#e9a23b;--sand:#f6efe2;--ink:#1f2a33;--line:#d9dfe4}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Lato,system-ui,sans-serif;color:var(--ink);background:var(--sand);line-height:1.65;font-size:17px}
+h1,h2,h3{font-family:"Rozha One",Georgia,serif;font-weight:400;line-height:1.1;margin:0 0 .45em;color:var(--blue-d)}
 a{color:inherit}
-.mock{background:#111;color:#fff;text-align:center;font:12px/1.4 system-ui;padding:6px 12px;letter-spacing:.02em}
-header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid #0001}
-.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
-nav{display:flex;align-items:center;justify-content:space-between;height:68px}
-.logo{font-weight:800;font-size:20px;letter-spacing:-.02em}.logo b{color:var(--a)}
-nav ul{display:flex;gap:28px;list-style:none;font-weight:600;font-size:15px}nav ul a{text-decoration:none;opacity:.8}
-.btn{display:inline-block;padding:14px 24px;border-radius:999px;background:var(--a);color:#fff;text-decoration:none;font-weight:700;transition:transform .15s,box-shadow .15s}
-.btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px -8px var(--a)}
-.btn.ghost{background:transparent;border:2px solid #fff6;color:#fff}
-.btn.sm{padding:10px 18px;font-size:14px}
-.hero{position:relative;color:#fff;background:radial-gradient(1200px 600px at 85% -10%,color-mix(in srgb,var(--a2) 35%,transparent),transparent 60%),radial-gradient(900px 500px at -10% 110%,color-mix(in srgb,var(--a) 45%,transparent),transparent 60%),var(--d);overflow:hidden}
-.hero .wrap{padding:110px 20px 120px;display:grid;grid-template-columns:1.3fr 1fr;gap:48px;align-items:center}
-.eyebrow{text-transform:uppercase;letter-spacing:.18em;font-size:12px;font-weight:700;color:var(--a2)}
-.hero h1{font-size:clamp(38px,6vw,68px);line-height:1.02;letter-spacing:-.03em;margin:14px 0 20px;font-weight:800}
-.hero p.lead{font-size:19px;opacity:.85;max-width:34ch;margin-bottom:32px}
-.hero .ctas{display:flex;gap:12px;flex-wrap:wrap}
-.panel{background:#ffffff10;border:1px solid #ffffff22;border-radius:20px;padding:28px;backdrop-filter:blur(6px)}
-.panel h3{font-size:18px;margin-bottom:14px}
-.panel ol{list-style:none;display:grid;gap:14px}
-.panel li{display:flex;gap:14px;align-items:center;font-weight:600}
-.panel li span{width:34px;height:34px;flex:none;border-radius:50%;display:grid;place-items:center;background:var(--a);font-size:14px}
-section{padding:96px 0}
-.h2{font-size:clamp(28px,4vw,42px);letter-spacing:-.02em;line-height:1.1;margin-bottom:14px}
-.intro{color:var(--mut);max-width:56ch;font-size:18px;margin-bottom:48px}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-.card{background:#fff;border-radius:18px;padding:28px;border:1px solid #0000000d;box-shadow:0 1px 2px #0000000a,0 12px 30px -18px #0003;transition:transform .2s}
-.card:hover{transform:translateY(-4px)}
-.card .num{font-weight:800;color:var(--a);font-size:14px;margin-bottom:18px}
-.card h3{font-size:19px;margin-bottom:8px}.card p{color:var(--mut);font-size:15px}
-.band{background:var(--d);color:#fff}
-.band .wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
-.band p{opacity:.8;font-size:18px}
-.checks{list-style:none;display:grid;gap:12px}
-.checks li{padding:16px 20px;border-radius:14px;background:#ffffff0d;border:1px solid #ffffff1a;font-weight:600}
-.checks li::before{content:"✓";color:var(--a2);margin-right:12px;font-weight:800}
-.contact .wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:48px}
-form{background:#fff;padding:32px;border-radius:20px;border:1px solid #0000000f;display:grid;gap:14px;box-shadow:0 20px 50px -30px #0004}
-input,textarea{font:inherit;padding:14px 16px;border:1px solid #0002;border-radius:12px;background:#fcfcfc}
-textarea{min-height:110px;resize:vertical}
-form .btn{border:0;cursor:pointer;font:inherit;font-weight:700}
-.info p{margin-bottom:18px;color:var(--mut)}.info strong{color:var(--ink)}
-footer{padding:36px 0;border-top:1px solid #0001;color:var(--mut);font-size:14px}
-footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+.concept{background:var(--blue-d);color:#dfe9f2;font-size:13px;text-align:center;padding:7px 16px}
+.concept a{color:#ffd58f}
+header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 20px;max-width:1100px;margin:0 auto}
+.mark{display:flex;align-items:center;gap:10px;text-decoration:none}
+.mark svg{width:38px;height:38px}
+.mark b{font-family:"Rozha One",serif;font-weight:400;font-size:28px;color:var(--blue-d);line-height:1}
+.mark small{display:block;font-family:Lato,sans-serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--water);font-weight:700}
+.nav ul{display:flex;gap:24px;list-style:none;margin:0;padding:0;font-weight:700;font-size:15px}
+.nav ul a{text-decoration:none;color:var(--blue)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--blue);color:#fff;text-decoration:none;font-weight:900;font-size:16px;padding:13px 22px;border-radius:10px;border:0;cursor:pointer;font-family:inherit}
+.btn:hover{background:var(--blue-d)}
+.btn.sun{background:var(--sun);color:#2a1d07}
+.btn.sun:hover{background:#d48d24}
+.hero{background:linear-gradient(180deg,#fff 0%,var(--sky) 100%);position:relative;overflow:hidden}
+.hero .wrap{position:relative;z-index:2;padding:70px 20px 140px;text-align:center}
+.where{display:inline-block;background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 16px;font-size:14px;font-weight:700;color:var(--blue)}
+.hero h1{font-size:clamp(44px,7.5vw,84px);margin:.3em 0 .15em}
+.hero p{font-size:20px;max-width:34em;margin:0 auto 30px;color:#3b4a57}
+.call-big{display:inline-block;text-decoration:none;background:var(--blue);color:#fff;border-radius:18px;padding:18px 34px;box-shadow:0 18px 40px rgba(31,78,121,.28)}
+.call-big small{display:block;font-size:13px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:#bcd6ea}
+.call-big b{font-family:"Rozha One",serif;font-weight:400;font-size:clamp(38px,6vw,56px);line-height:1.1}
+.call-big:hover{background:var(--blue-d)}
+.hours-line{margin-top:16px;font-size:15px;color:#4c5b68}
+.hills{position:absolute;left:0;right:0;bottom:0;width:100%;height:auto;z-index:1}
+section{padding:80px 0}
+.center{text-align:center;max-width:680px;margin:0 auto 40px}
+.center h2{font-size:clamp(34px,4.5vw,48px)}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.box{background:#fff;border-radius:16px;padding:28px 26px;border:1px solid var(--line)}
+.box h3{font-size:26px}
+.box p{margin:0;color:#4c5b68}
+.drop{width:44px;height:44px;margin-bottom:12px}
+.lists{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.lists .box ul{columns:2;column-gap:20px;padding:0;margin:0;list-style:none}
+.lists li{padding:5px 0 5px 22px;position:relative;break-inside:avoid;font-size:16px}
+.lists li:before{content:"";position:absolute;left:2px;top:13px;width:9px;height:9px;border-radius:50% 0 50% 50%;transform:rotate(-45deg);background:var(--water)}
+.allsvc{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:30px}
+.allsvc span{background:var(--sky);color:var(--blue-d);border-radius:999px;padding:8px 16px;font-weight:700;font-size:15px}
+.town{background:var(--blue-d);color:#dfe9f2}
+.town h2{color:#fff}
+.town .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+.towns{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
+.towns div{background:rgba(255,255,255,.08);border-radius:12px;padding:16px 18px;font-family:"Rozha One",serif;font-size:24px;color:#fff}
+.towns div small{display:block;font-family:Lato,sans-serif;font-size:13px;color:#a9c4da}
+.card-hours{background:#fff;color:var(--ink);border-radius:16px;padding:28px}
+.card-hours h3{font-size:28px}
+.card-hours table{width:100%;border-collapse:collapse;font-size:16px}
+.card-hours td{padding:9px 0;border-bottom:1px solid var(--line)}
+.card-hours td:last-child{text-align:right;font-weight:700}
+.pay{font-size:14px;color:#4c5b68;margin-top:14px}
+.contact .grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.contact p{margin:0 0 8px}
+form{background:#fff;border-radius:16px;padding:28px;border:1px solid var(--line)}
+form h3{font-size:28px}
+label{display:block;font-size:14px;font-weight:700;margin:10px 0 4px;color:var(--blue)}
+input,select,textarea{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;font:inherit;font-size:16px;background:#fbfcfd}
+textarea{min-height:80px}
+form .btn{width:100%;margin-top:14px}
+.demo-msg{display:none;margin-top:12px;padding:10px 12px;background:var(--sky);border-left:3px solid var(--blue);font-size:15px;border-radius:6px}
+footer{background:#0f2639;color:#9fb5c7;font-size:14px;padding:26px 0 110px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .callbar{display:none}
-@media (max-width:860px){
- nav ul,nav .btn.sm{display:none}
- .hero .wrap,.band .wrap,.contact .wrap{grid-template-columns:1fr}
- .hero .wrap{padding:72px 20px 80px}
- .grid{grid-template-columns:1fr 1fr}
- section{padding:68px 0}
- .callbar{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:20;gap:8px;padding:10px;background:#fff;border-top:1px solid #0001}
- .callbar a{flex:1;text-align:center}
- body{padding-bottom:70px}
+@media (max-width:900px){
+  .nav ul{display:none}
+  .mark b{font-size:23px}
+  .nav .btn{padding:10px 14px;font-size:14px}
+  .three,.lists,.town .grid,.contact .grid{grid-template-columns:1fr}
+  section{padding:60px 0}
+  .hero .wrap{padding:50px 20px 110px}
+  .callbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--sun);color:#2a1d07;text-decoration:none;justify-content:center;align-items:center;gap:10px;font-weight:900;font-size:19px;padding:16px;box-shadow:0 -6px 18px rgba(0,0,0,.18)}
 }
-@media (max-width:520px){.grid{grid-template-columns:1fr}}
-</style></head><body>
-<div class="mock">Website concept prepared by Maui Tinevra (mauitinevra.com) for Blues Plumbing, Inc. Not affiliated with or the official site of this business.</div>
-<header><div class="wrap"><nav>
- <div class="logo">Blues Plumbing<b>.</b></div>
- <ul><li><a href="#services">Services</a></li><li><a href="#how">How it works</a></li><li><a href="#contact">Contact</a></li></ul>
- <a class="btn sm" href="#contact">Book a plumber</a>
-</nav></div></header>
-<section class="hero" style="padding:0"><div class="wrap">
- <div><div class="eyebrow">Plumbing · Wickenburg, Arizona</div>
- <h1>Wickenburg&#x27;s local plumber.</h1><p class="lead">Repairs, water heaters, drains and new installs, from a team that lives here too.</p>
- <div class="ctas"><a class="btn" href="#contact">Book a plumber</a><a class="btn ghost" href="tel:+19286843140">Call (928) 684-3140</a></div></div>
- <div class="panel"><h3>How it works</h3><ol><li><span>1</span>Call or tap to book</li><li><span>2</span>Upfront pricing</li><li><span>3</span>Fixed right the first time</li></ol></div>
-</div></section>
-<section id="services"><div class="wrap">
- <div class="eyebrow" style="color:var(--a)">What we do</div>
- <h2 class="h2">Services</h2><p class="intro">Everything you need, from a quick fix to a full project, handled by a local team.</p>
- <div class="grid"><div class="card"><div class="num">01</div><h3>Leak &amp; pipe repair</h3><p>Find it, fix it, and leave the place clean.</p></div><div class="card"><div class="num">02</div><h3>Water heaters</h3><p>Tank and tankless repair and replacement.</p></div><div class="card"><div class="num">03</div><h3>Drain cleaning</h3><p>Kitchen, bath and main-line clogs cleared.</p></div><div class="card"><div class="num">04</div><h3>Remodels &amp; new builds</h3><p>Rough-in through final fixtures.</p></div></div>
-</div></section>
-<section class="band" id="how"><div class="wrap">
- <div><div class="eyebrow">Why Blues Plumbing</div><h2 class="h2">Local, straightforward, and easy to reach.</h2>
- <p>Based at 350 W Center St, Wickenburg, AZ 85390. Clear pricing, honest timelines, and a real person when you call.</p></div>
- <ul class="checks"><li>Serving Wickenburg and nearby communities</li><li>Free, no-pressure estimates</li><li>Licensed and insured (owner to confirm details)</li><li>Fast replies by phone or form</li></ul>
-</div></section>
-<section class="contact" id="contact"><div class="wrap">
- <div class="info"><div class="eyebrow" style="color:var(--a)">Contact</div><h2 class="h2">Book a plumber</h2>
- <p>Tell us a little about what you need and we'll get back to you quickly.</p>
- <p><strong>Phone</strong><br><a href="tel:+19286843140">(928) 684-3140</a></p><p><strong>Email</strong><br><a href="mailto:gewilkins3@yahoo.com">gewilkins3@yahoo.com</a></p>
- <p><strong>Location</strong><br>350 W Center St, Wickenburg, AZ 85390</p></div>
- <form onsubmit="event.preventDefault();this.querySelector('button').textContent='Thanks! (demo form)'">
-  <input placeholder="Your name" required><input placeholder="Phone or email" required>
-  <textarea placeholder="How can we help?"></textarea><button class="btn">Send request</button></form>
-</div></section>
-<footer><div class="wrap"><span>© 2026 Blues Plumbing, Inc.</span><span>350 W Center St, Wickenburg, AZ 85390</span></div></footer>
-<div class="callbar"><a class="btn" href="tel:+19286843140">Call now</a><a class="btn" style="background:var(--d)" href="#contact">Book a plumber</a></div>
-</body></html>
+@media (max-width:480px){.lists .box ul{columns:1}.towns{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="concept">Website concept prepared by Maui Tinevra (<a href="https://mauitinevra.com">mauitinevra.com</a>) for Blues Plumbing, Inc. Not affiliated with or the official site of this business.</div>
+
+<header>
+  <nav class="nav">
+    <a class="mark" href="#top" aria-label="Blues Plumbing, Inc.">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="#1f4e79"/><path d="M20 9c4 6 7 9.5 7 13.5a7 7 0 0 1-14 0C13 18.5 16 15 20 9z" fill="#dcebf5"/><path d="M17 23.5a3 3 0 0 0 3 3" stroke="#1f4e79" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+      <span><b>Blues Plumbing</b><small>Inc. · Wickenburg, AZ</small></span>
+    </a>
+    <ul>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#area">Service Areas</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="btn" href="tel:+19286843140">(928) 684-3140</a>
+  </nav>
+</header>
+
+<main id="top">
+<section class="hero" style="padding:0">
+  <div class="wrap">
+    <span class="where">Located in Wickenburg · Serving Wittmann, Surprise &amp; surrounding areas</span>
+    <h1>A top-rated plumber serving the local area</h1>
+    <p>Plumbing installations guaranteed to please, best-in-class plumbing repairs, and a neighbor who picks up the phone.</p>
+    <a class="call-big" href="tel:+19286843140"><small>Tap to call</small><b>(928) 684-3140</b></a>
+    <div class="hours-line">Mon – Fri: 8:00 AM – 5:00 PM · 350 W Center St, Wickenburg</div>
+  </div>
+  <svg class="hills" viewBox="0 0 1440 140" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 140V90C120 60 220 40 360 70S600 120 760 80 1040 20 1200 50 1380 90 1440 80V140Z" fill="#c9dcea"/>
+    <path d="M0 140V110C180 90 300 100 480 115S820 95 1000 105 1300 125 1440 110V140Z" fill="#f6efe2"/>
+  </svg>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <div class="center">
+      <h2>For local plumbing services, choose Blues Plumbing, Inc.</h2>
+      <p>For reliable and affordable plumbing services, no one beats Blues Plumbing, Inc.</p>
+    </div>
+    <div class="three">
+      <div class="box"><svg class="drop" viewBox="0 0 44 44" aria-hidden="true"><rect width="44" height="44" rx="12" fill="#dcebf5"/><path d="M14 30h16M18 30V18a4 4 0 0 1 8 0v2" stroke="#1f4e79" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M26 24c1.5 2 2.5 3.2 2.5 4.5a2.5 2.5 0 0 1-5 0c0-1.3 1-2.5 2.5-4.5z" fill="#3a87c4"/></svg><h3>Plumbing installations</h3><p>New fixtures, water heaters and systems installed right the first time, guaranteed to please.</p></div>
+      <div class="box"><svg class="drop" viewBox="0 0 44 44" aria-hidden="true"><rect width="44" height="44" rx="12" fill="#dcebf5"/><path d="M13 31l9-9m3-3l6-6M27 13l4 4-3 3-4-4z" stroke="#1f4e79" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="28" r="4" stroke="#1f4e79" stroke-width="2.5" fill="none"/></svg><h3>Plumbing repairs</h3><p>Best-in-class repairs for leaks, toilets, sinks, pipes and emergencies at home or at work.</p></div>
+      <div class="box"><svg class="drop" viewBox="0 0 44 44" aria-hidden="true"><rect width="44" height="44" rx="12" fill="#dcebf5"/><path d="M22 11l9 4v6c0 6-4 10-9 12-5-2-9-6-9-12v-6z" stroke="#1f4e79" stroke-width="2.5" fill="none" stroke-linejoin="round"/><path d="M18 22l3 3 5-5" stroke="#3a87c4" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg><h3>Maintenance &amp; upgrades</h3><p>Preventative plumbing maintenance and high-efficiency upgrades that save water and trouble.</p></div>
+    </div>
+
+    <div class="lists" style="margin-top:24px">
+      <div class="box"><h3>We install</h3>
+        <ul><li>Drains</li><li>Bathroom sinks</li><li>Kitchen sinks</li><li>Faucets</li><li>Hot water tanks</li><li>Sump pumps</li><li>Commercial plumbing systems</li><li>Residential plumbing systems</li></ul>
+      </div>
+      <div class="box"><h3>We repair</h3>
+        <ul><li>Faucets</li><li>Emergency repairs</li><li>Leaks</li><li>Toilets</li><li>Sinks</li><li>Hot water tanks</li><li>Sewage systems</li><li>Pipes</li><li>Commercial plumbing</li><li>Residential plumbing</li></ul>
+      </div>
+    </div>
+
+    <div class="allsvc">
+      <span>Commercial Plumbing</span><span>Drain Camera Inspections</span><span>Drain Unclogging Services</span><span>Plumbing Repair</span><span>Sump Pump Installation</span><span>Water Heater Installation</span><span>Water Heater Repair</span><span>Natural Gas Installation</span><span>Plumbing Contractor</span>
+    </div>
+  </div>
+</section>
+
+<section class="town" id="area">
+  <div class="wrap grid">
+    <div>
+      <h2>Your hometown plumber</h2>
+      <p>Based right on Center Street in Wickenburg and serving Wittmann, Surprise and the surrounding areas.</p>
+      <div class="towns">
+        <div>Wickenburg<small>Home base</small></div>
+        <div>Wittmann<small>Service area</small></div>
+        <div>Surprise<small>Service area</small></div>
+        <div>&amp; nearby<small>Surrounding areas</small></div>
+      </div>
+    </div>
+    <div class="card-hours">
+      <h3>Hours</h3>
+      <table>
+        <tr><td>Monday – Friday</td><td>8:00 AM – 5:00 PM</td></tr>
+        <tr><td>Saturday</td><td>Closed</td></tr>
+        <tr><td>Sunday</td><td>Closed</td></tr>
+      </table>
+      <p class="pay">We accept Visa, Mastercard, American Express, Discover, cash and check.</p>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap grid">
+    <div>
+      <h2>Call or send us a note</h2>
+      <p><a class="btn sun" href="tel:+19286843140">Call (928) 684-3140</a></p>
+      <p style="margin-top:18px"><b>Blues Plumbing, Inc.</b><br>350 W Center St<br>Wickenburg, AZ 85390</p>
+      <p><a href="mailto:gewilkins3@yahoo.com">gewilkins3@yahoo.com</a></p>
+    </div>
+    <form class="demo">
+      <h3>Request service</h3>
+      <label for="n">Name</label><input id="n" name="name" autocomplete="name">
+      <label for="p">Phone</label><input id="p" name="phone" type="tel" autocomplete="tel">
+      <label for="t">Town</label>
+      <select id="t" name="town"><option>Wickenburg</option><option>Wittmann</option><option>Surprise</option><option>Other nearby</option></select>
+      <label for="m">What's going on?</label><textarea id="m" name="msg"></textarea>
+      <button class="btn" type="submit">Send Request</button>
+      <div class="demo-msg" role="status">This is a demo form. Nothing was sent.</div>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Blues Plumbing, Inc. · 350 W Center St, Wickenburg, AZ 85390</span>
+    <span>Concept design by Maui Tinevra</span>
+  </div>
+</footer>
+<a class="callbar" href="tel:+19286843140">Tap to call (928) 684-3140</a>
+<script>
+document.querySelectorAll('form.demo').forEach(function(f){f.addEventListener('submit',function(e){e.preventDefault();var m=f.querySelector('.demo-msg');if(m)m.style.display='block';});});
+</script>
+</body>
+</html>
