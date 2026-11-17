@@ -1,53 +1,54 @@
 ---
-// The plain-words page about hiring Sam. The home page is mostly pictures and play, so this
-// is where search engines, and people in a hurry, can read what he offers.
+// Services & pricing, in plain words: what a client gets, what it costs, how it goes, how to start.
 import Base from '../layouts/Base.astro';
 import { site } from '../site';
 
-const mail = `mailto:${site.email}?subject=${encodeURIComponent('I want a website')}`;
+const steps = [
+  { name: 'We talk', what: 'A call about who you are, what you make, and what the site needs to do for your visitors.' },
+  { name: 'I sketch', what: 'Before any code, you see the design: the pages, the colors, the one moment that makes it yours.' },
+  { name: 'I build', what: 'Designed and coded by hand, tested on phones and desktops. You review it as it comes together.' },
+  { name: 'It goes live', what: 'Launched on your domain and handed over, with a walkthrough of how to update it.' },
+];
 ---
 
 <Base
-  title="Custom website design in Scottsdale, Arizona"
-  description="Maui Tinevra designs and builds custom, interactive websites for people and small businesses. Based in Scottsdale, Arizona. Email to start a project."
+  title="Services & pricing: custom websites in Scottsdale, Arizona"
+  description="Custom websites from $3,500, designed and built by hand by Maui Tinevra in Scottsdale, Arizona. Two to three weeks from first call to launch. Care plans from $150 a month."
 >
   <header class="page-head">
-    <h1 class="rotulo">Custom website design</h1>
-    <p>
-      I'm Maui Tinevra, a web designer and developer in Scottsdale, Arizona. I design and build websites that feel
-      like the person or business they belong to.
-    </p>
+    <h1 class="rotulo">Services &amp; pricing</h1>
+    <p>One-of-a-kind websites, designed and built by hand, for artists, studios, restaurants and small businesses.</p>
   </header>
 
   <div class="prose">
-    <h2>What I make</h2>
-    <p>
-      One-of-a-kind websites, designed and coded by hand. No templates. Each site starts from who you are, what you
-      make and how you want people to feel when they arrive, and the design is built around that.
-    </p>
-    <p>
-      <a href="/">This site</a> is the example. Its home page is a street you walk along, a living room you can
-      poke around in, a desert whose sky follows the real time in Scottsdale, and a small arcade game. Yours would
-      be nothing like it, because it would be about you.
-    </p>
-
-    <h2>What you get</h2>
+    <h2>What it costs</h2>
     <ul>
-      <li>A custom design for your portfolio, personal site or small business website</li>
-      <li>Interactive details and animation made for your site alone</li>
-      <li>A site that works on phones as well as on a desktop</li>
-      <li>The finished site built, launched and handed over to you</li>
+      <li><strong>Website, from $3,500.</strong> A design made for you, built by hand, launched on your domain. Two to three weeks.</li>
+      <li><strong>Interactive extras, quoted per idea.</strong> Ordering, booking, a live schedule, illustrations, or a signature moment like <a href="/work#el-unico">El Único’s turning trompo</a>.</li>
+      <li><strong>Care plan, from $150 a month.</strong> Text and photo updates, hosting and security kept current, and a small change each month. Cancel anytime.</li>
     </ul>
 
-    <h2>Who it's for</h2>
+    <h2>How it works</h2>
+    <ol>
+      {steps.map((s) => <li><strong>{s.name}.</strong> {s.what}</li>)}
+    </ol>
+
+    <h2>Who it’s for</h2>
     <p>
-      Artists, designers, studios, shops, restaurants and anyone who wants a website people remember. I work with
-      clients in Scottsdale, Phoenix and the rest of Arizona.
+      Artists, studios, shops, restaurants and anyone who wants a website people remember, and that their customers can
+      actually use. I work with clients in Scottsdale, Phoenix and anywhere else over video calls.
+    </p>
+
+    <h2>See the work</h2>
+    <p>
+      <a href="/work">The case studies</a> show what each project needed and what I did about it, including a restaurant
+      site I rebuilt after a design review.
     </p>
 
     <h2>Start a project</h2>
     <p>
-      Tell me who you are and what you have in mind. Email <a href={mail}>{site.email}</a>.
+      Tell me who you are, what you make and when you’d like to launch: <a href={`mailto:${site.email}?subject=${encodeURIComponent('A website for me')}`}>{site.email}</a>.
+      If your computer has no mail app set up, <a href="/#contact">copy the address here</a>, or send me a DM on <a href={site.links.find((l) => l.label === 'Instagram')?.href}>Instagram</a>.
     </p>
   </div>
 </Base>

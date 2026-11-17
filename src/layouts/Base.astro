@@ -1,18 +1,19 @@
 ---
 import '@fontsource-variable/archivo/wdth.css';
 import '@fontsource-variable/archivo/wdth-italic.css';
-import '@fontsource-variable/literata';
 import '../styles/global.css';
-import { site, sections, type Place } from '../site';
+import { site, type Place } from '../site';
 
 interface Props {
   title?: string;
   description?: string;
   place?: Place;
   street?: boolean;
+  /** Full-bleed pages: sections set their own padding. */
+  bare?: boolean;
 }
 
-const { title, description = site.description, place, street = false } = Astro.props;
+const { title, description = site.description, place, street = false, bare = false } = Astro.props;
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
 const pageTitle = title ? `${title} | ${site.name}` : `${site.name} | ${site.tagline}`;
@@ -40,7 +41,14 @@ const person = {
     },
   },
 };
-const bodyClass = [place && `at-${place}`, street && 'is-street'].filter(Boolean).join(' ');
+// What a visitor came for, in the order they look for it.
+const nav = [
+  { href: '/work', label: 'Work' },
+  { href: '/web-design', label: 'Services & pricing' },
+  { href: '/#about', label: 'About' },
+  { href: '/#contact', label: 'Contact' },
+];
+const bodyClass = [place && `at-${place}`, street && 'is-street', bare && 'is-bare'].filter(Boolean).join(' ');
 ---
 
 <!doctype html>
@@ -71,41 +79,68 @@ const bodyClass = [place && `at-${place}`, street && 'is-street'].filter(Boolean
       <a class="wordmark" href="/" aria-current={isCurrent('/') ? 'page' : undefined}>{site.name}</a>
       <nav aria-label="Sections">
         <ul>
-          <li><a href="/" aria-current={isCurrent('/') ? 'page' : undefined}>Home</a></li>
           {
-            sections.map((s) => (
+            nav.map((n) => (
               <li>
-                <a href={s.href} aria-current={isCurrent(s.href) ? 'page' : undefined}>
-                  {s.name}
+                <a href={n.href} aria-current={isCurrent(n.href) ? 'page' : undefined}>
+                  {n.label}
                 </a>
               </li>
             ))
           }
         </ul>
       </nav>
-      <a class="cta" href={`mailto:${site.email}?subject=${encodeURIComponent('I want a website')}`}>Start a project</a>
+      <a class="cta" href="/#contact">Start a project</a>
     </header>
     {place && <div class="slats strip" aria-hidden="true" />}
     <main id="main">
       <slot />
     </main>
     <footer class="site-footer">
-      <span>
-        {site.name}, {new Date().getFullYear()}
-      </span>
-      <ul>
-        <li>
-          <a href="/web-design">Website design</a>
-        </li>
-        <li>
-          <a href={`mailto:${site.email}`}>Email</a>
-        </li>
-        {site.links.map((l) => (
-          <li>
-            <a href={l.href}>{l.label}</a>
-          </li>
-        ))}
-      </ul>
+      <div class="footer-grid">
+        <div class="footer-about">
+          <p class="footer-name">{site.name}</p>
+          <p>{site.offer}</p>
+          <p>Scottsdale, Arizona</p>
+        </div>
+        <nav aria-label="Work">
+          <h2>Work</h2>
+          <ul>
+            <li><a href="/work#el-unico">El Único Taquería</a></li>
+            <li><a href="/work#saguaro">Saguaro Yoga Club</a></li>
+            <li><a href="/work#this-site">This site</a></li>
+            <li><a href="/work">All work</a></li>
+          </ul>
+        </nav>
+        <nav aria-label="Services">
+          <h2>Services</h2>
+          <ul>
+            <li><a href="/web-design">Website design and pricing</a></li>
+            <li><a href="/#contact">Start a project</a></li>
+          </ul>
+        </nav>
+        <nav aria-label="About">
+          <h2>About</h2>
+          <ul>
+            <li><a href="/#about">About me</a></li>
+            <li><a href="/art">Art</a></li>
+            <li><a href="/journal">Journal</a></li>
+            <li><a href="/street">Walk the street</a></li>
+          </ul>
+        </nav>
+        <nav aria-label="Elsewhere">
+          <h2>Elsewhere</h2>
+          <ul>
+            <li><a href={`mailto:${site.email}`}>Email</a></li>
+            {site.links.map((l) => (
+              <li>
+                <a href={l.href}>{l.label}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+      <p class="footer-legal">{site.name}, {new Date().getFullYear()}. Designed and built by hand.</p>
     </footer>
   </body>
 </html>

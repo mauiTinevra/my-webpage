@@ -20,16 +20,13 @@
   --slat: var(--ink);
 
   --display: 'Archivo Variable', 'Arial Black', system-ui, sans-serif;
-  --reading: 'Literata Variable', Georgia, serif;
+  --reading: 'Archivo Variable', 'Arial', system-ui, sans-serif;
 
   --edge: clamp(1.25rem, 5vw, 4rem);
   --measure: 38rem;
 }
 
-.at-blog { --accent: #a63a26; --slat: var(--terracotta); }
-.at-art { --accent: var(--cobalt); --slat: var(--cobalt); }
-.at-code { --accent: #1f7a3f; --slat: var(--green); }
-.at-journal { --accent: var(--purple); --slat: var(--purple); }
+/* Section pages follow the brand: ink for links and rules, no per-section colors. */
 
 *, *::before, *::after { box-sizing: border-box; }
 
@@ -134,9 +131,13 @@ a:hover { text-decoration-thickness: 2px; }
   text-decoration: none;
   text-shadow: none;
 }
-.cta:hover { background: #f0508f; color: #fff; }
+.cta:hover { background: var(--ink); color: var(--yellow); }
 .cta:focus-visible { outline: 3px solid var(--cobalt); outline-offset: 3px; }
-@media (max-width: 640px) { .cta { display: none; } }
+@media (max-width: 640px) {
+  .cta { display: none; }
+  /* The four links fit on one line on a phone. */
+  .site-header ul { gap: 0.25rem 1rem; font-size: 0.92rem; flex-wrap: nowrap; }
+}
 
 /* Roll-up shutter metal: used for the shutters on the street and the strip on each page. */
 
@@ -172,6 +173,7 @@ a:hover { text-decoration-thickness: 2px; }
    row climbs straight back up past all of them, through a changing sky, to the next page. */
 
 .is-street main { padding: 0; }
+.is-bare main { padding: 0; }
 
 .journey { position: relative; }
 
@@ -1485,10 +1487,9 @@ body.over-paper .site-header { --arrived: 0%; }
   --letter: var(--accent);
   --shade: var(--yellow);
 }
-.at-journal .page-head h1 { --shade: var(--yellow); }
-.at-blog .page-head h1 { --shade: var(--ochre); }
-.at-art .page-head h1 { --shade: #f0508f; }
-.at-code .page-head h1 { --shade: var(--ink); }
+/* Page headings are flat ink, like the rest of the site outside the street. */
+.page-head .rotulo { color: var(--ink); text-shadow: none; text-transform: none; font-stretch: 125%; font-weight: 800; letter-spacing: -0.02em; }
+.slats.strip { display: none; }
 .page-head p { max-width: var(--measure); margin: 1.25rem 0 0; color: var(--muted); }
 .page-head time + h1 { margin-top: 0.5rem; font-size: clamp(2.25rem, 7vw, 4.5rem); }
 
@@ -1567,16 +1568,18 @@ time { font-family: var(--display); font-weight: 600; font-size: 0.95rem; color:
 
 /* Footer */
 
-.site-footer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 0.5rem 2rem;
-  padding: 1.5rem var(--edge) 2rem;
-  font-family: var(--display);
-  font-weight: 500;
-  font-size: 0.95rem;
-  color: var(--muted);
+/* The footer is a sitemap: every page, one click away. Ink is the brand's 30%. */
+.site-footer { padding: 3rem var(--edge) 2rem; background: var(--ink); color: var(--paper); font-family: var(--display); }
+.site-footer a { color: var(--paper); text-decoration: none; }
+.site-footer a:hover { text-decoration: underline; text-decoration-color: var(--yellow); text-underline-offset: 0.2em; }
+.footer-grid { display: grid; grid-template-columns: 1.6fr repeat(4, 1fr); gap: 2rem; max-width: 76rem; }
+.footer-grid h2 { margin: 0 0 0.75rem; font-size: 1rem; font-weight: 800; }
+.footer-grid ul { display: grid; gap: 0.45rem; }
+.footer-about p { margin: 0 0 0.6rem; max-width: 22rem; line-height: 1.45; }
+.footer-name { font-weight: 800; font-stretch: 112%; font-size: 1.5rem; }
+.footer-legal { margin: 2.5rem 0 0; padding-top: 1.25rem; border-top: 1px solid rgb(243 241 236 / 0.2); font-size: 0.9rem; opacity: 0.8; }
+@media (max-width: 860px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .footer-about { grid-column: 1 / -1; }
 }
-.site-footer a { color: var(--ink); }
 

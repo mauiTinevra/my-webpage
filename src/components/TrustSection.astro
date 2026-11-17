@@ -19,13 +19,17 @@ const names: Record<(typeof picks)[number], string> = {
   urdhvaDhanurasana: 'Urdhva Dhanurasana',
   sirsasana: 'Sirsasana',
 };
+interface Props {
+  title?: string;
+}
+const { title = 'Everything you just played with, I built.' } = Astro.props;
 const glide = `const k = 1 - Math.exp(-dt / GLIDE);
 shown.y += (target.y - shown.y) * k;`;
 ---
 
 <section class="trust" id="how" aria-labelledby="trust-title">
   <header class="trust-head">
-    <h2 class="trust-title" id="trust-title">Everything you just played with, I built.</h2>
+    <h2 class="trust-title" id="trust-title">{title}</h2>
     <p class="trust-lede">
       No templates, no page builders, no stock art. Every drawing on this site is code, and every moving part is
       something I wrote. Here are four of them, taken apart and still running.
@@ -85,7 +89,7 @@ shown.y += (target.y - shown.y) * k;`;
       </div>
       <h3>One scroll, one camera</h3>
       <p>
-        The home page is a single scroll driving a camera along a snaking path: four rows, a sunset, a descent. The
+        The street is a single scroll driving a camera along a snaking path: four rows, a sunset, a descent. The
         camera follows a beat behind your scroll, so corners come out rounded instead of square.
       </p>
     </article>

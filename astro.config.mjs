@@ -6,4 +6,6 @@ export default defineConfig({
   // the sitemap, canonical links and share previews all take it from here.
   site: 'https://mauitinevra.com',
   integrations: [sitemap()],
+  // Code became Work: old links keep working.
+  redirects: { '/code': '/work' },
 });

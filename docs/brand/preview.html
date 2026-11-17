@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Maui Tinevra: design system</title>
+<link rel="stylesheet" href="tokens.css" />
+<link rel="stylesheet" href="components.css" />
+<style>
+.pv { padding-block: 3rem; }
+.pv h2 { margin: 0 0 1rem; font-size: 1.5rem; }
+.pv-bar { display: flex; min-height: 9rem; border-radius: var(--radius-panel); overflow: hidden; border: 2px solid var(--hairline); }
+.pv-sw { display: flex; flex-direction: column; justify-content: flex-end; gap: .2rem; padding: 1rem; min-width: 6rem; }
+.pv-sw span, .pv-sw code { font-size: .85rem; }
+.pv-derived { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1rem; }
+.pv-derived div { display: flex; align-items: center; gap: .5rem; font-size: .9rem; }
+.pv-derived i { width: 1.5rem; height: 1.5rem; border-radius: 50%; border: 2px solid var(--hairline); }
+.pv-type p { margin: .5rem 0; }
+.pv-checks { width: 100%; max-width: 46rem; border-collapse: collapse; }
+.pv-checks th, .pv-checks td { padding: .5rem .25rem; text-align: left; border-bottom: 1px solid var(--rule); }
+.pv-checks .fail { font-weight: 700; }
+</style>
+</head>
+<body class="bk">
+<section class="pv bk-wrap">
+  <h1 class="bk-hero-title bk-display">Maui Tinevra</h1>
+  <p class="bk-lead">Interactive websites, designed and engineered by one artist. Scottsdale, Arizona.</p>
+</section>
+<section class="pv bk-wrap">
+  <h2 class="bk-display">Color, 60 / 30 / 10</h2>
+  <div class="pv-bar"><div class="pv-sw" style="flex:60;background:var(--dominant);color:var(--on-dominant)"><b>Paper</b><span>60%</span><code>#f3f1ec</code></div><div class="pv-sw" style="flex:30;background:var(--secondary);color:var(--on-secondary)"><b>Ink</b><span>30%</span><code>#121a3a</code></div><div class="pv-sw" style="flex:10;background:var(--accent);color:var(--on-accent)"><b>Wall yellow</b><span>10%</span><code>#f2cb3a</code></div></div>
+  <div class="pv-derived"><div><i style="background:#f7f5f2"></i>deep</div><div><i style="background:#121a3a"></i>on-dominant</div><div><i style="background:#f7f5f2"></i>on-secondary</div><div><i style="background:#000000"></i>on-accent</div><div><i style="background:rgb(243 241 236 / 0.25)"></i>rule</div><div><i style="background:rgb(18 26 58 / 0.2)"></i>hairline</div></div>
+</section>
+<section class="pv bk-paper bk-wrap">
+  <h2 class="bk-display">Type: Archivo</h2>
+  <div class="pv-type"><p style="font:800 64px/0.98 var(--font);font-stretch:112%;">hero, 88px</p><p style="font:800 52px/1 var(--font);font-stretch:112%;">section, 52px</p><p style="font:800 22px/1.2 var(--font);font-stretch:112%;">group, 22px</p><p style="font:400 21px/1.5 var(--font);">lead, 21px</p><p style="font:400 17px/1.55 var(--font);">body, 17px</p><p style="font:700 17px/1.4 var(--font);">label, 17px</p><p style="font:400 15px/1.45 var(--font);">small, 15px</p></div>
+</section>
+<section class="pv bk-wrap">
+  <h2 class="bk-display">Components</h2>
+  <div class="bk-actions"><a class="bk-btn bk-btn-primary" href="#">Start a project</a><a class="bk-btn bk-btn-quiet" href="#">See my work</a><a class="bk-btn bk-btn-quiet" href="#">Services &amp; pricing</a></div>
+</section>
+<section class="pv bk-paper bk-wrap">
+  <div class="bk-actions"><span class="bk-chip is-on">Selected</span><span class="bk-chip">Not selected</span></div>
+  <ul class="bk-list"><li class="bk-row"><div><p class="bk-row-name">A list row</p><p class="bk-row-about">With a short description.</p></div><span class="bk-price">$12</span></li></ul>
+  <div class="bk-panel" style="max-width:24rem;margin-top:1.5rem"><label class="bk-field">A field<input placeholder="Type here" /></label></div>
+</section>
+<section class="pv bk-paper bk-wrap">
+  <h2 class="bk-display">Contrast</h2>
+  <table class="pv-checks"><thead><tr><th>Pair</th><th>Ratio</th><th>Needs</th><th></th></tr></thead><tbody>
+  <tr><td><span style="background:#f3f1ec;color:#121a3a;padding:.15rem .5rem;border-radius:4px;font-weight:700">Aa</span> Text on dominant</td><td>15.07:1</td><td>4.5:1</td><td class="">Pass</td></tr><tr><td><span style="background:#121a3a;color:#f7f5f2;padding:.15rem .5rem;border-radius:4px;font-weight:700">Aa</span> Body text on secondary</td><td>15.64:1</td><td>4.5:1</td><td class="">Pass</td></tr><tr><td><span style="background:#f2cb3a;color:#000000;padding:.15rem .5rem;border-radius:4px;font-weight:700">Aa</span> Button label on accent</td><td>13.38:1</td><td>4.5:1</td><td class="">Pass</td></tr><tr><td><span style="background:#f3f1ec;color:#f2cb3a;padding:.15rem .5rem;border-radius:4px;font-weight:700">Aa</span> Accent on dominant</td><td>1.39:1</td><td>3:1</td><td class="fail">Fails</td></tr><tr><td><span style="background:#121a3a;color:#f2cb3a;padding:.15rem .5rem;border-radius:4px;font-weight:700">Aa</span> Accent on secondary</td><td>10.84:1</td><td>3:1</td><td class="">Pass</td></tr><tr><td><span style="background:#121a3a;color:#f3f1ec;padding:.15rem .5rem;border-radius:4px;font-weight:700">Aa</span> Dominant on secondary</td><td>15.07:1</td><td>3:1</td><td class="">Pass</td></tr>
+  </tbody></table>
+</section>
+</body>
+</html>

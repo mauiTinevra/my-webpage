@@ -1,0 +1,32 @@
+{
+  "name": "Maui Tinevra",
+  "tagline": "Interactive websites, designed and engineered by one artist. Scottsdale, Arizona.",
+  "kind": "service",
+  "colors": {
+    "dominant": { "name": "Paper", "hex": "#f3f1ec" },
+    "secondary": { "name": "Ink", "hex": "#121a3a" },
+    "accent": { "name": "Wall yellow", "hex": "#f2cb3a" }
+  },
+  "accentFor": ["Start a project", "the button that moves you forward", "selected states"],
+  "font": { "family": "Archivo", "displayWeight": 800, "displayWidth": 112 },
+  "shape": "square",
+  "art": { "style": "flat" },
+  "voice": {
+    "summary": "First person, plain and warm. Say what I make, for whom, and what it costs.",
+    "do": ["Lead with the visitor's goal: a site people remember.", "Name prices and timelines plainly."],
+    "dont": ["Tech jargon (stacks, frameworks) on sales pages.", "Exclamation marks."]
+  },
+  "audience": {
+    "who": "Artists, studios, restaurants and small businesses who want a site that feels like them, and have about a minute to decide.",
+    "actions": [
+      { "label": "Start a project", "href": "#contact", "primary": true },
+      { "label": "See my work", "href": "#work" },
+      { "label": "Services & pricing", "href": "/web-design" }
+    ]
+  },
+  "exception": {
+    "where": "The street (/street)",
+    "what": "The walkable street, the posada, the living room, the wardrobe, the yoga scene and the game keep their own art and colors. It's an opt-in experience, reached from the Walk the street button."
+  },
+  "pages": ["Nav: Work, Services & pricing, About, Contact, Start a project", "Hero: who, what, two actions, the photos", "Selected work", "Services & pricing", "Proof: everything here is hand-built", "About", "Contact", "Sitemap footer"]
+}

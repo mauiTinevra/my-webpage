@@ -1,0 +1,346 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import StreetRow from '../components/rows/StreetRow.astro';
+import LivingRoomRow from '../components/rows/LivingRoomRow.astro';
+import PinataRow from '../components/rows/PinataRow.astro';
+import WardrobeRow from '../components/rows/WardrobeRow.astro';
+import Nube from '../components/Nube.astro';
+import PageTwo from '../components/PageTwo.astro';
+import SpacePage from '../components/SpacePage.astro';
+import SellPage from '../components/SellPage.astro';
+import TrustSection from '../components/TrustSection.astro';
+import DesireSection from '../components/DesireSection.astro';
+import { formatDate } from '../lib/date';
+import projects from '../data/projects.json';
+
+// The home page is a stack of rows. Scrolling walks along a row from Sam to Journal,
+// then drops to the next row, which tells the same five places another way.
+// Rows alternate direction: add data-reverse to every second row so the path snakes.
+// A page is always four rows. After the fourth, scrolling climbs straight back up past all
+// of them, through a sky, to page two, which sits above the first row. Keep scrolling and
+// page two holds for a while before the page moves on downward, through a fade to black,
+// to page three, the game.
+// A row is a component in src/components/rows/ whose root is
+// <div class="row" data-row><div class="scene"><div class="track">…</div></div></div>.
+
+const byDate = (a: { data: { date: Date } }, b: { data: { date: Date } }) =>
+  b.data.date.valueOf() - a.data.date.valueOf();
+const posts = (await getCollection('blog')).sort(byDate);
+const entries = (await getCollection('journal')).sort(byDate);
+const art = Object.keys(import.meta.glob('../assets/art/*.{jpg,jpeg,png,webp,avif,gif}')).map((path) =>
+  path
+    .split('/')
+    .pop()!
+    .replace(/\.[^.]+$/, '')
+    .replace(/^\d+[-_]/, '')
+    .replace(/[-_]+/g, ' '),
+);
+const count = (n: number, one: string, many: string) => (n === 1 ? `1 ${one}` : `${n} ${many}`);
+
+const inside = {
+  blog: posts[0] ? `Latest: ${posts[0].data.title}` : 'No posts yet',
+  art: `${count(art.length, 'piece', 'pieces')} inside`,
+  code: `${count(projects.length, 'project', 'projects')} inside`,
+  journal: entries[0] ? `Last entry: ${formatDate(entries[0].data.date)}` : 'No entries yet',
+};
+
+// Clouds that drift up past you during the descent: where each sits, how big, how soon and how fast.
+const clouds = [
+  { x: 6, w: 17, off: 0, speed: 1.5, fill: '#ffffff' },
+  { x: 62, w: 13, off: 0.2, speed: 1.9, fill: '#f6b7cf' },
+  { x: 34, w: 10, off: 0.45, speed: 1.25, fill: '#ffffff' },
+  { x: 78, w: 19, off: 0.7, speed: 1.6, fill: '#f2cb3a' },
+  { x: 16, w: 13, off: 0.95, speed: 2.0, fill: '#f6b7cf' },
+  { x: 48, w: 16, off: 1.2, speed: 1.7, fill: '#ffffff' },
+  { x: 70, w: 11, off: 1.5, speed: 2.2, fill: '#f2cb3a' },
+];
+
+const backs = {
+  blog: posts.length
+    ? posts.slice(0, 4).map((p) => ({ label: p.data.title, href: `/blog/${p.id}` }))
+    : [{ label: 'No posts yet' }],
+  art: art.length ? art.slice(0, 5).map((label) => ({ label })) : [{ label: 'Nothing on the wall yet' }],
+  code: projects.length
+    ? projects.slice(0, 4).map((p) => ({ label: p.name, href: p.url }))
+    : [{ label: 'No projects listed yet' }],
+  journal: entries.length
+    ? entries.slice(0, 4).map((e) => ({ label: e.data.title ?? formatDate(e.data.date), href: `/journal#${e.id}` }))
+    : [{ label: 'No entries yet' }],
+};
+---
+
+<Base street title="Walk the street" description="The long way in: a street of storefronts, a posada, a living room, a wardrobe, a live Scottsdale sky, a yoga practice and a small arcade game, all drawn and coded by hand.">
+  <div class="journey" id="journey">
+    <div class="viewport">
+      <div class="world" id="world">
+        <StreetRow inside={inside} />
+        <PinataRow backs={backs} />
+        <LivingRoomRow backs={backs} />
+        <WardrobeRow backs={backs} />
+        <div class="descent-sky" aria-hidden="true" />
+        <PageTwo />
+      </div>
+      <!-- The sunset you sink through on the way down to page two. It begins over the last row. -->
+      <div class="haze" id="haze" aria-hidden="true"><div class="haze-sky" id="haze-sky"></div></div>
+      <div class="drift" id="drift" aria-hidden="true">
+        {
+          clouds.map((c, i) => (
+            <div class="drift-cloud" data-off={c.off} data-speed={c.speed} style={`left:${c.x}%; --w:${c.w}`}>
+              <Nube variant={(i % 3) as 0 | 1 | 2} fill={c.fill} />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+  <!-- Page three follows in the ordinary way: keep scrolling down from page two. -->
+  <div class="fade-to-black" aria-hidden="true"></div>
+  <SpacePage />
+  <!-- After the wonder: how it was made, then what yours could be, then the ask. -->
+  <TrustSection />
+  <DesireSection />
+  <SellPage />
+</Base>
+
+<script>
+  // One long scroll drives a camera through the world. It walks row one to the right, drops,
+  // walks row two to the left, and so on. After the last row it keeps going down, through a
+  // sunset, to page two, which holds for a while before the page moves on.
+  const journey = document.getElementById('journey')!;
+  const viewport = journey.querySelector<HTMLElement>('.viewport')!;
+  const world = document.getElementById('world')!;
+  const header = document.querySelector<HTMLElement>('.site-header')!;
+  const rows = [...document.querySelectorAll<HTMLElement>('[data-row]')].map((row) => ({
+    row,
+    scene: row.querySelector<HTMLElement>('.scene')!,
+    track: row.querySelector<HTMLElement>('.track')!,
+    reverse: row.hasAttribute('data-reverse'),
+    max: 0,
+    start: 0,
+  }));
+  // The descent covers a lot of ground, so it moves a little faster than the scroll.
+  const DESCENT_SPEED = 1.15;
+
+  const haze = document.getElementById('haze')!;
+  const hazeSky = document.getElementById('haze-sky')!;
+  const drift = document.getElementById('drift')!;
+  const driftClouds = [...drift.querySelectorAll<HTMLElement>('.drift-cloud')].map((el) => ({
+    el,
+    off: Number(el.dataset.off),
+    speed: Number(el.dataset.speed),
+  }));
+  const smooth = (from: number, to: number, v: number) => {
+    const k = Math.min(Math.max((v - from) / (to - from), 0), 1);
+    return k * k * (3 - 2 * k);
+  };
+
+  let headerH = 0;
+  let sceneH = 0;
+  let rowH = 0;
+  let firstRowY = 0;
+  let climb = 0;
+  let descent = 0;
+  let drop = 0;
+  let hold = 0;
+  const pageTwo = document.getElementById('next-page')!;
+  let total = 0;
+  let active: (typeof rows)[number] | undefined;
+
+  // Where the camera should be for a given distance scrolled: how far along each row it is,
+  // how high the world sits, and how far through the climb (0 to 1).
+  type View = { xs: number[]; y: number; t: number };
+  const aim = (scrolled: number): View => {
+    let p = Math.min(Math.max(scrolled, 0), total);
+    let y = firstRowY;
+    active = undefined;
+    const xs = rows.map((r, i) => {
+      const x = Math.min(Math.max(p, 0), r.max);
+      if (p >= 0 && p <= r.max) active = r;
+      p -= r.max;
+      if (i < rows.length - 1) {
+        // The drop to the next row eases in and out, so each row slides into the next.
+        y += rowH * smooth(0, 1, Math.min(Math.max(p, 0), drop) / drop);
+        p -= drop;
+      }
+      return x;
+    });
+    // After the last row the camera sinks on down to page two, easing in and out.
+    const t = climb ? Math.min(Math.max(p / climb, 0), 1) : 0;
+    y += descent * smooth(0, 1, t);
+    // Past the descent there is a stretch of scrolling where page two simply holds still.
+    return { xs, y, t };
+  };
+
+  const render = ({ xs, y, t }: View) => {
+    rows.forEach((r, i) => {
+      r.track.style.transform = `translate3d(${(r.reverse ? xs[i] - r.max : -xs[i]).toFixed(1)}px, 0, 0)`;
+    });
+    world.style.transform = `translate3d(0, ${(-y).toFixed(1)}px, 0)`;
+
+    // The descent, from 0 as it starts to 1 on arrival. The sunset thickens over the last row
+    // as you leave it, deepens toward page two's sky, and clears as page two arrives.
+    const clearing = 1 - smooth(0.88, 1, t);
+    haze.style.opacity = String(smooth(0, 0.6, t) * 0.94 * clearing);
+    hazeSky.style.transform = `translate3d(0, ${-t * 80}%, 0)`;
+    drift.style.opacity = String(smooth(0, 0.06, t) * clearing);
+    // On arrival the header's bar dissolves and only its lettering stays, floating on the picture.
+    document.body.style.setProperty('--arrive', smooth(0.8, 0.97, t).toFixed(3));
+    for (const c of driftClouds) {
+      c.el.style.transform = `translate3d(0, ${(1.05 + c.off - t * c.speed * 1.3) * sceneH}px, 0)`;
+    }
+  };
+
+  // The camera glides after the scroll rather than jumping with it, so turns at the end of a
+  // row come out rounded: it is still easing sideways as it starts to drop.
+  const calmMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const GLIDE = 0.16;
+  let shown: View | undefined;
+  let gliding = false;
+  let lastFrame = 0;
+  const glide = (time: number) => {
+    const target = aim(-journey.getBoundingClientRect().top);
+    if (!shown || calmMotion) shown = target;
+    else {
+      const k = 1 - Math.exp(-Math.min(0.05, (time - lastFrame) / 1000) / GLIDE);
+      shown = {
+        xs: shown.xs.map((x, i) => x + (target.xs[i] - x) * k),
+        y: shown.y + (target.y - shown.y) * k,
+        t: shown.t + (target.t - shown.t) * k,
+      };
+    }
+    lastFrame = time;
+    render(shown);
+    const still =
+      Math.abs(shown.y - target.y) < 0.3 && shown.xs.every((x, i) => Math.abs(x - target.xs[i]) < 0.3) && Math.abs(shown.t - target.t) < 0.001;
+    if (still) {
+      shown = target;
+      render(shown);
+      gliding = false;
+    } else requestAnimationFrame(glide);
+  };
+  const place = () => {
+    if (gliding) return;
+    gliding = true;
+    lastFrame = performance.now();
+    requestAnimationFrame(glide);
+  };
+  const jump = () => {
+    shown = aim(-journey.getBoundingClientRect().top);
+    render(shown);
+  };
+
+  const measure = () => {
+    headerH = header.offsetHeight;
+    document.documentElement.style.setProperty('--header-h', `${headerH}px`);
+    sceneH = viewport.clientHeight;
+    document.documentElement.style.setProperty('--scene-h', `${sceneH}px`);
+    rowH = sceneH - headerH;
+    // Each drop takes a little more scrolling than its height, for room to ease in and out.
+    drop = rowH * 1.35;
+    hold = sceneH * 1.3;
+    // The camera rests with a row's top edge just under the header bar.
+    firstRowY = rows[0].row.offsetTop - headerH;
+    total = 0;
+    rows.forEach((r, i) => {
+      r.max = Math.max(0, r.track.scrollWidth - r.scene.clientWidth);
+      r.start = total;
+      total += r.max + (i < rows.length - 1 ? drop : 0);
+    });
+    // From the last row down to page two, which fills the whole window, header and all.
+    descent = pageTwo.offsetTop - (firstRowY + (rows.length - 1) * rowH);
+    climb = descent / DESCENT_SPEED;
+    total += climb + hold;
+    journey.style.height = `${total + sceneH}px`;
+    jump();
+  };
+
+  addEventListener('scroll', place, { passive: true });
+  addEventListener('resize', measure);
+  rows.forEach((r) => new ResizeObserver(measure).observe(r.track));
+  document.fonts?.ready.then(measure);
+  measure();
+
+  document.getElementById('back-to-start')!.addEventListener('click', () => scrollTo({ top: 0 }));
+
+  // Every cloud's eyes follow the pointer.
+  const nubes = [...document.querySelectorAll<SVGSVGElement>('[data-nube]')].map((svg) => ({
+    svg,
+    eyes: [...svg.querySelectorAll<SVGGElement>('[data-eye]')].map((g) => ({
+      at: g.dataset.eye!.split(',').map(Number),
+      pupil: g.querySelector<SVGElement>('.pupil')!,
+    })),
+  }));
+  let pointer: [number, number] | null = null;
+  let looking = false;
+  const look = () => {
+    looking = false;
+    if (!pointer) return;
+    for (const n of nubes) {
+      const box = n.svg.getBoundingClientRect();
+      if (!box.width || box.bottom < 0 || box.top > innerHeight || box.right < 0 || box.left > innerWidth) continue;
+      const scale = box.width / 280;
+      for (const eye of n.eyes) {
+        const dx = pointer[0] - (box.left + eye.at[0] * scale);
+        const dy = pointer[1] - (box.top + eye.at[1] * scale);
+        const reach = Math.min(1, Math.hypot(dx, dy) / (60 * scale + 1));
+        const angle = Math.atan2(dy, dx);
+        eye.pupil.style.transform = `translate(${(Math.cos(angle) * 6 * reach).toFixed(1)}px, ${(Math.sin(angle) * 8 * reach).toFixed(1)}px)`;
+      }
+    }
+  };
+  const watch = (x: number, y: number) => {
+    pointer = [x, y];
+    if (looking) return;
+    looking = true;
+    requestAnimationFrame(look);
+  };
+  addEventListener('pointermove', (e) => watch(e.clientX, e.clientY), { passive: true });
+  addEventListener('pointerdown', (e) => watch(e.clientX, e.clientY), { passive: true });
+  // The clouds move while the pointer rests, so keep them looking as you scroll.
+  addEventListener('scroll', () => pointer && watch(pointer[0], pointer[1]), { passive: true });
+
+  // The picture on page two shifts a little with the pointer, nearer layers more than far ones.
+  const piece = document.getElementById('next-page')!;
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    piece.addEventListener('pointermove', (e) => {
+      if (e.pointerType !== 'mouse') return;
+      const box = piece.getBoundingClientRect();
+      piece.style.setProperty('--px', ((e.clientX - box.left) / box.width - 0.5).toFixed(3));
+      piece.style.setProperty('--py', ((e.clientY - box.top) / box.height - 0.5).toFixed(3));
+    });
+  }
+
+  // Sideways swipes walk the row too, in whichever direction it runs.
+  let lastX = 0;
+  let lastY = 0;
+  addEventListener('touchstart', (e) => ([lastX, lastY] = [e.touches[0].clientX, e.touches[0].clientY]), { passive: true });
+  addEventListener(
+    'touchmove',
+    (e) => {
+      const t = e.touches[0];
+      const dx = t.clientX - lastX;
+      const dy = t.clientY - lastY;
+      [lastX, lastY] = [t.clientX, t.clientY];
+      if (Math.abs(dx) <= Math.abs(dy) || document.querySelector('.is-painting')) return;
+      scrollBy(0, active?.reverse ? dx : -dx);
+    },
+    { passive: true },
+  );
+
+  // Tabbing to something elsewhere in the world brings it into view.
+  document.addEventListener('focusin', (e) => {
+    const el = e.target as HTMLElement;
+    const box = el.getBoundingClientRect();
+    const view = viewport.getBoundingClientRect();
+    if (box.left >= 0 && box.right <= innerWidth && box.top >= view.top && box.bottom <= view.bottom) return;
+    const base = journey.offsetTop;
+    const r = rows.find((row) => row.track.contains(el));
+    if (r) {
+      const shift = Math.min(Math.max(box.left - r.track.getBoundingClientRect().left - innerWidth * 0.15, 0), r.max);
+      scrollTo({ top: base + r.start + (r.reverse ? r.max - shift : shift) });
+    } else if (pageTwo.contains(el)) {
+      scrollTo({ top: base + total - hold });
+    }
+  });
+</script>
