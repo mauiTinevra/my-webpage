@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dynasty Collision | Collision repair in Phoenix, AZ</title>
+<meta name="robots" content="noindex,nofollow"><meta name="description" content="Collision repair, paint and bodywork in Phoenix. We work with your insurance.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--a:#e11d48;--a2:#f97316;--d:#0f0f12;--bg:#faf8f5;--ink:#1c1c1c;--mut:#5d5d5d}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Sora', sans-serif;color:var(--ink);background:var(--bg);line-height:1.55}
+a{color:inherit}
+.mock{background:#111;color:#fff;text-align:center;font:12px/1.4 system-ui;padding:6px 12px;letter-spacing:.02em}
+header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid #0001}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{font-weight:800;font-size:20px;letter-spacing:-.02em}.logo b{color:var(--a)}
+nav ul{display:flex;gap:28px;list-style:none;font-weight:600;font-size:15px}nav ul a{text-decoration:none;opacity:.8}
+.btn{display:inline-block;padding:14px 24px;border-radius:999px;background:var(--a);color:#fff;text-decoration:none;font-weight:700;transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px -8px var(--a)}
+.btn.ghost{background:transparent;border:2px solid #fff6;color:#fff}
+.btn.sm{padding:10px 18px;font-size:14px}
+.hero{position:relative;color:#fff;background:radial-gradient(1200px 600px at 85% -10%,color-mix(in srgb,var(--a2) 35%,transparent),transparent 60%),radial-gradient(900px 500px at -10% 110%,color-mix(in srgb,var(--a) 45%,transparent),transparent 60%),var(--d);overflow:hidden}
+.hero .wrap{padding:110px 20px 120px;display:grid;grid-template-columns:1.3fr 1fr;gap:48px;align-items:center}
+.eyebrow{text-transform:uppercase;letter-spacing:.18em;font-size:12px;font-weight:700;color:var(--a2)}
+.hero h1{font-size:clamp(38px,6vw,68px);line-height:1.02;letter-spacing:-.03em;margin:14px 0 20px;font-weight:800}
+.hero p.lead{font-size:19px;opacity:.85;max-width:34ch;margin-bottom:32px}
+.hero .ctas{display:flex;gap:12px;flex-wrap:wrap}
+.panel{background:#ffffff10;border:1px solid #ffffff22;border-radius:20px;padding:28px;backdrop-filter:blur(6px)}
+.panel h3{font-size:18px;margin-bottom:14px}
+.panel ol{list-style:none;display:grid;gap:14px}
+.panel li{display:flex;gap:14px;align-items:center;font-weight:600}
+.panel li span{width:34px;height:34px;flex:none;border-radius:50%;display:grid;place-items:center;background:var(--a);font-size:14px}
+section{padding:96px 0}
+.h2{font-size:clamp(28px,4vw,42px);letter-spacing:-.02em;line-height:1.1;margin-bottom:14px}
+.intro{color:var(--mut);max-width:56ch;font-size:18px;margin-bottom:48px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.card{background:#fff;border-radius:18px;padding:28px;border:1px solid #0000000d;box-shadow:0 1px 2px #0000000a,0 12px 30px -18px #0003;transition:transform .2s}
+.card:hover{transform:translateY(-4px)}
+.card .num{font-weight:800;color:var(--a);font-size:14px;margin-bottom:18px}
+.card h3{font-size:19px;margin-bottom:8px}.card p{color:var(--mut);font-size:15px}
+.band{background:var(--d);color:#fff}
+.band .wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.band p{opacity:.8;font-size:18px}
+.checks{list-style:none;display:grid;gap:12px}
+.checks li{padding:16px 20px;border-radius:14px;background:#ffffff0d;border:1px solid #ffffff1a;font-weight:600}
+.checks li::before{content:"✓";color:var(--a2);margin-right:12px;font-weight:800}
+.contact .wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:48px}
+form{background:#fff;padding:32px;border-radius:20px;border:1px solid #0000000f;display:grid;gap:14px;box-shadow:0 20px 50px -30px #0004}
+input,textarea{font:inherit;padding:14px 16px;border:1px solid #0002;border-radius:12px;background:#fcfcfc}
+textarea{min-height:110px;resize:vertical}
+form .btn{border:0;cursor:pointer;font:inherit;font-weight:700}
+.info p{margin-bottom:18px;color:var(--mut)}.info strong{color:var(--ink)}
+footer{padding:36px 0;border-top:1px solid #0001;color:var(--mut);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.callbar{display:none}
+@media (max-width:860px){
+ nav ul,nav .btn.sm{display:none}
+ .hero .wrap,.band .wrap,.contact .wrap{grid-template-columns:1fr}
+ .hero .wrap{padding:72px 20px 80px}
+ .grid{grid-template-columns:1fr 1fr}
+ section{padding:68px 0}
+ .callbar{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:20;gap:8px;padding:10px;background:#fff;border-top:1px solid #0001}
+ .callbar a{flex:1;text-align:center}
+ body{padding-bottom:70px}
+}
+@media (max-width:520px){.grid{grid-template-columns:1fr}}
+</style></head><body>
+<div class="mock">Website concept prepared by Maui Tinevra (mauitinevra.com) for Dynasty Collision. Not affiliated with or the official site of this business.</div>
+<header><div class="wrap"><nav>
+ <div class="logo">Dynasty<b>.</b></div>
+ <ul><li><a href="#services">Services</a></li><li><a href="#how">How it works</a></li><li><a href="#contact">Contact</a></li></ul>
+ <a class="btn sm" href="#contact">Get a free estimate</a>
+</nav></div></header>
+<section class="hero" style="padding:0"><div class="wrap">
+ <div><div class="eyebrow">Collision repair · Phoenix, Arizona</div>
+ <h1>Back on the road, looking like new.</h1><p class="lead">Collision repair, paint and bodywork in Phoenix. We work with your insurance.</p>
+ <div class="ctas"><a class="btn" href="#contact">Get a free estimate</a><a class="btn ghost" href="tel:+16025293304">Call (602) 529-3304</a></div></div>
+ <div class="panel"><h3>How it works</h3><ol><li><span>1</span>Get an estimate</li><li><span>2</span>We coordinate with insurance</li><li><span>3</span>Pick up your car</li></ol></div>
+</div></section>
+<section id="services"><div class="wrap">
+ <div class="eyebrow" style="color:var(--a)">What we do</div>
+ <h2 class="h2">Services</h2><p class="intro">Everything you need, from a quick fix to a full project, handled by a local team.</p>
+ <div class="grid"><div class="card"><div class="num">01</div><h3>Collision repair</h3><p>Frame, panels and structural work.</p></div><div class="card"><div class="num">02</div><h3>Paint &amp; refinish</h3><p>Color-matched paint that disappears.</p></div><div class="card"><div class="num">03</div><h3>Dent repair</h3><p>Dings and hail damage, often paintless.</p></div><div class="card"><div class="num">04</div><h3>Insurance claims</h3><p>We help you through the whole claim.</p></div></div>
+</div></section>
+<section class="band" id="how"><div class="wrap">
+ <div><div class="eyebrow">Why Dynasty</div><h2 class="h2">Local, straightforward, and easy to reach.</h2>
+ <p>Based at 6502 N 27th Ave, Phoenix, AZ 85017. Clear pricing, honest timelines, and a real person when you call.</p></div>
+ <ul class="checks"><li>Serving Phoenix and nearby communities</li><li>Free, no-pressure estimates</li><li>Licensed and insured (owner to confirm details)</li><li>Fast replies by phone or form</li></ul>
+</div></section>
+<section class="contact" id="contact"><div class="wrap">
+ <div class="info"><div class="eyebrow" style="color:var(--a)">Contact</div><h2 class="h2">Get a free estimate</h2>
+ <p>Tell us a little about what you need and we'll get back to you quickly.</p>
+ <p><strong>Phone</strong><br><a href="tel:+16025293304">(602) 529-3304</a></p><p><strong>Email</strong><br><a href="mailto:info@dynastycollision.com">info@dynastycollision.com</a></p>
+ <p><strong>Location</strong><br>6502 N 27th Ave, Phoenix, AZ 85017</p></div>
+ <form onsubmit="event.preventDefault();this.querySelector('button').textContent='Thanks! (demo form)'">
+  <input placeholder="Your name" required><input placeholder="Phone or email" required>
+  <textarea placeholder="How can we help?"></textarea><button class="btn">Send request</button></form>
+</div></section>
+<footer><div class="wrap"><span>© 2026 Dynasty Collision</span><span>6502 N 27th Ave, Phoenix, AZ 85017</span></div></footer>
+<div class="callbar"><a class="btn" href="tel:+16025293304">Call now</a><a class="btn" style="background:var(--d)" href="#contact">Get a free estimate</a></div>
+</body></html>
