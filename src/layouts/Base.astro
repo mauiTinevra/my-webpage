@@ -12,9 +12,13 @@ interface Props {
   street?: boolean;
   /** Full-bleed pages: sections set their own padding. */
   bare?: boolean;
+  /** Keep a thin or empty page out of search results. */
+  noindex?: boolean;
+  /** Extra structured data for this page (for example its questions and answers). */
+  schema?: Record<string, unknown>;
 }
 
-const { title, description = site.description, place, street = false, bare = false } = Astro.props;
+const { title, description = site.description, place, street = false, bare = false, noindex = false, schema } = Astro.props;
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
 const pageTitle = title ? `${title} | ${site.name}` : `${site.name} | ${site.tagline}`;
@@ -40,6 +44,35 @@ const person = {
       areaServed: ['Scottsdale, AZ', 'Phoenix, AZ', 'Arizona'],
       url: new URL('/web-design', Astro.site),
     },
+  },
+};
+// The business, for local search: what it is, where it works and what it costs to start.
+const business = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  '@id': new URL('/#business', Astro.site),
+  name: `${site.name}, web design`,
+  url: Astro.site,
+  image: shareImage,
+  email: `mailto:${site.email}`,
+  description: site.description,
+  founder: { '@type': 'Person', name: site.name },
+  address: { '@type': 'PostalAddress', addressLocality: 'Scottsdale', addressRegion: 'AZ', addressCountry: 'US' },
+  areaServed: ['Scottsdale', 'Phoenix', 'Tempe', 'Mesa', 'Paradise Valley', 'Arizona'].map((name) => ({ '@type': 'Place', name })),
+  priceRange: 'Websites from $3,500',
+  knowsAbout: ['Website design', 'Web development', 'Restaurant websites', 'Yoga studio websites', 'Small business websites', 'Online booking and ordering'],
+  sameAs: site.links.map((l) => l.href),
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Website services',
+    itemListElement: [
+      { name: 'Custom website design and development', price: '3500', note: 'Starting price. Two to three weeks.' },
+      { name: 'Website care plan', price: '150', note: 'Starting price per month. Updates, hosting and security.' },
+    ].map((o) => ({
+      '@type': 'Offer',
+      itemOffered: { '@type': 'Service', name: o.name, description: o.note },
+      priceSpecification: { '@type': 'PriceSpecification', price: o.price, priceCurrency: 'USD', minPrice: o.price },
+    })),
   },
 };
 // What a visitor came for, in the order they look for it.
@@ -71,7 +104,10 @@ const bodyClass = [place && `at-${place}`, street && 'is-street', bare && 'is-ba
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
+    {noindex && <meta name="robots" content="noindex" />}
     <script type="application/ld+json" set:html={JSON.stringify(person)} />
+    <script type="application/ld+json" set:html={JSON.stringify(business)} />
+    {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
     <noscript><style>.scene{overflow-x:auto}</style></noscript>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
