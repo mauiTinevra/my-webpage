@@ -1,20 +1,20 @@
 ---
 // A concept site for an imaginary yoga studio in Scottsdale, made to show what Maui could build
-// for a studio. A mixed-style studio, so the page helps people pick a class: by how they feel,
-// by day, by style. The saguaro on the hero does the poses; every drawing is code.
-import '@fontsource-variable/bricolage-grotesque/standard.css';
+// for a studio. Built to the Saguaro Yoga Club guidelines: warm paper, one deep green, a rare
+// bloom of pink, one serif (Newsreader) and a lot of space. Schedule and booking come first.
+import '@fontsource-variable/newsreader/opsz.css';
+import '@fontsource-variable/newsreader/opsz-italic.css';
 import { site } from '../../site';
 
-// Each style has a color, a heat (how hard it works you, 1 to 5) and a one-line promise.
+// Each style has an intensity (1 to 5) and a plain line about what happens in it.
 const styles = [
-  { key: 'vinyasa', name: 'Vinyasa Flow', heat: 3, color: '#ffc531', about: 'Breath-led flow that links one pose to the next. The class most people fall for.' },
-  { key: 'power', name: 'Power', heat: 5, color: '#ff4f7b', about: 'Strength, long holds and a lot of chaturangas. Bring water.' },
-  { key: 'hot', name: 'Hot Vinyasa', heat: 4, color: '#ff8a1f', about: 'Vinyasa in a 95°F room. You will sweat; that is the point.' },
-  { key: 'slow', name: 'Slow Flow', heat: 2, color: '#4cc9e8', about: 'The same flow at half the speed, with time to feel each pose.' },
-  { key: 'yin', name: 'Yin', heat: 1, color: '#b59cff', about: 'Floor poses held for minutes. Quiet, deep and harder than it looks.' },
-  { key: 'basics', name: 'Beginners', heat: 2, color: '#7ad67a', about: 'Never done yoga? Start here. We teach the names, the shapes and how to breathe.' },
+  { key: 'vinyasa', name: 'Vinyasa Flow', heat: 3, about: 'Breath-led movement that links one pose to the next. The class most people start with and stay for.' },
+  { key: 'power', name: 'Power', heat: 5, about: 'Strength, long holds and many chaturangas (low push-ups). Bring water.' },
+  { key: 'hot', name: 'Hot Vinyasa', heat: 4, about: 'Vinyasa in a 95°F room. You will sweat.' },
+  { key: 'slow', name: 'Slow Flow', heat: 2, about: 'The same flow at half the speed, with time to feel each pose.' },
+  { key: 'yin', name: 'Yin', heat: 1, about: 'Floor poses held for minutes. Quiet, deep and harder than it looks.' },
+  { key: 'basics', name: 'Beginners', heat: 2, about: 'Never done yoga? Start here. We teach the names, the shapes and how to breathe.' },
 ];
-const teachers = ['Rosa', 'Dev', 'Kai', 'June', 'Marisol', 'Theo'];
 // The week. Times are clock hours in Scottsdale (17.5 is 5:30 PM).
 const week: Record<string, { at: number; style: string; mins: number; teacher: string }[]> = {
   Mon: [
@@ -64,6 +64,7 @@ const week: Record<string, { at: number; style: string; mins: number; teacher: s
   ],
 };
 const days = Object.keys(week);
+const dayNames: Record<string, string> = { Mon: 'Monday', Tue: 'Tuesday', Wed: 'Wednesday', Thu: 'Thursday', Fri: 'Friday', Sat: 'Saturday', Sun: 'Sunday' };
 const clock = (at: number) => {
   const h = Math.floor(at);
   const m = Math.round((at % 1) * 60);
@@ -71,24 +72,32 @@ const clock = (at: number) => {
 };
 const styleOf = (key: string) => styles.find((s) => s.key === key)!;
 
-// How you feel today, and the style that answers it.
+// How you feel today, and the class that answers it.
 const moods = [
   { key: 'stiff', label: 'Stiff', style: 'yin', why: 'Long, quiet holds that let tight hips and backs let go.' },
-  { key: 'stressed', label: 'Stressed', style: 'slow', why: 'Slow breathing and slower moving. You will leave lighter.' },
-  { key: 'restless', label: 'Restless', style: 'power', why: 'Give the extra energy somewhere to go. Then lie down.' },
+  { key: 'stressed', label: 'Stressed', style: 'slow', why: 'Slow breathing and slower moving.' },
+  { key: 'restless', label: 'Restless', style: 'power', why: 'Somewhere for the extra energy to go. Then you lie down.' },
   { key: 'sweaty', label: 'Ready to sweat', style: 'hot', why: 'A warm room and a steady flow. Bring a towel.' },
-  { key: 'new', label: 'Brand new', style: 'basics', why: 'Every pose explained, nobody watching, all levels welcome.' },
+  { key: 'new', label: 'Brand new', style: 'basics', why: 'Every pose explained, at your own pace.' },
 ];
 
-// The saguaro's poses: upper arm and forearm angles for each side, and a lean.
-// Left arm points left at 0°, right arm points right; positive turns clockwise.
-const poses = [
-  { key: 'cactus', name: 'Cactus arms', l: [0, 90], r: [0, -90], lean: 0 },
-  { key: 'salute', name: 'Upward salute', l: [62, 20], r: [-62, -20], lean: 0 },
-  { key: 'warrior', name: 'Warrior II', l: [0, 0], r: [0, 0], lean: 0 },
-  { key: 'tree', name: 'Tree', l: [86, 42], r: [-86, -42], lean: 0 },
-  { key: 'moon', name: 'Half moon', l: [84, 0], r: [84, 0], lean: -16 },
-  { key: 'mountain', name: 'Mountain', l: [-78, 0], r: [78, 0], lean: 0 },
+// The teachers, and what each one teaches this week (read from the schedule).
+const bios: Record<string, string> = {
+  Rosa: 'Opened the studio in 2019. Teaches flow the way she learned it: breath first.',
+  Dev: 'A former climber. His Power classes are hard and his cues are clear.',
+  Kai: 'Runs the hot room. Will remind you to drink water more than once.',
+  June: 'Slow and steady. Good with stiff shoulders and first-timers.',
+  Marisol: 'Teaches Yin and most evenings. Her classes end in near silence.',
+  Theo: 'Teaches Beginners. Explains every pose and never rushes anyone.',
+};
+const teaches = (name: string) =>
+  [...new Set(Object.values(week).flat().filter((c) => c.teacher === name).map((c) => styleOf(c.style).name))].join(', ');
+
+const prices = [
+  { name: 'First week', detail: 'Seven days of every class, for new students. Mat and towel included.', price: '$29' },
+  { name: 'Drop in', detail: 'One class, any style.', price: '$24' },
+  { name: 'Ten classes', detail: 'Good for a year, and you can share it with a friend.', price: '$210' },
+  { name: 'Unlimited', detail: 'Every class, every day. Pause anytime.', price: '$149 a month' },
 ];
 
 // Imaginary, so the details are too: 555-01xx numbers are reserved for fiction, and .example
@@ -113,191 +122,143 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('A website for m
     <meta name="description" content={`A concept website for an imaginary yoga studio in Scottsdale, designed and built by ${site.name}.`} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
-  <body class="sag" data-week={JSON.stringify(week)} data-styles={JSON.stringify(styles.map(({ key, name, color }) => ({ key, name, color })))}>
+  <body class="sag" data-week={JSON.stringify(week)} data-styles={JSON.stringify(styles.map(({ key, name }) => ({ key, name })))}>
     <p class="concept-bar">
       An imaginary yoga studio, built by <a href="/">{site.name}</a> to show what a studio site could be.
     </p>
 
-    <header class="hero">
-      <div class="hero-words">
-        <p class="wordmark">Saguaro Yoga Club</p>
-        <h1 class="headline">Stand tall.<br />Bend a little.</h1>
-        <p class="hero-line">
-          A yoga studio in {visit.place} with six kinds of class, from a sweaty power hour to an evening of lying very still.
-          First week, unlimited, $29.
-        </p>
-        <p class="next" id="next">Next class: see the schedule.</p>
-        <div class="hero-actions">
-          <a class="button" href="#schedule">Find a class</a>
-          <a class="button button-quiet" href="#first-week">First week for $29</a>
-        </div>
-      </div>
-
-      <div class="stage">
-        <svg class="desert" viewBox="0 0 400 460" role="img" aria-labelledby="pose-name">
-          <title id="pose-name">A saguaro cactus doing Cactus arms</title>
-          <defs>
-            <clipPath id="window"><path d="M24 444 V214 A176 176 0 0 1 376 214 V444 Z" /></clipPath>
-            <linearGradient id="dawn" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#ff9fb6" />
-              <stop offset="0.55" stop-color="#ffd18a" />
-            </linearGradient>
-          </defs>
-          <g clip-path="url(#window)">
-            <rect x="0" y="0" width="400" height="460" fill="url(#dawn)" />
-            <circle class="sun" cx="290" cy="150" r="58" fill="#ffc531" />
-            <path d="M0 370 Q100 334 200 352 T400 340 V460 H0 Z" fill="#f6c27a" />
-            <path d="M0 404 Q120 380 220 394 T400 386 V460 H0 Z" fill="#eaa85a" />
-            <!-- Two small friends far away, doing nothing in particular. -->
-            <g fill="#1e8a52" stroke="#2b1433" stroke-width="3">
-              <rect x="56" y="298" width="16" height="60" rx="8" />
-              <rect x="44" y="314" width="10" height="24" rx="5" />
-              <rect x="334" y="312" width="12" height="44" rx="6" />
-            </g>
-          </g>
-          <path d="M24 444 V214 A176 176 0 0 1 376 214 V444 Z" fill="none" stroke="#2b1433" stroke-width="6" stroke-linejoin="round" />
-          <g class="saguaro" id="saguaro">
-            <!-- Arms first, so the body covers the shoulders. Each arm is an upper arm and a forearm. -->
-            {
-              (['l', 'r'] as const).map((side) => {
-                const dir = side === 'l' ? -1 : 1;
-                const sx = 200 + dir * 26;
-                const ex = sx + dir * 62;
-                const fx = ex + dir * 64;
-                return (
-                  <g class={`arm arm-${side}`} style={`transform-origin: ${sx}px 180px`}>
-                    <path d={`M${sx} 180 H${ex}`} class="limb-line" />
-                    <path d={`M${sx} 180 H${ex}`} class="limb" />
-                    <g class="fore" style={`transform-origin: ${ex}px 180px`}>
-                      <path d={`M${ex} 180 H${fx}`} class="limb-line" />
-                      <path d={`M${ex} 180 H${fx}`} class="limb" />
-                    </g>
-                  </g>
-                );
-              })
-            }
-            <rect x="166" y="96" width="68" height="290" rx="34" fill="#1e8a52" stroke="#2b1433" stroke-width="6" />
-            <g stroke="#126b3c" stroke-width="4" stroke-linecap="round">
-              <path d="M184 120 V370" /><path d="M200 112 V376" /><path d="M216 120 V370" />
-            </g>
-            <g class="face">
-              <ellipse class="eye" cx="188" cy="150" rx="5" ry="7" fill="#2b1433" />
-              <ellipse class="eye" cx="212" cy="150" rx="5" ry="7" fill="#2b1433" />
-              <path d="M190 168 Q200 177 210 168" fill="none" stroke="#2b1433" stroke-width="4" stroke-linecap="round" />
-              <circle cx="181" cy="164" r="5" fill="#ff4f7b" opacity="0.55" />
-              <circle cx="219" cy="164" r="5" fill="#ff4f7b" opacity="0.55" />
-            </g>
-            <!-- The bloom on top. -->
-            <g class="bloom" style="transform-origin: 200px 96px">
-              {[0, 72, 144, 216, 288].map((a) => <ellipse cx="200" cy="80" rx="9" ry="16" fill="#ff4f7b" stroke="#2b1433" stroke-width="3" transform={`rotate(${a} 200 96)`} />)}
-              <circle cx="200" cy="96" r="8" fill="#ffc531" stroke="#2b1433" stroke-width="3" />
-            </g>
-          </g>
-          <!-- The mat. -->
-          <rect x="110" y="384" width="180" height="14" rx="7" fill="#b59cff" stroke="#2b1433" stroke-width="4" />
+    <header class="top">
+      <a class="brand" href="#top" aria-label="Saguaro Yoga Club, back to top">
+        <svg class="mark" viewBox="0 0 64 80" aria-hidden="true">
+          <path d="M27 76 V22 a5 5 0 0 1 10 0 V76" />
+          <path d="M27 50 H20 a4 4 0 0 1 -4 -4 V34 a3 3 0 0 1 6 0 V44 H27" />
+          <path d="M37 42 H43 a4 4 0 0 0 4 -4 V26 a3 3 0 0 0 -6 0 V36 H37" />
+          <path d="M12 76 H52" />
+          <circle class="dot" cx="32" cy="13" r="3" />
         </svg>
-        <div class="poses" role="group" aria-label="Pick a pose for the saguaro">
-          {poses.map((p, i) => (
-            <button type="button" class="pose" data-pose={p.key} aria-pressed={i === 0 ? 'true' : 'false'}>
-              {p.name}
-            </button>
-          ))}
-        </div>
-      </div>
+        <span>Saguaro Yoga Club</span>
+      </a>
+      <nav aria-label="Main">
+        <a href="#schedule">Schedule</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#first-visit">First visit</a>
+        <a href="#about">About</a>
+        <a class="button" href={contact('Book a class')}>Book a class</a>
+      </nav>
     </header>
 
-    <main>
-      <section class="band mood-band" aria-labelledby="mood-title">
-        <h2 class="title" id="mood-title">How do you feel today?</h2>
-        <div class="moods" role="group" aria-label="How you feel">
-          {moods.map((m) => (
-            <button type="button" class="mood" data-mood={m.key} data-style={m.style} data-why={m.why} aria-pressed="false">
-              {m.label}
+    <main id="top">
+      <section class="opening" aria-labelledby="headline">
+        <div class="opening-words">
+          <h1 id="headline">Stand tall.<br />Bend a little.</h1>
+          <p class="lead">
+            A yoga studio in {visit.place} with six kinds of class, from a hard hour of Power to an evening of lying very still.
+          </p>
+          <p class="next" id="next" aria-live="polite">See this week’s classes below.</p>
+          <div class="actions">
+            <a class="button" href={contact('Book a class')}>Book a class</a>
+            <a class="button button-line" href="#pricing">First week, $29</a>
+          </div>
+        </div>
+        <svg class="drawing" viewBox="0 0 320 360" aria-hidden="true">
+          <circle cx="272" cy="64" r="30" />
+          <path d="M8 316 H312" />
+          <path d="M40 330 H150 M190 330 H280" class="faint" />
+          <g transform="translate(64 26) scale(3.6)">
+            <path d="M27 80 V22 a5 5 0 0 1 10 0 V80" />
+            <path d="M27 50 H20 a4 4 0 0 1 -4 -4 V34 a3 3 0 0 1 6 0 V44 H27" />
+            <path d="M37 42 H43 a4 4 0 0 0 4 -4 V26 a3 3 0 0 0 -6 0 V36 H37" />
+            <circle class="dot" cx="32" cy="13" r="2.4" />
+          </g>
+          <g transform="translate(250 230) scale(1.1)" class="faint">
+            <path d="M27 78 V30 a4 4 0 0 1 8 0 V78" />
+            <path d="M27 56 H22 a3 3 0 0 1 -3 -3 V44 a2.5 2.5 0 0 1 5 0 V51 H27" />
+          </g>
+        </svg>
+      </section>
+
+      <section class="band" id="schedule" aria-labelledby="schedule-title">
+        <div class="band-head">
+          <h2 id="schedule-title">This week</h2>
+          <p class="muted">Walk in or book ahead. Classes cap at 24 mats.</p>
+        </div>
+
+        <div class="day-tabs" role="tablist" aria-label="Day of the week">
+          {days.map((d) => (
+            <button type="button" role="tab" class="day-tab" data-day={d} aria-selected="false" aria-controls={`day-${d}`} id={`tab-${d}`} tabindex="-1">
+              <span class="day-label">{d}</span>
             </button>
           ))}
         </div>
-        <div class="pick" id="pick" aria-live="polite" hidden>
-          <p class="pick-style" id="pick-style"></p>
-          <p class="pick-why" id="pick-why"></p>
-          <p class="pick-when" id="pick-when"></p>
+
+        <div class="filters" role="group" aria-label="Show one kind of class">
+          <button type="button" class="filter" data-filter="all" aria-pressed="true">All classes</button>
+          {styles.map((s) => (
+            <button type="button" class="filter" data-filter={s.key} aria-pressed="false">{s.name}</button>
+          ))}
         </div>
+
+        {days.map((d) => (
+          <ol class="day" id={`day-${d}`} role="tabpanel" aria-labelledby={`tab-${d}`} aria-label={dayNames[d]} hidden>
+            {week[d].map((c) => (
+              <li class="slot" data-style={c.style} data-at={c.at}>
+                <span class="slot-time">{clock(c.at)}</span>
+                <span class="slot-name">{styleOf(c.style).name} <span class="slot-teacher">with {c.teacher}</span></span>
+                <span class="slot-mins">{c.mins} min</span>
+              </li>
+            ))}
+            <li class="slot-empty" hidden>No class of that kind on this day. Try another day, or show all classes.</li>
+          </ol>
+        ))}
+
+        <div class="helper">
+          <p class="helper-q" id="mood-title">Not sure which class? Pick how you feel.</p>
+          <div class="moods" role="group" aria-labelledby="mood-title">
+            {moods.map((m) => (
+              <button type="button" class="mood" data-style={m.style} data-why={m.why} aria-pressed="false">{m.label}</button>
+            ))}
+          </div>
+          <p class="pick" id="pick" aria-live="polite" hidden></p>
+        </div>
+
+        <dl class="classes">
+          {styles.map((s) => (
+            <div class="class">
+              <dt>{s.name}</dt>
+              <dd class="heat">
+                <span class="dots" aria-hidden="true">{Array.from({ length: 5 }, (_, i) => <i class={i < s.heat ? 'on' : ''} />)}</span>
+                <span class="sr">Intensity {s.heat} of 5</span>
+              </dd>
+              <dd>{s.about}</dd>
+            </div>
+          ))}
+        </dl>
       </section>
 
-      <section class="band classes-band" aria-labelledby="classes-title">
-        <h2 class="title" id="classes-title">Six kinds of class</h2>
-        <p class="lede">More dots, more sweat.</p>
-        <ul class="styles" role="list">
-          {styles.map((s) => (
-            <li class="style-card" style={`--tone: ${s.color}`}>
-              <h3>{s.name}</h3>
-              <p class="heat" aria-label={`Intensity ${s.heat} of 5`}>
-                {Array.from({ length: 5 }, (_, i) => <span class={i < s.heat ? 'on' : ''} aria-hidden="true">●</span>)}
-              </p>
-              <p>{s.about}</p>
+      <section class="band" id="pricing" aria-labelledby="pricing-title">
+        <div class="band-head">
+          <h2 id="pricing-title">Pricing</h2>
+          <p class="muted">New here? Start with the first week.</p>
+        </div>
+        <ul class="prices" role="list">
+          {prices.map((p, i) => (
+            <li class={i === 0 ? 'price is-first' : 'price'}>
+              <div>
+                <p class="price-name">{p.name}</p>
+                <p class="price-detail">{p.detail}</p>
+              </div>
+              <p class="price-amount">{p.price}</p>
             </li>
           ))}
         </ul>
+        <a class="button" href={contact('My first week')}>Start my first week</a>
       </section>
 
-      <section class="band schedule-band" id="schedule" aria-labelledby="schedule-title">
-        <h2 class="title" id="schedule-title">This week</h2>
-        <div class="day-tabs" role="tablist" aria-label="Day of the week">
-          {days.map((d) => (
-            <button type="button" role="tab" class="day-tab" data-day={d} aria-selected="false" aria-controls={`day-${d}`} id={`tab-${d}`}>
-              {d}
-            </button>
-          ))}
+      <section class="band" id="first-visit" aria-labelledby="first-title">
+        <div class="band-head">
+          <h2 id="first-title">Your first class</h2>
+          <p class="aside">Come as you are.</p>
         </div>
-        <div class="filters" role="group" aria-label="Show only one kind of class">
-          <button type="button" class="filter" data-filter="all" aria-pressed="true">All classes</button>
-          {styles.map((s) => (
-            <button type="button" class="filter" data-filter={s.key} aria-pressed="false" style={`--tone: ${s.color}`}>{s.name}</button>
-          ))}
-        </div>
-        {days.map((d) => (
-          <ol class="day" id={`day-${d}`} role="tabpanel" aria-labelledby={`tab-${d}`} hidden>
-            {week[d].map((c) => (
-              <li class="slot" data-style={c.style} data-at={c.at} style={`--tone: ${styleOf(c.style).color}`}>
-                <span class="slot-time">{clock(c.at)}</span>
-                <span class="slot-name">{styleOf(c.style).name}</span>
-                <span class="slot-meta">{c.mins} min, with {c.teacher}</span>
-              </li>
-            ))}
-            <li class="slot-empty" hidden>Nothing of that kind today. Try another day or another class.</li>
-          </ol>
-        ))}
-        <p class="small">Walk in or book at the desk. Classes cap at 24 mats.</p>
-      </section>
-
-      <section class="band price-band" id="first-week" aria-labelledby="price-title">
-        <h2 class="title" id="price-title">Come for a week</h2>
-        <div class="prices">
-          <div class="price price-star">
-            <p class="price-name">First week</p>
-            <p class="price-amount">$29</p>
-            <p>Seven days of every class, for new students. Mat and towel on us.</p>
-            <a class="button" href={contact('My first week')}>Start my week</a>
-          </div>
-          <div class="price">
-            <p class="price-name">Drop in</p>
-            <p class="price-amount">$24</p>
-            <p>One class, any style.</p>
-          </div>
-          <div class="price">
-            <p class="price-name">Ten classes</p>
-            <p class="price-amount">$210</p>
-            <p>Good for a year, shareable with a friend.</p>
-          </div>
-          <div class="price">
-            <p class="price-name">Unlimited</p>
-            <p class="price-amount">$149<span>/mo</span></p>
-            <p>Every class, every day. Pause anytime.</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="band faq-band" aria-labelledby="faq-title">
-        <h2 class="title" id="faq-title">Your first class</h2>
         <div class="faq">
           <details>
             <summary>What do I bring?</summary>
@@ -308,34 +269,76 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('A website for m
             <p>Ten minutes early the first time, so we can show you around and ask about any injuries.</p>
           </details>
           <details>
-            <summary>I can't touch my toes.</summary>
-            <p>Most people can't. Yoga is how you get closer, not something you need to be good at first. Start with Beginners or Slow Flow.</p>
+            <summary>I can’t touch my toes.</summary>
+            <p>Most people can’t. You don’t need to be flexible to start. Try Beginners or Slow Flow.</p>
           </details>
           <details>
             <summary>How hot is Hot Vinyasa?</summary>
-            <p>About 95°F with some humidity. Every other class is at a normal room temperature.</p>
+            <p>About 95°F with some humidity. Every other class is at normal room temperature.</p>
           </details>
           <details>
-            <summary>Showers and parking?</summary>
+            <summary>Are there showers and parking?</summary>
             <p>Two showers and lockers. Free parking in the garage behind the studio.</p>
           </details>
         </div>
       </section>
 
-      <section class="band visit-band" id="visit" aria-labelledby="visit-title">
-        <h2 class="title" id="visit-title">Come say hi</h2>
+      <section class="band band-green" id="about" aria-labelledby="about-title">
+        <div class="band-head">
+          <h2 id="about-title">The studio</h2>
+          <p class="lead">
+            One room, 24 mats and six teachers, two streets from the Old Town square. Rosa opened it in 2019 for people who wanted
+            a good class without the fuss.
+          </p>
+        </div>
+        <ul class="teachers" role="list">
+          {Object.keys(bios).map((t) => (
+            <li>
+              <h3>{t}</h3>
+              <p class="teaches">{teaches(t)}</p>
+              <p>{bios[t]}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="band" id="visit" aria-labelledby="visit-title">
+        <div class="band-head">
+          <h2 id="visit-title">Visit</h2>
+        </div>
         <div class="visit">
           <div><h3>Where</h3><p>{visit.place}<br />{visit.city}</p></div>
-          <div><h3>Desk hours</h3><p>Every day, 30 minutes before the first class until the last one ends.</p></div>
+          <div><h3>Desk hours</h3><p>Every day, from 30 minutes before the first class until the last one ends.</p></div>
           <div><h3>Call or write</h3><p><a href={`tel:${visit.tel}`}>{visit.phone}</a><br /><a href={contact('Hello')}>{visit.email}</a></p></div>
         </div>
       </section>
     </main>
 
-    <footer class="concept-foot">
-      <p>Saguaro Yoga Club is imaginary. This site is a concept by {site.name}: every cactus drawn and coded by hand.</p>
-      <a class="foot-ask" href={mail}>I want a site like this for my studio</a>
-      <a href="/">Back to {site.name}</a>
+    <footer class="foot">
+      <nav class="sitemap" aria-label="Site map">
+        <div>
+          <p class="foot-head">Classes</p>
+          <a href="#schedule">Schedule</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#first-visit">First visit</a>
+        </div>
+        <div>
+          <p class="foot-head">Studio</p>
+          <a href="#about">Teachers</a>
+          <a href="#visit">Visit</a>
+          <a href={contact('Book a class')}>Book a class</a>
+        </div>
+        <div>
+          <p class="foot-head">Contact</p>
+          <a href={`tel:${visit.tel}`}>{visit.phone}</a>
+          <a href={contact('Hello')}>{visit.email}</a>
+        </div>
+      </nav>
+      <div class="concept-foot">
+        <p>Saguaro Yoga Club is imaginary. This site is a concept by {site.name}, drawn and coded by hand.</p>
+        <a class="button button-line-paper" href={mail}>I want a site like this for my studio</a>
+        <a href="/">Back to {site.name}</a>
+      </div>
     </footer>
   </body>
 </html>
@@ -346,9 +349,8 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('A website for m
 
   type Slot = { at: number; style: string; mins: number; teacher: string };
   const week: Record<string, Slot[]> = JSON.parse(document.body.dataset.week!);
-  const styles: { key: string; name: string; color: string }[] = JSON.parse(document.body.dataset.styles!);
+  const styles: { key: string; name: string }[] = JSON.parse(document.body.dataset.styles!);
   const days = Object.keys(week);
-  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const el = (id: string) => document.getElementById(id)!;
   const clock = (at: number) => {
     const h = Math.floor(at);
@@ -372,62 +374,18 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('A website for m
   };
   const showNext = () => {
     const n = nextClass();
-    if (n) el('next').innerHTML = `<b>Next class:</b> ${nameOf(n.slot.style)}, ${n.when} at ${clock(n.slot.at)} with ${n.slot.teacher}.`;
+    if (n) el('next').textContent = `Next class: ${nameOf(n.slot.style)}, ${n.when} at ${clock(n.slot.at)} with ${n.slot.teacher}.`;
   };
   showNext();
   setInterval(showNext, 60_000);
 
-  // The saguaro: each pose sets the arm angles, and the body leans.
-  const poses: Record<string, { l: number[]; r: number[]; lean: number; name: string }> = {
-    cactus: { name: 'Cactus arms', l: [0, 90], r: [0, -90], lean: 0 },
-    salute: { name: 'Upward salute', l: [62, 20], r: [-62, -20], lean: 0 },
-    warrior: { name: 'Warrior II', l: [0, 0], r: [0, 0], lean: 0 },
-    tree: { name: 'Tree', l: [86, 42], r: [-86, -42], lean: 0 },
-    moon: { name: 'Half moon', l: [84, 0], r: [84, 0], lean: -16 },
-    mountain: { name: 'Mountain', l: [-78, 0], r: [78, 0], lean: 0 },
-  };
-  const saguaro = el('saguaro');
-  const strike = (key: string) => {
-    const p = poses[key];
-    const set = (sel: string, deg: number) => (saguaro.querySelector<SVGGElement>(sel)!.style.rotate = `${deg}deg`);
-    set('.arm-l', p.l[0]);
-    set('.arm-l .fore', p.l[1]);
-    set('.arm-r', p.r[0]);
-    set('.arm-r .fore', p.r[1]);
-    saguaro.style.rotate = `${p.lean}deg`;
-    el('pose-name').textContent = `A saguaro cactus doing ${p.name}`;
-    document.querySelectorAll('.pose').forEach((b) => b.setAttribute('aria-pressed', String((b as HTMLElement).dataset.pose === key)));
-  };
-  strike('cactus');
-  // It practices on its own until someone picks a pose.
-  const order = Object.keys(poses);
-  let step = 0;
-  let practice = calm ? 0 : window.setInterval(() => strike(order[++step % order.length]), 2600);
-  document.querySelectorAll<HTMLButtonElement>('.pose').forEach((b) =>
-    b.addEventListener('click', () => {
-      clearInterval(practice);
-      practice = 0;
-      strike(b.dataset.pose!);
-    }),
-  );
-
-  // How you feel: pick a mood, get a class and the next time it runs.
-  document.querySelectorAll<HTMLButtonElement>('.mood').forEach((b) =>
-    b.addEventListener('click', () => {
-      document.querySelectorAll('.mood').forEach((m) => m.setAttribute('aria-pressed', String(m === b)));
-      const style = b.dataset.style!;
-      const tone = styles.find((s) => s.key === style)!.color;
-      const n = nextClass(style);
-      el('pick').hidden = false;
-      el('pick').style.setProperty('--tone', tone);
-      el('pick-style').textContent = `Try ${nameOf(style)}.`;
-      el('pick-why').textContent = b.dataset.why!;
-      el('pick-when').textContent = n ? `Next one: ${n.when} at ${clock(n.slot.at)} with ${n.slot.teacher}.` : '';
-    }),
-  );
-
   // The schedule: a tab per day, opening on today, and a filter by style.
   let filter = 'all';
+  const setFilter = (key: string) => {
+    filter = key;
+    document.querySelectorAll<HTMLElement>('.filter').forEach((x) => x.setAttribute('aria-pressed', String(x.dataset.filter === key)));
+    applyFilter();
+  };
   const showDay = (day: string) => {
     document.querySelectorAll<HTMLButtonElement>('.day-tab').forEach((t) => {
       const on = t.dataset.day === day;
@@ -435,21 +393,22 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('A website for m
       t.tabIndex = on ? 0 : -1;
       const isToday = t.dataset.day === today();
       t.classList.toggle('is-today', isToday);
-      t.textContent = isToday ? 'Today' : t.dataset.day!;
+      t.querySelector('.day-label')!.textContent = isToday ? 'Today' : t.dataset.day!;
     });
     days.forEach((d) => (el(`day-${d}`).hidden = d !== day));
     applyFilter();
   };
   const applyFilter = () => {
+    const hour = nowAt(here).hour;
     document.querySelectorAll<HTMLElement>('.day').forEach((list) => {
       let shown = 0;
+      const isToday = list.id === `day-${today()}`;
       list.querySelectorAll<HTMLElement>('.slot').forEach((s) => {
         const on = filter === 'all' || s.dataset.style === filter;
         s.hidden = !on;
         if (on) shown++;
         // Classes already over today are marked as past.
-        const isToday = list.id === `day-${today()}`;
-        s.classList.toggle('is-past', isToday && Number(s.dataset.at) < nowAt(here).hour);
+        s.classList.toggle('is-past', isToday && Number(s.dataset.at) < hour);
       });
       list.querySelector<HTMLElement>('.slot-empty')!.hidden = shown > 0;
     });
@@ -466,11 +425,18 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('A website for m
       showDay(next.dataset.day!);
     });
   });
-  document.querySelectorAll<HTMLButtonElement>('.filter').forEach((f) =>
-    f.addEventListener('click', () => {
-      filter = f.dataset.filter!;
-      document.querySelectorAll('.filter').forEach((x) => x.setAttribute('aria-pressed', String(x === f)));
-      applyFilter();
+  document.querySelectorAll<HTMLButtonElement>('.filter').forEach((f) => f.addEventListener('click', () => setFilter(f.dataset.filter!)));
+
+  // How you feel: pick a mood, and the schedule shows that class, with the next time it runs.
+  document.querySelectorAll<HTMLButtonElement>('.mood').forEach((b) =>
+    b.addEventListener('click', () => {
+      document.querySelectorAll('.mood').forEach((m) => m.setAttribute('aria-pressed', String(m === b)));
+      const style = b.dataset.style!;
+      const n = nextClass(style);
+      setFilter(style);
+      if (n) showDay(n.day);
+      el('pick').hidden = false;
+      el('pick').textContent = `Try ${nameOf(style)}. ${b.dataset.why!}${n ? ` The next one is ${n.when} at ${clock(n.slot.at)} with ${n.slot.teacher}.` : ''}`;
     }),
   );
   showDay(today());
@@ -478,234 +444,222 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('A website for m
 
 <style is:global>
   .sag {
-    --plum: #2b1433;
-    --sand: #fff1d6;
-    --green: #1e8a52;
-    --sun: #ffc531;
-    --bloom: #ff4f7b;
-    --sky: #4cc9e8;
-    --type: 'Bricolage Grotesque Variable', 'Arial Rounded MT Bold', system-ui, sans-serif;
-    --edge: clamp(1.25rem, 5vw, 4.5rem);
+    --paper: #f6f1e7;
+    --saguaro: #1d3a2e;
+    --bloom: #d0607a;
+    --muted: #4d5f55;
+    --rule: rgb(29 58 46 / 0.22);
+    --rule-on-green: rgb(246 241 231 / 0.28);
+    --font: 'Newsreader Variable', Georgia, serif;
+    --text-display: clamp(2.6438rem, 2.2603rem + 1.7046vw, 3.624rem);
+    --text-h2: clamp(1.836rem, 1.6469rem + 0.8406vw, 2.3193rem);
+    --text-h3: clamp(1.275rem, 1.1931rem + 0.3641vw, 1.4844rem);
+    --text-lead: clamp(1.275rem, 1.1931rem + 0.3641vw, 1.4844rem);
+    --text-body: clamp(1.0625rem, 1.0136rem + 0.2174vw, 1.1875rem);
+    --text-small: 0.9375rem;
+    --edge: clamp(1.25rem, 6vw, 6rem);
+    --section: clamp(3.5rem, 8vw, 5rem);
     margin: 0;
-    color: var(--plum);
-    background: var(--sand);
-    font-family: var(--type);
-    font-size: 1.125rem;
-    line-height: 1.5;
-    font-variation-settings: 'opsz' 18;
+    color: var(--saguaro);
+    background: var(--paper);
+    font-family: var(--font);
+    font-size: var(--text-body);
+    line-height: 1.65;
+    font-optical-sizing: auto;
+    font-kerning: normal;
+    text-rendering: optimizeLegibility;
   }
   .sag *, .sag *::before, .sag *::after { box-sizing: border-box; }
-  .sag a { color: inherit; text-underline-offset: 0.2em; }
-  .sag :focus-visible { outline: 3px solid var(--plum); outline-offset: 3px; }
-  .sag button { font: inherit; color: inherit; cursor: pointer; }
+  .sag a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 0.22em; }
+  .sag :focus-visible { outline: 1px solid var(--saguaro); outline-offset: 4px; }
+  :where(.sag) button { font: inherit; color: inherit; cursor: pointer; background: none; border: 0; padding: 0; }
+  :where(.sag) :is(h1, h2, h3) { font-weight: 380; letter-spacing: -0.015em; margin: 0; }
+  :where(.sag) p { margin: 0; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .muted { color: var(--muted); }
 
   .concept-bar {
-    margin: 0;
-    padding: 0.55rem var(--edge);
-    background: var(--plum);
-    color: var(--sand);
-    font-size: 0.85rem;
+    padding: 0.5rem var(--edge);
+    background: var(--saguaro);
+    color: var(--paper);
+    font-size: var(--text-small);
     text-align: center;
   }
+  .sag .concept-bar :focus-visible { outline-color: var(--paper); }
 
-  /* Hero: sky above, desert below, a saguaro on a mat. */
-  .hero {
-    display: grid;
-    grid-template-columns: 1.1fr 1fr;
+  /* Top bar: the mark and the nav, with one primary action. */
+  .top {
+    display: flex;
     align-items: center;
-    gap: 2rem;
-    padding: clamp(2rem, 5vw, 4rem) var(--edge) clamp(2.5rem, 5vw, 4rem);
-    background: linear-gradient(#4cc9e8, #9fe3f0 70%, #ffe3a8);
+    justify-content: space-between;
+    gap: 1rem 2rem;
+    flex-wrap: wrap;
+    padding: 1.25rem var(--edge);
+    border-bottom: 1px solid var(--rule);
   }
-  .wordmark {
-    display: inline-block;
-    margin: 0;
-    padding: 0.3rem 0.8rem;
-    border: 3px solid var(--plum);
-    border-radius: 999px;
-    background: var(--sand);
-    font-weight: 800;
-    font-size: 1rem;
-  }
-  .headline {
-    margin: 1rem 0 0;
-    font-size: clamp(3.4rem, 9vw, 7.5rem);
-    font-weight: 800;
-    font-variation-settings: 'opsz' 96, 'wdth' 80;
-    line-height: 0.9;
-    letter-spacing: -0.02em;
-    color: var(--plum);
-  }
-  .hero-line { max-width: 33rem; margin: 1.25rem 0 0; font-size: clamp(1.1rem, 2vw, 1.3rem); }
-  .next { max-width: 33rem; margin: 1rem 0 0; padding: 0.6rem 0.9rem; border-left: 0; border-radius: 0.8rem; background: rgb(255 241 214 / 0.75); }
-  .hero-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
+  .brand { display: inline-flex; align-items: center; gap: 0.6rem; text-decoration: none; font-size: 1.2rem; font-weight: 450; }
+  .mark { width: 1.6rem; height: 2rem; fill: none; stroke: var(--saguaro); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .dot { fill: var(--bloom); stroke: none; }
+  .top nav { display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem 1.75rem; font-size: var(--text-small); }
+  .top nav a:not(.button) { text-decoration: none; }
+  .top nav a:not(.button):hover { text-decoration: underline; }
+
   .button {
     display: inline-block;
-    padding: 0.8rem 1.3rem;
-    border: 3px solid var(--plum);
+    padding: 0.75rem 1.35rem;
+    border: 1px solid var(--saguaro);
+    background: var(--saguaro);
+    color: var(--paper) !important;
+    font-size: var(--text-small);
+    font-weight: 450;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s;
+  }
+  .button:hover { background: #2a5242; }
+  .button-line { background: transparent; color: var(--saguaro) !important; }
+  .button-line:hover { background: rgb(29 58 46 / 0.06); }
+  .button-line-paper { background: transparent; border-color: var(--paper); color: var(--paper) !important; }
+  .button-line-paper:hover { background: rgb(246 241 231 / 0.1); }
+
+  /* Opening: the line, the next class, the action. One quiet drawing beside it. */
+  .opening {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    align-items: end;
+    gap: 3rem;
+    padding: clamp(3rem, 9vw, 7rem) var(--edge) var(--section);
+  }
+  .opening h1 { font-size: var(--text-display); line-height: 1.05; }
+  .lead { max-width: 34rem; margin-top: 1.5rem; font-size: var(--text-lead); font-weight: 350; line-height: 1.5; }
+  .next { max-width: 34rem; margin-top: 1.75rem; padding-top: 1rem; border-top: 1px solid var(--rule); color: var(--muted); font-variant-numeric: tabular-nums; }
+  .actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; }
+  .drawing {
+    width: 100%;
+    max-width: 22rem;
+    justify-self: end;
+    fill: none;
+    stroke: var(--saguaro);
+    stroke-width: 1.25;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .drawing g path { vector-effect: non-scaling-stroke; }
+  .drawing .faint { opacity: 0.45; }
+
+  /* Sections: paper with a hairline above, and one green band. */
+  .band { padding: var(--section) var(--edge); border-top: 1px solid var(--rule); }
+  .band-head { display: grid; gap: 0.6rem; max-width: 40rem; margin-bottom: 2.5rem; }
+  .band h2 { font-size: var(--text-h2); line-height: 1.18; }
+  .aside { font-style: italic; color: var(--muted); font-size: var(--text-lead); }
+
+  /* Schedule. */
+  .day-tabs { display: flex; flex-wrap: wrap; gap: 0 1.75rem; border-bottom: 1px solid var(--rule); }
+  .day-tab { position: relative; padding: 0.6rem 0 0.75rem; font-size: var(--text-body); color: var(--muted); }
+  .day-tab:hover { color: var(--saguaro); }
+  .day-tab[aria-selected='true'] { color: var(--saguaro); box-shadow: inset 0 -1px 0 var(--saguaro); }
+  .day-tab.is-today .day-label::before {
+    content: '';
+    display: inline-block;
+    width: 0.4em;
+    height: 0.4em;
+    margin-right: 0.4em;
     border-radius: 999px;
     background: var(--bloom);
-    color: #fff !important;
-    font-weight: 800;
-    text-decoration: none;
-    box-shadow: 0 5px 0 var(--plum);
-    transition: translate 0.15s, box-shadow 0.15s;
+    vertical-align: 0.15em;
   }
-  .button:hover { translate: 0 2px; box-shadow: 0 3px 0 var(--plum); }
-  .button:active { translate: 0 5px; box-shadow: 0 0 0 var(--plum); }
-  .button-quiet { background: var(--sand); color: var(--plum) !important; }
+  .filters { display: flex; flex-wrap: wrap; gap: 0.4rem 1.25rem; margin-top: 1.25rem; font-size: var(--text-small); }
+  .filter { padding: 0.25rem 0; color: var(--muted); }
+  .filter:hover { color: var(--saguaro); }
+  .filter[aria-pressed='true'] { color: var(--saguaro); text-decoration: underline; text-decoration-color: var(--bloom); text-decoration-thickness: 1px; text-underline-offset: 0.35em; }
 
-  .stage { display: grid; gap: 1rem; justify-items: center; }
-  .desert { display: block; width: 100%; max-width: 30rem; overflow: visible; }
-  .saguaro { transform-box: view-box; transform-origin: 200px 386px; transition: rotate 0.9s cubic-bezier(0.45, 0, 0.2, 1); }
-  .arm, .fore { transform-box: view-box; transition: rotate 0.9s cubic-bezier(0.45, 0, 0.2, 1); }
-  .limb-line { stroke: var(--plum); stroke-width: 36; stroke-linecap: round; fill: none; }
-  .limb { stroke: var(--green); stroke-width: 26; stroke-linecap: round; fill: none; }
-  @media (prefers-reduced-motion: no-preference) {
-    .eye { transform-box: fill-box; transform-origin: center; animation: blink 5s infinite; }
-    .bloom { animation: sway 4s ease-in-out infinite alternate; transform-box: view-box; }
-    .sun { transform-box: fill-box; transform-origin: center; animation: glow 6s ease-in-out infinite alternate; }
-    @keyframes blink { 0%, 94%, 100% { transform: scaleY(1); } 97% { transform: scaleY(0.1); } }
-    @keyframes sway { from { rotate: -6deg; } to { rotate: 6deg; } }
-    @keyframes glow { to { transform: scale(1.06); } }
-  }
-  .poses { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; max-width: 30rem; }
-  .pose, .mood, .filter, .day-tab {
-    padding: 0.45rem 0.95rem;
-    border: 3px solid var(--plum);
-    border-radius: 999px;
-    background: var(--sand);
-    font-weight: 700;
-    font-size: 0.95rem;
-  }
-  .pose[aria-pressed='true'] { background: var(--plum); color: var(--sand); }
-
-  /* Bands: each section is a field of its own color. */
-  .band { padding: clamp(3.5rem, 9vh, 6rem) var(--edge); }
-  .title {
-    margin: 0;
-    font-size: clamp(2.4rem, 6.5vw, 4.75rem);
-    font-weight: 800;
-    font-variation-settings: 'opsz' 96, 'wdth' 80;
-    line-height: 0.95;
-    letter-spacing: -0.015em;
-  }
-  .lede { margin: 0.75rem 0 0; font-size: 1.2rem; }
-  .small { margin: 1.5rem 0 0; font-size: 0.95rem; }
-
-  .mood-band { background: var(--sun); }
-  .moods { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; }
-  .mood { padding: 0.9rem 1.4rem; font-size: clamp(1.1rem, 2.4vw, 1.5rem); font-weight: 800; box-shadow: 0 5px 0 var(--plum); }
-  .mood[aria-pressed='true'] { background: var(--plum); color: var(--sun); translate: 0 3px; box-shadow: 0 2px 0 var(--plum); }
-  .pick {
-    max-width: 40rem;
-    margin-top: 2rem;
-    padding: 1.5rem 1.75rem;
-    border: 4px solid var(--plum);
-    border-radius: 1.5rem;
-    background: var(--tone, var(--sand));
-    box-shadow: 8px 8px 0 var(--plum);
-  }
-  .pick-style { margin: 0; font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; font-variation-settings: 'opsz' 72, 'wdth' 85; line-height: 1; }
-  .pick-why { margin: 0.6rem 0 0; font-size: 1.2rem; }
-  .pick-when { margin: 0.6rem 0 0; font-weight: 800; }
-  @media (prefers-reduced-motion: no-preference) {
-    .pick:not([hidden]) { animation: pop 0.35s cubic-bezier(0.2, 0.9, 0.3, 1); }
-    @keyframes pop { from { scale: 0.94; opacity: 0; } }
-  }
-
-  .classes-band { background: var(--sand); }
-  .styles { list-style: none; margin: 2.25rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
-  .style-card {
-    padding: 1.4rem 1.4rem 1.5rem;
-    border: 3px solid var(--plum);
-    border-radius: 1.5rem 1.5rem 1.5rem 0.4rem;
-    background: var(--tone);
-  }
-  .style-card:nth-child(even) { border-radius: 1.5rem 1.5rem 0.4rem 1.5rem; }
-  .style-card h3 { margin: 0; font-size: 1.6rem; font-weight: 800; font-variation-settings: 'opsz' 48, 'wdth' 85; line-height: 1.05; }
-  .style-card p { margin: 0.5rem 0 0; }
-  .heat { display: flex; gap: 0.2rem; font-size: 1.1rem; letter-spacing: 0.05em; }
-  .heat span { color: rgb(43 20 51 / 0.22); }
-  .heat span.on { color: var(--plum); }
-
-  .schedule-band { background: #fff; border-block: 4px solid var(--plum); }
-  .day-tabs { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 2rem; }
-  .day-tab { min-width: 4.2rem; font-size: 1.05rem; }
-  .day-tab[aria-selected='true'] { background: var(--plum); color: var(--sand); }
-  .day-tab.is-today { background: var(--sun); }
-  .day-tab.is-today[aria-selected='true'] { background: var(--plum); color: var(--sun); }
-  .filters { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.75rem; }
-  .filter { font-size: 0.9rem; border-width: 2px; }
-  .filter[aria-pressed='true'] { background: var(--tone, var(--plum)); color: var(--plum); box-shadow: inset 0 0 0 2px var(--plum); }
-  .filter[data-filter='all'][aria-pressed='true'] { color: var(--sand); }
-  .day { list-style: none; margin: 1.75rem 0 0; padding: 0; max-width: 46rem; }
+  .day { list-style: none; margin: 1.5rem 0 0; padding: 0; max-width: 48rem; }
   .slot {
     display: grid;
-    grid-template-columns: 7.5rem 1fr auto;
+    grid-template-columns: 6.5rem 1fr auto;
     align-items: baseline;
-    gap: 0.25rem 1rem;
-    padding: 1rem 1rem 1rem 1.1rem;
-    border: 3px solid var(--plum);
-    border-radius: 1rem;
-    background: linear-gradient(90deg, var(--tone) 0 0.6rem, #fff 0.6rem);
+    gap: 0.25rem 1.5rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--rule);
   }
-  .slot + .slot { margin-top: 0.6rem; }
-  .slot-time { white-space: nowrap; font-weight: 800; font-variant-numeric: tabular-nums; padding-left: 0.5rem; }
-  .slot-name { font-weight: 800; font-size: 1.25rem; }
-  .slot-meta { font-size: 0.95rem; }
-  .slot.is-past { opacity: 0.5; }
-  .slot.is-past .slot-name::after { content: ' (done for today)'; font-weight: 500; font-size: 0.9rem; }
-  .slot-empty { padding: 1rem 0; }
+  .slot-time { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .slot-name { font-size: var(--text-h3); font-weight: 400; line-height: 1.25; }
+  .slot-teacher { font-size: var(--text-body); color: var(--muted); font-style: italic; }
+  .slot-mins { color: var(--muted); font-variant-numeric: tabular-nums; font-size: var(--text-small); }
+  .slot.is-past { color: var(--muted); }
+  .slot.is-past .slot-time::after { content: ' · done'; }
+  .slot-empty { padding: 1rem 0; color: var(--muted); }
 
-  .price-band { background: var(--bloom); }
-  .prices { display: grid; grid-template-columns: 1.4fr repeat(3, 1fr); gap: 1.25rem; margin-top: 2.25rem; align-items: stretch; }
-  .price { padding: 1.4rem; border: 3px solid var(--plum); border-radius: 1.5rem; background: var(--sand); }
-  .price p { margin: 0.4rem 0 0; }
-  .price-name { margin: 0 !important; font-weight: 800; font-size: 1.15rem; }
-  .price-amount { font-size: clamp(2.6rem, 5vw, 3.6rem); font-weight: 800; font-variation-settings: 'opsz' 96, 'wdth' 80; line-height: 1; }
-  .price-amount span { font-size: 0.4em; }
-  .price-star { background: var(--sun); box-shadow: 8px 8px 0 var(--plum); rotate: -1.5deg; }
-  .price-star .button { margin-top: 1rem; }
+  .helper { max-width: 48rem; margin-top: 2.5rem; }
+  .helper-q { font-style: italic; }
+  .moods { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.9rem; }
+  .mood { padding: 0.45rem 0.9rem; border: 1px solid var(--rule); font-size: var(--text-small); transition: border-color 0.2s; }
+  .mood:hover { border-color: var(--saguaro); }
+  .mood[aria-pressed='true'] { border-color: var(--saguaro); background: var(--saguaro); color: var(--paper); }
+  .pick { max-width: 40rem; margin-top: 1rem; color: var(--muted); }
 
-  .faq-band { background: var(--sand); }
-  .faq { max-width: 46rem; margin-top: 2rem; }
-  .faq details { border-top: 3px solid var(--plum); }
-  .faq details:last-child { border-bottom: 3px solid var(--plum); }
-  .faq summary { padding: 1.1rem 0; font-weight: 800; font-size: 1.3rem; cursor: pointer; list-style: none; display: flex; justify-content: space-between; gap: 1rem; }
+  .classes { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 2rem 3rem; margin: 4rem 0 0; }
+  .class { padding-top: 1rem; border-top: 1px solid var(--rule); }
+  .class dt { font-size: var(--text-h3); line-height: 1.25; }
+  .class dd { margin: 0.35rem 0 0; }
+  .class dd:last-child { color: var(--muted); max-width: 30rem; }
+  .dots { display: inline-flex; gap: 0.3rem; }
+  .dots i { width: 0.45rem; height: 0.45rem; border-radius: 999px; border: 1px solid var(--saguaro); }
+  .dots i.on { background: var(--saguaro); }
+
+  /* Pricing: label left, price right, hairlines between. */
+  .prices { list-style: none; margin: 0 0 2.5rem; padding: 0; max-width: 48rem; border-top: 1px solid var(--saguaro); }
+  .price { display: flex; justify-content: space-between; align-items: baseline; gap: 1.5rem; padding: 1.25rem 0; border-bottom: 1px solid var(--rule); }
+  .price-name { font-size: var(--text-h3); line-height: 1.25; }
+  .price-detail { margin-top: 0.25rem; color: var(--muted); max-width: 30rem; }
+  .price-amount { font-size: var(--text-h3); font-variant-numeric: tabular-nums lining-nums; white-space: nowrap; }
+  .price.is-first .price-name::after { content: ''; display: inline-block; width: 0.35em; height: 0.35em; margin-left: 0.5em; border-radius: 999px; background: var(--bloom); vertical-align: 0.2em; }
+
+  /* First class. */
+  .faq { max-width: 48rem; border-top: 1px solid var(--saguaro); }
+  .faq details { border-bottom: 1px solid var(--rule); }
+  .faq summary { display: flex; justify-content: space-between; gap: 1rem; padding: 1.1rem 0; font-size: var(--text-h3); line-height: 1.25; cursor: pointer; list-style: none; }
   .faq summary::-webkit-details-marker { display: none; }
-  .faq summary::after { content: '+'; font-size: 1.6rem; line-height: 1; transition: rotate 0.2s; }
+  .faq summary::after { content: '+'; font-weight: 300; color: var(--muted); transition: rotate 0.2s; }
   .faq details[open] summary::after { rotate: 45deg; }
-  .faq details p { margin: 0 0 1.2rem; max-width: 38rem; }
+  .faq details p { max-width: 38rem; padding-bottom: 1.25rem; color: var(--muted); }
 
-  .visit-band { background: var(--green); color: var(--sand); }
-  .visit { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 2rem; margin-top: 2rem; }
-  .visit h3 { margin: 0; font-size: 1.3rem; font-weight: 800; }
-  .visit p { margin: 0.4rem 0 0; }
-  .sag .visit-band :focus-visible { outline-color: var(--sun); }
+  /* The studio: the one green band. */
+  .band-green { background: var(--saguaro); color: var(--paper); border-top: 0; }
+  .band-green .lead { margin-top: 0.4rem; }
+  .sag .band-green :focus-visible { outline-color: var(--paper); }
+  .teachers { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 2rem 3rem; }
+  .teachers li { padding-top: 1rem; border-top: 1px solid var(--rule-on-green); }
+  .teachers h3 { font-size: var(--text-h3); line-height: 1.25; }
+  .teaches { margin-top: 0.2rem; font-style: italic; opacity: 0.8; }
+  .teachers p { margin-top: 0.6rem; max-width: 26rem; }
 
-  .concept-foot {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 1rem 2rem;
-    padding: 2.5rem var(--edge) 3rem;
-    background: var(--plum);
-    color: var(--sand);
-  }
-  .concept-foot p { flex-basis: 100%; max-width: 40rem; margin: 0; }
-  .foot-ask { padding: 0.7rem 1.2rem; border: 3px solid var(--sand); border-radius: 999px; background: var(--sun); color: var(--plum) !important; font-weight: 800; text-decoration: none; }
-  .sag .concept-foot :focus-visible { outline-color: var(--sun); }
+  .visit { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 2rem 3rem; }
+  .visit h3 { font-size: var(--text-h3); line-height: 1.25; }
+  .visit p { margin-top: 0.4rem; color: var(--muted); }
+
+  .foot { background: var(--saguaro); color: var(--paper); padding: var(--section) var(--edge) 2.5rem; }
+  .sitemap { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: 2rem; padding-bottom: 3rem; border-bottom: 1px solid var(--rule-on-green); }
+  .sitemap div { display: grid; gap: 0.4rem; align-content: start; font-size: var(--text-small); }
+  .sitemap a { text-decoration: none; opacity: 0.85; }
+  .sitemap a:hover { opacity: 1; text-decoration: underline; }
+  .foot-head { font-size: var(--text-body); margin-bottom: 0.3rem; }
+  .concept-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 2rem; padding-top: 2rem; font-size: var(--text-small); }
+  .concept-foot p { flex-basis: 100%; max-width: 40rem; opacity: 0.85; }
+  .sag .foot :focus-visible { outline-color: var(--paper); }
 
   @media (max-width: 820px) {
-    .hero { grid-template-columns: 1fr; }
-    .prices { grid-template-columns: 1fr 1fr; }
-    .styles { grid-template-columns: 1fr 1fr; }
-    .price-star { grid-column: 1 / -1; }
-    .slot { grid-template-columns: 6.4rem 1fr; }
-    .slot-meta { grid-column: 2; }
+    .opening { grid-template-columns: 1fr; gap: 2rem; }
+    .drawing { justify-self: start; max-width: 13rem; order: -1; }
+    .top nav { width: 100%; gap: 0.5rem 1.25rem; }
+    .top nav .button { margin-left: auto; }
   }
-  @media (max-width: 520px) {
-    .styles { grid-template-columns: 1fr; }
+  @media (max-width: 560px) {
+    .slot { grid-template-columns: 5.5rem 1fr; }
+    .slot-mins { grid-column: 2; }
+    .price { flex-direction: column; gap: 0.25rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sag * { transition: none !important; }
   }
 </style>
