@@ -48,6 +48,7 @@ const nav = [
   { href: '/web-design', label: 'Services & pricing' },
   { href: '/#about', label: 'About' },
   { href: '/#contact', label: 'Contact' },
+  { href: '/street', label: 'Interactive site' },
 ];
 const bodyClass = [place && `at-${place}`, street && 'is-street', bare && 'is-bare', !street && 'is-bold', !street && path === '/' && 'is-home'].filter(Boolean).join(' ');
 ---
@@ -127,7 +128,7 @@ const bodyClass = [place && `at-${place}`, street && 'is-street', bare && 'is-ba
             <li><a href="/#about">About me</a></li>
             <li><a href="/art">Art</a></li>
             <li><a href="/journal">Journal</a></li>
-            <li><a href="/street">Walk the street</a></li>
+            <li><a href="/street">Interactive site</a></li>
           </ul>
         </nav>
         <nav aria-label="Elsewhere">

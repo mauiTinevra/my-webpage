@@ -1622,3 +1622,9 @@ time { font-family: var(--display); font-weight: 600; font-size: 0.95rem; color:
 .is-home .cta { background: var(--orange); color: var(--ink); }
 .is-home .cta:hover { background: var(--paper); }
 .is-home .site-header :focus-visible { outline-color: var(--paper); }
+/* Five nav items: on a phone they stay on one line and the row scrolls sideways. */
+@media (max-width: 640px) {
+  .site-header nav { width: 100%; overflow-x: auto; scrollbar-width: none; }
+  .site-header nav::-webkit-scrollbar { display: none; }
+  .site-header nav a { white-space: nowrap; }
+}
