@@ -109,7 +109,9 @@ const bodyClass = [place && `at-${place}`, street && 'is-street', bare && 'is-ba
     <script type="application/ld+json" set:html={JSON.stringify(business)} />
     {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
     <noscript><style>.scene{overflow-x:auto}</style></noscript>
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   </head>
   <body class={bodyClass || undefined}>
     <a class="skip" href="#main">Skip to content</a>
