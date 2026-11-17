@@ -59,19 +59,11 @@ const cards = work.map((w, i) => ({
     <div class="b-blocks">
       <figure class="b-stage">
         <svg class="b-scene" viewBox="80 40 260 260" role="img" aria-labelledby="pose-label">
-          <title id="pose-label">A figure practising Ashtanga yoga</title>
+          <title id="pose-label">A figure practising the Ashtanga primary series</title>
           <path id="trail" class="b-trail" d="" />
           <g id="yogi" transform="translate(210 286) scale(-1.5 1.5)"></g>
           <path class="b-mat" d="M96 290H324" />
         </svg>
-        <figcaption class="b-caption">
-          <p class="b-pose"><span id="series">Primary series</span><strong id="pose-name">Samasthiti</strong></p>
-          <div class="b-controls" role="group" aria-label="The practice">
-            <button type="button" class="b-key" id="play" aria-pressed="true">Pause</button>
-            <button type="button" class="b-key" id="next">Next pose</button>
-            <button type="button" class="b-key" id="swap">Second series</button>
-          </div>
-        </figcaption>
       </figure>
       <div class="b-block" style="background: var(--orange)"></div>
       <div class="b-block" style="background: var(--yellow)"></div>
@@ -186,36 +178,25 @@ const cards = work.map((w, i) => ({
 
   // The practice. Each pose is a set of joint angles; a move runs every joint on its own slightly
   // late clock so the body travels in a wave, and a held pose breathes. The near hand leaves a
-  // short trail while it moves.
-  const colors = { skin: '#e3a374', skinFar: '#b97d55', top: '#fbfaf7', topFar: '#c9cdf7', shorts: '#ff5a1f', shortsFar: '#d2440f', hair: '#111111' };
+  // short trail while it moves. It runs on its own, only while on screen, and stands still for
+  // reduced motion.
+  const colors = { skin: '#e3a374', skinFar: '#b97d55', top: '#fbfaf7', topFar: '#c9cdf7', shorts: '#111111', shortsFar: '#2b2b2b', hair: '#111111' };
   const yogi = el('yogi');
   const trail = el('trail');
+  const steps = practice[0].steps;
   const MOVE = 1500; // ms for one move
   const BREATH = 4200; // ms for one full breath
-  let series = 0;
   let index = 0;
-  let playing = !calm;
   let phase: 'move' | 'hold' = 'hold';
   let since = performance.now();
   let from = poses.samasthiti;
   let current = poses.samasthiti;
-  const steps = () => practice[series].steps;
+  let visible = false;
+  let frame = 0;
   const marks: { x: number; y: number; at: number }[] = [];
 
-  const label = () => {
-    el('series').textContent = practice[series].series;
-    el('pose-name').textContent = steps()[index].name;
-    el('pose-label').textContent = `A figure practising Ashtanga yoga, in ${steps()[index].name}`;
-  };
-  const go = (to: number) => {
-    from = current;
-    index = (to + steps().length) % steps().length;
-    phase = 'move';
-    since = performance.now();
-    label();
-  };
   const paint = (time: number) => {
-    const target = poses[steps()[index].pose];
+    const target = poses[steps[index].pose];
     if (phase === 'move') {
       const k = Math.min(1, (time - since) / MOVE);
       current = blendLag(from, target, k);
@@ -225,7 +206,12 @@ const cards = work.map((w, i) => ({
       }
     } else {
       current = breathe(target, Math.sin(((time % BREATH) / BREATH) * Math.PI * 2));
-      if (playing && time - since > steps()[index].hold * 1000 + 600) go(index + 1);
+      if (time - since > steps[index].hold * 1000 + 600) {
+        from = current;
+        index = (index + 1) % steps.length;
+        phase = 'move';
+        since = time;
+      }
     }
     const drawn = drawFlat(current, colors);
     yogi.innerHTML = drawn.svg;
@@ -236,35 +222,18 @@ const cards = work.map((w, i) => ({
   };
   const tick = (time: number) => {
     paint(time);
-    requestAnimationFrame(tick);
+    frame = visible ? requestAnimationFrame(tick) : 0;
   };
-  const still = () => {
-    current = poses[steps()[index].pose];
-    yogi.innerHTML = drawFlat(current, colors).svg;
-  };
-  label();
-  if (calm) {
-    // Reduced motion: no loop. Each press of "Next pose" shows the next pose, still.
-    still();
-    el('play').hidden = true;
-  } else requestAnimationFrame(tick);
-
-  el('play').addEventListener('click', () => {
-    playing = !playing;
-    el('play').setAttribute('aria-pressed', String(playing));
-    el('play').textContent = playing ? 'Pause' : 'Play';
-    since = performance.now();
-  });
-  el('next').addEventListener('click', () => {
-    go(index + 1);
-    if (calm) still();
-  });
-  el('swap').addEventListener('click', () => {
-    series = 1 - series;
-    el('swap').textContent = series ? 'Primary series' : 'Second series';
-    go(0);
-    if (calm) still();
-  });
+  yogi.innerHTML = drawFlat(current, colors).svg;
+  if (!calm) {
+    new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      if (visible && !frame) {
+        since = performance.now();
+        frame = requestAnimationFrame(tick);
+      }
+    }).observe(yogi.closest('figure')!);
+  }
 </script>
 
 <style>
@@ -277,16 +246,9 @@ const cards = work.map((w, i) => ({
   .b-now { margin: 1.5rem 0 0; color: var(--muted); font-size: 0.92rem; font-variant-numeric: tabular-nums; }
   .b-blocks { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1.2fr 1fr 1fr; min-height: 26rem; }
   .b-stage { grid-row: span 2; position: relative; display: flex; flex-direction: column; justify-content: flex-end; margin: 0; padding: 1.25rem 1.25rem 0; background: var(--blue); color: var(--paper); overflow: hidden; }
-  .b-scene { display: block; width: 100%; max-height: 68%; height: auto; overflow: visible; margin-bottom: 1.5rem; }
+  .b-scene { display: block; width: 100%; max-height: 82%; height: auto; overflow: visible; margin-bottom: 1.5rem; }
   .b-trail { fill: none; stroke: var(--yellow); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
   .b-mat { stroke: var(--yellow); stroke-width: 5; stroke-linecap: round; }
-  .b-caption { position: absolute; left: 1.25rem; top: 1.25rem; right: 1.25rem; display: grid; gap: 0.6rem; }
-  .b-pose { margin: 0; display: grid; }
-  .b-pose span { opacity: 0.75; font-size: 0.88rem; }
-  .b-pose strong { font-weight: 600; font-size: 1.1rem; line-height: 1.2; }
-  .b-controls { display: flex; flex-wrap: wrap; gap: 0.35rem; }
-  .b-key { min-height: 2.75rem; padding: 0.3rem 0.85rem; border: 1.5px solid rgb(251 250 247 / 0.5); border-radius: 999px; background: transparent; color: var(--paper); font: 500 0.88rem var(--reading); cursor: pointer; }
-  .b-key:hover { border-color: var(--paper); }
   .b-stage :focus-visible { outline-color: var(--paper); }
 
   .btn { display: inline-flex; align-items: center; min-height: 3rem; padding: 0.6rem 1.4rem; border: 1.5px solid var(--ink); border-radius: 999px; background: transparent; color: var(--ink); font: 600 1rem var(--reading); text-decoration: none; cursor: pointer; transition: background-color 0.2s, color 0.2s, border-color 0.2s; }
@@ -344,8 +306,7 @@ const cards = work.map((w, i) => ({
   @media (max-width: 900px) {
     .b-hero { grid-template-columns: 1fr; min-height: 0; }
     .b-blocks { min-height: 34rem; }
-    .b-key { padding-inline: 0.7rem; font-size: 0.82rem; }
-    .b-work, .b-services { grid-template-columns: 1fr; }
+      .b-work, .b-services { grid-template-columns: 1fr; }
     .b-about { grid-template-columns: 1fr; }
     .b-photos { max-width: 26rem; }
   }
