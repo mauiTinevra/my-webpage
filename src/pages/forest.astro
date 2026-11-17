@@ -1,0 +1,314 @@
+---
+// The forest page: Maui's site dressed exactly like his chosen artwork, an ink-drawn forest with
+// hatched clouds and coral trunks. The artwork opens the page full-screen; everything after it
+// is set like a comic's panels and caption boxes, in the artwork's own colors.
+// Palette sampled from the art: forest #1b8044, deep #162a20, cloud #dbe9e1, sky #48c1e0,
+// coral #e29488, ink #141e28. One serif, Newsreader.
+import '@fontsource-variable/newsreader/opsz.css';
+import '@fontsource-variable/newsreader/opsz-italic.css';
+import { Image, getImage } from 'astro:assets';
+import { site } from '../site';
+import { work } from '../data/work';
+import forest from '../assets/art/forest.png';
+import yellowWall from '../assets/photos/yellow-wall.jpg';
+import crow from '../assets/photos/crow.jpg';
+
+// One optimized copy of the art for the panel crops further down the page.
+const art = await getImage({ src: forest, format: 'webp', width: 1237, quality: 82 });
+
+const services = [
+  { name: 'Website', price: 'From $3,500', time: 'Two to three weeks', what: ['A design made for you, sketched before any code', 'Built by hand, fast on phones and desktops', 'Launched on your domain and handed over'] },
+  { name: 'Interactive extras', price: 'Quoted per idea', time: 'Added to a build', what: ['Ordering, booking or a live schedule', 'A signature moment, like the turning trompo', 'Illustrations drawn for your site'] },
+  { name: 'Care plan', price: 'From $150 a month', time: 'Cancel anytime', what: ['Text and photo updates', 'Hosting, domain and security kept current', 'A small change each month'] },
+];
+const mail = `mailto:${site.email}?subject=${encodeURIComponent('A website for me')}`;
+const insta = site.links.find((l) => l.label === 'Instagram')?.href;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{site.name} | Websites drawn by hand</title>
+    <meta name="description" content={site.description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body class="fr" style={`--art: url(${art.src})`}>
+    <a class="skip" href="#work">Skip to the work</a>
+
+    <header class="fr-hero">
+      <Image class="fr-art" src={forest} alt="" widths={[640, 960, 1237]} sizes="100vw" loading="eager" fetchpriority="high" />
+      <nav class="fr-nav" aria-label="Main">
+        <a class="fr-mark" href="/forest">{site.name}</a>
+        <ul role="list">
+          <li><a href="#work">Work</a></li>
+          <li><a href="#services">Services &amp; pricing</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a class="fr-btn fr-btn-coral" href="#contact">Start a project</a></li>
+        </ul>
+      </nav>
+      <div class="fr-caption">
+        <h1>{site.name}</h1>
+        <p class="fr-offer">{site.offer}</p>
+        <p>
+          I design and build one-of-a-kind websites for artists, studios, restaurants and small businesses. Every drawing and
+          every moving part is made for you. Based in Scottsdale, Arizona.
+        </p>
+        <div class="fr-actions">
+          <a class="fr-btn fr-btn-coral" href="#contact">Start a project</a>
+          <a class="fr-btn" href="#work">See my work</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="fr-band" id="work" aria-labelledby="work-title">
+        <div class="fr-strip fr-strip-clouds" aria-hidden="true"></div>
+        <div class="fr-head">
+          <h2 id="work-title">Work</h2>
+          <a href="/work">All work and what changed</a>
+        </div>
+        <ul class="fr-panels" role="list">
+          {work.map((w) => (
+            <li class="fr-panel">
+              <a href={w.href}>
+                <img src={w.image} alt={w.alt} width="1200" height="750" loading="lazy" />
+                <span class="fr-panel-words">
+                  <span class="fr-kind">{w.kind}</span>
+                  <span class="fr-name">{w.name}</span>
+                  <span class="fr-line">{w.line}</span>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="fr-band fr-band-deep" id="services" aria-labelledby="services-title">
+        <div class="fr-head">
+          <h2 id="services-title">Services &amp; pricing</h2>
+          <a href="/web-design">How a project works</a>
+        </div>
+        <ul class="fr-services" role="list">
+          {services.map((s, i) => (
+            <li class:list={['fr-box', i === 0 && 'is-first']}>
+              <h3>{s.name}</h3>
+              <p class="fr-price">{s.price}</p>
+              <p class="fr-time">{s.time}</p>
+              <ul role="list">{s.what.map((x) => <li>{x}</li>)}</ul>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="fr-band" id="about" aria-labelledby="about-title">
+        <div class="fr-strip fr-strip-trunk" aria-hidden="true"></div>
+        <div class="fr-about">
+          <div class="fr-box">
+            <h2 id="about-title">About</h2>
+            <p class="fr-lead">
+              I'm Maui. I studied computer science and worked as a software engineer at Uber before going out on my own to make
+              websites that feel like the people behind them.
+            </p>
+            <p>
+              I'm Mexican, Italian and Korean, I practice Ashtanga yoga most mornings, and I draw. That mix is the point: an
+              engineer's care for speed and detail, and an artist's eye for what makes a place memorable. You work with me
+              directly, from the first call to launch day.
+            </p>
+            <p><a href="/art">See my art</a> or read the <a href="/journal">journal</a>.</p>
+          </div>
+          <div class="fr-photos">
+            <figure class="fr-photo"><Image src={yellowWall} alt="Maui crouching in front of a yellow wall" widths={[320, 520]} sizes="(max-width: 760px) 45vw, 260px" /></figure>
+            <figure class="fr-photo fr-photo-low"><Image src={crow} alt="Maui in crow pose on a yoga mat in front of a graffiti wall" widths={[320, 520]} sizes="(max-width: 760px) 45vw, 260px" /></figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="fr-band fr-band-deep" id="contact" aria-labelledby="contact-title">
+        <div class="fr-box fr-contact">
+          <h2 id="contact-title">Start a project</h2>
+          <p class="fr-lead">Tell me who you are, what you make, and when you'd like to launch. I answer within a day.</p>
+          <div class="fr-mail">
+            <a class="fr-address" href={mail}>{site.email}</a>
+            <button type="button" class="fr-btn" id="copy-email" data-email={site.email}>Copy email</button>
+          </div>
+          <p class="fr-copied" id="copied" aria-live="polite"></p>
+          {insta && <p>Prefer messages? <a href={insta}>Send me a DM on Instagram</a>.</p>}
+        </div>
+      </section>
+    </main>
+
+    <footer class="fr-foot">
+      <div class="fr-strip fr-strip-ground" aria-hidden="true"></div>
+      <div class="fr-foot-words">
+        <p>{site.name}, {new Date().getFullYear()}. Designed and built by hand in Scottsdale.</p>
+        <nav aria-label="More">
+          <a href="/">Home</a>
+          <a href="/work">Work</a>
+          <a href="/web-design">Services</a>
+          <a href="/street">Walk the street</a>
+          {site.links.map((l) => <a href={l.href}>{l.label}</a>)}
+        </nav>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<script>
+  // Copy the address, for anyone whose computer has no mail app set up.
+  const button = document.getElementById('copy-email') as HTMLButtonElement;
+  const note = document.getElementById('copied')!;
+  button.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(button.dataset.email!);
+      note.textContent = 'Copied. Paste it into any email.';
+    } catch {
+      note.textContent = `Couldn't copy. The address is ${button.dataset.email}.`;
+    }
+  });
+</script>
+
+<style is:global>
+  .fr {
+    --forest: #1b8044;
+    --deep: #162a20;
+    --mid: #1a5b33;
+    --cloud: #dbe9e1;
+    --cloud-shade: #b1d3c3;
+    --sky: #48c1e0;
+    --coral: #e29488;
+    --ink: #141e28;
+    --font: 'Newsreader Variable', Georgia, serif;
+    --edge: clamp(1rem, 4vw, 3.5rem);
+    --hatch: repeating-linear-gradient(-52deg, rgb(20 30 40 / 0.55) 0 1px, transparent 1px 6px);
+    margin: 0;
+    background: var(--deep);
+    color: var(--ink);
+    font-family: var(--font);
+    font-optical-sizing: auto;
+    font-size: clamp(1.0625rem, 1.0136rem + 0.2174vw, 1.1875rem);
+    line-height: 1.6;
+  }
+  .fr *, .fr *::before, .fr *::after { box-sizing: border-box; }
+  :where(.fr) :is(h1, h2, h3, p, figure) { margin: 0; }
+  :where(.fr) :is(h1, h2, h3) { font-weight: 400; letter-spacing: -0.015em; line-height: 1.05; }
+  .fr a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 0.22em; }
+  .fr :focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+  .fr-band-deep :focus-visible, .fr-foot :focus-visible, .fr-head :focus-visible { outline-color: var(--cloud); }
+  /* Paper grain over everything, like the art's printed texture. */
+  .fr::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    pointer-events: none;
+    opacity: 0.22;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.08 0 0 0 0 0.12 0 0 0 0 0.16 0 0 0 0.9 0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .skip { position: absolute; left: -999px; z-index: 60; padding: 0.5rem 1rem; background: var(--cloud); }
+  .skip:focus { left: var(--edge); top: 0.5rem; }
+
+  /* Buttons: flat fills with an ink outline, like everything in the drawing. */
+  .fr-btn {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.9rem;
+    padding: 0.55rem 1.2rem;
+    border: 2px solid var(--ink);
+    background: var(--cloud);
+    color: var(--ink);
+    font: 500 1rem var(--font);
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+  }
+  .fr-btn:hover { background: var(--ink); color: var(--cloud); }
+  .fr-btn-coral { background: var(--coral); }
+
+  /* Caption boxes: pale cloud color, ink outline, a hatched shadow along the bottom like the clouds. */
+  .fr-box, .fr-caption {
+    position: relative;
+    background: var(--cloud);
+    border: 2px solid var(--ink);
+    padding: clamp(1.25rem, 3vw, 2.25rem);
+    background-image: linear-gradient(transparent calc(100% - 1.1rem), var(--cloud-shade) 0), var(--hatch);
+    background-size: 100% 100%, 100% 1.1rem;
+    background-position: 0 0, 0 100%;
+    background-repeat: no-repeat;
+  }
+
+  /* The opening: the artwork, whole screen. */
+  .fr-hero { position: relative; min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; justify-content: space-between; gap: 2rem; padding: 1rem var(--edge) clamp(1.5rem, 5vw, 3.5rem); overflow: hidden; }
+  .fr-art { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; object-fit: cover; object-position: 30% 20%; }
+  .fr-hero { isolation: isolate; }
+  .fr-nav { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem 2rem; padding: 0.5rem 0.6rem 0.5rem 1rem; background: var(--cloud); border: 2px solid var(--ink); }
+  .fr-mark { font-size: 1.25rem; font-weight: 500; text-decoration: none; }
+  .fr-nav ul { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 1.5rem; margin: 0; padding: 0; list-style: none; }
+  .fr-nav a:not(.fr-btn) { text-decoration: none; }
+  .fr-nav a:not(.fr-btn):hover { text-decoration: underline; }
+  .fr-caption { max-width: 36rem; }
+  .fr-caption h1 { font-size: clamp(2.8rem, 6.5vw, 5.25rem); line-height: 1; letter-spacing: -0.025em; }
+  .fr-offer { margin-top: 0.75rem !important; font-style: italic; font-size: clamp(1.2rem, 2vw, 1.5rem); line-height: 1.3; }
+  .fr-caption > p:not(.fr-offer) { margin-top: 0.85rem; }
+  .fr-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 1.4rem 0 0.6rem; }
+
+  /* Bands below: the deep shade of the forest, with framed crops of the art between them. */
+  .fr-band { padding: clamp(3rem, 7vw, 5.5rem) var(--edge); background: var(--forest); }
+  .fr-band-deep { background: var(--deep); }
+  .fr-strip { height: clamp(7rem, 16vw, 13rem); margin: 0 0 clamp(2rem, 5vw, 3.5rem); border: 2px solid var(--ink); background: var(--art) no-repeat; background-size: cover; }
+  .fr-strip-clouds { background-position: 70% 14%; }
+  .fr-strip-trunk { background-position: 30% 40%; }
+  .fr-strip-ground { margin: 0; border-width: 2px 0; background-position: 50% 100%; }
+  .fr-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.5rem 2rem; margin-bottom: 2rem; color: var(--cloud); }
+  .fr-head h2 { font-size: clamp(2.3rem, 5vw, 3.6rem); }
+  .fr h2 { font-size: clamp(2.3rem, 5vw, 3.6rem); }
+
+  .fr-panels { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1rem, 2.5vw, 1.75rem); margin: 0; padding: 0; list-style: none; }
+  .fr-panel a { display: grid; height: 100%; border: 2px solid var(--ink); background: var(--cloud); text-decoration: none; }
+  .fr-panel img { display: block; width: 100%; height: auto; border-bottom: 2px solid var(--ink); }
+  .fr-panel-words { display: grid; gap: 0.3rem; align-content: start; padding: 1rem 1.15rem 1.25rem; }
+  .fr-kind { font-style: italic; color: #3b4a52; }
+  .fr-name { font-size: 1.55rem; line-height: 1.15; }
+  .fr-line { line-height: 1.5; }
+  .fr-panel a:hover .fr-name { text-decoration: underline; text-decoration-color: var(--coral); text-decoration-thickness: 2px; }
+  .fr-panel a:focus-visible { outline-color: var(--cloud); outline-offset: 4px; }
+
+  .fr-services { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1rem, 2.5vw, 1.75rem); margin: 0; padding: 0; list-style: none; }
+  .fr-box h3 { font-size: 1.4rem; }
+  .fr-price { margin-top: 0.35rem !important; font-size: clamp(1.8rem, 3vw, 2.3rem); line-height: 1.1; }
+  .fr-time { font-style: italic; color: #3b4a52; }
+  .fr-box ul { margin: 1rem 0 0.75rem; padding-left: 1.1rem; display: grid; gap: 0.35rem; line-height: 1.5; }
+  .fr-box.is-first { background-color: var(--coral); background-image: linear-gradient(transparent calc(100% - 1.1rem), #c97a6e 0), var(--hatch); }
+
+  .fr-about { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(15rem, 1fr); gap: clamp(1.5rem, 4vw, 3rem); align-items: start; }
+  .fr-about .fr-box > p { margin-top: 1rem; max-width: 40rem; }
+  .fr-lead { font-size: clamp(1.2rem, 2vw, 1.45rem); line-height: 1.45; }
+  .fr-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .fr-photo { border: 2px solid var(--ink); background: var(--ink); }
+  .fr-photo img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; }
+  .fr-photo-low { margin-top: 3rem !important; }
+
+  .fr-contact { max-width: 48rem; }
+  .fr-contact .fr-lead { margin-top: 0.9rem; }
+  .fr-mail { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.25rem; margin-top: 1.5rem; }
+  .fr-address { font-size: clamp(1.4rem, 4vw, 2.4rem); line-height: 1.1; overflow-wrap: anywhere; text-decoration-color: var(--coral) !important; text-decoration-thickness: 2px !important; }
+  .fr-copied { min-height: 1.5rem; margin-top: 0.5rem !important; }
+  .fr-contact > p:last-child { margin-bottom: 0.6rem; }
+
+  .fr-foot { background: var(--deep); color: var(--cloud); }
+  .fr-foot-words { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem 2rem; padding: 2rem var(--edge) 2.5rem; font-size: 0.95rem; }
+  .fr-foot nav { display: flex; flex-wrap: wrap; gap: 0.4rem 1.4rem; }
+
+  @media (max-width: 860px) {
+    .fr-panels, .fr-services, .fr-about { grid-template-columns: 1fr; }
+    .fr-photos { max-width: 26rem; }
+    .fr-nav { padding: 0.6rem 0.9rem; }
+    .fr-nav ul { gap: 0.25rem 1.1rem; font-size: 0.95rem; }
+    .fr-nav li:last-child { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .fr-btn { transition: none; }
+  }
+</style>
