@@ -48,22 +48,22 @@ const cards = work.map((w, i) => ({
 
 <Base bare>
   <section class="b-hero" aria-labelledby="hero-title">
-    <h1 class="b-name" id="hero-title">Maui<br />Tinevra</h1>
-    <div class="b-row">
-      <div class="b-words">
-        <p class="b-offer">{site.offer}</p>
-        <p class="b-now" id="now">Scottsdale, Arizona</p>
-        <div class="b-actions">
-          <a class="btn btn-orange" href="#contact">Start a project</a>
-          <a class="btn btn-line" href="#work">See my work</a>
-        </div>
+    <div class="b-words">
+      <h1 class="b-name" id="hero-title">Websites people remember.</h1>
+      <p class="b-offer">Designed and engineered by Maui Tinevra, one artist in Scottsdale, Arizona.</p>
+      <div class="b-actions">
+        <a class="btn btn-dark" href="#contact">Start a project</a>
+        <a class="btn" href="#work">See my work</a>
       </div>
+      <p class="b-now" id="now">Scottsdale, Arizona</p>
+    </div>
+    <div class="b-blocks">
       <figure class="b-stage">
-        <svg class="b-scene" viewBox="0 0 420 300" role="img" aria-labelledby="pose-label">
+        <svg class="b-scene" viewBox="80 40 260 260" role="img" aria-labelledby="pose-label">
           <title id="pose-label">A figure practising Ashtanga yoga</title>
           <path id="trail" class="b-trail" d="" />
           <g id="yogi" transform="translate(210 286) scale(-1.5 1.5)"></g>
-          <path class="b-mat" d="M70 290H350" />
+          <path class="b-mat" d="M96 290H324" />
         </svg>
         <figcaption class="b-caption">
           <p class="b-pose"><span id="series">Primary series</span><strong id="pose-name">Samasthiti</strong></p>
@@ -74,6 +74,10 @@ const cards = work.map((w, i) => ({
           </div>
         </figcaption>
       </figure>
+      <div class="b-block" style="background: var(--orange)"></div>
+      <div class="b-block" style="background: var(--yellow)"></div>
+      <div class="b-block" style="background: var(--pink)"></div>
+      <div class="b-block" style="background: var(--green)"></div>
     </div>
   </section>
 
@@ -270,35 +274,32 @@ const cards = work.map((w, i) => ({
 </script>
 
 <style>
-  .b-hero { display: flex; flex-direction: column; min-height: calc(100svh - 4.6rem); padding: clamp(1rem, 3vw, 2.5rem) var(--edge) clamp(1.5rem, 3vw, 2.5rem); background: var(--blue); color: var(--paper); }
-  .b-name { margin: 0; font-weight: 800; font-stretch: 120%; font-size: clamp(4.2rem, 16.2vw, 15rem); line-height: 0.84; letter-spacing: -0.045em; }
-  .b-row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 2rem 3rem; margin-top: auto; padding-top: 2rem; }
-  .b-words { max-width: 30rem; }
-  .b-offer { margin: 0; font-size: clamp(1.25rem, 1.9vw, 1.55rem); line-height: 1.3; font-weight: 500; }
-  .b-now { margin: 0.6rem 0 0; opacity: 0.75; font-size: 0.95rem; font-variant-numeric: tabular-nums; }
-  .b-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.5rem; }
+  /* The opening: words on paper, beside a wall of flat color blocks. The figure practises in the blue one. */
+  .b-hero { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); min-height: calc(100svh - 4.6rem); }
+  .b-words { display: flex; flex-direction: column; justify-content: flex-end; padding: clamp(2rem, 5vw, 4rem) var(--edge) clamp(2rem, 4vw, 3.5rem); }
+  .b-name { margin: 0; max-width: 9ch; font-weight: 800; font-stretch: 118%; font-size: clamp(3rem, 6.6vw, 6.75rem); line-height: 0.92; letter-spacing: -0.04em; }
+  .b-offer { margin: 1.75rem 0 0; max-width: 27rem; color: var(--muted); font-size: clamp(1.15rem, 1.6vw, 1.4rem); line-height: 1.35; font-weight: 500; }
+  .b-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 2rem; }
+  .b-now { margin: 1.5rem 0 0; color: var(--muted); font-size: 0.92rem; font-variant-numeric: tabular-nums; }
+  .b-blocks { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1.2fr 1fr 1fr; min-height: 26rem; }
+  .b-stage { grid-row: span 2; position: relative; display: flex; flex-direction: column; justify-content: flex-end; margin: 0; padding: 1.25rem 1.25rem 0; background: var(--blue); color: var(--paper); overflow: hidden; }
+  .b-scene { display: block; width: 100%; max-height: 68%; height: auto; overflow: visible; margin-bottom: 1.5rem; }
+  .b-trail { fill: none; stroke: var(--yellow); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+  .b-mat { stroke: var(--yellow); stroke-width: 5; stroke-linecap: round; }
+  .b-caption { position: absolute; left: 1.25rem; top: 1.25rem; right: 1.25rem; display: grid; gap: 0.6rem; }
+  .b-pose { margin: 0; display: grid; }
+  .b-pose span { opacity: 0.75; font-size: 0.88rem; }
+  .b-pose strong { font-weight: 600; font-size: 1.1rem; line-height: 1.2; }
+  .b-controls { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+  .b-key { min-height: 2.75rem; padding: 0.3rem 0.85rem; border: 1.5px solid rgb(251 250 247 / 0.5); border-radius: 999px; background: transparent; color: var(--paper); font: 500 0.88rem var(--reading); cursor: pointer; }
+  .b-key:hover { border-color: var(--paper); }
+  .b-stage :focus-visible { outline-color: var(--paper); }
 
   .btn { display: inline-flex; align-items: center; min-height: 3rem; padding: 0.6rem 1.4rem; border: 1.5px solid var(--ink); border-radius: 999px; background: transparent; color: var(--ink); font: 600 1rem var(--reading); text-decoration: none; cursor: pointer; transition: background-color 0.2s, color 0.2s, border-color 0.2s; }
   .btn:hover { background: var(--ink); color: var(--paper); }
-  .btn-orange { background: var(--orange); border-color: var(--orange); }
-  .btn-orange:hover { background: var(--paper); border-color: var(--paper); color: var(--ink); }
-  .btn-line { border-color: var(--paper); color: var(--paper); }
-  .btn-line:hover { background: var(--paper); color: var(--ink); }
   .btn-dark { background: var(--ink); color: var(--paper); }
-  .btn-dark:hover { background: var(--paper); color: var(--ink); }
-  .b-hero :focus-visible { outline-color: var(--paper); }
-
-  .b-stage { display: flex; align-items: flex-end; gap: 1.5rem; margin: 0; }
-  .b-scene { display: block; width: clamp(15rem, 26vw, 24rem); height: auto; overflow: visible; }
-  .b-trail { fill: none; stroke: var(--yellow); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
-  .b-mat { stroke: var(--yellow); stroke-width: 5; stroke-linecap: round; }
-  .b-caption { display: grid; gap: 0.75rem; padding-bottom: 0.4rem; }
-  .b-pose { margin: 0; display: grid; }
-  .b-pose span { opacity: 0.75; font-size: 0.9rem; }
-  .b-pose strong { font-weight: 600; font-size: 1.15rem; line-height: 1.2; max-width: 12rem; }
-  .b-controls { display: grid; gap: 0.35rem; justify-items: start; }
-  .b-key { min-height: 2.75rem; padding: 0.3rem 0.9rem; border: 1.5px solid rgb(251 250 247 / 0.5); border-radius: 999px; background: transparent; color: var(--paper); font: 500 0.9rem var(--reading); cursor: pointer; }
-  .b-key:hover { border-color: var(--paper); }
+  .btn-dark:hover { background: var(--orange); border-color: var(--orange); color: var(--ink); }
+  .b-contact .btn-dark:hover { background: var(--paper); border-color: var(--paper); }
 
   .b-section { padding: clamp(3.5rem, 8vw, 7rem) var(--edge); }
   .b-section a:not(.btn):not(.b-card):not(.b-mini) { color: inherit; text-underline-offset: 0.2em; }
@@ -347,9 +348,9 @@ const cards = work.map((w, i) => ({
   .b-copied { min-height: 1.5rem; margin: 0.5rem 0 0; font-weight: 600; }
 
   @media (max-width: 900px) {
-    .b-hero { min-height: 0; }
-    .b-stage { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
-    .b-controls { display: flex; flex-wrap: wrap; }
+    .b-hero { grid-template-columns: 1fr; min-height: 0; }
+    .b-blocks { min-height: 34rem; }
+    .b-key { padding-inline: 0.7rem; font-size: 0.82rem; }
     .b-work, .b-services { grid-template-columns: 1fr; }
     .b-about { grid-template-columns: 1fr; }
     .b-photos { max-width: 26rem; }
