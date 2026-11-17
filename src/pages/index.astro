@@ -31,18 +31,31 @@ const services = [
   },
 ];
 
+// Selected work: the hand-built projects first, then the six gallery concepts, each in its own
+// color. The gallery sites were built by AI agents from Maui's briefs, and the cards say so.
 const gallery = [
-  { slug: 'ocotillo-records', name: 'Ocotillo Records', what: 'A turntable that plays' },
-  { slug: 'monsoon-clay', name: 'Monsoon Clay', what: 'A pot you shape' },
-  { slug: 'camelback-barber', name: 'Camelback Barber', what: 'A chair you book' },
-  { slug: 'paloma-flores', name: 'Paloma Flores', what: 'A bouquet you build' },
-  { slug: 'dark-sky-sonora', name: 'Dark Sky Sonora', what: 'Tonight\u2019s real sky' },
-  { slug: 'dos-gatos-books', name: 'Dos Gatos Books', what: 'A shelf you browse' },
+  { slug: 'ocotillo-records', name: 'Ocotillo Records', kind: 'Record shop', line: 'Pick a record and press play. The music is made live in the browser, with no audio files.' },
+  { slug: 'monsoon-clay', name: 'Monsoon Clay', kind: 'Pottery studio', line: 'Drag four marks to throw a pot, and the page names what you made and the class that teaches it.' },
+  { slug: 'camelback-barber', name: 'Camelback Barber', kind: 'Barbershop', line: 'A chair board on the real Phoenix clock, and a booking that ends in a ticket stub.' },
+  { slug: 'paloma-flores', name: 'Paloma Flores', kind: 'Florist', line: 'Build a bouquet stem by stem. It arranges itself in the vase, and the builder is the order form.' },
+  { slug: 'dark-sky-sonora', name: 'Dark Sky Sonora', kind: 'Stargazing tours', line: 'Tonight\u2019s real sky over Scottsdale, computed: the moon, the planets and when it gets dark.' },
+  { slug: 'dos-gatos-books', name: 'Dos Gatos Books', kind: 'Bookshop', line: 'A shelf of forty invented books. Pull one, read the staff note, and put it on your hold slip.' },
 ];
-const handWork = work.filter((w) => w.id !== 'gallery');
-// Each project's own color, and whether its text is dark or light on it.
-const fields = ['var(--orange)', 'var(--yellow)', 'var(--pink)'];
-const small = ['var(--lilac)', 'var(--green)', 'var(--yellow)', 'var(--pink)', 'var(--blue)', 'var(--orange)'];
+const colors = ['var(--orange)', 'var(--yellow)', 'var(--pink)', 'var(--green)', 'var(--lilac)', 'var(--blue)'];
+const cards = [
+  ...work
+    .filter((w) => w.id !== 'gallery')
+    .map((w) => ({ href: w.href, name: w.name, kind: w.kind, line: w.line, image: w.image, alt: w.alt, ai: false })),
+  ...gallery.map((g) => ({
+    href: `/gallery/${g.slug}/`,
+    name: g.name,
+    kind: `${g.kind} concept`,
+    line: g.line,
+    image: `/gallery/thumbs/${g.slug}.jpg`,
+    alt: `The ${g.name} site`,
+    ai: true,
+  })),
+].map((c, i) => ({ ...c, field: colors[i % colors.length] }));
 ---
 
 <Base bare>
@@ -83,44 +96,25 @@ const small = ['var(--lilac)', 'var(--green)', 'var(--yellow)', 'var(--pink)', '
     </div>
     <ul class="b-work" role="list">
       {
-        handWork.map((w, i) => (
+        cards.map((c) => (
           <li>
-            <a class="b-card" href={w.href} style={`--field: ${fields[i % fields.length]}`}>
+            <a class="b-card" href={c.href} style={`--field: ${c.field}`} data-light={c.field === 'var(--blue)' ? '' : undefined}>
               <span class="b-card-top">
-                <span class="b-card-name">{w.name}</span>
-                <span class="b-kind">{w.kind}</span>
+                <span class="b-card-name">{c.name}</span>
+                <span class="b-kind">{c.kind}</span>
               </span>
-              <span class="b-card-line">{w.line}</span>
-              <img src={w.image} alt={w.alt} width="1200" height="750" loading="lazy" />
+              <span class="b-card-line">{c.line}</span>
+              {c.ai && <span class="b-badge">Built with AI agents from my brief</span>}
+              <img src={c.image} alt={c.alt} width="1200" height="750" loading="lazy" />
             </a>
           </li>
         ))
       }
     </ul>
-
-    <div class="b-gallery" id="gallery">
-      <div class="b-gallery-words">
-        <h3>The gallery: six concepts in an afternoon</h3>
-        <p>
-          Six imaginary businesses around Phoenix, each with one moment that really works. I wrote the briefs and directed; AI
-          agents built the sites in parallel. <a href="/gallery/guide/">The guide says exactly how</a>.
-        </p>
-        <a class="btn" href="/gallery/">Open the gallery</a>
-      </div>
-      <ul class="b-six" role="list">
-        {
-          gallery.map((g, i) => (
-            <li>
-              <a class="b-mini" href={`/gallery/${g.slug}/`} style={`--field: ${small[i]}`} data-light={small[i] === 'var(--blue)' ? '' : undefined}>
-                <span class="b-mini-name">{g.name}</span>
-                <span class="b-mini-what">{g.what}</span>
-                <img src={`/gallery/thumbs/${g.slug}.jpg`} alt="" width="960" height="600" loading="lazy" />
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
+    <p class="b-note" id="gallery">
+      The last six are <a href="/gallery/">the gallery</a>: imaginary businesses around Phoenix whose sites I directed and AI agents
+      built in parallel, in an afternoon. <a href="/gallery/guide/">Here is exactly how</a>.
+    </p>
   </section>
 
   <section class="b-section b-yellow" id="services" aria-labelledby="services-title">
@@ -338,18 +332,12 @@ const small = ['var(--lilac)', 'var(--green)', 'var(--yellow)', 'var(--pink)', '
   .b-kind { font-size: 0.9rem; font-weight: 500; white-space: nowrap; }
   .b-card-line { max-width: 28rem; line-height: 1.45; }
   .b-card img { display: block; width: 100%; height: auto; margin-top: auto; padding-top: 0; border-radius: 0.7rem 0.7rem 0 0; translate: 0 0.6rem; transition: translate 0.25s; }
-  .b-card:hover img, .b-mini:hover img { translate: 0 0; }
+  .b-card:hover img { translate: 0 0; }
+  .b-card[data-light] { color: var(--paper); }
+  .b-badge { align-self: flex-start; padding: 0.25rem 0.6rem; border: 1.5px solid currentColor; border-radius: 999px; font-size: 0.8rem; font-weight: 600; }
+  .b-note { max-width: 46rem; margin: clamp(1.5rem, 3vw, 2.5rem) 0 0; color: var(--muted); line-height: 1.55; }
 
-  .b-gallery { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.1fr); gap: clamp(1.5rem, 4vw, 4rem); align-items: start; margin-top: clamp(3rem, 6vw, 5.5rem); }
-  .b-gallery h3 { margin: 0; font-size: clamp(1.7rem, 3vw, 2.6rem); line-height: 0.98; }
-  .b-gallery-words p { margin: 1.1rem 0 1.5rem; color: var(--muted); line-height: 1.55; }
-  .b-six { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(0.7rem, 1.2vw, 1rem); margin: 0; padding: 0; list-style: none; }
-  .b-mini { display: grid; gap: 0.1rem; padding: 1rem 1rem 0; border-radius: 1rem; background: var(--field); color: var(--ink); text-decoration: none; overflow: hidden; }
-  .b-mini[data-light] { color: var(--paper); }
-  .b-mini-name { font-weight: 700; line-height: 1.2; }
-  .b-mini-what { font-size: 0.92rem; }
-  .b-mini img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; object-position: top; margin-top: 0.7rem; border-radius: 0.45rem 0.45rem 0 0; translate: 0 0.4rem; transition: translate 0.25s; }
-  .b-card:focus-visible, .b-mini:focus-visible { outline-offset: 4px; }
+  .b-card:focus-visible { outline-offset: 4px; }
 
   .b-yellow { background: var(--yellow); }
   .b-services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem 3rem; margin: clamp(2rem, 4vw, 3.5rem) 0 0; padding: 0; list-style: none; }
@@ -380,11 +368,10 @@ const small = ['var(--lilac)', 'var(--green)', 'var(--yellow)', 'var(--pink)', '
     .b-stage { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
     .b-controls { display: flex; flex-wrap: wrap; }
     .b-work, .b-services { grid-template-columns: 1fr; }
-    .b-gallery, .b-about { grid-template-columns: 1fr; }
-    .b-six { grid-template-columns: repeat(2, 1fr); }
+    .b-about { grid-template-columns: 1fr; }
     .b-photos { max-width: 26rem; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .btn, .b-card img, .b-mini img { transition: none; translate: 0 0; }
+    .btn, .b-card img { transition: none; translate: 0 0; }
   }
 </style>
