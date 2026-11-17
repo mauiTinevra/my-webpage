@@ -63,7 +63,7 @@ export const work: Work[] = [
     line: 'A figure practising Ashtanga under the real Scottsdale hour, and a walkable street, all drawn in code.',
     href: '/work#this-site',
     image: '/work/street.jpg',
-    alt: 'This site\u2019s home page: a silhouette practising yoga in front of a large disc on a night horizon',
+    alt: 'This site\u2019s home page: the name Maui Tinevra set huge in white on a blue field, with a small figure practising yoga',
     problem: 'Show what one person can build without templates, page builders or stock art.',
     did: [
       'A street of storefronts, a posada, a living room and a wardrobe, each drawn in code.',

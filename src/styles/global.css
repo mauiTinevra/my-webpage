@@ -1584,44 +1584,41 @@ time { font-family: var(--display); font-weight: 600; font-size: 0.95rem; color:
 }
 
 
-/* Desert night: the look of every page except the street. Night 60, sand 30, coral 10.
-   Bodoni Moda for display, Archivo for reading. The old variable names stay, with new values. */
-.is-night {
-  --night: #0d1230;
-  --panel: #141a3f;
-  --paper: #0d1230;
-  --ink: #eadfc8;
-  --muted: #a9a38f;
-  --cream: #eadfc8;
-  --yellow: #ff7a59;
-  --coral: #ff7a59;
+/* The look of every page except the street: a clean paper page, black type, and saturated
+   color in big flat fields. Archivo (wide and heavy) for display, Inter Tight for reading. */
+.is-bold {
+  --paper: #fbfaf7;
+  --ink: #111111;
+  --muted: #5b5b57;
+  --cream: #fbfaf7;
+  --blue: #2a35ff;
+  --orange: #ff5a1f;
+  --yellow: #ffd23f;
+  --pink: #ff7ab6;
+  --green: #19c37d;
+  --lilac: #b9a7ff;
   --accent: var(--ink);
-  --rule: rgb(234 223 200 / 0.22);
-  --display: 'Bodoni Moda Variable', 'Bodoni 72', Didot, Georgia, serif;
-  color-scheme: dark;
-  font-optical-sizing: auto;
+  --rule: rgb(17 17 17 / 0.16);
+  --display: 'Archivo Variable', 'Arial Black', system-ui, sans-serif;
+  --reading: 'Inter Tight Variable', 'Helvetica Neue', Arial, sans-serif;
   font-size: 1.0625rem;
 }
-.is-night h1, .is-night h2, .is-night h3 { font-weight: 500; font-stretch: normal; letter-spacing: -0.01em; }
-.is-night a { text-decoration-thickness: 1px; }
-.is-night :focus-visible, .is-night .cta:focus-visible { outline: 2px solid var(--coral); outline-offset: 3px; }
-.is-night .skip { background: var(--ink); color: var(--night); font-family: var(--reading); }
-.is-night .site-header {
-  align-items: center;
-  background: rgb(13 18 48 / 0.88);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--rule);
-  font-family: var(--reading);
-}
-.is-night .wordmark { font-family: var(--display); font-weight: 600; font-stretch: normal; font-size: 1.35rem; }
-.is-night .site-header nav a { font-weight: 500; border-bottom-width: 1px; padding: 0.6rem 0 0.2rem; }
-.is-night .site-header nav a[aria-current='page'] { border-bottom-color: var(--coral); }
-.is-night .cta { background: var(--coral); color: var(--night); border: 0; font-weight: 700; padding: 0.7rem 1.1rem; }
-.is-night .cta:hover { background: var(--ink); color: var(--night); }
-.is-night .site-footer { background: #080b20; color: var(--ink); border-top: 1px solid var(--rule); font-family: var(--reading); }
-.is-night .site-footer a { color: var(--ink); }
-.is-night .site-footer a:hover { text-decoration-color: var(--coral); }
-.is-night .footer-grid h2 { font-family: var(--reading); font-weight: 700; font-size: 0.95rem; letter-spacing: 0; }
-.is-night .footer-name { font-family: var(--display); font-weight: 600; font-stretch: normal; font-size: 1.4rem; }
-.is-night .footer-legal { color: var(--muted); }
-.is-night .page-head .rotulo, .is-night .page-head h1 { font-weight: 500; font-stretch: normal; }
+.is-bold h1, .is-bold h2, .is-bold h3 { font-stretch: 118%; letter-spacing: -0.03em; }
+.is-bold a { text-decoration-thickness: 1.5px; }
+.is-bold :focus-visible, .is-bold .cta:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+.is-bold .site-header { align-items: center; padding-block: 1.1rem; font-family: var(--reading); }
+.is-bold .wordmark { font-family: var(--reading); font-weight: 700; font-stretch: normal; font-size: 1.05rem; }
+.is-bold .site-header nav a { font-weight: 500; border-bottom-width: 2px; padding: 0.5rem 0 0.15rem; }
+.is-bold .cta { background: var(--ink); color: var(--paper); border: 0; border-radius: 999px; font-weight: 600; font-size: 0.95rem; padding: 0.7rem 1.15rem; }
+.is-bold .cta:hover { background: var(--orange); color: var(--ink); }
+.is-bold .site-footer { background: var(--ink); color: var(--paper); font-family: var(--reading); }
+.is-bold .site-footer a:hover { text-decoration-color: var(--orange); }
+.is-bold .footer-grid h2 { font-family: var(--reading); font-stretch: normal; font-weight: 600; font-size: 0.95rem; letter-spacing: 0; opacity: 0.6; }
+.is-bold .footer-name { font-family: var(--display); font-stretch: 118%; }
+/* On the home page the header sits on the blue field. */
+.is-home .site-header { background: var(--blue); }
+.is-home .site-header .wordmark, .is-home .site-header nav a { color: var(--paper); }
+.is-home .site-header nav a:hover { border-bottom-color: var(--paper); }
+.is-home .cta { background: var(--orange); color: var(--ink); }
+.is-home .cta:hover { background: var(--paper); }
+.is-home .site-header :focus-visible { outline-color: var(--paper); }

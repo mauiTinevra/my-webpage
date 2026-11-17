@@ -1,8 +1,7 @@
 ---
 import '@fontsource-variable/archivo/wdth.css';
 import '@fontsource-variable/archivo/wdth-italic.css';
-import '@fontsource-variable/bodoni-moda/opsz.css';
-import '@fontsource-variable/bodoni-moda/opsz-italic.css';
+import '@fontsource-variable/inter-tight/wght.css';
 import '../styles/global.css';
 import { site, type Place } from '../site';
 
@@ -50,7 +49,7 @@ const nav = [
   { href: '/#about', label: 'About' },
   { href: '/#contact', label: 'Contact' },
 ];
-const bodyClass = [place && `at-${place}`, street && 'is-street', bare && 'is-bare', !street && 'is-night'].filter(Boolean).join(' ');
+const bodyClass = [place && `at-${place}`, street && 'is-street', bare && 'is-bare', !street && 'is-bold', !street && path === '/' && 'is-home'].filter(Boolean).join(' ');
 ---
 
 <!doctype html>

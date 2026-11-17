@@ -295,3 +295,62 @@ export function drawFine(p: Pose, look: Look): { svg: string; hand: Pt; head: Pt
     `<g fill="${look.near}">${leg(near)}</g><g fill="${look.arm}">${arm(near)}</g>`;
   return { svg, hand: [near.hand[0], near.hand[1] - floor], head: [head[0], head[1] - floor] };
 }
+
+export interface Colors {
+  skin: string;
+  skinFar: string;
+  top: string;
+  topFar: string;
+  shorts: string;
+  shortsFar: string;
+  hair: string;
+}
+
+/** The same tapered figure in flat color: skin, a long-sleeved top, shorts and a bun. */
+export function drawFlat(p: Pose, c: Colors): { svg: string; hand: Pt } {
+  const hip: Pt = [0, 0];
+  const shoulder = step(hip, LEN.torso, p.T);
+  const head = step(shoulder, LEN.neck, p.H);
+  const limbs = (aU: number, aF: number, lU: number, lL: number, ft: number) => {
+    const elbow = step(shoulder, LEN.upperArm, aU);
+    const hand = step(elbow, LEN.forearm, aF);
+    const knee = step(hip, LEN.thigh, lU);
+    const ankle = step(knee, LEN.shin, lL);
+    const toe = step(ankle, LEN.foot, ft);
+    return { elbow, hand, knee, ankle, toe, hem: step(hip, LEN.thigh * 0.55, lU) };
+  };
+  const near = limbs(p.aU, p.aF, p.lU, p.lL, p.ft);
+  const far = limbs(p.a2U ?? p.aU, p.a2F ?? p.aF, p.l2U ?? p.lU, p.l2L ?? p.lL, p.ft2 ?? p.ft);
+  const floor = Math.max(
+    hip[1] + 11,
+    shoulder[1] + 10,
+    head[1] + 11,
+    ...[near, far].flatMap((s) => [s.elbow[1] + 4.5, s.hand[1] + 3.5, s.knee[1] + 6, s.ankle[1] + 4, s.toe[1] + 3]),
+  );
+  const n = (v: number) => v.toFixed(1);
+  const dot = (a: Pt, r: number, fill: string) => `<circle cx="${n(a[0])}" cy="${n(a[1] - floor)}" r="${r}" fill="${fill}"/>`;
+  const seg = (a: Pt, b: Pt, ra: number, rb: number, fill: string) => {
+    const angle = Math.atan2(b[1] - a[1], b[0] - a[0]);
+    const nx = -Math.sin(angle);
+    const ny = Math.cos(angle);
+    const pt = (q: Pt, r: number, side: number) => `${n(q[0] + nx * r * side)} ${n(q[1] - floor + ny * r * side)}`;
+    return `<path fill="${fill}" d="M${pt(a, ra, 1)}L${pt(b, rb, 1)}L${pt(b, rb, -1)}L${pt(a, ra, -1)}Z"/>` + dot(a, ra, fill) + dot(b, rb, fill);
+  };
+  const arm = (s: typeof near, top: string, skin: string) => seg(shoulder, s.elbow, 5.4, 4.4, top) + seg(s.elbow, s.hand, 4.4, 3.4, top) + dot(s.hand, 3.9, skin);
+  const leg = (s: typeof near, skin: string, shorts: string) =>
+    seg(hip, s.knee, 8.6, 6.2, skin) + seg(s.knee, s.ankle, 6.2, 4, skin) + seg(s.ankle, s.toe, 4, 2.6, skin) + seg(hip, s.hem, 9.6, 8.6, shorts);
+  const bun = step(head, 13, p.H - 105);
+  const cap = step(head, 2.5, p.H - 100);
+  const svg =
+    arm(far, c.topFar, c.skinFar) +
+    leg(far, c.skinFar, c.shortsFar) +
+    seg(shoulder, head, 4.6, 4.6, c.skin) +
+    seg(hip, shoulder, 10.5, 11, c.top) +
+    dot(hip, 10.6, c.shorts) +
+    leg(near, c.skin, c.shorts) +
+    dot(bun, 5.2, c.hair) +
+    dot(cap, 11.2, c.hair) +
+    dot(head, 10, c.skin) +
+    arm(near, c.top, c.skin);
+  return { svg, hand: [near.hand[0], near.hand[1] - floor] };
+}
