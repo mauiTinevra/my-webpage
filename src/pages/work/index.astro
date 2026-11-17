@@ -38,16 +38,6 @@ import { work } from '../../data/work';
       </article>
     ))
   }
-  <section class="w-gallery" id="gallery" aria-labelledby="gallery-title">
-    <h2 class="w-name" id="gallery-title">The gallery</h2>
-    <p>
-      Six imaginary businesses around Phoenix, built in an afternoon. I wrote one build standard and six briefs: the business,
-      what its customers come for, a palette, typefaces and one moment that has to really work. AI agents built the six sites in
-      parallel, each one checking screenshots of its own work three times, and I reviewed every one on phone and desktop before
-      publishing.
-    </p>
-    <p class="w-links"><a class="btn btn-primary" href="/gallery/">Open the gallery</a><a class="btn" href="/gallery/guide/">How it was made</a></p>
-  </section>
   {
     work.filter((w) => w.ai).map((w) => (
       <article class="w-case" id={w.id} aria-labelledby={`${w.id}-title`}>
@@ -102,13 +92,6 @@ import { work } from '../../data/work';
   .w-words ul { margin: 0; padding-left: 1.1rem; display: grid; gap: 0.4rem; }
   .w-result { margin-top: 1.25rem !important; font-weight: 600; font-size: 1.15rem; }
   .w-links { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.5rem !important; }
-  .w-gallery { margin: clamp(1.5rem, 3vw, 2.5rem) var(--edge) 0; padding: clamp(2rem, 4vw, 3.5rem); border-radius: 1.4rem; background: var(--ink); color: var(--paper); }
-  .w-gallery p { max-width: 44rem; margin: 1rem 0 0; font-size: 1.1rem; line-height: 1.55; }
-  .w-gallery .w-links { margin-top: 1.5rem; }
-  .w-gallery .btn { border-color: var(--paper); color: var(--paper); }
-  .w-gallery .btn:hover { background: var(--paper); color: var(--ink); }
-  .w-gallery .btn-primary { background: var(--orange); border-color: var(--orange); color: var(--ink); }
-  .w-gallery :focus-visible { outline-color: var(--paper); }
   .w-case:nth-of-type(4n + 5) .w-shot { background: var(--green); }
   .w-next { margin-top: clamp(2rem, 4vw, 3.5rem); padding: clamp(3rem, 7vw, 6rem) var(--edge); background: var(--yellow); }
   .w-next p { margin: 0.75rem 0 0; font-size: 1.2rem; font-weight: 500; }
