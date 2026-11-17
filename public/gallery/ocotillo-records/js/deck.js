@@ -4,7 +4,7 @@
 (function () {
   'use strict';
   var NS = 'http://www.w3.org/2000/svg';
-  var PAPER = '#efe6d2', INK = '#1f2f6b', HOT = '#ff5a36';
+  var PAPER = '#efe6d2', INK = '#161616', HOT = '#ffc61a';
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
 
   /* ---------- the crate ----------

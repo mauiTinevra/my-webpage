@@ -1,4 +1,4 @@
-/* Ocotillo Records. Two inks on paper: blue #1f2f6b and fluorescent orange-red #ff5a36. */
+/* Ocotillo Records. Two inks on paper: black #161616 and yellow #ffc61a. */
 
 @font-face {
   font-family: "Space Grotesk";
@@ -24,10 +24,10 @@
 
 :root {
   --paper: #efe6d2;
-  --ink: #1f2f6b;
-  --hot: #ff5a36;
-  --over: #1f1117; /* what the press gives where both inks land */
-  --rule: rgba(31, 47, 107, .28);
+  --ink: #161616;
+  --hot: #ffc61a;
+  --over: #0a0a0a; /* what the press gives where both inks land */
+  --rule: rgba(22, 22, 22, .25);
   --grot: "Space Grotesk", "Helvetica Neue", Arial, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
   --pad: clamp(20px, 4vw, 56px);
@@ -253,7 +253,7 @@ h3 { font-size: 20px; font-weight: 700; letter-spacing: -.03em; line-height: 1.1
 .c-what { font-size: 17px; line-height: 1.3; }
 .c-what b { display: block; letter-spacing: -.02em; }
 .c-bin { font-size: 15px; white-space: nowrap; }
-.list tbody tr:hover td { background: rgba(255, 90, 54, .13); }
+.list tbody tr:hover td { background: rgba(255, 198, 26, .28); }
 .list-foot { margin-top: 18px; font-size: 16px; max-width: 60ch; }
 
 .grades { position: relative; background: var(--ink); color: var(--paper); padding: 28px 26px 30px; transform: rotate(.8deg); margin-top: 14px; box-shadow: 12px 12px 0 var(--hot); }
