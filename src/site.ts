@@ -8,7 +8,7 @@ export const site = {
   // What search engines and link previews say about the site.
   tagline: 'Web designer in Scottsdale, Arizona',
   description:
-    'Maui Tinevra is a web designer and developer in Scottsdale, Arizona, making custom, interactive websites for people and small businesses. Email to start a project.',
+    'Web designer in Scottsdale, Arizona. Custom websites for restaurants, studios and shops in Scottsdale and Phoenix, from $3,500, with ordering and booking built in.',
   email: 'sam.tinevra@gmail.com',
   // Add or remove links freely, e.g. { label: 'Instagram', href: 'https://instagram.com/yourname' }
   links: [

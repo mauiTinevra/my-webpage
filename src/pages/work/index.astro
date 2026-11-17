@@ -4,10 +4,14 @@ import Base from '../../layouts/Base.astro';
 import { work } from '../../data/work';
 ---
 
-<Base bare title="Work" description="Websites designed and built by Maui Tinevra, with what each one needed and what I did about it.">
+<Base
+  bare
+  title="Website portfolio: restaurants, studios, shops"
+  description="Nine websites by Maui Tinevra, a web designer in Scottsdale, Arizona: a taqueria, a yoga studio, a barber, a florist and more, with what each one needed."
+>
   <header class="w-head">
     <h1 class="w-title">Work</h1>
-    <p class="w-lede">Each project, what it needed, and what I did about it.</p>
+    <p class="w-lede">Websites for restaurants, studios and shops. Each project, what it needed, and what I did about it.</p>
   </header>
   {
     work.filter((w) => !w.ai).map((w) => (

@@ -9,15 +9,43 @@ const steps = [
   { name: 'I build', what: 'Designed and coded by hand, tested on phones and desktops. You review it as it comes together.' },
   { name: 'It goes live', what: 'Launched on your domain and handed over, with a walkthrough of how to update it.' },
 ];
+
+// Who this is for, with a real example of each from the work.
+const kinds = [
+  { name: 'Restaurants and cafes', what: 'Hours, the menu and ordering first, so a hungry visitor can order in a minute.', href: '/work#el-unico', see: 'El Único Taquería' },
+  { name: 'Yoga and fitness studios', what: 'A schedule that opens on today, class descriptions and a first-week offer.', href: '/work#saguaro', see: 'Saguaro Yoga Club' },
+  { name: 'Barbers and salons', what: 'Who is free right now, and a booking that takes four taps.', href: '/work#camelback-barber', see: 'Camelback Barber' },
+  { name: 'Shops and florists', what: 'What came in this week, and a way to order or hold something before driving over.', href: '/work#paloma-flores', see: 'Paloma Flores' },
+  { name: 'Classes and workshops', what: 'Dates, prices and a seat to book, with something to try on the page.', href: '/work#monsoon-clay', see: 'Monsoon Clay' },
+  { name: 'Tours and guides', what: 'Whether today is a good day to go, and a seat to book.', href: '/work#dark-sky-sonora', see: 'Dark Sky Sonora' },
+];
+// Questions clients ask. The answers repeat what is promised elsewhere on this page.
+const faq = [
+  { q: 'How much does a custom website cost?', a: 'Websites start at $3,500. That covers a design made for you, the build, and launch on your domain. Interactive extras such as ordering, booking or a live schedule are quoted per idea before any work starts.' },
+  { q: 'How long does it take?', a: 'Two to three weeks from the first call to launch for a typical site. Larger sites or extra interactive parts can take longer, and you get a date before we start.' },
+  { q: 'Do you only work with businesses in Scottsdale?', a: 'No. I am based in Scottsdale and often meet clients around Scottsdale and Phoenix, and I work with clients anywhere else over video calls.' },
+  { q: 'Can I update the site myself after launch?', a: 'Yes. The site is handed over to you with a walkthrough of how to update it. If you would rather not, the care plan covers text and photo updates for you.' },
+  { q: 'What does the care plan include?', a: 'From $150 a month: text and photo updates, hosting, domain and security kept current, and a small change each month. You can cancel anytime.' },
+  { q: 'Who will I be working with?', a: 'Me, Maui, directly, from the first call to launch day. There is no account manager and no handoff.' },
+];
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
 ---
 
 <Base
-  title="Services & pricing: custom websites in Scottsdale, Arizona"
+  schema={faqSchema}
+  title="Web design in Scottsdale, AZ: services and pricing"
   description="Custom websites from $3,500, designed and built by hand by Maui Tinevra in Scottsdale, Arizona. Two to three weeks from first call to launch. Care plans from $150 a month."
 >
   <header class="page-head">
-    <h1 class="rotulo">Services &amp; pricing</h1>
-    <p>One-of-a-kind websites, designed and built by hand, for artists, studios, restaurants and small businesses.</p>
+    <h1 class="rotulo">Web design in Scottsdale, Arizona</h1>
+    <p>
+      Services and pricing. One-of-a-kind websites for restaurants, studios, shops and small businesses in Scottsdale, Phoenix
+      and beyond, from $3,500.
+    </p>
   </header>
 
   <div class="prose">
@@ -35,15 +63,30 @@ const steps = [
 
     <h2>Who it’s for</h2>
     <p>
-      Artists, studios, shops, restaurants and anyone who wants a website people remember, and that their customers can
-      actually use. I work with clients in Scottsdale, Phoenix and anywhere else over video calls.
+      Small businesses that want a website people remember, and that their customers can actually use. I work with clients in
+      Scottsdale, Phoenix, Tempe and Mesa, and anywhere else over video calls.
     </p>
+    <ul>
+      {kinds.map((k) => (
+        <li>
+          <strong>{k.name}.</strong> {k.what} See <a href={k.href}>{k.see}</a>.
+        </li>
+      ))}
+    </ul>
 
     <h2>See the work</h2>
     <p>
       <a href="/work">The case studies</a> show what each project needed and what I did about it, including a restaurant
       site I rebuilt after a design review.
     </p>
+
+    <h2>Questions people ask</h2>
+    {faq.map((f) => (
+      <>
+        <h3>{f.q}</h3>
+        <p>{f.a}</p>
+      </>
+    ))}
 
     <h2>Start a project</h2>
     <p>

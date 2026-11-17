@@ -6,7 +6,7 @@ import { formatDate } from '../../lib/date';
 const posts = (await getCollection('blog')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
-<Base title="Blog" place="blog">
+<Base title="Blog" place="blog" noindex={posts.length === 0}>
   <header class="page-head">
     <h1 class="rotulo">Blog</h1>
     <p>Longer writing, newest first.</p>
