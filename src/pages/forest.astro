@@ -32,6 +32,7 @@ const insta = site.links.find((l) => l.label === 'Instagram')?.href;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{site.name} | Websites drawn by hand</title>
     <meta name="description" content={site.description} />
+    <meta name="robots" content="noindex" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
   <body class="fr" style={`--art: url(${art.src})`}>
