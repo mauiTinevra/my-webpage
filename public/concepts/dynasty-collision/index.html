@@ -1,100 +1,256 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Dynasty Collision | Collision repair in Phoenix, AZ</title>
-<meta name="robots" content="noindex,nofollow"><meta name="description" content="Collision repair, paint and bodywork in Phoenix. We work with your insurance.">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&display=swap" rel="stylesheet">
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Dynasty Collision — Website Concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--a:#e11d48;--a2:#f97316;--d:#0f0f12;--bg:#faf8f5;--ink:#1c1c1c;--mut:#5d5d5d}
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Sora', sans-serif;color:var(--ink);background:var(--bg);line-height:1.55}
+:root{--red:#ea202e;--red-d:#b9101c;--black:#0b0b0c;--char:#18191b;--char-2:#242526;--grey:#8b8b8b;--line:#2f3033}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Poppins,system-ui,sans-serif;color:#eaeaea;background:var(--black);line-height:1.6;font-size:16px}
+h1,h2,h3{font-family:Teko,Impact,sans-serif;text-transform:uppercase;line-height:.95;margin:0 0 .35em;font-weight:600;letter-spacing:.01em}
 a{color:inherit}
-.mock{background:#111;color:#fff;text-align:center;font:12px/1.4 system-ui;padding:6px 12px;letter-spacing:.02em}
-header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid #0001}
-.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
-nav{display:flex;align-items:center;justify-content:space-between;height:68px}
-.logo{font-weight:800;font-size:20px;letter-spacing:-.02em}.logo b{color:var(--a)}
-nav ul{display:flex;gap:28px;list-style:none;font-weight:600;font-size:15px}nav ul a{text-decoration:none;opacity:.8}
-.btn{display:inline-block;padding:14px 24px;border-radius:999px;background:var(--a);color:#fff;text-decoration:none;font-weight:700;transition:transform .15s,box-shadow .15s}
-.btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px -8px var(--a)}
-.btn.ghost{background:transparent;border:2px solid #fff6;color:#fff}
-.btn.sm{padding:10px 18px;font-size:14px}
-.hero{position:relative;color:#fff;background:radial-gradient(1200px 600px at 85% -10%,color-mix(in srgb,var(--a2) 35%,transparent),transparent 60%),radial-gradient(900px 500px at -10% 110%,color-mix(in srgb,var(--a) 45%,transparent),transparent 60%),var(--d);overflow:hidden}
-.hero .wrap{padding:110px 20px 120px;display:grid;grid-template-columns:1.3fr 1fr;gap:48px;align-items:center}
-.eyebrow{text-transform:uppercase;letter-spacing:.18em;font-size:12px;font-weight:700;color:var(--a2)}
-.hero h1{font-size:clamp(38px,6vw,68px);line-height:1.02;letter-spacing:-.03em;margin:14px 0 20px;font-weight:800}
-.hero p.lead{font-size:19px;opacity:.85;max-width:34ch;margin-bottom:32px}
-.hero .ctas{display:flex;gap:12px;flex-wrap:wrap}
-.panel{background:#ffffff10;border:1px solid #ffffff22;border-radius:20px;padding:28px;backdrop-filter:blur(6px)}
-.panel h3{font-size:18px;margin-bottom:14px}
-.panel ol{list-style:none;display:grid;gap:14px}
-.panel li{display:flex;gap:14px;align-items:center;font-weight:600}
-.panel li span{width:34px;height:34px;flex:none;border-radius:50%;display:grid;place-items:center;background:var(--a);font-size:14px}
-section{padding:96px 0}
-.h2{font-size:clamp(28px,4vw,42px);letter-spacing:-.02em;line-height:1.1;margin-bottom:14px}
-.intro{color:var(--mut);max-width:56ch;font-size:18px;margin-bottom:48px}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-.card{background:#fff;border-radius:18px;padding:28px;border:1px solid #0000000d;box-shadow:0 1px 2px #0000000a,0 12px 30px -18px #0003;transition:transform .2s}
-.card:hover{transform:translateY(-4px)}
-.card .num{font-weight:800;color:var(--a);font-size:14px;margin-bottom:18px}
-.card h3{font-size:19px;margin-bottom:8px}.card p{color:var(--mut);font-size:15px}
-.band{background:var(--d);color:#fff}
-.band .wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
-.band p{opacity:.8;font-size:18px}
-.checks{list-style:none;display:grid;gap:12px}
-.checks li{padding:16px 20px;border-radius:14px;background:#ffffff0d;border:1px solid #ffffff1a;font-weight:600}
-.checks li::before{content:"✓";color:var(--a2);margin-right:12px;font-weight:800}
-.contact .wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:48px}
-form{background:#fff;padding:32px;border-radius:20px;border:1px solid #0000000f;display:grid;gap:14px;box-shadow:0 20px 50px -30px #0004}
-input,textarea{font:inherit;padding:14px 16px;border:1px solid #0002;border-radius:12px;background:#fcfcfc}
-textarea{min-height:110px;resize:vertical}
-form .btn{border:0;cursor:pointer;font:inherit;font-weight:700}
-.info p{margin-bottom:18px;color:var(--mut)}.info strong{color:var(--ink)}
-footer{padding:36px 0;border-top:1px solid #0001;color:var(--mut);font-size:14px}
-footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+img{max-width:100%;display:block}
+.wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+.concept{background:#fff;color:#111;font-size:13px;text-align:center;padding:7px 16px}
+.concept a{color:var(--red-d)}
+header{position:sticky;top:0;z-index:20;background:rgba(11,11,12,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:10px 20px;max-width:1200px;margin:0 auto}
+.logo{background:#fff;border-radius:8px;padding:2px 8px;display:block}
+.logo img{height:46px;width:auto}
+.nav ul{display:flex;gap:26px;list-style:none;margin:0;padding:0;font-size:14px;font-weight:500}
+.nav ul a{text-decoration:none;color:#cfcfcf}
+.nav ul a:hover{color:#fff}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--red);color:#fff;text-decoration:none;font-weight:600;font-size:15px;padding:13px 22px;border-radius:3px;border:0;cursor:pointer;font-family:inherit;text-transform:uppercase;letter-spacing:.04em}
+.btn:hover{background:var(--red-d)}
+.btn.line{background:transparent;border:2px solid #fff}
+.btn.line:hover{background:#fff;color:#000}
+.hero{position:relative;background:#000;overflow:hidden}
+.hero:before{content:"";position:absolute;inset:0;background:url(assets/shop.jpg) center/cover no-repeat;opacity:.42;filter:grayscale(1) contrast(1.15)}
+.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#000 15%,rgba(0,0,0,.55) 65%,rgba(0,0,0,.2))}
+.hero .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1.25fr .75fr;gap:40px;align-items:center;padding:84px 20px 90px}
+.tag{display:inline-block;color:var(--red);font-weight:700;letter-spacing:.18em;font-size:13px;text-transform:uppercase;border-left:3px solid var(--red);padding-left:10px}
+.hero h1{font-size:clamp(58px,9vw,118px);margin:.15em 0 .1em;color:#fff}
+.hero h1 span{color:var(--red)}
+.hero p{font-size:18px;color:#cfcfcf;max-width:32em}
+.hero .ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+.offer{background:var(--red);color:#fff;padding:30px 28px;border-radius:4px;position:relative;box-shadow:0 20px 60px rgba(234,32,46,.35)}
+.offer:before{content:"";position:absolute;inset:8px;border:1px dashed rgba(255,255,255,.55);border-radius:2px;pointer-events:none}
+.offer small{font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:12px}
+.offer h2{font-size:clamp(48px,6vw,70px);margin:.1em 0 0;line-height:.9}
+.offer p{margin:.4em 0 1em;font-size:15px}
+.offer .btn{background:#000;width:100%}
+.offer .btn:hover{background:#222}
+.badges{background:var(--char);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.badges .wrap{display:grid;grid-template-columns:repeat(4,1fr)}
+.badges div{padding:22px 16px;text-align:center;border-right:1px solid var(--line)}
+.badges div:last-child{border:0}
+.badges b{display:block;font-family:Teko,sans-serif;font-size:34px;line-height:1;color:#fff;text-transform:uppercase}
+.badges span{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--grey)}
+section{padding:90px 0}
+.head{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:36px;flex-wrap:wrap}
+.head h2{font-size:clamp(46px,6vw,72px);color:#fff;margin:0}
+.head p{max-width:30em;margin:0;color:#b5b5b5}
+.svc{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--line);border:1px solid var(--line)}
+.s{background:var(--char);padding:30px 24px 34px;position:relative;transition:background .2s}
+.s:hover{background:var(--char-2)}
+.s .num{font-family:Teko,sans-serif;font-size:22px;color:var(--red)}
+.s h3{font-size:34px;color:#fff;margin:6px 0 10px}
+.s p{margin:0;color:#aaa;font-size:14.5px}
+.s:after{content:"";position:absolute;left:24px;bottom:0;width:40px;height:3px;background:var(--red)}
+.ba{display:grid;grid-template-columns:1.3fr .7fr;gap:48px;align-items:center}
+.ba figure{margin:0;position:relative}
+.ba figure img{border-radius:4px}
+.ba .lbl{position:absolute;top:14px;font-family:Teko,sans-serif;font-size:24px;text-transform:uppercase;background:#000;padding:2px 12px;border-radius:2px}
+.ba .lbl.b{left:14px}.ba .lbl.a{right:14px;background:var(--red)}
+.ba h2{font-size:clamp(44px,5vw,64px);color:#fff}
+.checks{list-style:none;padding:0;margin:20px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:10px 18px}
+.checks li{padding-left:26px;position:relative;font-size:15px}
+.checks li:before{content:"";position:absolute;left:0;top:7px;width:14px;height:8px;border-left:3px solid var(--red);border-bottom:3px solid var(--red);transform:rotate(-45deg)}
+.why{background:#fff;color:#111}
+.why h2{color:#000}
+.why .head p{color:#555}
+.why .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.w{border-top:4px solid var(--red);padding-top:18px}
+.w h3{font-size:34px;color:#000;margin-bottom:6px}
+.w p{margin:0;color:#444;font-size:15px}
+.interior{position:relative;min-height:340px;background:url(assets/interior.jpg) center/cover;display:grid;place-items:center;text-align:center}
+.interior:before{content:"";position:absolute;inset:0;background:rgba(0,0,0,.62)}
+.interior div{position:relative;padding:60px 20px}
+.interior h2{font-size:clamp(46px,7vw,86px);color:#fff}
+.interior p{color:#ddd;margin:0 0 22px}
+.visit .grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.visit h2{font-size:clamp(46px,6vw,70px);color:#fff}
+.info{display:grid;gap:18px;margin-top:10px}
+.info div{background:var(--char);border:1px solid var(--line);padding:18px 20px;border-left:3px solid var(--red)}
+.info b{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--grey);font-weight:600}
+.info a{text-decoration:none}
+.bigphone{font-family:Teko,sans-serif;font-size:46px;color:#fff;line-height:1}
+form{background:var(--char);border:1px solid var(--line);padding:28px;border-radius:4px}
+form h3{font-size:38px;color:#fff}
+label{display:block;font-size:13px;font-weight:500;margin:10px 0 4px;color:#bbb}
+input,select,textarea{width:100%;padding:12px;border:1px solid #3a3b3e;background:#0f0f10;color:#fff;font:inherit;font-size:16px;border-radius:3px}
+textarea{min-height:80px}
+form .btn{width:100%;margin-top:14px}
+.demo-msg{display:none;margin-top:12px;padding:10px 12px;background:#2a0b0d;border-left:3px solid var(--red);font-size:14px}
+footer{border-top:1px solid var(--line);color:#888;font-size:13px;padding:28px 0 100px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .callbar{display:none}
-@media (max-width:860px){
- nav ul,nav .btn.sm{display:none}
- .hero .wrap,.band .wrap,.contact .wrap{grid-template-columns:1fr}
- .hero .wrap{padding:72px 20px 80px}
- .grid{grid-template-columns:1fr 1fr}
- section{padding:68px 0}
- .callbar{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:20;gap:8px;padding:10px;background:#fff;border-top:1px solid #0001}
- .callbar a{flex:1;text-align:center}
- body{padding-bottom:70px}
+@media (max-width:960px){
+  .nav ul{display:none}
+  .logo img{height:38px}
+  .nav .btn{padding:10px 14px;font-size:13px}
+  .hero .wrap{grid-template-columns:1fr;padding:56px 20px 60px}
+  .badges .wrap{grid-template-columns:1fr 1fr}
+  .badges div:nth-child(2){border-right:0}
+  .badges div{border-bottom:1px solid var(--line)}
+  .svc{grid-template-columns:1fr 1fr}
+  .ba,.visit .grid{grid-template-columns:1fr}
+  .why .grid{grid-template-columns:1fr}
+  section{padding:64px 0}
+  .callbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--red);color:#fff;text-decoration:none;justify-content:center;font-family:Teko,sans-serif;font-size:26px;text-transform:uppercase;letter-spacing:.03em;padding:10px;box-shadow:0 -6px 20px rgba(0,0,0,.5)}
 }
-@media (max-width:520px){.grid{grid-template-columns:1fr}}
-</style></head><body>
-<div class="mock">Website concept prepared by Maui Tinevra (mauitinevra.com) for Dynasty Collision. Not affiliated with or the official site of this business.</div>
-<header><div class="wrap"><nav>
- <div class="logo">Dynasty<b>.</b></div>
- <ul><li><a href="#services">Services</a></li><li><a href="#how">How it works</a></li><li><a href="#contact">Contact</a></li></ul>
- <a class="btn sm" href="#contact">Get a free estimate</a>
-</nav></div></header>
-<section class="hero" style="padding:0"><div class="wrap">
- <div><div class="eyebrow">Collision repair · Phoenix, Arizona</div>
- <h1>Back on the road, looking like new.</h1><p class="lead">Collision repair, paint and bodywork in Phoenix. We work with your insurance.</p>
- <div class="ctas"><a class="btn" href="#contact">Get a free estimate</a><a class="btn ghost" href="tel:+16025293304">Call (602) 529-3304</a></div></div>
- <div class="panel"><h3>How it works</h3><ol><li><span>1</span>Get an estimate</li><li><span>2</span>We coordinate with insurance</li><li><span>3</span>Pick up your car</li></ol></div>
-</div></section>
-<section id="services"><div class="wrap">
- <div class="eyebrow" style="color:var(--a)">What we do</div>
- <h2 class="h2">Services</h2><p class="intro">Everything you need, from a quick fix to a full project, handled by a local team.</p>
- <div class="grid"><div class="card"><div class="num">01</div><h3>Collision repair</h3><p>Frame, panels and structural work.</p></div><div class="card"><div class="num">02</div><h3>Paint &amp; refinish</h3><p>Color-matched paint that disappears.</p></div><div class="card"><div class="num">03</div><h3>Dent repair</h3><p>Dings and hail damage, often paintless.</p></div><div class="card"><div class="num">04</div><h3>Insurance claims</h3><p>We help you through the whole claim.</p></div></div>
-</div></section>
-<section class="band" id="how"><div class="wrap">
- <div><div class="eyebrow">Why Dynasty</div><h2 class="h2">Local, straightforward, and easy to reach.</h2>
- <p>Based at 6502 N 27th Ave, Phoenix, AZ 85017. Clear pricing, honest timelines, and a real person when you call.</p></div>
- <ul class="checks"><li>Serving Phoenix and nearby communities</li><li>Free, no-pressure estimates</li><li>Licensed and insured (owner to confirm details)</li><li>Fast replies by phone or form</li></ul>
-</div></section>
-<section class="contact" id="contact"><div class="wrap">
- <div class="info"><div class="eyebrow" style="color:var(--a)">Contact</div><h2 class="h2">Get a free estimate</h2>
- <p>Tell us a little about what you need and we'll get back to you quickly.</p>
- <p><strong>Phone</strong><br><a href="tel:+16025293304">(602) 529-3304</a></p><p><strong>Email</strong><br><a href="mailto:info@dynastycollision.com">info@dynastycollision.com</a></p>
- <p><strong>Location</strong><br>6502 N 27th Ave, Phoenix, AZ 85017</p></div>
- <form onsubmit="event.preventDefault();this.querySelector('button').textContent='Thanks! (demo form)'">
-  <input placeholder="Your name" required><input placeholder="Phone or email" required>
-  <textarea placeholder="How can we help?"></textarea><button class="btn">Send request</button></form>
-</div></section>
-<footer><div class="wrap"><span>© 2026 Dynasty Collision</span><span>6502 N 27th Ave, Phoenix, AZ 85017</span></div></footer>
-<div class="callbar"><a class="btn" href="tel:+16025293304">Call now</a><a class="btn" style="background:var(--d)" href="#contact">Get a free estimate</a></div>
-</body></html>
+@media (max-width:520px){.svc{grid-template-columns:1fr}.checks{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="concept">Website concept prepared by Maui Tinevra (<a href="https://mauitinevra.com">mauitinevra.com</a>) for Dynasty Collision. Not affiliated with or the official site of this business.</div>
+
+<header>
+  <nav class="nav">
+    <a class="logo" href="#top"><img src="assets/logo.jpg" alt="Dynasty Collision" width="707" height="353"></a>
+    <ul>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#work">Our Work</a></li>
+      <li><a href="#why">Why Dynasty</a></li>
+      <li><a href="#visit">Contact</a></li>
+    </ul>
+    <a class="btn" href="tel:+16025293304">(602) 529-3304</a>
+  </nav>
+</header>
+
+<main id="top">
+<section class="hero" style="padding:0">
+  <div class="wrap">
+    <div>
+      <span class="tag">Phoenix AZ · Top Rated Collision Center</span>
+      <h1>Drive with <span>pride.</span></h1>
+      <p>Professional auto body repair and collision repair for Phoenix, Glendale and the surrounding communities. One shop, every step of the repair.</p>
+      <div class="ctas">
+        <a class="btn" href="#visit">Get a Free Estimate</a>
+        <a class="btn line" href="tel:+16025293304">Call (602) 529-3304</a>
+      </div>
+    </div>
+    <aside class="offer">
+      <small>Deductible offer</small>
+      <h2>We waive up to $1,000</h2>
+      <p>of your deductible. We also help finance deductibles and work with all major insurance companies.</p>
+      <a class="btn" href="tel:+16025293304">Find out how</a>
+    </aside>
+  </div>
+</section>
+
+<div class="badges">
+  <div class="wrap">
+    <div><b>700+</b><span>5-star reviews</span></div>
+    <div><b>All major</b><span>Insurance companies</span></div>
+    <div><b>Lifetime</b><span>Warranty</span></div>
+    <div><b>Free</b><span>Pickup &amp; delivery</span></div>
+  </div>
+</div>
+
+<section id="services">
+  <div class="wrap">
+    <div class="head">
+      <h2>Our services</h2>
+      <p>Your new go-to, one-stop collision repair shop in Phoenix, AZ. Free estimates online or in person.</p>
+    </div>
+    <div class="svc">
+      <div class="s"><div class="num">01</div><h3>Collision Repair</h3><p>Frame straightening, structural repair and refinishing after any accident, big or small.</p></div>
+      <div class="s"><div class="num">02</div><h3>Dent Removal</h3><p>Car dent repair and hail damage repair that brings panels back to factory lines.</p></div>
+      <div class="s"><div class="num">03</div><h3>Auto Body Repair</h3><p>Body work and repainting at the best auto body shop in Phoenix to refinish your vehicle.</p></div>
+      <div class="s"><div class="num">04</div><h3>Windshield Replacement</h3><p>Windshield and auto glass repair or replacement, handled in the same visit.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="work" style="background:var(--char)">
+  <div class="wrap ba">
+    <figure>
+      <img src="assets/before-after.jpg" alt="Before and after: front-end collision repair on a white Dodge Charger" width="1024" height="576" loading="lazy">
+      <span class="lbl b">Before</span><span class="lbl a">After</span>
+    </figure>
+    <div>
+      <span class="tag">Common repairs</span>
+      <h2>Back on the road like it never happened</h2>
+      <ul class="checks">
+        <li>Dent repairs</li><li>Frame straightening</li><li>Repainting</li><li>Hail damage</li><li>Auto glass repairs</li><li>Collision repairs</li>
+      </ul>
+      <p style="color:#aaa;margin-top:22px">Ask about our towing service.</p>
+    </div>
+  </div>
+</section>
+
+<section class="why" id="why">
+  <div class="wrap">
+    <div class="head"><h2>Why Dynasty</h2><p>Rated most trustworthy collision center in Phoenix, AZ.</p></div>
+    <div class="grid">
+      <div class="w"><h3>Lifetime warranty</h3><p>From the very beginning, we pioneered the concept of a lifetime warranty on our repairs.</p></div>
+      <div class="w"><h3>Trained specialists</h3><p>Specialists dedicated to every area of the repair process, with continuous training in the latest techniques.</p></div>
+      <div class="w"><h3>100% result guarantee</h3><p>Free pickup and delivery, help with deductibles, and a crew that puts the customer first at every step.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="interior">
+  <div>
+    <h2>Refinish your vehicle</h2>
+    <p>Free collision repair estimates, online or in person.</p>
+    <a class="btn" href="#visit">Book an estimate</a>
+  </div>
+</div>
+
+<section class="visit" id="visit">
+  <div class="wrap grid">
+    <div>
+      <span class="tag">Visit the shop</span>
+      <h2>Dynasty Collision</h2>
+      <div class="info">
+        <div><b>Call</b><a class="bigphone" href="tel:+16025293304">(602) 529-3304</a></div>
+        <div><b>Address</b>6502 N 27th Ave, Phoenix, AZ 85017</div>
+        <div><b>Hours</b>Mon–Fri: 8am – 5pm · Sat: 9am – 1pm</div>
+        <div><b>Email</b><a href="mailto:info@dynastycollision.com">info@dynastycollision.com</a></div>
+      </div>
+    </div>
+    <form class="demo">
+      <h3>Free estimate</h3>
+      <label for="n">Name</label><input id="n" name="name" autocomplete="name">
+      <label for="p">Phone</label><input id="p" name="phone" type="tel" autocomplete="tel">
+      <label for="v">Vehicle (year, make, model)</label><input id="v" name="vehicle">
+      <label for="s">Service</label>
+      <select id="s" name="svc"><option>Collision Repair</option><option>Dent Removal</option><option>Auto Body Repair</option><option>Windshield Replacement</option></select>
+      <label for="i">Insurance company (optional)</label><input id="i" name="ins">
+      <button class="btn" type="submit">Request my estimate</button>
+      <div class="demo-msg" role="status">This is a demo form. Nothing was sent.</div>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Dynasty Collision · 6502 N 27th Ave, Phoenix, AZ · Serving Phoenix &amp; Glendale</span>
+    <span>Concept design by Maui Tinevra</span>
+  </div>
+</footer>
+<a class="callbar" href="tel:+16025293304">Call (602) 529-3304</a>
+<script>
+document.querySelectorAll('form.demo').forEach(function(f){f.addEventListener('submit',function(e){e.preventDefault();var m=f.querySelector('.demo-msg');if(m)m.style.display='block';});});
+</script>
+</body>
+</html>

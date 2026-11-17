@@ -1,100 +1,283 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Catalina Roofing | Roofing in Apache Junction, AZ</title>
-<meta name="robots" content="noindex,nofollow"><meta name="description" content="Repairs, replacements and inspections for homes across Apache Junction and the East Valley.">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&display=swap" rel="stylesheet">
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Catalina Roofing — Website Concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noticia+Text:wght@400;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--a:#d9622b;--a2:#f3b23c;--d:#1d1a17;--bg:#faf8f5;--ink:#1c1c1c;--mut:#5d5d5d}
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Archivo', sans-serif;color:var(--ink);background:var(--bg);line-height:1.55}
+:root{--olive:#87781d;--olive-d:#5f5414;--copper:#9d7555;--copper-l:#c79b74;--amber:#dd9933;--ink:#2b2a26;--paper:#f7f3ea;--sand:#ede5d3;--line:#d9cfb8}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Source Sans 3",system-ui,sans-serif;color:var(--ink);background:var(--paper);line-height:1.6;font-size:17px}
+h1,h2,h3{font-family:"Noticia Text",Georgia,serif;line-height:1.15;margin:0 0 .5em}
 a{color:inherit}
-.mock{background:#111;color:#fff;text-align:center;font:12px/1.4 system-ui;padding:6px 12px;letter-spacing:.02em}
-header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid #0001}
-.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
-nav{display:flex;align-items:center;justify-content:space-between;height:68px}
-.logo{font-weight:800;font-size:20px;letter-spacing:-.02em}.logo b{color:var(--a)}
-nav ul{display:flex;gap:28px;list-style:none;font-weight:600;font-size:15px}nav ul a{text-decoration:none;opacity:.8}
-.btn{display:inline-block;padding:14px 24px;border-radius:999px;background:var(--a);color:#fff;text-decoration:none;font-weight:700;transition:transform .15s,box-shadow .15s}
-.btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px -8px var(--a)}
-.btn.ghost{background:transparent;border:2px solid #fff6;color:#fff}
-.btn.sm{padding:10px 18px;font-size:14px}
-.hero{position:relative;color:#fff;background:radial-gradient(1200px 600px at 85% -10%,color-mix(in srgb,var(--a2) 35%,transparent),transparent 60%),radial-gradient(900px 500px at -10% 110%,color-mix(in srgb,var(--a) 45%,transparent),transparent 60%),var(--d);overflow:hidden}
-.hero .wrap{padding:110px 20px 120px;display:grid;grid-template-columns:1.3fr 1fr;gap:48px;align-items:center}
-.eyebrow{text-transform:uppercase;letter-spacing:.18em;font-size:12px;font-weight:700;color:var(--a2)}
-.hero h1{font-size:clamp(38px,6vw,68px);line-height:1.02;letter-spacing:-.03em;margin:14px 0 20px;font-weight:800}
-.hero p.lead{font-size:19px;opacity:.85;max-width:34ch;margin-bottom:32px}
-.hero .ctas{display:flex;gap:12px;flex-wrap:wrap}
-.panel{background:#ffffff10;border:1px solid #ffffff22;border-radius:20px;padding:28px;backdrop-filter:blur(6px)}
-.panel h3{font-size:18px;margin-bottom:14px}
-.panel ol{list-style:none;display:grid;gap:14px}
-.panel li{display:flex;gap:14px;align-items:center;font-weight:600}
-.panel li span{width:34px;height:34px;flex:none;border-radius:50%;display:grid;place-items:center;background:var(--a);font-size:14px}
-section{padding:96px 0}
-.h2{font-size:clamp(28px,4vw,42px);letter-spacing:-.02em;line-height:1.1;margin-bottom:14px}
-.intro{color:var(--mut);max-width:56ch;font-size:18px;margin-bottom:48px}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-.card{background:#fff;border-radius:18px;padding:28px;border:1px solid #0000000d;box-shadow:0 1px 2px #0000000a,0 12px 30px -18px #0003;transition:transform .2s}
-.card:hover{transform:translateY(-4px)}
-.card .num{font-weight:800;color:var(--a);font-size:14px;margin-bottom:18px}
-.card h3{font-size:19px;margin-bottom:8px}.card p{color:var(--mut);font-size:15px}
-.band{background:var(--d);color:#fff}
-.band .wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
-.band p{opacity:.8;font-size:18px}
-.checks{list-style:none;display:grid;gap:12px}
-.checks li{padding:16px 20px;border-radius:14px;background:#ffffff0d;border:1px solid #ffffff1a;font-weight:600}
-.checks li::before{content:"✓";color:var(--a2);margin-right:12px;font-weight:800}
-.contact .wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:48px}
-form{background:#fff;padding:32px;border-radius:20px;border:1px solid #0000000f;display:grid;gap:14px;box-shadow:0 20px 50px -30px #0004}
-input,textarea{font:inherit;padding:14px 16px;border:1px solid #0002;border-radius:12px;background:#fcfcfc}
-textarea{min-height:110px;resize:vertical}
-form .btn{border:0;cursor:pointer;font:inherit;font-weight:700}
-.info p{margin-bottom:18px;color:var(--mut)}.info strong{color:var(--ink)}
-footer{padding:36px 0;border-top:1px solid #0001;color:var(--mut);font-size:14px}
-footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+img{max-width:100%;display:block}
+.wrap{max-width:1160px;margin:0 auto;padding:0 20px}
+.concept{background:#1e1d1a;color:#e9e2cf;font-size:13px;text-align:center;padding:7px 16px}
+.concept a{color:var(--copper-l)}
+header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px 20px;max-width:1160px;margin:0 auto}
+.nav img{height:44px;width:auto}
+.nav ul{display:flex;gap:26px;list-style:none;margin:0;padding:0;font-weight:600;font-size:15px}
+.nav ul a{text-decoration:none}
+.nav ul a:hover{color:var(--olive)}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--olive);color:#fff;text-decoration:none;font-weight:700;padding:13px 22px;border-radius:4px;border:0;font-size:16px;cursor:pointer;font-family:inherit}
+.btn:hover{background:var(--olive-d)}
+.btn.ghost{background:transparent;border:2px solid #fff}
+.btn.ghost:hover{background:rgba(255,255,255,.12)}
+.hero{position:relative;color:#fff;background:#3a3420 url(assets/Top01.jpg) center/cover no-repeat}
+.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(38,33,14,.92) 0%,rgba(38,33,14,.78) 45%,rgba(38,33,14,.25) 100%)}
+.hero .wrap{position:relative;padding:96px 20px 110px;display:grid;grid-template-columns:1.3fr .7fr;gap:40px;align-items:center}
+.eyebrow{font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:13px;color:var(--copper-l)}
+.hero h1{font-size:clamp(38px,6vw,66px);margin:.25em 0 .3em}
+.hero p.lead{font-size:20px;max-width:34em;color:#efe8d6}
+.hero .ctas{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px}
+.seal{justify-self:end;width:210px;height:210px;border-radius:50%;border:2px solid var(--copper-l);display:grid;place-items:center;text-align:center;font-family:"Noticia Text",serif;background:rgba(38,33,14,.55);outline:1px solid rgba(199,155,116,.45);outline-offset:7px}
+.seal small{display:block;font-family:"Source Sans 3",sans-serif;letter-spacing:.2em;font-size:12px;text-transform:uppercase;color:var(--copper-l)}
+.seal b{display:block;font-size:56px;line-height:1;margin:6px 0}
+.strip{background:var(--olive);color:#fff}
+.strip .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.strip div{padding:22px 18px;border-right:1px solid rgba(255,255,255,.18);font-size:15px}
+.strip div:last-child{border:0}
+.strip b{display:block;font-family:"Noticia Text",serif;font-size:21px}
+section{padding:84px 0}
+.sec-head{max-width:720px;margin-bottom:40px}
+.sec-head h2{font-size:clamp(30px,4vw,42px)}
+.rule{width:64px;height:3px;background:var(--copper);margin:0 0 18px}
+.services{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.card{background:#fff;border:1px solid var(--line);border-top:4px solid var(--olive);padding:30px 26px;border-radius:2px}
+.card:nth-child(2){border-top-color:var(--copper)}
+.card:nth-child(3){border-top-color:var(--amber)}
+.card h3{font-size:23px}
+.card p{margin:0;color:#4a473e}
+.types{margin-top:34px;background:var(--sand);padding:26px 28px;border-left:4px solid var(--copper);font-size:17px}
+.types strong{font-family:"Noticia Text",serif}
+.story{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.story .wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.story img{border-radius:2px;box-shadow:16px 16px 0 var(--sand)}
+.timeline{list-style:none;margin:24px 0 0;padding:0;border-left:2px solid var(--copper)}
+.timeline li{padding:0 0 18px 22px;position:relative}
+.timeline li:before{content:"";position:absolute;left:-7px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--olive);border:2px solid #fff}
+.timeline b{font-family:"Noticia Text",serif;color:var(--olive-d)}
+.quote{font-family:"Noticia Text",serif;font-size:22px;color:var(--olive-d);margin:22px 0 0}
+.gallery{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:auto auto;gap:16px}
+.gallery figure{margin:0;position:relative;overflow:hidden;border-radius:2px}
+.gallery figure:first-child{grid-row:span 2}
+.gallery img{width:100%;height:100%;object-fit:cover}
+.gallery figcaption{position:absolute;left:0;bottom:0;background:rgba(43,42,38,.82);color:#fff;font-size:14px;padding:7px 13px}
+.partners{margin-top:36px;display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.partners div{background:#fff;border:1px solid var(--line);padding:24px}
+.partners h3{font-size:19px}
+.partners p{margin:0;color:#4a473e;font-size:16px}
+.staff{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.person{background:#fff;border:1px solid var(--line);padding:26px 20px;text-align:center}
+.mono{width:72px;height:72px;border-radius:50%;margin:0 auto 14px;display:grid;place-items:center;background:var(--sand);color:var(--olive-d);font-family:"Noticia Text",serif;font-weight:700;font-size:24px;border:2px solid var(--copper-l)}
+.person h3{font-size:19px;margin:0 0 4px}
+.person p{margin:0;font-size:15px;color:#6a6556}
+.offices{background:#2b2817;color:#efe8d6}
+.offices .grid{display:grid;grid-template-columns:1fr 1fr 1.1fr;gap:28px}
+.office{border:1px solid rgba(199,155,116,.35);padding:28px}
+.office h3{color:#fff;font-size:22px}
+.office p{margin:0 0 6px}
+.office .tag{color:var(--copper-l);font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+form{background:var(--paper);color:var(--ink);padding:28px;border-radius:2px}
+form h3{font-size:22px}
+label{display:block;font-size:14px;font-weight:600;margin:10px 0 4px}
+input,select,textarea{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:3px;font:inherit;font-size:16px;background:#fff}
+textarea{min-height:80px}
+form .btn{width:100%;justify-content:center;margin-top:14px}
+.demo-msg{display:none;margin-top:12px;padding:10px 12px;background:var(--sand);border-left:3px solid var(--olive);font-size:15px}
+footer{background:#1e1d1a;color:#b9b19b;font-size:14px;padding:30px 0 100px}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
 .callbar{display:none}
-@media (max-width:860px){
- nav ul,nav .btn.sm{display:none}
- .hero .wrap,.band .wrap,.contact .wrap{grid-template-columns:1fr}
- .hero .wrap{padding:72px 20px 80px}
- .grid{grid-template-columns:1fr 1fr}
- section{padding:68px 0}
- .callbar{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:20;gap:8px;padding:10px;background:#fff;border-top:1px solid #0001}
- .callbar a{flex:1;text-align:center}
- body{padding-bottom:70px}
+@media (max-width:900px){
+  .nav ul{display:none}
+  .hero .wrap{grid-template-columns:1fr;padding:64px 20px 72px}
+  .seal{justify-self:start;width:150px;height:150px}.seal b{font-size:40px}
+  .strip .wrap{grid-template-columns:1fr 1fr}
+  .strip div:nth-child(2){border-right:0}
+  .strip div{border-bottom:1px solid rgba(255,255,255,.18)}
+  .services,.story .wrap,.offices .grid,.partners{grid-template-columns:1fr}
+  .staff{grid-template-columns:1fr 1fr}
+  .gallery{grid-template-columns:1fr}
+  .gallery figure:first-child{grid-row:auto}
+  section{padding:60px 0}
+  .callbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--olive);color:#fff;text-decoration:none;justify-content:center;align-items:center;gap:10px;font-weight:700;font-size:18px;padding:15px;box-shadow:0 -4px 14px rgba(0,0,0,.2)}
+  .nav .btn{padding:10px 14px;font-size:14px}
+  .nav img{height:34px}
 }
-@media (max-width:520px){.grid{grid-template-columns:1fr}}
-</style></head><body>
-<div class="mock">Website concept prepared by Maui Tinevra (mauitinevra.com) for Catalina Roofing. Not affiliated with or the official site of this business.</div>
-<header><div class="wrap"><nav>
- <div class="logo">Catalina<b>.</b></div>
- <ul><li><a href="#services">Services</a></li><li><a href="#how">How it works</a></li><li><a href="#contact">Contact</a></li></ul>
- <a class="btn sm" href="#contact">Get a free roof inspection</a>
-</nav></div></header>
-<section class="hero" style="padding:0"><div class="wrap">
- <div><div class="eyebrow">Roofing · Apache Junction, Arizona</div>
- <h1>Roofs built for the Arizona sun.</h1><p class="lead">Repairs, replacements and inspections for homes across Apache Junction and the East Valley.</p>
- <div class="ctas"><a class="btn" href="#contact">Get a free roof inspection</a><a class="btn ghost" href="mailto:info@catalinaroofing.com">Email us</a></div></div>
- <div class="panel"><h3>How it works</h3><ol><li><span>1</span>Free inspection</li><li><span>2</span>Clear written quote</li><li><span>3</span>Clean, on-schedule install</li></ol></div>
-</div></section>
-<section id="services"><div class="wrap">
- <div class="eyebrow" style="color:var(--a)">What we do</div>
- <h2 class="h2">Services</h2><p class="intro">Everything you need, from a quick fix to a full project, handled by a local team.</p>
- <div class="grid"><div class="card"><div class="num">01</div><h3>Roof repair</h3><p>Leaks, cracked tiles and storm damage fixed fast.</p></div><div class="card"><div class="num">02</div><h3>Roof replacement</h3><p>Tile, shingle and foam roofs installed to last.</p></div><div class="card"><div class="num">03</div><h3>Inspections</h3><p>Clear reports for buyers, sellers and insurers.</p></div><div class="card"><div class="num">04</div><h3>Coatings</h3><p>Reflective coatings that cut summer cooling bills.</p></div></div>
-</div></section>
-<section class="band" id="how"><div class="wrap">
- <div><div class="eyebrow">Why Catalina</div><h2 class="h2">Local, straightforward, and easy to reach.</h2>
- <p>Based at 11325 E Apache Trail, Apache Junction, AZ 85120. Clear pricing, honest timelines, and a real person when you call.</p></div>
- <ul class="checks"><li>Serving Apache Junction and nearby communities</li><li>Free, no-pressure estimates</li><li>Licensed and insured (owner to confirm details)</li><li>Fast replies by phone or form</li></ul>
-</div></section>
-<section class="contact" id="contact"><div class="wrap">
- <div class="info"><div class="eyebrow" style="color:var(--a)">Contact</div><h2 class="h2">Get a free roof inspection</h2>
- <p>Tell us a little about what you need and we'll get back to you quickly.</p>
- <p><strong>Email</strong><br><a href="mailto:info@catalinaroofing.com">info@catalinaroofing.com</a></p>
- <p><strong>Location</strong><br>11325 E Apache Trail, Apache Junction, AZ 85120</p></div>
- <form onsubmit="event.preventDefault();this.querySelector('button').textContent='Thanks! (demo form)'">
-  <input placeholder="Your name" required><input placeholder="Phone or email" required>
-  <textarea placeholder="How can we help?"></textarea><button class="btn">Send request</button></form>
-</div></section>
-<footer><div class="wrap"><span>© 2026 Catalina Roofing</span><span>11325 E Apache Trail, Apache Junction, AZ 85120</span></div></footer>
-<div class="callbar"><a class="btn" style="background:var(--d)" href="#contact">Get a free roof inspection</a></div>
-</body></html>
+</style>
+</head>
+<body>
+<div class="concept">Website concept prepared by Maui Tinevra (<a href="https://mauitinevra.com">mauitinevra.com</a>) for Catalina Roofing. Not affiliated with or the official site of this business.</div>
+
+<header>
+  <nav class="nav">
+    <a href="#top"><img src="assets/Logo-CatalinaRoof2.png" alt="Catalina Roofing" width="538" height="100"></a>
+    <ul>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#profile">Company Profile</a></li>
+      <li><a href="#projects">Our Projects</a></li>
+      <li><a href="#staff">Our Staff</a></li>
+      <li><a href="#contact">Contact Us</a></li>
+    </ul>
+    <a class="btn" href="tel:+16238699688">(623) 869-9688</a>
+  </nav>
+</header>
+
+<main id="top">
+<section class="hero" style="padding:0">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">Your Phoenix &amp; Apache Junction Roof Company</div>
+      <h1>We've got you Covered!</h1>
+      <p class="lead">We take pride in every project… after all, our name and reputation is on it. Re-roofs and roof repairs on most all roof applications: tile, shingles, built-up systems and 2-piece clay tile.</p>
+      <div class="ctas">
+        <a class="btn" href="tel:+16238699688">Call the Roofing Experts: (623) 869-9688</a>
+        <a class="btn ghost" href="#contact">Request a Bid</a>
+      </div>
+    </div>
+    <div class="seal" aria-label="Since 1969">
+      <div><small>Established</small><b>1969</b><small>Arizona</small></div>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="wrap">
+    <div><b>Since 1969</b>Founded by Kenneth Hays Sr.</div>
+    <div><b>Two offices</b>Phoenix &amp; Apache Junction</div>
+    <div><b>No job too large or small</b>Residential &amp; commercial</div>
+    <div><b>Mon–Fri 7–4</b>Both locations</div>
+  </div>
+</div>
+
+<section id="services">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="rule"></div>
+      <h2>Our Roofing Services</h2>
+      <p>Catalina Roofing specializes in Tile Roofing, Shingle Roofing, Complete Re-Roof and Roof Repairs.</p>
+    </div>
+    <div class="services">
+      <article class="card">
+        <h3>Roof Repair Services</h3>
+        <p>Let our expert roofers determine if a repair is needed instead of a replacement. A small roof repair today can save and prevent costly problems in the future.</p>
+      </article>
+      <article class="card">
+        <h3>Residential Roofing</h3>
+        <p>Catalina Roofing knows that hiring a roofing company for your home is an important decision. We take pride in our work and strive to exceed expectations.</p>
+      </article>
+      <article class="card">
+        <h3>Commercial Roofing</h3>
+        <p>Protect your business investment by hiring one of the top rated commercial roofing companies in the valley. Request a bid for our quality service and workmanship.</p>
+      </article>
+    </div>
+    <p class="types"><strong>We install all roofing types:</strong> Tile, Shingles, Built-Up Roof Systems, 2-Piece Clay Tile and more. No job is too large or small.</p>
+  </div>
+</section>
+
+<section class="story" id="profile">
+  <div class="wrap">
+    <div>
+      <div class="rule"></div>
+      <h2>Our philosophy is to keep our business simple</h2>
+      <p>We believe simplicity is the key to success. We strive to provide solutions that are cost effective and avoid unnecessary time and expense. Quality workmanship is the building block of our company.</p>
+      <ul class="timeline">
+        <li><b>1948</b> — Kenneth Hays Sr. begins roofing in Arizona.</li>
+        <li><b>1969</b> — Catalina Roofing begins operations.</li>
+        <li><b>1988</b> — Incorporated as Catalina Roofing and Supply Inc.</li>
+        <li><b>Today</b> — Led by President Kenneth E. Hays.</li>
+      </ul>
+      <p class="quote">“Our aim is to provide results, not just reports!”</p>
+    </div>
+    <img src="assets/Top08.jpg" alt="Clay tile roof by Catalina Roofing" width="700" height="300" loading="lazy">
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="rule"></div>
+      <h2>Our Projects</h2>
+      <p>Tile and shingle roofs across the valley, for homeowners and builders alike.</p>
+    </div>
+    <div class="gallery">
+      <figure><img src="assets/Top01.jpg" alt="Tile roof on a stucco home" loading="lazy"><figcaption>Tile re-roof</figcaption></figure>
+      <figure><img src="assets/Top07.jpg" alt="Architectural shingle roof" loading="lazy"><figcaption>Shingle roofing</figcaption></figure>
+      <figure><img src="assets/Top08.jpg" alt="Clay tile roof detail" loading="lazy"><figcaption>Clay tile</figcaption></figure>
+    </div>
+    <div class="partners">
+      <div><h3>Trusted by builders</h3><p>DR Horton, William Lyons, Providence Homes &amp; Presidio Homes.</p></div>
+      <div><h3>Materials we install</h3><p>Eagle, Boral, U.S. Tiles, Redland, GAF, Malarkey, Tamco and Owens Corning.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="staff" style="background:var(--sand)">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="rule"></div>
+      <h2>Our Staff</h2>
+      <p>The people who answer your call and run your job.</p>
+    </div>
+    <div class="staff">
+      <div class="person"><div class="mono">PB</div><h3>Paul Buchanan</h3><p>General Manager</p></div>
+      <div class="person"><div class="mono">TD</div><h3>Toni DeLeon</h3><p>General Superintendent</p></div>
+      <div class="person"><div class="mono">VH</div><h3>Verl Hays Jr.</h3><p>Office Manager</p></div>
+      <div class="person"><div class="mono">AH</div><h3>Ashly Hosler</h3><p>Jr. Accountant Receivable – Repairs</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="offices" id="contact">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="rule"></div>
+      <h2 style="color:#fff">Call the Roofing Experts Today!</h2>
+      <p>Sales: <a href="tel:+16238699688"><b>(623) 869-9688</b></a> · <a href="mailto:info@catalinaroofing.com">info@catalinaroofing.com</a></p>
+    </div>
+    <div class="grid">
+      <div class="office">
+        <div class="tag">Phoenix Location</div>
+        <h3>Phoenix</h3>
+        <p>2021 W. Williams Drive<br>Phoenix, Arizona 85027</p>
+        <p>Monday – Friday: 7:00 am – 4:00 pm</p>
+      </div>
+      <div class="office">
+        <div class="tag">Mesa Area</div>
+        <h3>Apache Junction</h3>
+        <p>11325 E. Apache Trail<br>Apache Junction, Arizona 85220</p>
+        <p>Monday – Friday: 7:00 am – 4:00 pm</p>
+      </div>
+      <form class="demo">
+        <h3>Request a Bid</h3>
+        <label for="n">Name</label><input id="n" name="name" autocomplete="name">
+        <label for="p">Phone</label><input id="p" name="phone" type="tel" autocomplete="tel">
+        <label for="t">Project type</label>
+        <select id="t" name="type"><option>Roof repair</option><option>Residential re-roof</option><option>Commercial roofing</option></select>
+        <label for="m">Details</label><textarea id="m" name="msg"></textarea>
+        <button class="btn" type="submit">Send Request</button>
+        <div class="demo-msg" role="status">This is a demo form. Nothing was sent.</div>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Catalina Roofing · Phoenix &amp; Apache Junction, Arizona · Since 1969</span>
+    <span>Concept design by Maui Tinevra</span>
+  </div>
+</footer>
+<a class="callbar" href="tel:+16238699688">Call (623) 869-9688</a>
+<script>
+document.querySelectorAll('form.demo').forEach(function(f){f.addEventListener('submit',function(e){e.preventDefault();var m=f.querySelector('.demo-msg');if(m)m.style.display='block';});});
+</script>
+</body>
+</html>
