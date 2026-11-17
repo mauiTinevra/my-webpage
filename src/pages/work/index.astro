@@ -6,15 +6,15 @@ import { work } from '../../data/work';
 
 <Base
   bare
-  title="Website portfolio: restaurant and studio sites"
-  description="Websites by Maui Tinevra, a web designer in Scottsdale, Arizona: a taqueria with ordering, a yoga studio with a live schedule, and this site. What each one needed and what I did about it."
+  title="Website portfolio: restaurants, studios, shops"
+  description="Nine websites by Maui Tinevra, a web designer in Scottsdale, Arizona: a taqueria, a yoga studio, a barber, a florist and more, with what each one needed."
 >
   <header class="w-head">
     <h1 class="w-title">Work</h1>
     <p class="w-lede">Websites for restaurants, studios and shops. Each project, what it needed, and what I did about it.</p>
   </header>
   {
-    work.filter((w) => !w.ai).map((w) => (
+    work.map((w) => (
       <article class="w-case" id={w.id} aria-labelledby={`${w.id}-title`}>
         <a class="w-shot" href={w.links[0].href}>
           <img src={w.image} alt={w.alt} width="1200" height="750" loading="lazy" />
@@ -22,9 +22,9 @@ import { work } from '../../data/work';
         <div class="w-words">
           <p class="w-kind">{w.kind}</p>
           <h2 class="w-name" id={`${w.id}-title`}>{w.name}</h2>
-          <h3>The problem</h3>
+          <h3>{w.ai ? 'The brief' : 'The problem'}</h3>
           <p>{w.problem}</p>
-          <h3>What I did</h3>
+          <h3>{w.ai ? 'What was built' : 'What I did'}</h3>
           <ul>
             {w.did.map((d) => (
               <li>{d}</li>
