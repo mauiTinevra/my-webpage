@@ -1583,3 +1583,45 @@ time { font-family: var(--display); font-weight: 600; font-size: 0.95rem; color:
   .footer-about { grid-column: 1 / -1; }
 }
 
+
+/* Desert night: the look of every page except the street. Night 60, sand 30, coral 10.
+   Bodoni Moda for display, Archivo for reading. The old variable names stay, with new values. */
+.is-night {
+  --night: #0d1230;
+  --panel: #141a3f;
+  --paper: #0d1230;
+  --ink: #eadfc8;
+  --muted: #a9a38f;
+  --cream: #eadfc8;
+  --yellow: #ff7a59;
+  --coral: #ff7a59;
+  --accent: var(--ink);
+  --rule: rgb(234 223 200 / 0.22);
+  --display: 'Bodoni Moda Variable', 'Bodoni 72', Didot, Georgia, serif;
+  color-scheme: dark;
+  font-optical-sizing: auto;
+  font-size: 1.0625rem;
+}
+.is-night h1, .is-night h2, .is-night h3 { font-weight: 500; font-stretch: normal; letter-spacing: -0.01em; }
+.is-night a { text-decoration-thickness: 1px; }
+.is-night :focus-visible, .is-night .cta:focus-visible { outline: 2px solid var(--coral); outline-offset: 3px; }
+.is-night .skip { background: var(--ink); color: var(--night); font-family: var(--reading); }
+.is-night .site-header {
+  align-items: center;
+  background: rgb(13 18 48 / 0.88);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--rule);
+  font-family: var(--reading);
+}
+.is-night .wordmark { font-family: var(--display); font-weight: 600; font-stretch: normal; font-size: 1.35rem; }
+.is-night .site-header nav a { font-weight: 500; border-bottom-width: 1px; padding: 0.6rem 0 0.2rem; }
+.is-night .site-header nav a[aria-current='page'] { border-bottom-color: var(--coral); }
+.is-night .cta { background: var(--coral); color: var(--night); border: 0; font-weight: 700; padding: 0.7rem 1.1rem; }
+.is-night .cta:hover { background: var(--ink); color: var(--night); }
+.is-night .site-footer { background: #080b20; color: var(--ink); border-top: 1px solid var(--rule); font-family: var(--reading); }
+.is-night .site-footer a { color: var(--ink); }
+.is-night .site-footer a:hover { text-decoration-color: var(--coral); }
+.is-night .footer-grid h2 { font-family: var(--reading); font-weight: 700; font-size: 0.95rem; letter-spacing: 0; }
+.is-night .footer-name { font-family: var(--display); font-weight: 600; font-stretch: normal; font-size: 1.4rem; }
+.is-night .footer-legal { color: var(--muted); }
+.is-night .page-head .rotulo, .is-night .page-head h1 { font-weight: 500; font-stretch: normal; }

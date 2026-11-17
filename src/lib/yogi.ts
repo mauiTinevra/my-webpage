@@ -203,3 +203,95 @@ export function draw(p: Pose): string {
     `</g>`
   );
 }
+
+// ---------------------------------------------------------------------------------------------
+// The finer figure, for the home page: a silhouette built from tapered limbs instead of fat
+// strokes, moved with overlap (the torso leads, the hands and feet arrive last) and a breath.
+
+const clamp01 = (n: number) => Math.max(0, Math.min(1, n));
+const smooth = (k: number) => k * k * (3 - 2 * k);
+// How late each joint starts, as a share of the move. The spine leads; fingers and toes follow.
+const LAG: Record<string, number> = { T: 0, H: 0.16, aU: 0.08, aF: 0.2, a2U: 0.12, a2F: 0.24, lU: 0, lL: 0.07, ft: 0.14, l2U: 0.04, l2L: 0.11, ft2: 0.18 };
+const MAX_LAG = 0.24;
+
+/** Like blend, but each joint runs on its own slightly late clock, so the body moves in a wave. */
+export function blendLag(a: Pose, b: Pose, k: number): Pose {
+  const full = (p: Pose) => ({ ...p, a2U: p.a2U ?? p.aU, a2F: p.a2F ?? p.aF, l2U: p.l2U ?? p.lU, l2L: p.l2L ?? p.lL, ft2: p.ft2 ?? p.ft });
+  const from = full(a) as Record<string, number>;
+  const to = full(b) as Record<string, number>;
+  const out: Record<string, number> = {};
+  for (const key of Object.keys(from)) {
+    const own = smooth(clamp01((k - (LAG[key] ?? 0)) / (1 - MAX_LAG)));
+    const turn = ((((to[key] - from[key]) % 360) + 540) % 360) - 180;
+    out[key] = from[key] + turn * own;
+  }
+  return out as unknown as Pose;
+}
+
+/** A held pose, breathing: `breath` runs -1 (empty) to 1 (full). The chest lifts a little. */
+export function breathe(p: Pose, breath: number): Pose {
+  const lift = breath * 1.4;
+  // Lifting means turning toward "up" (-90), whichever way the torso leans.
+  const toward = (angle: number) => {
+    const turn = ((((-90 - angle) % 360) + 540) % 360) - 180;
+    return angle + Math.sign(turn) * Math.min(Math.abs(turn), Math.abs(lift)) * Math.sign(lift);
+  };
+  return { ...p, T: toward(p.T), H: toward(p.H) };
+}
+
+export interface Look {
+  /** The near leg, the darkest tone. */
+  near: string;
+  /** The far arm and leg, the lightest, as if further off. */
+  far: string;
+  /** The torso and head, and the near arm: two tones between, so folded poses still read. */
+  torso: string;
+  arm: string;
+}
+
+/** Draws a pose as a silhouette. Returns the SVG and where the near hand is, for the trail. */
+export function drawFine(p: Pose, look: Look): { svg: string; hand: Pt; head: Pt } {
+  const hip: Pt = [0, 0];
+  const shoulder = step(hip, LEN.torso, p.T);
+  const head = step(shoulder, LEN.neck, p.H);
+  const limbs = (aU: number, aF: number, lU: number, lL: number, ft: number) => {
+    const elbow = step(shoulder, LEN.upperArm, aU);
+    const hand = step(elbow, LEN.forearm, aF);
+    const knee = step(hip, LEN.thigh, lU);
+    const ankle = step(knee, LEN.shin, lL);
+    const toe = step(ankle, LEN.foot, ft);
+    return { elbow, hand, knee, ankle, toe };
+  };
+  const near = limbs(p.aU, p.aF, p.lU, p.lL, p.ft);
+  const far = limbs(p.a2U ?? p.aU, p.a2F ?? p.aF, p.l2U ?? p.lU, p.l2L ?? p.lL, p.ft2 ?? p.ft);
+  const floor = Math.max(
+    hip[1] + 11,
+    shoulder[1] + 10,
+    head[1] + 11,
+    ...[near, far].flatMap((s) => [s.elbow[1] + 4.5, s.hand[1] + 3.5, s.knee[1] + 6, s.ankle[1] + 4, s.toe[1] + 3]),
+  );
+  const n = (v: number) => v.toFixed(1);
+  // One tapered segment: a circle at each end and the skin stretched between them.
+  const seg = (a: Pt, b: Pt, ra: number, rb: number) => {
+    const angle = Math.atan2(b[1] - a[1], b[0] - a[0]);
+    const nx = -Math.sin(angle);
+    const ny = Math.cos(angle);
+    const pt = (c: Pt, r: number, side: number) => `${n(c[0] + nx * r * side)} ${n(c[1] - floor + ny * r * side)}`;
+    return (
+      `<path d="M${pt(a, ra, 1)}L${pt(b, rb, 1)}L${pt(b, rb, -1)}L${pt(a, ra, -1)}Z"/>` +
+      `<circle cx="${n(a[0])}" cy="${n(a[1] - floor)}" r="${ra}"/><circle cx="${n(b[0])}" cy="${n(b[1] - floor)}" r="${rb}"/>`
+    );
+  };
+  const arm = (s: typeof near) => seg(shoulder, s.elbow, 5.2, 4.2) + seg(s.elbow, s.hand, 4.2, 3.2);
+  const leg = (s: typeof near) => seg(hip, s.knee, 9, 6.2) + seg(s.knee, s.ankle, 6.2, 4) + seg(s.ankle, s.toe, 4, 2.6);
+  const bun = step(head, 13, p.H - 105);
+  const body =
+    seg(hip, shoulder, 10.5, 11) +
+    seg(shoulder, head, 5, 5) +
+    `<circle cx="${n(head[0])}" cy="${n(head[1] - floor)}" r="10.5"/>` +
+    `<circle cx="${n(bun[0])}" cy="${n(bun[1] - floor)}" r="5"/>`;
+  const svg =
+    `<g fill="${look.far}">${arm(far)}${leg(far)}</g><g fill="${look.torso}">${body}</g>` +
+    `<g fill="${look.near}">${leg(near)}</g><g fill="${look.arm}">${arm(near)}</g>`;
+  return { svg, hand: [near.hand[0], near.hand[1] - floor], head: [head[0], head[1] - floor] };
+}

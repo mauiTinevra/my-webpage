@@ -1,10 +1,10 @@
 ---
 // The home page, for someone deciding whether to hire Maui: who he is and what he makes, the
-// work, what it costs, proof it's hand-built, about, and how to start. Brand: docs/brand/BRAND.md
-// (paper 60, ink 30, wall yellow 10, Archivo only). The street is one click away, never in the way.
+// work, what it costs, about, and how to start. Look: desert night (night 60, sand 30, coral 10;
+// Bodoni Moda and Archivo). The one big moment is the figure practising Ashtanga in front of the
+// disc on the horizon; everything after it stays quiet. The street is one click away.
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
-import TrustSection from '../components/TrustSection.astro';
 import { site } from '../site';
 import { work } from '../data/work';
 import yellowWall from '../assets/photos/yellow-wall.jpg';
@@ -30,62 +30,125 @@ const services = [
     what: ['Text and photo updates', 'Hosting, domain and security kept current', 'A small change each month'],
   },
 ];
+
+const gallery = [
+  { slug: 'ocotillo-records', name: 'Ocotillo Records', what: 'A turntable that plays' },
+  { slug: 'monsoon-clay', name: 'Monsoon Clay', what: 'A pot you shape' },
+  { slug: 'camelback-barber', name: 'Camelback Barber', what: 'A chair you book' },
+  { slug: 'paloma-flores', name: 'Paloma Flores', what: 'A bouquet you build' },
+  { slug: 'dark-sky-sonora', name: 'Dark Sky Sonora', what: 'Tonight\u2019s real sky' },
+  { slug: 'dos-gatos-books', name: 'Dos Gatos Books', what: 'A shelf you browse' },
+];
+const handWork = work.filter((w) => w.id !== 'gallery');
 ---
 
 <Base bare>
-  <section class="h-hero" aria-labelledby="hero-title">
-    <div class="h-hero-words">
-      <h1 class="h-name" id="hero-title">{site.name}</h1>
-      <p class="h-offer">{site.offer}</p>
-      <p class="h-line">
+  <section class="n-hero" aria-labelledby="hero-title">
+    <canvas class="n-stars" id="stars" aria-hidden="true"></canvas>
+    <div class="n-glow" aria-hidden="true"></div>
+    <svg class="n-ridge" viewBox="0 0 1600 200" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 200V128l90-30 70 22 120-64 60 30 110-58 96 52 84-22 150 58 120-36 110 30 130-70 90 44 120-26 150 46 100-24V200Z" />
+    </svg>
+
+    <div class="n-words">
+      <p class="n-now" id="now">Scottsdale, Arizona</p>
+      <h1 class="n-name" id="hero-title">{site.name}</h1>
+      <p class="n-offer">{site.offer}</p>
+      <p class="n-line">
         I design and build one-of-a-kind websites for artists, studios, restaurants and small businesses. Every drawing and every
-        moving part is made for you. Based in Scottsdale, Arizona.
+        moving part is made for you.
       </p>
-      <div class="h-actions">
+      <div class="n-actions">
         <a class="btn btn-primary" href="#contact">Start a project</a>
         <a class="btn" href="#work">See my work</a>
       </div>
-      <p class="h-street">Or take the long way in: <a href="/street">walk the street</a>, a whole neighborhood drawn in code.</p>
     </div>
-    <div class="h-photos">
-      <figure class="h-photo h-photo-a"><Image src={yellowWall} alt="Maui crouching in front of a yellow wall" widths={[320, 520]} sizes="(max-width: 760px) 45vw, 260px" /></figure>
-      <figure class="h-photo h-photo-b"><Image src={crow} alt="Maui in crow pose on a yoga mat in front of a graffiti wall" widths={[320, 520]} sizes="(max-width: 760px) 45vw, 260px" /></figure>
-    </div>
+
+    <figure class="n-stage">
+      <svg class="n-scene" viewBox="0 0 520 470" role="img" aria-labelledby="pose-label">
+        <title id="pose-label">A figure practising Ashtanga yoga in front of a large disc on the horizon</title>
+        <defs>
+          <radialGradient id="disc-fill" cx="50%" cy="42%" r="60%">
+            <stop offset="0" stop-color="var(--disc-a)" />
+            <stop offset="1" stop-color="var(--disc-b)" />
+          </radialGradient>
+        </defs>
+        <circle class="n-halo" cx="260" cy="262" r="218" />
+        <circle cx="260" cy="262" r="176" fill="url(#disc-fill)" />
+        <path id="trail" class="n-trail" d="" />
+        <g id="yogi" transform="translate(260 408) scale(-1.72 1.72)"></g>
+        <path class="n-mesa" d="M-90 470L-10 446 70 436 156 408H364l70 22 76 12 100 28Z" />
+        <path class="n-mat" d="M168 408.5H352" />
+      </svg>
+      <figcaption class="n-caption">
+        <p class="n-pose"><span id="series">Primary series</span><strong id="pose-name">Samasthiti</strong></p>
+        <p class="n-breath" id="breath" aria-hidden="true"><i></i><span id="breath-word">Breathing in</span></p>
+        <div class="n-controls" role="group" aria-label="The practice">
+          <button type="button" class="n-key" id="play" aria-pressed="true">Pause</button>
+          <button type="button" class="n-key" id="next">Next pose</button>
+          <button type="button" class="n-key" id="swap">Second series</button>
+        </div>
+      </figcaption>
+    </figure>
   </section>
 
-  <section class="h-section" id="work" aria-labelledby="work-title">
-    <div class="h-head">
-      <h2 class="h-title" id="work-title">Work</h2>
+  <section class="n-section" id="work" aria-labelledby="work-title">
+    <div class="n-head">
+      <h2 class="n-title" id="work-title">Work</h2>
       <a href="/work">All work and what changed</a>
     </div>
-    <ul class="h-work" role="list">
+    <ul class="n-work" role="list">
       {
-        work.map((w) => (
-          <li class="h-card">
-            <a class="h-card-link" href={w.href}>
+        handWork.map((w) => (
+          <li>
+            <a class="n-card" href={w.href}>
               <img src={w.image} alt={w.alt} width="1200" height="750" loading="lazy" />
-              <span class="h-card-kind">{w.kind}</span>
-              <span class="h-card-name">{w.name}</span>
-              <span class="h-card-line">{w.line}</span>
+              <span class="n-kind">{w.kind}</span>
+              <span class="n-card-name">{w.name}</span>
+              <span class="n-card-line">{w.line}</span>
             </a>
           </li>
         ))
       }
     </ul>
+
+    <div class="n-gallery" id="gallery">
+      <div class="n-gallery-words">
+        <h3>The gallery: six concepts in an afternoon</h3>
+        <p>
+          Six imaginary businesses around Phoenix, each with one moment that really works. I wrote the briefs and directed; AI
+          agents built the sites in parallel. <a href="/gallery/guide/">The guide says exactly how</a>.
+        </p>
+        <a class="btn" href="/gallery/">Open the gallery</a>
+      </div>
+      <ul class="n-six" role="list">
+        {
+          gallery.map((g) => (
+            <li>
+              <a href={`/gallery/${g.slug}/`}>
+                <img src={`/gallery/thumbs/${g.slug}.jpg`} alt="" width="960" height="600" loading="lazy" />
+                <span class="n-six-name">{g.name}</span>
+                <span class="n-six-what">{g.what}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
   </section>
 
-  <section class="h-section h-ink" id="services" aria-labelledby="services-title">
-    <div class="h-head">
-      <h2 class="h-title" id="services-title">Services &amp; pricing</h2>
+  <section class="n-section n-panel" id="services" aria-labelledby="services-title">
+    <div class="n-head">
+      <h2 class="n-title" id="services-title">Services &amp; pricing</h2>
       <a href="/web-design">How a project works</a>
     </div>
-    <ul class="h-services" role="list">
+    <ul class="n-services" role="list">
       {
         services.map((s) => (
-          <li class="h-service">
+          <li class="n-service">
             <h3>{s.name}</h3>
-            <p class="h-price">{s.price}</p>
-            <p class="h-time">{s.time}</p>
+            <p class="n-price">{s.price}</p>
+            <p class="n-time">{s.time}</p>
             <ul role="list">
               {s.what.map((x) => (
                 <li>{x}</li>
@@ -97,12 +160,10 @@ const services = [
     </ul>
   </section>
 
-  <TrustSection title="Everything on this site, I built." />
-
-  <section class="h-section h-about" id="about" aria-labelledby="about-title">
-    <h2 class="h-title" id="about-title">About</h2>
-    <div class="h-about-words">
-      <p class="h-lead">
+  <section class="n-section n-about" id="about" aria-labelledby="about-title">
+    <div class="n-about-words">
+      <h2 class="n-title" id="about-title">About</h2>
+      <p class="n-lead">
         I'm Maui. I studied computer science and worked as a software engineer at Uber before going out on my own to make websites
         that feel like the people behind them.
       </p>
@@ -111,124 +172,308 @@ const services = [
         care for speed and detail, and an artist's eye for what makes a place memorable. You work with me directly, from the first
         call to launch day.
       </p>
-      <p><a href="/art">See my art</a> or read the <a href="/journal">journal</a>.</p>
+      <p><a href="/art">See my art</a>, read the <a href="/journal">journal</a>, or <a href="/street">walk the street</a>, a whole neighborhood drawn in code.</p>
+    </div>
+    <div class="n-photos">
+      <figure class="n-photo"><Image src={yellowWall} alt="Maui crouching in front of a yellow wall" widths={[320, 520]} sizes="(max-width: 760px) 45vw, 260px" /></figure>
+      <figure class="n-photo n-photo-low"><Image src={crow} alt="Maui in crow pose on a yoga mat in front of a graffiti wall" widths={[320, 520]} sizes="(max-width: 760px) 45vw, 260px" /></figure>
     </div>
   </section>
 
-  <section class="h-section h-contact" id="contact" aria-labelledby="contact-title">
-    <h2 class="h-title" id="contact-title">Start a project</h2>
-    <p class="h-lead">Tell me who you are, what you make, and when you'd like to launch. I answer within a day.</p>
-    <div class="h-mail">
-      <a class="h-mail-address" href={`mailto:${site.email}?subject=${encodeURIComponent('A website for me')}`}>{site.email}</a>
+  <section class="n-section n-contact" id="contact" aria-labelledby="contact-title">
+    <h2 class="n-title" id="contact-title">Start a project</h2>
+    <p class="n-lead">Tell me who you are, what you make, and when you'd like to launch. I answer within a day.</p>
+    <div class="n-mail">
+      <a class="n-address" href={`mailto:${site.email}?subject=${encodeURIComponent('A website for me')}`}>{site.email}</a>
       <button type="button" class="btn" id="copy-email" data-email={site.email}>Copy email</button>
     </div>
-    <p class="h-copied" id="copied" aria-live="polite"></p>
+    <p class="n-copied" id="copied" aria-live="polite"></p>
     <p>Prefer messages? <a href={site.links.find((l) => l.label === 'Instagram')?.href}>Send me a DM on Instagram</a>.</p>
   </section>
 </Base>
 
 <script>
+  import { poses, practice, blendLag, breathe, drawFine } from '../lib/yogi';
+  import { nowAt, skyAt, nextSun, formatHour } from '../lib/sky';
+  import { here } from '../site';
+
+  const el = (id: string) => document.getElementById(id)!;
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   // Copy the address, for anyone whose computer has no mail app set up.
-  const button = document.getElementById('copy-email') as HTMLButtonElement;
-  const note = document.getElementById('copied')!;
+  const button = el('copy-email') as HTMLButtonElement;
   button.addEventListener('click', async () => {
     try {
       await navigator.clipboard.writeText(button.dataset.email!);
-      note.textContent = 'Copied. Paste it into any email.';
+      el('copied').textContent = 'Copied. Paste it into any email.';
     } catch {
-      note.textContent = `Couldn't copy. The address is ${button.dataset.email}.`;
+      el('copied').textContent = `Couldn't copy. The address is ${button.dataset.email}.`;
     }
+  });
+
+  // The sky follows the real hour in Scottsdale: how many stars show, the color on the horizon
+  // and the color of the disc.
+  const hero = document.querySelector<HTMLElement>('.n-hero')!;
+  const canvas = el('stars') as HTMLCanvasElement;
+  let starShare = 1;
+  const paintStars = () => {
+    const ratio = Math.min(devicePixelRatio || 1, 2);
+    const w = hero.clientWidth;
+    const h = hero.clientHeight;
+    canvas.width = w * ratio;
+    canvas.height = h * ratio;
+    const ctx = canvas.getContext('2d')!;
+    ctx.scale(ratio, ratio);
+    // The same stars every time: a small seeded generator.
+    let seed = 1257;
+    const rand = () => ((seed = (seed * 16807) % 2147483647) - 1) / 2147483646;
+    const count = Math.round((w * h) / 5200);
+    for (let i = 0; i < count; i++) {
+      const x = rand() * w;
+      const y = rand() ** 1.5 * h * 0.92;
+      const size = 0.4 + rand() ** 3 * 1.5;
+      const bright = (0.25 + rand() * 0.75) * starShare;
+      ctx.fillStyle = `rgb(234 223 200 / ${bright.toFixed(2)})`;
+      ctx.beginPath();
+      ctx.arc(x, y, size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  };
+  const paintSky = () => {
+    const now = nowAt(here);
+    const sky = skyAt(now.hour, now.day, here, now.offset);
+    const day = sky.phase === 'morning' || sky.phase === 'midday' || sky.phase === 'afternoon';
+    const edge = sky.phase === 'dawn' || sky.phase === 'dusk';
+    starShare = day ? 0.45 : edge ? 0.7 : 1;
+    hero.style.setProperty('--glow', day ? 'rgb(255 122 89 / 0.2)' : edge ? 'rgb(255 122 89 / 0.42)' : 'rgb(74 92 190 / 0.3)');
+    hero.style.setProperty('--disc-a', day ? '#ffb07a' : edge ? '#ff9a6b' : '#f3ead6');
+    hero.style.setProperty('--disc-b', day ? '#ff7a59' : edge ? '#f0603f' : '#cdbf9f');
+    const clock = formatHour(now.hour);
+    const sun = nextSun(now.hour, now.day, here, now.offset);
+    const hours = Math.floor(sun.in);
+    const mins = Math.round((sun.in - hours) * 60);
+    const away = hours ? `${hours} h ${mins} min` : `${mins} min`;
+    el('now').textContent = `${clock.time} ${clock.half} in Scottsdale. ${sun.event} in ${away}.`;
+    paintStars();
+  };
+  paintSky();
+  setInterval(paintSky, 60_000);
+  let resizeTimer = 0;
+  addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = window.setTimeout(paintStars, 150);
+  });
+
+  // The practice. Each pose is a set of joint angles; a move runs every joint on its own slightly
+  // late clock so the body travels in a wave, and a held pose breathes. The near hand leaves a
+  // short trail while it moves.
+  const look = { near: '#090c24', far: '#4a4470', torso: '#1b1f4d', arm: '#2c2f63' };
+  const yogi = el('yogi');
+  const trail = el('trail');
+  const MOVE = 1500; // ms for one move
+  const BREATH = 4200; // ms for one full breath
+  let series = 0;
+  let index = 0;
+  let playing = !calm;
+  let phase: 'move' | 'hold' = 'hold';
+  let since = performance.now();
+  let from = poses.samasthiti;
+  const steps = () => practice[series].steps;
+  const marks: { x: number; y: number; at: number }[] = [];
+
+  const label = () => {
+    el('series').textContent = practice[series].series;
+    el('pose-name').textContent = steps()[index].name;
+    el('pose-label').textContent = `A figure practising Ashtanga yoga in ${steps()[index].name}, in front of a large disc on the horizon`;
+  };
+  const go = (to: number) => {
+    from = current;
+    index = (to + steps().length) % steps().length;
+    phase = 'move';
+    since = performance.now();
+    label();
+  };
+  let current = poses.samasthiti;
+  const paint = (time: number) => {
+    const target = poses[steps()[index].pose];
+    const breath = Math.sin(((time % BREATH) / BREATH) * Math.PI * 2);
+    if (phase === 'move') {
+      const k = Math.min(1, (time - since) / MOVE);
+      current = blendLag(from, target, k);
+      if (k >= 1) {
+        phase = 'hold';
+        since = time;
+      }
+    } else {
+      current = breathe(target, breath);
+      if (playing && time - since > steps()[index].hold * 1000 + 600) go(index + 1);
+    }
+    const drawn = drawFine(current, look);
+    yogi.innerHTML = drawn.svg;
+    // The trail, in the scene's own coordinates (the figure is mirrored and scaled).
+    if (phase === 'move') marks.push({ x: 260 - drawn.hand[0] * 1.72, y: 408 + drawn.hand[1] * 1.72, at: time });
+    while (marks.length && time - marks[0].at > 900) marks.shift();
+    trail.setAttribute('d', marks.length > 1 ? 'M' + marks.map((m) => `${m.x.toFixed(1)} ${m.y.toFixed(1)}`).join('L') : '');
+    el('breath').style.setProperty('--breath', ((breath + 1) / 2).toFixed(3));
+    el('breath-word').textContent = Math.cos(((time % BREATH) / BREATH) * Math.PI * 2) > 0 ? 'Breathing in' : 'Breathing out';
+  };
+  const tick = (time: number) => {
+    paint(time);
+    requestAnimationFrame(tick);
+  };
+  label();
+  if (calm) {
+    // Reduced motion: no loop. Each press of "Next pose" shows the next pose, still.
+    yogi.innerHTML = drawFine(current, look).svg;
+    el('play').hidden = true;
+    el('breath').hidden = true;
+  } else requestAnimationFrame(tick);
+
+  const still = () => {
+    current = poses[steps()[index].pose];
+    yogi.innerHTML = drawFine(current, look).svg;
+  };
+  el('play').addEventListener('click', () => {
+    playing = !playing;
+    el('play').setAttribute('aria-pressed', String(playing));
+    el('play').textContent = playing ? 'Pause' : 'Play';
+    since = performance.now();
+  });
+  el('next').addEventListener('click', () => {
+    go(index + 1);
+    if (calm) still();
+  });
+  el('swap').addEventListener('click', () => {
+    series = 1 - series;
+    el('swap').textContent = series ? 'Primary series' : 'Second series';
+    go(0);
+    if (calm) still();
   });
 </script>
 
 <style>
-  /* Brand: paper 60, ink 30, wall yellow 10 (always with an ink border). Archivo only. Flat. */
-  .h-hero {
+  .n-hero {
+    --glow: rgb(74 92 190 / 0.3);
+    --disc-a: #f3ead6;
+    --disc-b: #cdbf9f;
+    position: relative;
     display: grid;
-    grid-template-columns: minmax(0, 1.25fr) minmax(16rem, 1fr);
-    gap: clamp(2rem, 5vw, 4rem);
-    align-items: center;
-    padding: clamp(2.5rem, 6vw, 4.5rem) var(--edge) clamp(3rem, 6vw, 5rem);
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    align-items: end;
+    gap: clamp(1.5rem, 4vw, 4rem);
+    min-height: min(52rem, calc(100svh - 4.5rem));
+    padding: clamp(2.5rem, 6vw, 5rem) var(--edge) 0;
+    overflow: hidden;
+    isolation: isolate;
+    background: linear-gradient(#090d27, var(--night) 55%, #171d4a);
   }
-  .h-name {
-    margin: 0;
-    font-family: var(--display);
-    font-weight: 800;
-    font-stretch: 125%;
-    font-size: clamp(3rem, 8.5vw, 6.5rem);
-    line-height: 0.92;
-    letter-spacing: -0.02em;
-  }
-  .h-offer { margin: 1.25rem 0 0; max-width: 30rem; font-family: var(--display); font-weight: 700; font-size: clamp(1.3rem, 2.4vw, 1.7rem); line-height: 1.2; }
-  .h-line { margin: 1rem 0 0; max-width: 36rem; font-size: 1.1rem; line-height: 1.55; }
-  .h-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.75rem; }
-  .h-street { margin: 1.25rem 0 0; font-size: 0.98rem; }
-  .h-street a, .h-section a:not(.btn):not(.h-card-link) { color: inherit; text-decoration-thickness: 2px; text-underline-offset: 0.2em; }
+  .n-stars, .n-glow, .n-ridge { position: absolute; left: 0; width: 100%; z-index: -1; pointer-events: none; }
+  .n-stars { top: 0; height: 100%; }
+  .n-glow { bottom: 0; height: 55%; background: radial-gradient(120% 100% at 68% 100%, var(--glow), transparent 70%); }
+  .n-ridge { bottom: 0; height: clamp(4rem, 11vw, 9rem); fill: #080b22; }
+
+  .n-words { align-self: center; padding-bottom: clamp(3rem, 8vw, 7rem); }
+  .n-now { margin: 0; color: var(--muted); font-size: 0.95rem; font-variant-numeric: tabular-nums; }
+  .n-name { margin: 0.9rem 0 0; font-size: clamp(3.4rem, 8.4vw, 7.5rem); line-height: 0.95; letter-spacing: -0.02em; }
+  .n-offer { margin: 1.4rem 0 0; max-width: 30rem; font-family: var(--display); font-size: clamp(1.4rem, 2.3vw, 1.9rem); line-height: 1.25; }
+  .n-line { margin: 1rem 0 0; max-width: 33rem; color: var(--muted); line-height: 1.6; }
+  .n-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; }
 
   .btn {
     display: inline-flex;
     align-items: center;
-    min-height: 2.9rem;
-    padding: 0.6rem 1.3rem;
-    border: 2px solid var(--ink);
+    min-height: 3rem;
+    padding: 0.6rem 1.35rem;
+    border: 1px solid var(--ink);
     background: transparent;
     color: var(--ink);
-    font: 800 1rem var(--display);
+    font: 600 1rem var(--reading);
     text-decoration: none;
     cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
   }
-  .btn:hover { background: var(--ink); color: var(--paper); }
-  .btn-primary { background: var(--yellow); }
-  .btn-primary:hover { background: var(--ink); color: var(--yellow); }
-  .btn:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+  .btn:hover { background: var(--ink); color: var(--night); }
+  .btn-primary { background: var(--coral); border-color: var(--coral); color: var(--night); }
+  .btn-primary:hover { background: var(--ink); border-color: var(--ink); }
 
-  .h-photos { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: start; }
-  .h-photo { margin: 0; border: 2px solid var(--ink); background: var(--ink); }
-  .h-photo :global(img) { display: block; width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; }
-  .h-photo-b { margin-top: 3rem; }
+  .n-stage { position: relative; margin: 0; align-self: end; display: flex; flex-direction: column-reverse; }
+  .n-scene { display: block; width: 100%; height: auto; max-height: min(40rem, 64svh); overflow: visible; }
+  .n-halo { fill: var(--disc-b); opacity: 0.1; }
+  .n-trail { fill: none; stroke: var(--coral); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; opacity: 0.9; }
+  .n-mesa { fill: #080b22; }
+  .n-mat { stroke: var(--coral); stroke-width: 3; stroke-linecap: round; }
+  .n-caption { display: grid; grid-template-columns: 1fr auto; gap: 0.4rem 1.5rem; align-items: end; margin-bottom: 1.25rem; }
+  .n-breath { grid-column: 1; }
+  .n-controls { grid-column: 2; grid-row: 1 / span 2; }
+  .n-pose { margin: 0; display: grid; }
+  .n-pose span { color: var(--muted); font-size: 0.9rem; }
+  .n-pose strong { font-family: var(--display); font-style: italic; font-weight: 500; font-size: clamp(1.3rem, 2.2vw, 1.8rem); line-height: 1.15; }
+  .n-breath { --breath: 0; margin: 0; display: flex; align-items: center; gap: 0.6rem; color: var(--muted); font-size: 0.9rem; }
+  .n-breath i { width: 0.7rem; height: 0.7rem; border-radius: 50%; background: var(--coral); scale: calc(0.55 + var(--breath) * 0.75); }
+  .n-controls { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.3rem; }
+  .n-key { min-height: 2.75rem; padding: 0.35rem 0.85rem; border: 1px solid var(--rule); background: rgb(13 18 48 / 0.6); color: var(--ink); font: 500 0.9rem var(--reading); cursor: pointer; }
+  .n-key:hover { border-color: var(--ink); }
 
-  .h-section { padding: clamp(3rem, 7vw, 5rem) var(--edge); border-top: 2px solid var(--ink); }
-  .h-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.5rem 2rem; max-width: 76rem; }
-  .h-head a { font-family: var(--display); font-weight: 700; }
-  .h-title { margin: 0; font-family: var(--display); font-weight: 800; font-stretch: 118%; font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1; letter-spacing: -0.015em; }
-  .h-lead { max-width: 40rem; font-size: clamp(1.15rem, 2vw, 1.35rem); line-height: 1.45; }
+  .n-section { padding: clamp(3.5rem, 8vw, 6.5rem) var(--edge); border-top: 1px solid var(--rule); }
+  .n-hero + .n-section { border-top: 0; background: linear-gradient(#080b22, var(--night) 12rem); }
+  .n-section a:not(.btn):not(.n-card) { color: inherit; text-underline-offset: 0.22em; text-decoration-color: var(--coral); }
+  .n-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.5rem 2rem; max-width: 78rem; }
+  .n-title { margin: 0; font-size: clamp(2.4rem, 5vw, 3.9rem); line-height: 1; }
+  .n-lead { max-width: 38rem; font-size: clamp(1.2rem, 2vw, 1.45rem); line-height: 1.45; }
 
-  .h-work { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 76rem; margin: 2rem 0 0; padding: 0; list-style: none; }
-  .h-card-link { display: grid; gap: 0.35rem; color: var(--ink); text-decoration: none; }
-  .h-card-link img { display: block; width: 100%; height: auto; border: 2px solid var(--ink); margin-bottom: 0.6rem; }
-  .h-card-kind { font-family: var(--display); font-weight: 700; font-size: 0.9rem; }
-  .h-card-name { font-family: var(--display); font-weight: 800; font-stretch: 112%; font-size: 1.4rem; line-height: 1.1; }
-  .h-card-line { line-height: 1.45; }
-  .h-card-link:hover .h-card-name { text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 0.18em; }
-  .h-card-link:hover img { border-color: var(--ink); outline: 3px solid var(--yellow); }
-  .h-card-link:focus-visible { outline: 3px solid var(--ink); outline-offset: 4px; }
+  .n-work { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.25rem, 2.5vw, 2rem); max-width: 78rem; margin: 2.5rem 0 0; padding: 0; list-style: none; }
+  .n-card { display: grid; gap: 0.3rem; color: var(--ink); text-decoration: none; }
+  .n-card img { display: block; width: 100%; height: auto; margin-bottom: 0.8rem; border: 1px solid var(--rule); transition: border-color 0.2s; }
+  .n-card:hover img { border-color: var(--coral); }
+  .n-kind { color: var(--muted); font-size: 0.92rem; }
+  .n-card-name { font-family: var(--display); font-size: 1.7rem; line-height: 1.1; }
+  .n-card-line { color: var(--muted); line-height: 1.55; }
 
-  .h-ink { background: var(--ink); color: var(--paper); border-top-color: var(--ink); }
-  .h-ink .h-head a { color: var(--paper); }
-  .h-services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 76rem; margin: 2rem 0 0; padding: 0; list-style: none; }
-  .h-service { padding: 1.5rem; border: 2px solid rgb(243 241 236 / 0.35); }
-  .h-service:first-child { border-color: var(--yellow); }
-  .h-service h3 { margin: 0; font-family: var(--display); font-weight: 800; font-size: 1.25rem; }
-  .h-price { margin: 0.5rem 0 0; font-family: var(--display); font-weight: 800; font-stretch: 112%; font-size: 1.9rem; line-height: 1.1; }
-  .h-service:first-child .h-price { color: var(--yellow); }
-  .h-time { margin: 0.25rem 0 0; opacity: 0.85; }
-  .h-service ul { margin: 1rem 0 0; padding: 0 0 0 1.1rem; display: grid; gap: 0.4rem; line-height: 1.45; }
+  .n-gallery { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.7fr); gap: clamp(1.5rem, 4vw, 3.5rem); align-items: start; max-width: 78rem; margin-top: clamp(3rem, 6vw, 5rem); padding-top: clamp(2rem, 4vw, 3rem); border-top: 1px solid var(--rule); }
+  .n-gallery h3 { margin: 0; font-size: clamp(1.6rem, 2.8vw, 2.2rem); line-height: 1.1; }
+  .n-gallery-words p { margin: 1rem 0 1.5rem; color: var(--muted); line-height: 1.6; }
+  .n-six { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 0; padding: 0; list-style: none; }
+  .n-six a { display: grid; gap: 0.15rem; text-decoration: none; }
+  .n-six img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; margin-bottom: 0.45rem; border: 1px solid var(--rule); transition: border-color 0.2s; }
+  .n-six a:hover img { border-color: var(--coral); }
+  .n-six-name { font-weight: 600; }
+  .n-six-what { color: var(--muted); font-size: 0.92rem; }
 
-  .h-about { display: grid; grid-template-columns: minmax(12rem, 1fr) minmax(0, 2.2fr); gap: 2rem; }
-  .h-about-words p { margin: 0 0 1rem; max-width: 40rem; line-height: 1.6; }
-  .h-about-words .h-lead { margin-top: 0; }
+  .n-panel { background: var(--panel); }
+  .n-services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem 3rem; max-width: 78rem; margin: 2.5rem 0 0; padding: 0; list-style: none; }
+  .n-service { padding-top: 1.25rem; border-top: 1px solid var(--rule); }
+  .n-service:first-child { border-top-color: var(--coral); }
+  .n-service h3 { margin: 0; font-family: var(--reading); font-weight: 600; font-size: 1.05rem; letter-spacing: 0; }
+  .n-price { margin: 0.5rem 0 0; font-family: var(--display); font-size: clamp(1.9rem, 3vw, 2.5rem); line-height: 1.1; font-variant-numeric: lining-nums; }
+  .n-time { margin: 0.25rem 0 0; color: var(--muted); }
+  .n-service ul { margin: 1.1rem 0 0; padding: 0 0 0 1.1rem; display: grid; gap: 0.4rem; line-height: 1.5; }
 
-  .h-contact { background: var(--yellow); }
-  .h-contact p { max-width: 40rem; }
-  .h-mail { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.25rem; margin: 1.5rem 0 0; }
-  .h-mail-address { font-family: var(--display); font-weight: 800; font-stretch: 112%; font-size: clamp(1.4rem, 4vw, 2.4rem); line-height: 1.1; overflow-wrap: anywhere; }
-  .h-copied { min-height: 1.5rem; margin: 0.5rem 0 0; font-weight: 600; }
-  .h-contact .btn:hover { background: var(--ink); color: var(--yellow); }
+  .n-about { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(16rem, 1fr); gap: clamp(2rem, 6vw, 5rem); align-items: start; }
+  .n-about-words p { margin: 0 0 1rem; max-width: 38rem; line-height: 1.65; }
+  .n-about-words .n-lead { margin-top: 1.5rem; }
+  .n-about-words p:not(.n-lead) { color: var(--muted); }
+  .n-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: start; }
+  .n-photo { margin: 0; border: 1px solid var(--rule); }
+  .n-photo :global(img) { display: block; width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; }
+  .n-photo-low { margin-top: 3rem; }
 
-  @media (max-width: 820px) {
-    .h-hero { grid-template-columns: 1fr; }
-    .h-photos { max-width: 26rem; }
-    .h-work, .h-services { grid-template-columns: 1fr; }
-    .h-about { grid-template-columns: 1fr; gap: 1rem; }
+  .n-contact p { max-width: 38rem; }
+  .n-contact .n-lead { margin: 1.25rem 0 0; }
+  .n-mail { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.5rem; margin: 2rem 0 0; }
+  .n-address { font-family: var(--display); font-size: clamp(1.6rem, 4.4vw, 3rem); line-height: 1.1; overflow-wrap: anywhere; }
+  .n-copied { min-height: 1.5rem; margin: 0.5rem 0 0; color: var(--muted); }
+
+  @media (max-width: 900px) {
+    .n-hero { grid-template-columns: 1fr; min-height: 0; }
+    .n-words { padding-bottom: 0; }
+    .n-caption { grid-template-columns: 1fr; }
+    .n-controls { grid-column: 1; grid-row: auto; }
+    .n-work, .n-services { grid-template-columns: 1fr; }
+    .n-gallery, .n-about { grid-template-columns: 1fr; }
+    .n-six { grid-template-columns: repeat(2, 1fr); }
+    .n-photos { max-width: 26rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .btn, .n-card img, .n-six img { transition: none; }
   }
 </style>
