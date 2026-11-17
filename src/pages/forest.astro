@@ -1,20 +1,21 @@
 ---
-// The forest page: Maui's site dressed exactly like his chosen artwork, an ink-drawn forest with
+// The forest page: Maui's site dressed exactly like his forest artwork, drawn as SVG code, an ink-drawn forest with
 // hatched clouds and coral trunks. The artwork opens the page full-screen; everything after it
 // is set like a comic's panels and caption boxes, in the artwork's own colors.
 // Palette sampled from the art: forest #1b8044, deep #162a20, cloud #dbe9e1, sky #48c1e0,
 // coral #e29488, ink #141e28. One serif, Newsreader.
 import '@fontsource-variable/newsreader/opsz.css';
 import '@fontsource-variable/newsreader/opsz-italic.css';
-import { Image, getImage } from 'astro:assets';
+import { Image } from 'astro:assets';
 import { site } from '../site';
 import { work } from '../data/work';
-import forest from '../assets/art/forest.png';
 import yellowWall from '../assets/photos/yellow-wall.jpg';
 import crow from '../assets/photos/crow.jpg';
 
-// One optimized copy of the art for the panel crops further down the page.
-const art = await getImage({ src: forest, format: 'webp', width: 1237, quality: 82 });
+// The artwork as vector code: public/art/forest.svg, traced from Maui's forest painting in two
+// layers (flat color shapes, then the ink lines on top). Used whole in the opening and cropped
+// between sections.
+const art = '/art/forest.svg';
 
 const services = [
   { name: 'Website', price: 'From $3,500', time: 'Two to three weeks', what: ['A design made for you, sketched before any code', 'Built by hand, fast on phones and desktops', 'Launched on your domain and handed over'] },
@@ -35,11 +36,11 @@ const insta = site.links.find((l) => l.label === 'Instagram')?.href;
     <meta name="robots" content="noindex" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
-  <body class="fr" style={`--art: url(${art.src})`}>
+  <body class="fr" style={`--art: url(${art})`}>
     <a class="skip" href="#work">Skip to the work</a>
 
     <header class="fr-hero">
-      <Image class="fr-art" src={forest} alt="" widths={[640, 960, 1237]} sizes="100vw" loading="eager" fetchpriority="high" />
+      <img class="fr-art" src={art} alt="" width="1224" height="851" fetchpriority="high" />
       <nav class="fr-nav" aria-label="Main">
         <a class="fr-mark" href="/forest">{site.name}</a>
         <ul role="list">
