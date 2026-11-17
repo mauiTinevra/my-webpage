@@ -14,46 +14,17 @@ import { work } from '../../data/work';
     <p class="w-lede">Websites for restaurants, studios and shops. Each project, what it needed, and what I did about it.</p>
   </header>
   {
-    work.filter((w) => !w.ai).map((w) => (
+    work.map((w) => (
       <article class="w-case" id={w.id} aria-labelledby={`${w.id}-title`}>
         <a class="w-shot" href={w.links[0].href}>
           <img src={w.image} alt={w.alt} width="1200" height="750" loading="lazy" />
         </a>
         <div class="w-words">
-          <p class="w-kind">{w.kind}</p>
+          <p class="w-kind">{w.ai ? `${w.kind}, built with AI agents from my brief` : w.kind}</p>
           <h2 class="w-name" id={`${w.id}-title`}>{w.name}</h2>
-          <h3>The problem</h3>
+          <h3>{w.ai ? 'The brief' : 'The problem'}</h3>
           <p>{w.problem}</p>
-          <h3>What I did</h3>
-          <ul>
-            {w.did.map((d) => (
-              <li>{d}</li>
-            ))}
-          </ul>
-          <p class="w-result">{w.result}</p>
-          <p class="w-links">
-            {w.links.map((l, i) => (
-              <a class={i === 0 ? 'btn btn-primary' : 'btn'} href={l.href}>
-                {l.label}
-              </a>
-            ))}
-          </p>
-        </div>
-      </article>
-    ))
-  }
-  {
-    work.filter((w) => w.ai).map((w) => (
-      <article class="w-case" id={w.id} aria-labelledby={`${w.id}-title`}>
-        <a class="w-shot" href={w.links[0].href}>
-          <img src={w.image} alt={w.alt} width="1200" height="750" loading="lazy" />
-        </a>
-        <div class="w-words">
-          <p class="w-kind">{w.kind}, built with AI agents from my brief</p>
-          <h2 class="w-name" id={`${w.id}-title`}>{w.name}</h2>
-          <h3>The brief</h3>
-          <p>{w.problem}</p>
-          <h3>What was built</h3>
+          <h3>{w.ai ? 'What was built' : 'What I did'}</h3>
           <ul>
             {w.did.map((d) => (
               <li>{d}</li>
