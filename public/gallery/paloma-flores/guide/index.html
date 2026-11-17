@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How Paloma Flores was made</title>
+<meta name="description" content="The brief, palette, typefaces, technique and critique log behind the Paloma Flores concept site.">
+<link rel="stylesheet" href="../css/site.css">
+<style>
+  .guide { max-width: 1000px; padding-block: 24px 88px; }
+  .guide h1 { font-size: clamp(2.5rem, 5vw, 4.2rem); margin: 18px 0 20px; }
+  .guide h2 { font-size: clamp(1.9rem, 3.2vw, 2.6rem); color: var(--leaf-dark); margin: 64px 0 18px; }
+  .guide h3 { font-size: 1.5rem; color: var(--leaf-dark); margin: 0 0 6px; }
+  .guide p, .guide li { max-width: 40em; }
+  .guide .lede { margin-top: 0; }
+  .back { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; }
+  .chips { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 22px; margin-top: 8px; }
+  .chip i { display: block; position: relative; height: 96px; margin-bottom: 12px; }
+  .chip i::before, .chip i::after { content: ""; position: absolute; inset: 0; background: var(--c); clip-path: polygon(0 3%, 38% 0, 100% 4%, 98% 97%, 52% 100%, 2% 96%); }
+  .chip i::after { z-index: -1; background: rgba(22, 48, 31, .26); transform: translate(5px, 6px); }
+  .chip { isolation: isolate; }
+  .chip b { display: block; font: 400 1.4rem/1.1 var(--serif); color: var(--leaf-dark); }
+  .chip span { font-size: .9375rem; }
+  .faces { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px 48px; }
+  .face-serif { font: 400 3.4rem/1 var(--serif); color: var(--leaf-dark); margin: 0 0 8px; }
+  .face-sans { font: 500 2.4rem/1.1 var(--sans); color: var(--leaf-dark); margin: 0 0 8px; }
+  .demo { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 24px 48px; align-items: center; margin-top: 24px; }
+  .demo .stepper { max-width: 200px; margin-top: 14px; }
+  pre { margin: 22px 0; padding: 22px 24px; background: var(--leaf-dark); color: var(--butter-light); font: 400 .875rem/1.6 ui-monospace, "SF Mono", Menlo, Consolas, monospace; overflow-x: auto; max-width: 100%; clip-path: polygon(0 6px, 40% 0, 100% 8px, 100% 100%, 55% calc(100% - 5px), 0 100%); }
+  pre:focus-visible { clip-path: none; }
+  .log { counter-reset: pass; display: grid; gap: 0; margin-top: 8px; }
+  .log li { display: grid; grid-template-columns: 54px minmax(0, 1fr); gap: 0 14px; padding: 18px 0; border-top: 2px dotted #cdb866; max-width: none; }
+  .log li::before { counter-increment: pass; content: counter(pass); display: grid; place-items: center; width: 42px; height: 42px; background: var(--leaf); color: var(--butter-light); font: 700 1.1rem/1 var(--sans); clip-path: polygon(50% 0, 82% 9%, 100% 40%, 94% 76%, 66% 100%, 30% 96%, 4% 72%, 0 34%, 20% 8%); }
+  .log p { margin: 0 0 .5em; }
+  .limit-note { position: relative; isolation: isolate; padding: 24px 28px; max-width: 44em; }
+  .limit-note::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--butter-light); clip-path: polygon(0 4%, 45% 0, 100% 5%, 99% 96%, 50% 100%, 1% 95%); }
+  .limit-note p:last-child { margin: 0; }
+  @media (max-width: 700px) { .demo { grid-template-columns: 1fr; } .demo-art { max-width: 260px; } }
+</style>
+</head>
+<body>
+<p class="concept-bar">An imaginary business. A concept site by <a href="../../">Maui Tinevra</a>.</p>
+<header class="masthead wrap guide" style="padding-bottom:0">
+  <a class="wordmark" href="../index.html" aria-label="Paloma Flores, back to the site">
+    <svg class="dove" viewBox="0 0 64 48" aria-hidden="true" focusable="false"><path d="M4 22 18 14 30 20 44 30 60 34 46 42 26 42 14 36Z" fill="#e8452c"/><path d="M24 22 30 4 42 2 48 14 44 30Z" fill="#2d5a3d"/><path d="M4 22 0 26 8 25Z" fill="#2d5a3d"/></svg>
+    <span>Paloma Flores</span>
+  </a>
+  <a class="back" href="../index.html">Back to the site</a>
+</header>
+
+<main class="wrap guide">
+  <h1>How this was made</h1>
+  <p class="lede">Paloma Flores is an imaginary florist in the Melrose district of Phoenix, and a customer comes to its site to order a bouquet for pickup or delivery today. The brief asked for a cut-paper collage and for one thing to prove: a product builder that is also the order form.</p>
+
+  <h2>Palette</h2>
+  <p>Butter carries about sixty percent of the page, leaf green thirty, and poppy is kept for the one button that places the order and a few small marks. Cornflower blue appears only inside the drawings. The lighter and deeper papers are tints of the same three colors.</p>
+  <div class="chips">
+    <div class="chip"><i style="--c:#f6e9b8"></i><b>Butter</b><span>#f6e9b8, the page</span></div>
+    <div class="chip"><i style="--c:#2d5a3d"></i><b>Leaf green</b><span>#2d5a3d, sheets and type</span></div>
+    <div class="chip"><i style="--c:#e8452c"></i><b>Poppy</b><span>#e8452c, the accent</span></div>
+    <div class="chip"><i style="--c:#5b7fd6"></i><b>Cornflower</b><span>#5b7fd6, drawings only</span></div>
+  </div>
+  <p style="margin-top:22px">Body text is #1f3d2b on butter at 9.8 to 1. Butter text on leaf green is 7.1 to 1. White on poppy is 3.8 to 1, so poppy only ever sits behind bold text of 19 pixels or more.</p>
+
+  <h2>Typefaces</h2>
+  <div class="faces">
+    <div><p class="face-serif">Poppies by noon</p><h3>DM Serif Display</h3><p>Headlines, prices and names. One weight, with its italic used once, for the aside under the flower bar.</p></div>
+    <div><p class="face-sans">$4 a stem</p><h3>DM Sans</h3><p>Everything you read or press. One variable file covers the 400 to 700 weights. Both faces are self-hosted from Fontsource, Latin subset only.</p></div>
+  </div>
+
+  <h2>The bouquet builder</h2>
+  <p>There are no image files on the site. Each flower is a few straight-edged polygons written out by JavaScript, with every corner nudged by a seeded random number generator. The seed is the stem's own number, so two poppies are never cut quite the same, yet each one looks identical every time it is redrawn. Shadows are a hard offset with no blur, applied to an unrotated wrapper so they all fall the same way however far a stem leans.</p>
+  <div class="demo">
+    <div class="demo-art" id="demo-art"></div>
+    <div>
+      <h3>Try it here</h3>
+      <p>This is the same function the shop page uses. Add poppies and watch where the fan puts them.</p>
+      <div class="stepper">
+        <button type="button" id="demo-minus" aria-label="Remove a poppy"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 8.6 16 8.9 15.8 11.3 4.2 11.2Z"/></svg></button>
+        <output class="qty" id="demo-qty" aria-label="Stems in the demo vase">7</output>
+        <button type="button" id="demo-plus" aria-label="Add a poppy"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M8.7 4 11.2 4.2 11.1 8.8 16 8.9 15.8 11.3 11.2 11.2 11.3 16 8.8 15.8 8.9 11.2 4 11.1 4.2 8.7 8.8 8.8Z"/></svg></button>
+      </div>
+    </div>
+  </div>
+  <p style="margin-top:28px">The arrangement is a small layout function. It sorts the stems tallest first, deals them into one, two or three rows, and gives the middle of each row to the tallest stems left. Each stem then gets a lean and a depth. Outer and front stems sit deeper in the vase, which is what makes the dome.</p>
+<pre tabindex="0"><code>sizes.forEach(function (m, row) {
+  var half = Math.min(54, 8.5 * (m - 1)) + row * 3.5;   // how wide this row fans, in degrees
+  var step = m > 1 ? (2 * half) / (m - 1) : 0;
+  var slots = [];
+  for (var j = 0; j &lt; m; j++) slots.push(m > 1 ? -half + step * j : 0);
+  // middle slots first, so the tallest of the row stand in the centre
+  slots.sort(function (p, q) { return Math.abs(p) - Math.abs(q) || p - q; });
+  for (var k = 0; k &lt; m; k++) {
+    var s = sorted[at++], ang = slots[k];
+    var edge = Math.abs(ang) / Math.max(half, 24);
+    out.push({ id: s.id, type: s.type, row: row,
+      angle: ang + (hash(s.id, 2) - 0.5) * 9,
+      sink: row * 23 + 20 * edge * edge + hash(s.id, 3) * 12 });
+  }
+});</code></pre>
+  <p>Every stem is drawn upright and then placed with one CSS transform: move to the mouth of the vase, rotate by the lean, slide down by the depth. When the bunch changes, each stem that was already there animates from its old transform to its new one with the Web Animations API, on an easing curve that overshoots a little. The new stem drops in from above. A removed stem is lifted out. With reduced motion switched on, stems simply appear in place.</p>
+  <p>The same list of stems feeds the price, the size name, the order slip and the confirmation, so the builder and the order form cannot disagree. Pickup times and delivery windows are worked out from the clock in Phoenix against the shop's hours. The bouquet is kept in session storage, so a reload does not empty the vase.</p>
+
+  <h2>Three critique passes</h2>
+  <ol class="log">
+    <li><div><h3>First pass</h3><p>Found: stalks in the stem cards ran straight through the names and prices. With twenty stems, the hidden ends of the stalks poked out through the sides of the vase, and the front row of flowers was buried behind the wrap. The arch behind the vase was lopsided. A font preload threw a console error when the page was opened from disk. On a phone the navigation took two rows.</p><p>Fixed: cropped the card drawings, clipped stems at the rim of the vase, lowered the wrap and made the rows sit closer, redrew the arch on an ellipse, removed the preload, trimmed the phone navigation.</p><p>Upgrade: the wrap paper now grows with the bunch, so a posy and an armful both look properly wrapped.</p></div></li>
+    <li><div><h3>Second pass</h3><p>Found: the flower bar buckets leaned and were too small for their column. The hero snapdragon was cut off at the left edge. The form's phone label wrapped to two lines and pushed its field out of line. The delivery confirmation said "this afternoon" for a noon window. One daily bouquet repeated its stem count in two places.</p><p>Fixed: rebuilt the buckets upright and larger, re-angled the hero stems, shortened the label, rewrote both lines of copy.</p><p>Upgrade: removing a stem now lifts it out of the vase along its own lean, where before it just vanished.</p></div></li>
+    <li><div><h3>Third pass</h3><p>Found: the phone number, email and credit links were under 44 pixels tall. Placeholder text was 4.2 to 1 against its field. Hero stalks reappeared below the paper strip meant to finish them. A heavy focus box sat around the confirmation headline.</p><p>Fixed: raised every link to 44 pixels, darkened the placeholder to 5.5 to 1, extended the strip, and dropped the outline on headings that only receive focus from the script.</p><p>Upgrade: pointing at a stem card, or tabbing into it, lifts that kind of flower in the vase so you can see which ones are yours to remove.</p></div></li>
+  </ol>
+
+  <h2>One honest limitation</h2>
+  <div class="limit-note">
+    <p>The order goes nowhere. The form checks what you typed and builds a confirmation on the page, but there is no server, no payment and no email. A real shop would also need live stock, so that the builder stops offering snapdragons when the bucket is empty.</p>
+    <p>The fan is a rule of thumb and not a physics model. It stops at twenty stems because beyond that the heads overlap more than they should.</p>
+  </div>
+
+  <p style="margin-top:48px"><a class="btn btn-green" href="../index.html#bouquet">Back to the bouquet builder</a></p>
+</main>
+
+<footer class="foot">
+  <p class="wrap credit" style="margin-top:0"><a href="../../">Concept by Maui Tinevra</a><a href="../index.html">Paloma Flores, the site</a></p>
+</footer>
+
+<script src="../js/paper.js"></script>
+<script>
+(function () {
+  var n = 7, P = window.Paloma, mix = ['poppy', 'poppy', 'cornflower', 'poppy', 'eucalyptus', 'poppy', 'snapdragon'];
+  function draw() {
+    var list = [];
+    for (var i = 0; i < n; i++) list.push(i < mix.length ? mix[i] : 'poppy');
+    document.getElementById('demo-art').innerHTML = P.still(list, 'kraft', { seed: 500, label: 'A demo vase holding ' + n + ' stems' });
+    document.getElementById('demo-qty').textContent = n;
+    document.getElementById('demo-minus').disabled = n <= 1;
+    document.getElementById('demo-plus').disabled = n >= 20;
+  }
+  document.getElementById('demo-minus').addEventListener('click', function () { n--; draw(); if (n <= 1) document.getElementById('demo-plus').focus(); });
+  document.getElementById('demo-plus').addEventListener('click', function () { n++; draw(); if (n >= 20) document.getElementById('demo-minus').focus(); });
+  draw();
+})();
+</script>
+</body>
+</html>

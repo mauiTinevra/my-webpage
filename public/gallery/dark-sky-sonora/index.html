@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dark Sky Sonora. Stargazing tours north of Scottsdale</title>
+<meta name="description" content="Small-group night sky tours with telescopes in the desert north of Scottsdale, Arizona. See tonight's sky, worked out for tonight, and book a seat.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<p class="concept-bar">An imaginary business. A concept site by <a href="../">Maui Tinevra</a>.</p>
+<a class="skip" href="#main">Skip to tonight's sky</a>
+
+<header class="masthead">
+  <a class="wordmark" href="#top" aria-label="Dark Sky Sonora, top of page">
+    <svg viewBox="0 0 40 40" width="34" height="34" aria-hidden="true">
+      <circle cx="20" cy="20" r="18.5" fill="none" stroke="currentColor" stroke-width="1"/>
+      <path d="M1.5 20h37M20 1.5v37" stroke="currentColor" stroke-width=".6" opacity=".45"/>
+      <circle cx="20" cy="20" r="9.5" fill="none" stroke="currentColor" stroke-width=".6" opacity=".45"/>
+      <circle cx="13" cy="12.5" r="1.7" fill="currentColor"/><circle cx="27.5" cy="16" r="1.1" fill="currentColor"/>
+      <circle cx="24" cy="28" r="1.3" fill="currentColor"/><circle cx="11" cy="25.5" r=".9" fill="currentColor"/>
+      <circle cx="29.5" cy="26" r="2.6" class="lamp-dot"/>
+    </svg>
+    <span>Dark Sky Sonora</span>
+  </a>
+  <nav aria-label="Sections">
+    <a href="#sky">Tonight's sky</a>
+    <a href="#week">This week</a>
+    <a href="#tours">Tours</a>
+    <a href="#book">Book</a>
+    <a href="#find">Find us</a>
+  </nav>
+  <button type="button" class="lamp" id="lamp" aria-pressed="false" title="Turn the page red, the way we light our charts at the telescope">
+    <span class="lamp-bulb" aria-hidden="true"></span>Red lamp
+  </button>
+</header>
+
+<main id="main">
+<div id="top" class="hero wrap">
+  <div class="hero-text">
+    <p class="logline" id="logline">Observing log, Scottsdale, Arizona. 33.49° N, 111.93° W.</p>
+    <h1>Night sky tours in the desert north of Scottsdale.</h1>
+    <p class="lede">Eight guests, two guides and three telescopes, on a gravel lot far enough out that the Milky Way still shows.</p>
+
+    <section class="tonight" aria-labelledby="tonight-h">
+      <h2 id="tonight-h" class="tonight-label">Is tonight good?</h2>
+      <p class="verdict" id="verdict">Working out tonight's sun and moon.</p>
+      <p class="verdict-note" id="verdict-note"></p>
+      <div class="cta-row">
+        <a class="btn" href="#book" id="book-tonight">Book a seat for tonight</a>
+        <a class="textlink" href="#week">Or pick another night this week</a>
+      </div>
+      <dl class="facts" id="facts"></dl>
+    </section>
+    <noscript><p class="verdict-note">The sky chart needs JavaScript. To ask about tonight, call 480-555-0142 between 10 AM and 4 PM.</p></noscript>
+  </div>
+
+  <section class="sky" id="sky" aria-labelledby="sky-h">
+    <div class="sky-head">
+      <h2 id="sky-h">Tonight's sky, computed</h2>
+      <button type="button" class="chip" id="back-tonight" hidden>Back to tonight</button>
+    </div>
+    <figure class="chart">
+      <div class="chart-frame" id="chart-frame">
+        <canvas id="chart" role="img" aria-label="Chart of the whole sky over Scottsdale for the chosen hour.">
+          A chart of the whole sky over Scottsdale. The table below lists what is above the horizon at the chosen hour.
+        </canvas>
+      </div>
+      <figcaption>The whole sky from our lot, as you see it lying on your back with your head to the north. The middle is straight up and the rim is the horizon. Point at a star to name it.</figcaption>
+    </figure>
+
+    <div class="scrub">
+      <div class="scrub-top">
+        <label for="hour">Hour of the night</label>
+        <output id="clock" for="hour">--:--</output>
+      </div>
+      <div class="scrub-track">
+        <div class="nightbar" id="scrub-bar" aria-hidden="true"></div>
+        <div class="ticks" id="ticks" aria-hidden="true"></div>
+        <input type="range" id="hour" min="0" max="160" step="1" value="0">
+      </div>
+      <div class="scrub-ends"><span id="end-a" aria-hidden="true">sunset</span><span id="end-b" aria-hidden="true">sunrise</span></div>
+      <div class="jumps"><div class="jump-set" id="jumps" role="group" aria-label="Jump to a moment"></div><button type="button" class="chip chip-play" id="play" aria-pressed="false">Turn the sky</button></div>
+      <dl class="readout" id="readout"></dl>
+    </div>
+  </section>
+<section class="upnow" aria-labelledby="up-h">
+  <div class="upnow-head">
+    <h2 id="up-h">Above the horizon at <span id="up-time">this hour</span></h2>
+    <p>The same sky as the chart, in words. It follows the slider.</p>
+  </div>
+  <div class="table-scroll">
+    <table id="up-table">
+      <thead><tr><th scope="col">Object</th><th scope="col">What it is</th><th scope="col">Look</th><th scope="col" class="num">Height</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</section>
+</div>
+
+<section class="week wrap" id="week" aria-labelledby="week-h">
+  <div class="sec-head">
+    <h2 id="week-h">The week ahead</h2>
+    <p>Each night's sun and moon, worked out the same way as the chart. On the bars, bone is twilight or moonlight and the dotted stretches are proper dark. We cannot see cloud from a web page. If the sky is closing we text you by 3 PM, and you pick another night or take a refund.</p>
+  </div>
+  <div class="week-axis" aria-hidden="true"><span></span><div class="axis" id="week-axis"></div></div>
+  <ol class="nights" id="nights"></ol>
+  <p class="week-note" id="week-note" hidden></p>
+</section>
+
+<div class="page">
+<section class="tours wrap" id="tours" aria-labelledby="tours-h">
+  <div class="sec-head">
+    <h2 id="tours-h">Two tours, and the moon decides which</h2>
+    <p>Eight guests at most, two guides, three telescopes. We meet forty minutes after sunset so your eyes adjust while the sky finishes going dark.</p>
+  </div>
+  <div class="tour-list">
+    <article class="tour">
+      <svg class="tour-glyph" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="21" fill="none" stroke="currentColor"/><path d="M32 11a21 21 0 0 1 0 42a9 21 0 0 0 0-42z" fill="currentColor"/><circle cx="55" cy="14" r="2" fill="currentColor"/><ellipse cx="55" cy="14" rx="6" ry="1.8" fill="none" stroke="currentColor" stroke-width=".8" transform="rotate(-20 55 14)"/></svg>
+      <h3>Moon and planets</h3>
+      <p class="tour-data">2 hours <span>$65 a seat</span></p>
+      <p>Runs when the moon is up in the evening. Craters along the shadow line, Saturn's rings, and double stars that split into two colors. Fine for children from 7 up.</p>
+    </article>
+    <article class="tour">
+      <svg class="tour-glyph" viewBox="0 0 64 64" aria-hidden="true"><ellipse cx="32" cy="32" rx="25" ry="9" fill="none" stroke="currentColor" transform="rotate(-28 32 32)"/><ellipse cx="32" cy="32" rx="15" ry="5" fill="none" stroke="currentColor" stroke-width=".7" transform="rotate(-28 32 32)"/><circle cx="32" cy="32" r="3" fill="currentColor"/><circle cx="10" cy="14" r="1.2" fill="currentColor"/><circle cx="52" cy="50" r="1" fill="currentColor"/><circle cx="50" cy="12" r=".8" fill="currentColor"/><circle cx="14" cy="50" r=".8" fill="currentColor"/></svg>
+      <h3>Deep sky</h3>
+      <p class="tour-data">3 hours <span>$95 a seat</span></p>
+      <p>Runs when the evening is moonless. The Andromeda galaxy, star clusters, and from late autumn the Orion nebula once it clears the hills. Ages 10 and up. It gets cold and it runs late.</p>
+    </article>
+    <article class="tour">
+      <svg class="tour-glyph" viewBox="0 0 64 64" aria-hidden="true"><path d="M6 46h52" stroke="currentColor" fill="none"/><path d="M14 46a18 18 0 0 1 36 0" fill="none" stroke="currentColor"/><path d="M32 28l14-16" stroke="currentColor" stroke-width="5" fill="none"/><path d="M32 46V30" stroke="currentColor" fill="none"/><circle cx="52" cy="8" r="1.4" fill="currentColor"/></svg>
+      <h3>The whole night, private</h3>
+      <p class="tour-data">Up to 6 people <span>$720</span></p>
+      <p>Dusk until you have had enough, on any night we are free. Write to us and we will find the darkest date near yours.</p>
+    </article>
+  </div>
+
+  <div class="kit">
+    <div>
+      <h3>What we bring</h3>
+      <ul>
+        <li>A 16-inch reflector on a rocker base. We call her Abuela.</li>
+        <li>Two 8-inch reflectors that anyone can steer.</li>
+        <li>Binoculars on tripods, camp chairs and wool blankets.</li>
+        <li>Hot chocolate, and a red torch for every guest.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>What you bring</h3>
+      <ul>
+        <li>Closed shoes. The lot is gravel and the cholla is close.</li>
+        <li>One more layer than seems sensible. November nights out here drop into the 40s.</li>
+        <li>Water, and patience for the first twenty minutes.</li>
+        <li>No white lights. Turn your phone screen right down.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Who takes you</h3>
+      <p>Inez Varela taught high school physics for eleven years and has kept a log of this sky since 2016. Every tour has a second guide, so there is always someone at each telescope.</p>
+      <p>Phoenix glows low in the south, and we do not pretend otherwise. Overhead and to the north it is properly dark.</p>
+    </div>
+  </div>
+</section>
+
+<section class="book wrap" id="book" aria-labelledby="book-h">
+  <div class="sec-head">
+    <h2 id="book-h">Book a seat</h2>
+    <p>Holding a seat costs nothing. You pay at the lot, by card or cash, once you can see stars.</p>
+  </div>
+  <div class="book-grid">
+    <form id="form" novalidate>
+      <div class="field">
+        <label for="f-night">Which night</label>
+        <select id="f-night" name="night"></select>
+      </div>
+      <div class="field">
+        <span class="label" id="seats-l">Seats</span>
+        <div class="stepper" role="group" aria-labelledby="seats-l">
+          <button type="button" id="less" aria-label="One seat fewer">&minus;</button>
+          <output id="seats" aria-live="polite">2</output>
+          <button type="button" id="more" aria-label="One seat more">+</button>
+        </div>
+        <p class="hint" id="seats-hint"></p>
+      </div>
+      <div class="field">
+        <label for="f-name">Your name</label>
+        <input id="f-name" name="name" type="text" autocomplete="name" aria-describedby="e-name">
+        <p class="err" id="e-name" hidden>Add a name so we know who to look for at the lot.</p>
+      </div>
+      <div class="field">
+        <label for="f-phone">Mobile number</label>
+        <input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" aria-describedby="e-phone h-phone">
+        <p class="hint" id="h-phone">Only for the 3 PM weather text on the day.</p>
+        <p class="err" id="e-phone" hidden>Add a mobile number with at least 10 digits.</p>
+      </div>
+      <p class="summary" id="summary" aria-live="polite"></p>
+      <button class="btn btn-ink" type="submit">Hold my seats</button>
+    </form>
+    <div class="slip" id="slip" hidden tabindex="-1" aria-live="polite"></div>
+    <aside class="book-side">
+      <h3>Good to know</h3>
+      <ul>
+        <li>Tours run Tuesday to Sunday. Mondays the telescopes get cleaned.</li>
+        <li>Change or cancel up to noon on the day, no charge.</li>
+        <li>Cloud is our problem. If we call it off you get a new night or your money back.</li>
+        <li>The lot is flat and both small telescopes work from a seated position. Tell us what you need.</li>
+      </ul>
+    </aside>
+  </div>
+</section>
+</div>
+
+<section class="find wrap" id="find" aria-labelledby="find-h">
+  <div class="sec-head">
+    <h2 id="find-h">Find us</h2>
+  </div>
+  <div class="find-grid">
+    <div>
+      <h3>Where we meet</h3>
+      <p>Cholla Tank staging lot, at the north end of Sidewinder Wash Road in the Rio Verde Foothills. About 35 minutes from Old Town Scottsdale.</p>
+      <p>The last two miles are graded dirt. Any car manages it slowly. Park facing out and switch off your headlights when you see the red lamps.</p>
+    </div>
+    <div>
+      <h3>Reach us</h3>
+      <p><a href="tel:+14805550142">480-555-0142</a><br>Calls and texts, 10 AM to 4 PM</p>
+      <p><a href="mailto:inez@darkskysonora.example">inez@darkskysonora.example</a></p>
+    </div>
+    <div>
+      <h3>When we run</h3>
+      <p>Tuesday to Sunday, meeting forty minutes after sunset. Closed Mondays, and for the monsoon weeks from mid-July to the end of August.</p>
+    </div>
+    <svg class="route" viewBox="0 0 300 150" role="img" aria-label="Sketch map: Scottsdale at the bottom, the meeting lot 35 minutes to the north-east, past the end of the paved road.">
+      <path d="M40 128C70 120 96 112 120 92S170 62 196 52" fill="none" stroke="currentColor" stroke-width="1.2"/>
+      <path d="M196 52C214 45 232 40 252 28" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="2 5"/>
+      <circle cx="40" cy="128" r="4" fill="none" stroke="currentColor"/>
+      <circle cx="252" cy="28" r="5" class="lamp-dot"/>
+      <path d="M196 46v12" stroke="currentColor"/>
+      <text x="52" y="142">Old Town Scottsdale</text>
+      <text x="170" y="84">pavement ends</text>
+      <text x="196" y="18">Cholla Tank lot</text>
+      <path d="M278 122v-24m-5 7l5-7 5 7" fill="none" stroke="currentColor"/><text x="273" y="138">N</text>
+    </svg>
+  </div>
+</section>
+</main>
+
+<footer class="foot wrap">
+  <nav aria-label="Site map" class="sitemap">
+    <div><h2>Tonight</h2><a href="#top">Is tonight good</a><a href="#sky">The sky chart</a><a href="#week">The week ahead</a></div>
+    <div><h2>Tours</h2><a href="#tours">Moon and planets</a><a href="#tours">Deep sky</a><a href="#tours">Private nights</a></div>
+    <div><h2>Visit</h2><a href="#book">Book a seat</a><a href="#find">Where we meet</a><a href="tel:+14805550142">480-555-0142</a></div>
+  </nav>
+  <p class="colophon"><a href="../">Concept by Maui Tinevra</a><a href="guide/index.html">How this was made</a></p>
+</footer>
+
+<script src="astro.js"></script>
+<script src="stars.js"></script>
+<script src="site.js"></script>
+</body>
+</html>

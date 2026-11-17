@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How Camelback Barber was made</title>
+<meta name="description" content="The brief, palette, typefaces, the chair board technique and the three critique passes behind the Camelback Barber concept site.">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  .g-head{padding:clamp(2rem,5vw,3.5rem) 0 clamp(1.5rem,3vw,2.5rem)}
+  .g-back{display:inline-flex;align-items:center;min-height:44px;font-weight:600}
+  .g-head h1{font:400 clamp(2.2rem,6vw,4rem)/1 var(--sign);color:var(--ox);margin:.4rem 0 .8rem;text-wrap:balance}
+  .g-head p{max-width:60ch;font-size:1.125rem}
+  .g{padding-block:clamp(2rem,5vw,3.5rem)}
+  .g .wrap,.g-head.wrap{max-width:860px}
+  .type+p{margin-top:1.25rem}
+  .g section{margin-bottom:clamp(2.25rem,5vw,3.5rem)}
+  .g h2{font-size:clamp(1.5rem,3.2vw,2rem);padding-bottom:.6rem;border-bottom:1px solid var(--ox);box-shadow:0 5px 0 -4px var(--brass);margin-bottom:1.1rem}
+  .g p,.g li{max-width:66ch}
+  .g p+p{margin-top:.8rem}
+  .swatches{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.75rem;margin-bottom:1rem}
+  .sw{border-radius:12px;padding:3.2rem .8rem .7rem;font-size:.875rem;font-weight:600;line-height:1.35;box-shadow:inset 0 0 0 1.5px var(--ox)}
+  .sw b{display:block;font:400 1.05rem var(--sign)}
+  .type{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.5rem;margin-top:1.5rem}
+  .type .big{font:400 2.6rem/1 var(--sign);color:var(--ox)}
+  .type .big2{font:600 2.2rem/1.1 var(--body);color:var(--ox)}
+  pre{margin:1.1rem 0;padding:1.1rem 1.2rem;background:var(--ox);color:var(--cream);border-radius:14px;overflow-x:auto;font:500 .8125rem/1.6 ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;box-shadow:inset 0 0 0 4px var(--ox),inset 0 0 0 5px var(--brass);tab-size:2}
+  pre:focus-visible{outline-offset:4px}
+  code{font-family:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;font-size:.9em}
+  .try{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1rem}
+  .passes{counter-reset:p}
+  .passes li{counter-increment:p;position:relative;padding:0 0 1.4rem 3.2rem}
+  .passes li::before{content:counter(p);position:absolute;left:0;top:0;display:grid;place-items:center;width:2.1rem;height:2.1rem;border-radius:50%;background:var(--ox);color:var(--cream);font:400 1.05rem var(--sign);box-shadow:inset 0 0 0 2px var(--ox),inset 0 0 0 3.5px var(--brass)}
+  .passes strong{color:var(--ox)}
+  @media (max-width:600px){.swatches{grid-template-columns:repeat(2,minmax(0,1fr))}.type{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<p class="concept-bar">An imaginary business. A concept site by <a href="../../">Maui Tinevra</a>.</p>
+
+<header class="g-head wrap">
+  <a class="g-back" href="../index.html">Back to Camelback Barber</a>
+  <h1>How this was made</h1>
+  <p>The brief: a four-chair barbershop near Camelback Road where a customer can see the next open chair and book it. The site had to look like an enamel shop sign over a tiled floor, and prove a complete booking flow with real time logic and no server.</p>
+</header>
+
+<div class="floor" aria-hidden="true"></div>
+
+<main class="g">
+<div class="wrap">
+
+<section aria-labelledby="g-pal">
+  <h2 id="g-pal">Palette and type</h2>
+  <div class="swatches">
+    <div class="sw" style="background:#f4efe3;color:#2b1c1b"><b>Cream enamel</b>#f4efe3, about 60 percent. Text on it reads at 14.2 to 1.</div>
+    <div class="sw" style="background:#6b1f2a;color:#f4efe3"><b>Oxblood</b>#6b1f2a, about 30 percent. Cream on it reads at 9.9 to 1.</div>
+    <div class="sw" style="background:#c79a3b;color:#1a1614"><b>Brass</b>#c79a3b, about 10 percent. Pinstripes, screws, the open lamp. Never text on cream.</div>
+    <div class="sw" style="background:conic-gradient(#1a1614 25%,#f4efe3 0 50%,#1a1614 0 75%,#f4efe3 0) 0 0/28px 28px;padding:0;overflow:hidden"><div style="background:#f4efe3;color:#2b1c1b;margin-top:3.2rem;padding:.6rem .8rem .7rem"><b>Floor</b>Black #1a1614 and cream, in the tile band only.</div></div>
+  </div>
+  <p>Brass on cream is only 2.3 to 1, so brass never carries words on the cream ground. Where gold lettering was wanted, on the sign and the price board, a lighter brass sits on oxblood at 6.5 to 1. Chair status is always written out, so color is never the only signal.</p>
+  <div class="type">
+    <div><p class="big">Alfa Slab One</p><p>The sign face. One weight, so hierarchy comes from size and from a stepped brass block shade built out of six stacked text shadows.</p></div>
+    <div><p class="big2">Work Sans</p><p>Everything else, as one variable font file. Figures are set tabular so times line up down the board.</p></div>
+  </div>
+  <p>Both are self-hosted Latin subsets from the Fontsource packages. The barber pole, the sign, the screws with their chipped enamel, the checkerboard and the ticket stub are CSS. The chairs, tools and map are SVG written by hand.</p>
+</section>
+
+<section aria-labelledby="g-sig">
+  <h2 id="g-sig">The chair board</h2>
+  <p>Three small pieces do the work. First, the clock. The page never trusts the visitor's own time zone. It asks <code>Intl.DateTimeFormat</code> for the wall-clock parts of the present moment in <code>America/Phoenix</code> and reduces them to a calendar day and minutes after midnight. Phoenix does not move its clocks in summer, and the browser's zone data already knows that.</p>
+<pre tabindex="0" aria-label="Code: reading Phoenix time"><code>var partsFmt = new Intl.DateTimeFormat('en-US', {
+  timeZone: 'America/Phoenix', hourCycle: 'h23',
+  year: 'numeric', month: 'numeric', day: 'numeric',
+  hour: 'numeric', minute: 'numeric'
+});
+
+function phoenixNow() {
+  var p = wallParts(new Date(Date.now() + skew));
+  var key = dayKey(p.year, p.month, p.day);      // "2026-11-19"
+  return { key: key, mins: p.hour * 60 + p.minute, dow: dowOf(key) };
+}</code></pre>
+  <p>Second, the invented schedule. Each barber has shifts and a lunch. Other customers' appointments come from a small seeded random generator, and the seed is the date plus the chair number. A given Thursday therefore looks the same on every load, which is what lets a saved booking survive a reload without ever landing on top of somebody else.</p>
+  <p>Third, the status. For each chair the page walks that day's taken blocks and names what is happening this minute.</p>
+<pre tabindex="0" aria-label="Code: working out a chair's status"><code>for (var i = 0; i &lt; busy.length; i++) {
+  var x = busy[i];
+  if (now.mins &gt;= x.s &amp;&amp; now.mins &lt; x.e) {
+    if (x.type === 'lunch') return { kind: 'away', line: 'At lunch until ' + clock(x.e) };
+    if (x.type === 'mine')  return { kind: 'busy', line: 'Your cut, until ' + clock(x.e) };
+    return { kind: 'busy', line: 'Cutting until ' + clock(x.e) };
+  }
+  if (x.s &gt; now.mins &amp;&amp; !upcoming) upcoming = x;
+}
+var until = upcoming ? upcoming.s : plan.shift[1];
+// Less than a quarter of an hour is not an open chair, it is a barber sweeping up.
+if (until - now.mins &lt; 15) return { kind: 'away', line: 'Setting up for the ' + clock(until) };
+return { kind: 'open', line: 'Open now, until ' + clock(until) };</code></pre>
+  <p>Open times are every start on the 20-minute grid where the chosen service fits between taken blocks, plus one off-grid start a few minutes from now when a chair is empty this minute. The board re-reads the clock on each minute and when the tab comes back into view, and it re-checks the chosen time at the moment of booking. When the shop is closed the chairs say so, the first screen names the next opening, and the day picker starts on the next open day.</p>
+  <p>The booking is one small object in <code>sessionStorage</code>, wrapped in try and catch so a browser that blocks storage still books for the life of the page. Change reopens the same form with the old time freed and marked. Cancel asks once, then gives the time back. Every control is a real button or radio input, results are announced through a live region, and focus moves to the ticket when it prints.</p>
+  <p>Because the shop is closed for much of the day, the address accepts a pretend time. These open the site at three moments:</p>
+  <p class="try">
+    <a class="btn btn-small" href="../index.html?at=2026-11-19T15:22">A busy Thursday, 3:22 PM</a>
+    <a class="btn btn-ghost btn-small" href="../index.html?at=2026-11-18T13:10">Wednesday lunch, 1:10 PM</a>
+    <a class="btn btn-ghost btn-small" href="../index.html?at=2026-11-22T21:10">Closed, Sunday night</a>
+  </p>
+</section>
+
+<section aria-labelledby="g-pass">
+  <h2 id="g-pass">Three critique passes</h2>
+  <ol class="passes">
+    <li><strong>Pass one found broken basics.</strong> The word "Camelback" ran off the right edge of the sign on desktop, a font preload threw a console error when the page was opened from disk, the service buttons were uneven heights, and the invented schedule was so full that a fade had one opening all afternoon. A chair could read "open now" while its first bookable time was two hours off. Fixed: the sign lettering is sized from the sign's own width with a container query, the preload is gone, the schedule is lighter, and an empty chair now offers a start a few minutes from now. Upgrade: the sign lettering got a proper stepped block shade in place of a single offset shadow.</li>
+    <li><strong>Pass two looked at the flow in use.</strong> After booking, the board still said "Pick a chair". The chair holding your booking said it was "setting up" for a stranger. Changing a booking stacked two notices saying the same thing. On a phone the day picker ran off the side and the barber cards were two cramped columns. Fixed: the heading becomes "The shop right now", your chair says "Ready for you", repeated messages go to a screen-reader-only region, days sit in a three-column grid, and barbers stack with their tool beside them. Upgrade: a day strip under each chair shows taken time, lunch and a brass tick for now, so the status line has something to point at.</li>
+    <li><strong>Pass three was about finish.</strong> The price board had ruled lines that ended at different heights in each column and left the word "minutes" alone on a line. The map label sat on top of a street name. Two links were shorter than 44 pixels. Fixed: prices use dotted leaders and balanced descriptions, the label moved onto its own block with a leader line, and the links grew. Upgrade: the screws on both signs got chipped enamel around them, black steel with a rust edge, drawn with one irregular radial gradient each.</li>
+  </ol>
+</section>
+
+<section aria-labelledby="g-lim">
+  <h2 id="g-lim">One honest limitation</h2>
+  <p>Nothing leaves the browser. The other customers are generated, and your booking lives in one tab's session storage, so two visitors could both book Tino at 4:00 and neither would know. A real shop needs a small server that owns the calendar, confirms a slot only once, and sends a text reminder. The time logic, the flow and the ticket would carry over as they are.</p>
+  <p>The brief asked for the guide link to point at the folder. It points at <code>guide/index.html</code> instead, so it also works when the site is opened straight from disk.</p>
+  <p class="try"><a class="btn" href="../index.html#board">Back to the chair board</a></p>
+</section>
+
+</div>
+</main>
+
+<div class="floor" aria-hidden="true"></div>
+<footer class="foot">
+  <p class="colophon wrap" style="margin-top:0;border-top:0;padding-top:0"><a href="../index.html">Camelback Barber</a> <span aria-hidden="true">&middot;</span> <a href="../../">Concept by Maui Tinevra</a></p>
+</footer>
+</body>
+</html>

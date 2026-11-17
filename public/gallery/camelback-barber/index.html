@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Camelback Barber. Four chairs near Camelback Road, Phoenix</title>
+<meta name="description" content="A four-chair barbershop one block south of Camelback Road in Phoenix. See which chair is open right now and book it.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<p class="concept-bar">An imaginary business. A concept site by <a href="../">Maui Tinevra</a>.</p>
+
+<a class="skip" href="#board">Skip to the chair board</a>
+
+<svg width="0" height="0" class="defs" aria-hidden="true" focusable="false">
+  <defs>
+    <pattern id="cape-stripes" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(18)">
+      <rect width="7" height="7" fill="#f4efe3"/>
+      <rect width="1.6" height="7" fill="#6b1f2a" opacity=".55"/>
+    </pattern>
+  </defs>
+</svg>
+
+<header class="hero" id="top">
+  <nav class="topnav" aria-label="Sections">
+    <a href="#board">Chair board</a>
+    <a href="#prices">Prices</a>
+    <a href="#barbers">Barbers</a>
+    <a href="#visit">Hours and map</a>
+  </nav>
+
+  <div class="hero-grid">
+    <div class="signwrap">
+      <div class="pole" id="pole" aria-hidden="true">
+        <span class="pole-ball"></span>
+        <span class="pole-cap"></span>
+        <span class="pole-glass"><span class="pole-stripes"></span></span>
+        <span class="pole-cap"></span>
+        <span class="pole-foot"></span>
+      </div>
+      <div class="sign">
+        <span class="screw s1"></span><span class="screw s2"></span><span class="screw s3"></span><span class="screw s4"></span>
+        <p class="sign-over">Est. 2009 <span aria-hidden="true">&middot;</span> Phoenix, Arizona</p>
+        <h1><span>Camelback</span> <span class="h1-b">Barber</span></h1>
+        <p class="sign-under">Four chairs. Walk in or book.</p>
+      </div>
+    </div>
+
+    <div class="today">
+      <p class="where">5012 N 12th Street, Phoenix. One block south of Camelback Road, next to the tile shop.</p>
+      <p class="shopstate" id="shopstate"><span class="lamp" aria-hidden="true"></span><span id="shopstate-text">Tuesday to Friday 9 to 7, Saturday 8 to 4</span></p>
+      <div class="nextchair">
+        <p class="nextchair-label">Next open chair</p>
+        <p class="nextchair-main" id="next-main">See the board</p>
+        <p class="nextchair-sub" id="next-sub">Four chairs, updated by the minute.</p>
+      </div>
+      <p class="hero-actions">
+        <a class="btn" href="#board" id="hero-book">Book this chair</a>
+        <a class="btn btn-ghost" href="tel:+16025550142">Call 602-555-0142</a>
+      </p>
+      <p class="yours" id="hero-yours" hidden></p>
+    </div>
+  </div>
+</header>
+
+<div class="floor" aria-hidden="true"></div>
+
+<main>
+
+<section class="board" id="board" aria-labelledby="board-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="board-h">The chair board</h2>
+      <p class="clock" id="clock">Times on this page are Phoenix time.</p>
+    </div>
+    <p class="lede">Four chairs, seen from above, as they are right now. The strip under each one is that barber's day: dark is taken, light is yours to book. Pay at the shop when you are done.</p>
+
+    <noscript><p class="notice">The live board needs JavaScript. Call 602-555-0142 and we will put you in a chair.</p></noscript>
+
+    <div id="ticket-zone" class="ticket-zone" hidden></div>
+    <p id="live" class="live" role="status" aria-live="polite"></p>
+    <p id="live-quiet" class="vh" role="status" aria-live="polite"></p>
+
+    <div id="flow" class="flow">
+      <div id="changing" class="changing" hidden></div>
+
+      <section class="step" aria-labelledby="s1-h">
+        <h3 id="s1-h"><span class="num" aria-hidden="true">1</span>What are you getting</h3>
+        <div class="services" id="services" role="radiogroup" aria-labelledby="s1-h"></div>
+      </section>
+
+      <section class="step" aria-labelledby="s2-h">
+        <div class="step-row">
+          <h3 id="s2-h"><span class="num" id="s2-n" aria-hidden="true">2</span><span id="s2-t">Pick a chair</span></h3>
+          <button type="button" class="btn btn-small" id="first-open">Take the first open chair</button>
+        </div>
+        <div class="chairs" id="chairs" role="group" aria-labelledby="s2-h"></div>
+      </section>
+
+      <section class="step" aria-labelledby="s3-h">
+        <h3 id="s3-h"><span class="num" aria-hidden="true">3</span>Pick a time</h3>
+        <div class="days" id="days" role="group" aria-label="Day"></div>
+        <p class="times-note" id="times-note"></p>
+        <div class="times" id="times" role="group" aria-label="Open times"></div>
+      </section>
+
+      <section class="step confirm" aria-labelledby="s4-h">
+        <h3 id="s4-h"><span class="num" aria-hidden="true">4</span>Book it</h3>
+        <p class="summary" id="summary">Pick a service, a chair and a time.</p>
+        <form id="book-form" class="book-form" hidden novalidate>
+          <label for="who">Name for the ticket <span class="opt">(optional)</span></label>
+          <div class="book-row">
+            <input id="who" name="who" type="text" maxlength="24" autocomplete="given-name" placeholder="First name is plenty">
+            <button type="submit" class="btn" id="book-btn">Book it</button>
+          </div>
+          <p class="fine">Nothing is charged here. If you are running late, call and we will hold the chair ten minutes.</p>
+        </form>
+      </section>
+    </div>
+  </div>
+</section>
+
+<section class="prices" id="prices" aria-labelledby="prices-h">
+  <div class="wrap">
+    <div class="priceboard">
+      <span class="screw s1"></span><span class="screw s2"></span><span class="screw s3"></span><span class="screw s4"></span>
+      <h2 id="prices-h">Prices</h2>
+      <p class="priceboard-sub">Same price whoever cuts it. Cash or card. Tips are yours to decide.</p>
+      <dl class="pricelist">
+        <div><dt><span>Classic cut</span><small>Scissors or clippers, squared up at the neck. 30 minutes.</small></dt><dd>$32</dd></div>
+        <div><dt><span>Fade</span><small>Skin, low, mid or high, blended by hand. 40 minutes.</small></dt><dd>$38</dd></div>
+        <div><dt><span>Buzz cut</span><small>One guard all over, edges cleaned. 20 minutes.</small></dt><dd>$22</dd></div>
+        <div><dt><span>Cut and beard</span><small>Any cut, plus the beard shaped and lined. 50 minutes.</small></dt><dd>$50</dd></div>
+        <div><dt><span>Beard trim</span><small>Shaped, lined and oiled. 20 minutes.</small></dt><dd>$18</dd></div>
+        <div><dt><span>Hot towel shave</span><small>Straight razor, two towels, nobody rushing. 40 minutes.</small></dt><dd>$36</dd></div>
+        <div><dt><span>Kids' cut</span><small>Twelve and under. There is a booster seat. 20 minutes.</small></dt><dd>$20</dd></div>
+      </dl>
+      <p class="priceboard-foot">Seniors and service members take $5 off any cut, any day.</p>
+    </div>
+  </div>
+</section>
+
+<section class="barbers" id="barbers" aria-labelledby="barbers-h">
+  <div class="wrap">
+    <div class="sec-head"><h2 id="barbers-h">Who is in which chair</h2></div>
+    <ul class="barberlist">
+      <li>
+        <svg viewBox="0 0 72 72" aria-hidden="true" class="tool"><path d="M10 50 L46 14 a6 6 0 0 1 8 8 L20 58 a5.6 5.6 0 0 1 -10 -8z" fill="#f4efe3" stroke="#6b1f2a" stroke-width="2.5" stroke-linejoin="round"/><path d="M46 14 L62 30 L56 50 L38 32z" fill="#c79a3b" stroke="#6b1f2a" stroke-width="2.5" stroke-linejoin="round"/><circle cx="48" cy="20" r="2.4" fill="#6b1f2a"/><path d="M17 51 l22 -22" stroke="#6b1f2a" stroke-width="1.5" stroke-linecap="round" opacity=".5"/></svg>
+        <p class="plate">Chair 1</p>
+        <h3>Odell</h3>
+        <p>Opened the shop in 2009 and still sweeps it. Straight razor work, flat tops and tapers that grow out clean. Will tell you if the cut you asked for is a bad idea.</p>
+        <p class="days-in">Tuesday to Saturday</p>
+      </li>
+      <li>
+        <svg viewBox="0 0 72 72" aria-hidden="true" class="tool"><rect x="24" y="22" width="24" height="42" rx="8" fill="#f4efe3" stroke="#6b1f2a" stroke-width="2.5"/><path d="M22 22 h28 v-8 h-28z" fill="#c79a3b" stroke="#6b1f2a" stroke-width="2.5" stroke-linejoin="round"/><path d="M25 14 v-6 M30 14 v-6 M35 14 v-6 M40 14 v-6 M45 14 v-6" stroke="#6b1f2a" stroke-width="2.5" stroke-linecap="round"/><rect x="31" y="32" width="10" height="16" rx="5" fill="#6b1f2a"/><path d="M36 64 v4" stroke="#6b1f2a" stroke-width="2.5" stroke-linecap="round"/></svg>
+        <p class="plate">Chair 2</p>
+        <h3>Tino</h3>
+        <p>The fade chair. Skin fades, burst fades, crisp line-ups, and a steady hand with a part. Came up cutting his cousins on a porch in Maryvale.</p>
+        <p class="days-in">Tuesday to Saturday</p>
+      </li>
+      <li>
+        <svg viewBox="0 0 72 72" aria-hidden="true" class="tool"><circle cx="20" cy="54" r="9" fill="#f4efe3" stroke="#6b1f2a" stroke-width="2.5"/><circle cx="52" cy="54" r="9" fill="#f4efe3" stroke="#6b1f2a" stroke-width="2.5"/><path d="M25 47 L50 6 M47 47 L22 6" stroke="#6b1f2a" stroke-width="5" stroke-linecap="round"/><path d="M25 47 L50 6 M47 47 L22 6" stroke="#f4efe3" stroke-width="1.2" stroke-linecap="round"/><circle cx="36" cy="29" r="3" fill="#c79a3b" stroke="#6b1f2a" stroke-width="1.5"/></svg>
+        <p class="plate">Chair 3</p>
+        <h3>Marisol</h3>
+        <p>Scissor cuts, longer hair, curls, and the patience for a first haircut. Trained in Tucson, eleven years behind a chair. In from 11 on weekdays.</p>
+        <p class="days-in">Wednesday to Saturday</p>
+      </li>
+      <li>
+        <svg viewBox="0 0 72 72" aria-hidden="true" class="tool"><g transform="rotate(-32 36 36)"><rect x="6" y="24" width="60" height="12" rx="4" fill="#c79a3b" stroke="#6b1f2a" stroke-width="2.5"/><path d="M10 36 v14 M15 36 v14 M20 36 v14 M25 36 v14 M30 36 v14 M35 36 v14 M41 36 v14 M48 36 v14 M55 36 v14 M62 36 v14" stroke="#6b1f2a" stroke-width="2.5" stroke-linecap="round"/></g></svg>
+        <p class="plate">Chair 4</p>
+        <h3>Wes</h3>
+        <p>Beards and kids. Shapes a beard so it suits the face it is on, and has talked more than one four-year-old out of a meltdown. Off on Saturdays for his daughter's soccer.</p>
+        <p class="days-in">Tuesday to Friday</p>
+      </li>
+    </ul>
+
+    <ol class="rules" aria-label="How the shop works">
+      <li><strong>Walk-ins get the first open chair.</strong> If all four are busy, the board shows how long.</li>
+      <li><strong>A booking holds your chair for ten minutes.</strong> After that it goes to whoever is waiting.</li>
+      <li><strong>Bring a photo if you have one.</strong> It beats describing a haircut with your hands.</li>
+    </ol>
+  </div>
+</section>
+
+<section class="visit" id="visit" aria-labelledby="visit-h">
+  <div class="wrap visit-grid">
+    <div>
+      <div class="sec-head"><h2 id="visit-h">Hours and map</h2></div>
+      <table class="hours" id="hours">
+        <caption class="vh">Opening hours, Phoenix time</caption>
+        <tbody>
+          <tr data-dow="1"><th scope="row">Monday</th><td>Closed</td></tr>
+          <tr data-dow="2"><th scope="row">Tuesday</th><td>9:00 AM to 7:00 PM</td></tr>
+          <tr data-dow="3"><th scope="row">Wednesday</th><td>9:00 AM to 7:00 PM</td></tr>
+          <tr data-dow="4"><th scope="row">Thursday</th><td>9:00 AM to 7:00 PM</td></tr>
+          <tr data-dow="5"><th scope="row">Friday</th><td>9:00 AM to 7:00 PM</td></tr>
+          <tr data-dow="6"><th scope="row">Saturday</th><td>8:00 AM to 4:00 PM</td></tr>
+          <tr data-dow="0"><th scope="row">Sunday</th><td>Closed</td></tr>
+        </tbody>
+      </table>
+      <address>
+        <strong>Camelback Barber</strong><br>
+        5012 N 12th Street<br>
+        Phoenix, AZ 85014<br>
+        <a href="tel:+16025550142">602-555-0142</a><br>
+        <a href="mailto:chairs@camelbackbarber.example">chairs@camelbackbarber.example</a>
+      </address>
+      <p class="parking">Six free spaces behind the shop, off the alley. The front door is level with the sidewalk and the first chair lowers for a transfer.</p>
+    </div>
+    <figure class="map">
+      <svg viewBox="0 0 520 400" role="img" aria-labelledby="map-t">
+        <title id="map-t">Map: the shop is on the west side of 12th Street, one block south of Camelback Road, with parking behind off the alley.</title>
+        <rect width="520" height="400" fill="#ebe4d2"/>
+        <g fill="#e1d8c1">
+          <rect x="24" y="24" width="250" height="52" rx="4"/><rect x="346" y="24" width="150" height="52" rx="4"/>
+          <rect x="24" y="148" width="120" height="96" rx="4"/><rect x="346" y="148" width="150" height="96" rx="4"/>
+          <rect x="24" y="292" width="250" height="84" rx="4"/><rect x="346" y="292" width="150" height="84" rx="4"/>
+        </g>
+        <g fill="#f4efe3">
+          <rect x="0" y="88" width="520" height="48"/>
+          <rect x="286" y="0" width="48" height="400"/>
+          <rect x="0" y="256" width="520" height="24"/>
+          <rect x="152" y="136" width="16" height="120"/>
+        </g>
+        <path d="M0 112 H520" stroke="#c79a3b" stroke-width="2" stroke-dasharray="14 10"/>
+        <path d="M310 0 V400" stroke="#c79a3b" stroke-width="2" stroke-dasharray="14 10"/>
+        <rect x="176" y="148" width="98" height="96" rx="4" fill="#e1d8c1"/>
+        <rect x="176" y="170" width="52" height="52" rx="3" fill="none" stroke="#6b1f2a" stroke-width="2" stroke-dasharray="5 5"/>
+        <text x="202" y="203" text-anchor="middle" class="map-p">P</text>
+        <rect x="234" y="170" width="40" height="52" rx="3" fill="#6b1f2a"/>
+        <g transform="translate(254 196)"><rect x="-5" y="-18" width="10" height="36" rx="5" fill="#f4efe3"/><path d="M-5 -10 l10 -6 M-5 0 l10 -6 M-5 10 l10 -6" stroke="#6b1f2a" stroke-width="3"/></g>
+        <path d="M254 222 V304" stroke="#6b1f2a" stroke-width="2"/>
+        <circle cx="254" cy="304" r="3.5" fill="#6b1f2a"/>
+        <text x="244" y="310" text-anchor="end" class="map-shop">Camelback Barber</text>
+        <text x="20" y="106" class="map-road">E Camelback Road</text>
+        <text x="330" y="386" class="map-road" transform="rotate(-90 330 386)">N 12th Street</text>
+        <text x="20" y="251" class="map-small">E Tinaja Lane</text>
+        <text x="163" y="150" class="map-small" transform="rotate(90 163 150)" dx="6">alley</text>
+        <g transform="translate(470 330)"><circle r="22" fill="#f4efe3" stroke="#6b1f2a" stroke-width="2"/><path d="M0 -15 L6 4 L0 0 L-6 4z" fill="#6b1f2a"/><text y="17" text-anchor="middle" class="map-small">N</text></g>
+      </svg>
+      <figcaption>Look for the pole on the west side of 12th Street. Parking is behind, off the alley.</figcaption>
+    </figure>
+  </div>
+</section>
+
+</main>
+
+<div class="floor" aria-hidden="true"></div>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <p class="foot-name">Camelback Barber</p>
+      <p>5012 N 12th Street, Phoenix, AZ 85014<br>602-555-0142</p>
+    </div>
+    <nav aria-label="Sitemap">
+      <p class="foot-h">On this page</p>
+      <ul>
+        <li><a href="#top">Top</a></li>
+        <li><a href="#board">Chair board and booking</a></li>
+        <li><a href="#prices">Prices</a></li>
+        <li><a href="#barbers">Barbers</a></li>
+        <li><a href="#visit">Hours and map</a></li>
+      </ul>
+    </nav>
+    <div>
+      <p class="foot-h">Hours</p>
+      <p>Tuesday to Friday, 9:00 AM to 7:00 PM<br>Saturday, 8:00 AM to 4:00 PM<br>Closed Sunday and Monday</p>
+    </div>
+  </div>
+  <p class="colophon wrap"><a href="../">Concept by Maui Tinevra</a> <span aria-hidden="true">&middot;</span> <a href="guide/index.html">How this was made</a></p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

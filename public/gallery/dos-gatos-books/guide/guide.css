@@ -1,0 +1,41 @@
+/* The guide borrows the site's type and colors (../css/site.css) and adds only what it needs. */
+.g-mast { padding: 1.1rem 0 0; }
+.g-mast .mast-line { margin-bottom: 0; }
+.g-title { border-bottom: 6px solid var(--ink); padding: 1.4rem 0 1.1rem; position: relative; }
+.g-title::after { content: ""; position: absolute; left: 0; right: 0; bottom: -11px; height: 1px; background: var(--ink); }
+.g-title h1 { font-size: clamp(2.6rem, 7vw, 5.6rem); line-height: .96; }
+.g-title p { font-family: var(--display); font-style: italic; font-size: clamp(1.05rem, 1.7vw, 1.4rem); margin-top: .8rem; max-width: 34em; }
+.g-body { display: grid; grid-template-columns: 230px minmax(0, 680px); column-gap: 3rem; padding-block: 3rem 3.5rem; }
+.g-body > section { display: contents; }
+.g-body h2 { grid-column: 1; font-size: 1.55rem; line-height: 1.15; border-top: 1px solid var(--ink); padding-top: .7rem; margin-bottom: 2.6rem; align-self: start; }
+.g-body .g-text { grid-column: 2; border-top: 1px solid var(--ink); padding-top: .8rem; margin-bottom: 2.6rem; min-width: 0; }
+.g-text p + p, .g-text p + ul, .g-text ul + p, .g-text pre + p, .g-text p + pre, .g-text ol + p { margin-top: .9em; }
+.g-text code { font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; font-size: .86em; }
+.g-text pre { background: var(--ink); color: var(--paper); padding: 1.1rem 1.2rem; overflow-x: auto; font-size: .84rem; line-height: 1.55; tab-size: 2; }
+.g-text pre code { font-size: 1em; }
+.swatches { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin: 1rem 0 .4rem; }
+.swatches li { border: 1.5px solid var(--ink); }
+.swatches .chip { height: 84px; border-bottom: 1.5px solid var(--ink); }
+.swatches p { padding: .5rem .7rem .6rem; font-size: .92rem; line-height: 1.35; }
+.swatches strong { display: block; font-family: var(--display); font-size: 1.15rem; }
+.tints { display: flex; height: 26px; margin: 1rem 0 1.1rem; border: 1.5px solid var(--ink); }
+.tints span { flex: 1; }
+.specimen { margin-top: 1rem; border-top: 1px dotted var(--ink); }
+.specimen li { display: grid; grid-template-columns: 9rem minmax(0, 1fr); column-gap: 1rem; align-items: baseline; border-bottom: 1px dotted var(--ink); padding: .7rem 0; }
+.specimen .s-play { font-family: var(--display); font-weight: 900; font-size: 2.2rem; line-height: 1; }
+.specimen .s-ital { font-family: var(--display); font-style: italic; font-size: 1.6rem; line-height: 1.1; }
+.specimen .s-text { font-size: 1.1rem; }
+.passes { counter-reset: pass; }
+.passes li { counter-increment: pass; display: grid; grid-template-columns: 3.2rem minmax(0, 1fr); padding: .9rem 0; border-bottom: 1px dotted var(--ink); }
+.passes li::before { content: counter(pass); font-family: var(--display); font-weight: 900; font-size: 2.6rem; line-height: .9; font-variant-numeric: lining-nums; }
+.passes strong { font-weight: 600; }
+.g-back { margin-top: 1.4rem; }
+@media (max-width: 860px) {
+  .g-body { grid-template-columns: 1fr; padding-block: 2.2rem 2.6rem; }
+  .g-body h2, .g-body .g-text { grid-column: 1; }
+  .g-body h2 { margin-bottom: .6rem; border-top-width: 6px; }
+  .g-body .g-text { border-top: 0; padding-top: 0; }
+  .swatches { grid-template-columns: 1fr; }
+  .swatches .chip { height: 56px; }
+  .specimen li { grid-template-columns: 1fr; row-gap: .2rem; }
+}

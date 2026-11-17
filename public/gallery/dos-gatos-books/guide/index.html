@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How Dos Gatos Books was made</title>
+<meta name="description" content="The brief, palette, typefaces, technique and critique log behind the Dos Gatos Books concept site.">
+<link rel="stylesheet" href="../css/site.css">
+<link rel="stylesheet" href="guide.css">
+</head>
+<body>
+<p class="imaginary">An imaginary business. A concept site by <a href="../../">Maui Tinevra</a>.</p>
+
+<header class="g-mast">
+  <div class="wrap">
+    <p class="mast-line caps"><span>Dos Gatos Books</span><span>The making of</span><span>A concept site</span></p>
+    <div class="g-title">
+      <h1>How this was made</h1>
+      <p>Notes on a bookshop site that is set like a literary quarterly and built around one browsable shelf.</p>
+    </div>
+    <nav class="mast-nav caps" aria-label="Guide">
+      <a href="../index.html">Back to the shop</a>
+      <a href="#brief">Brief</a>
+      <a href="#look">Palette and type</a>
+      <a href="#shelf">The shelf</a>
+      <a href="#passes">Three passes</a>
+      <a href="#limit">One limitation</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap g-body">
+
+  <section id="brief">
+    <h2>The brief</h2>
+    <div class="g-text">
+      <p>Dos Gatos Books is an imaginary used bookshop in downtown Mesa with two cats, a poetry shelf and a Friday reading. A customer comes for three things: the hours, what is on this week, and a way to ask the shop to hold a book.</p>
+      <p>So the first screen answers the first question from the real clock in Arizona time, the week is laid out day by day, and the shelf doubles as the hold form.</p>
+    </div>
+  </section>
+
+  <section id="look">
+    <h2>Palette and typefaces</h2>
+    <div class="g-text">
+      <p>Three colors, split roughly sixty, thirty, ten. Teal is kept for things you can act on or that mark a state: the main button, link underlines, the open dot, the cats’ collars, the hold flag and a minority of spines.</p>
+      <ul class="swatches">
+        <li><div class="chip" style="background:#f2f0ea"></div><p><strong>Newsprint</strong>#f2f0ea, the page</p></li>
+        <li><div class="chip" style="background:#161616"></div><p><strong>Black</strong>#161616, type, rules, the week</p></li>
+        <li><div class="chip" style="background:#1f7a70"></div><p><strong>Cat-collar teal</strong>#1f7a70, the accent</p></li>
+      </ul>
+      <div class="tints" aria-hidden="true">
+        <span style="background:#f8f7f3"></span><span style="background:#e4dfd0"></span><span style="background:#c4c1b7"></span><span style="background:#8f8d85"></span><span style="background:#3a3a37"></span><span style="background:#161616"></span><span style="background:#bcd8d3"></span><span style="background:#1f7a70"></span><span style="background:#0f4a44"></span>
+      </div>
+      <p>The spines use only tints and shades of those three, shown in the strip above. Body text is black on newsprint at about 16 to 1. Teal on newsprint measures 4.52 to 1, so teal is used for button backgrounds and underlines and never for small running text.</p>
+      <ul class="specimen">
+        <li><span class="caps">Playfair Display 900</span><span class="s-play">Dos Gatos</span></li>
+        <li><span class="caps">Playfair Display italic</span><span class="s-ital">Every book in here has already been read once</span></li>
+        <li><span class="caps">Source Serif 4</span><span class="s-text">Poetry kept on the bottom shelf is poetry nobody bends down for.</span></li>
+        <li><span class="caps">Labels</span><span class="caps">Source Serif 4, 600, tracked capitals</span></li>
+      </ul>
+      <p>Both families are the variable Latin files from the Fontsource packages, served from the site’s own <code>fonts/</code> folder. The labels are small capitals set by hand (capitals, reduced and letterspaced) so they look the same whether or not a browser finds true small caps in the subset.</p>
+    </div>
+  </section>
+
+  <section id="shelf">
+    <h2>How the shelf works</h2>
+    <div class="g-text">
+      <p>The forty books live in one plain data file, <code>js/books.js</code>: title, author, section, price, condition, staff note, and a width, height, color and spine style. Every title and author is invented.</p>
+      <p>Each spine is a real <code>&lt;button&gt;</code>. Its size comes from two custom properties and its title runs down the spine with <code>writing-mode: vertical-rl</code>. Pulling a book is nothing more than <code>aria-pressed="true"</code>; the tilt is CSS answering that state.</p>
+<pre><code>.spine {
+  width: calc(var(--w) * var(--k) * 1px);
+  height: calc(var(--h) * 1.2px);
+  writing-mode: vertical-rl;
+  text-orientation: sideways;
+  transform-origin: 100% 100%;
+}
+.spine[aria-pressed="true"] {
+  transform: translateY(-17px) rotate(-6.5deg);
+}</code></pre>
+      <p>Titles vary a lot in length, so after the fonts load a small routine shrinks each title until it fits its spine, then adds the author’s surname only if there is room left under it.</p>
+      <p>The shelf is a toolbar with a roving tab stop: Tab lands on one book, the left and right arrows (and Home and End) walk along the row, Enter or Space pulls. The next Tab goes straight to “Hold this for me”. On a phone the row scrolls sideways inside its own container, the spines are a little wider, and a soft fade shows which way there is more.</p>
+      <p>Tinta, the black cat, is an inline SVG sitting in a layer above the top board. When a book is pulled, the script measures that spine and moves her with a single transform. The walk is a CSS transition whose length depends on the distance, with a small hop while she moves and one flick of the tail when she arrives.</p>
+<pre><code>var x = spine.offsetLeft + 12 + spine.offsetWidth / 2 - TINTA_W / 2;
+// Punto got there first
+if (x &lt; puntoEnd + 2) { x = puntoEnd + 2; blocked = true; }
+var secs = Math.max(0.45, Math.min(1.3, Math.abs(x - prev) / 520));
+tinta.style.transitionDuration = secs + 's';
+tinta.style.setProperty('--x', x + 'px');</code></pre>
+      <p>Punto, the other cat, does not move. If you pull a book underneath him, Tinta sits beside him and the caption says so. With reduced motion switched on, she simply appears in the new place.</p>
+      <p>The hold slip is ordinary state: a list of book ids kept in <code>sessionStorage</code>, so it survives a reload. Handing it over checks for a name, works out a pickup date three days on in Arizona time (skipping Monday, when the shop is shut) and replaces the form with a stamped confirmation that says plainly nothing was sent.</p>
+    </div>
+  </section>
+
+  <section id="passes">
+    <h2>Three critique passes</h2>
+    <div class="g-text">
+      <p>After the first build the page was rendered at 1440 and 390 pixels three times, looked at, and corrected. Each pass ended with one deliberate upgrade.</p>
+      <ol class="passes">
+        <li><div><p><strong>Found:</strong> a font preload threw a console error when the page was opened from disk. Spine titles had shrunk to about eight pixels and 33 of 40 surnames were dropped, because the fitting routine treated title and author as one block. Apostrophes stood upright in the vertical text. A cover title broke in the middle of a word on the phone. The nav left “Visit” alone on a second line. Phone and email links were 22 pixels tall. On a desktop the shelf started below the first screen.</p>
+        <p><strong>Fixed:</strong> removed the preload, fitted titles first and authors second, made every spine a fifth taller, set <code>text-orientation: sideways</code>, stopped the hyphenation, tightened the nav, and gave contact links their own 44 pixel rows. <strong>Upgrade:</strong> the shelf heading now runs on one line with its deck beside it, so the two cats and the top of the shelf sit inside the first screen.</p></div></li>
+        <li><div><p><strong>Found:</strong> filtering to one section left eight books floating in the middle of an empty case and moved everything, so Tinta was no longer above her book. Long titles set in capitals ran off the bottom of the spine.</p>
+        <p><strong>Fixed:</strong> on wide screens the other sections are now pushed to the back of the shelf as grey shapes, so nothing shifts; on a phone they are removed so there is less to swipe through. The capital style is only given to short titles. <strong>Upgrade:</strong> the essay got a four-line drop cap, a hanging quotation mark on the pull quote and an end mark made of two cat ears.</p></div></li>
+        <li><div><p><strong>Found:</strong> the cover on the staff card was always newsprint, whatever the color of the spine (a rule-order mistake). The thinnest spines were under 20 pixels wide on a phone. Nothing on the shelf itself said it scrolled.</p>
+        <p><strong>Fixed:</strong> the cover takes the book’s own color, and phone spines are at least 27 pixels wide. <strong>Upgrade:</strong> edge fades appear on whichever side still has books out of view, and go away at the end of the row.</p></div></li>
+      </ol>
+      <p>Checked at the end: no console errors, no sideways page scroll from 320 to 1920 pixels, both typefaces loaded, every link and button at least 44 pixels tall, and the whole hold flow completed by keyboard alone.</p>
+    </div>
+  </section>
+
+  <section id="limit">
+    <h2>One honest limitation</h2>
+    <div class="g-text">
+      <p>The shelf is a fixed list in a file and the hold slip never leaves your browser. A real shop would need its stock in something the staff can edit, and a hold would have to reach the counter and take the book off the shelf for everyone else. Used books are one-of-a-kind, so two people holding the same copy is the first problem a real build would have to solve.</p>
+      <p>Also, 27 of the 40 spines show a title only. The surname is dropped wherever it would crowd the title, which is true to many real spines but means the author is only read on the card.</p>
+      <p class="g-back"><a class="btn" href="../index.html">Back to Dos Gatos Books</a></p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-name">
+        <p class="foot-title">Dos Gatos Books</p>
+        <p>An imaginary bookshop at 118 West Main Street, Mesa, Arizona.</p>
+      </div>
+      <nav aria-label="Site map">
+        <p class="caps">The shop</p>
+        <ul>
+          <li><a href="../index.html">Front page</a></li>
+          <li><a href="../index.html#shelf">The front shelf</a></li>
+          <li><a href="../index.html#week">This week</a></li>
+          <li><a href="../index.html#hours">Hours</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="This guide">
+        <p class="caps">This guide</p>
+        <ul>
+          <li><a href="#brief">The brief</a></li>
+          <li><a href="#look">Palette and typefaces</a></li>
+          <li><a href="#shelf">How the shelf works</a></li>
+          <li><a href="#passes">Three critique passes</a></li>
+        </ul>
+      </nav>
+      <div></div>
+    </div>
+    <p class="foot-last"><a href="../../">Concept by Maui Tinevra</a><span aria-hidden="true"> · </span><a href="../index.html">Back to the shop</a></p>
+  </div>
+</footer>
+</body>
+</html>

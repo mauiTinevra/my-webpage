@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>How the gallery was made | Maui Tinevra</title>
+    <meta name="description" content="One director, six builders, three critique passes each: how six concept websites were built in parallel from written briefs." />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
+    <link rel="stylesheet" href="../gallery.css" />
+  </head>
+  <body>
+    <header class="top">
+      <a href="https://mauitinevra.com/">Maui Tinevra</a>
+      <nav aria-label="Gallery">
+        <a href="../index.html">The gallery</a>
+        <a href="./index.html" aria-current="page">How it was made</a>
+        <a href="https://mauitinevra.com/#contact">Start a project</a>
+      </nav>
+    </header>
+
+    <main class="guide">
+      <h1>How six websites were built at the same time.</h1>
+      <p class="lede">
+        The six sites in this gallery were built in parallel by AI agents (Claude, from Anthropic), each working alone from a
+        written brief, with one director setting the standard and reviewing the result. The six builds ran side by side and each
+        took between 18 and 22 minutes. This page is the whole method, so anyone can repeat it.
+      </p>
+
+      <h2>One director, six builders</h2>
+      <p>
+        The director never wrote a line of any site. Its job was to write one document, <code>BRIEFS.md</code>, and then to look
+        hard at what came back. The document has two parts: a build standard every site must meet, and six briefs.
+      </p>
+      <p>
+        Each brief names the business, the customer's errand, the look, an exact palette, two typefaces, one signature moment and
+        the thing the site has to prove. Each builder got one brief and one folder, and was told not to touch anything else.
+        Nothing is shared between sites: no template, no components, no common stylesheet. That is why a record shop printed like
+        a poster sits next to a bookshop set like a quarterly and they don't look related.
+      </p>
+
+      <h2>The build standard</h2>
+      <p>Twelve rules, the same for every site. The ones that mattered most:</p>
+      <ul>
+        <li><strong>The customer's errand comes first.</strong> The first screen says what the business is, where it is, and gives the one action a customer came for.</li>
+        <li><strong>One signature moment, built properly.</strong> It has to really work, with a keyboard too, and not be a looping decoration.</li>
+        <li><strong>Drawings are code.</strong> No stock photos and no generated images. Every illustration is SVG, canvas or CSS.</li>
+        <li><strong>Real copy only.</strong> No placeholder text. Prices, hours and addresses read like a real shop's.</li>
+        <li><strong>Honest about being imaginary.</strong> A bar at the top of every site says so, and phone numbers and emails can't reach anyone.</li>
+        <li><strong>Plain files.</strong> HTML, CSS and JavaScript, fonts hosted with the site, zero console errors, no sideways scrolling on a phone.</li>
+      </ul>
+
+      <h2>The critique loop</h2>
+      <p>
+        A builder cannot judge a page it has not looked at. So every builder had to run the same small tool three times, open the
+        screenshots, criticise them like a design director, fix what it found, and then add one deliberate improvement.
+      </p>
+      <pre><code>$ node tools/shot.mjs public/gallery/dos-gatos-books/index.html /tmp/pass1
+
+{"size":"desktop","docHeight":4685,"sidewaysOverflow":false,
+ "fontsLoaded":["Playfair Display","Source Serif 4"],"consoleErrors":[]}
+{"size":"phone","docHeight":9384,"sidewaysOverflow":false,
+ "fontsLoaded":["Playfair Display","Source Serif 4"],"consoleErrors":[]}</code></pre>
+      <p>
+        The tool renders the page at desktop and phone sizes in headless Chrome, saves four screenshots, and reports console
+        errors, page height, sideways overflow and which fonts actually loaded. Things the loop caught that nobody would have
+        guessed from the code:
+      </p>
+      <ul>
+        <li>On the barber's sign, "Camelback" ran off the edge of the enamel.</li>
+        <li>On the bookshop shelf, spine titles had shrunk to about 8 pixels and most authors' names were dropped.</li>
+        <li>At the florist, stems poked out through the sides of the vase at twenty flowers.</li>
+        <li>At the record shop, the play button sat below the sleeves, so pressing it scrolled the turntable out of view.</li>
+        <li>On the star chart, labels overlapped, and the tour rule called a night moonless when a full moon rose mid-tour.</li>
+        <li>All six had the same hidden fault: a font preload that threw an error when the page was opened from disk.</li>
+      </ul>
+
+      <h2>What each site had to prove</h2>
+      <div class="table">
+        <table>
+          <thead>
+            <tr><th>Site</th><th>Signature moment</th><th>What it proves</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><a href="../ocotillo-records/index.html">Ocotillo Records</a></td><td>A turntable that plays four invented records</td><td>Music synthesized live, with no audio files</td></tr>
+            <tr><td><a href="../monsoon-clay/index.html">Monsoon Clay</a></td><td>Throw a pot by dragging four marks</td><td>Drawing generated from direct manipulation</td></tr>
+            <tr><td><a href="../camelback-barber/index.html">Camelback Barber</a></td><td>A chair board on the real Phoenix clock</td><td>A complete booking flow with time logic</td></tr>
+            <tr><td><a href="../paloma-flores/index.html">Paloma Flores</a></td><td>Build a bouquet in a vase</td><td>A product builder that is also the order form</td></tr>
+            <tr><td><a href="../dark-sky-sonora/index.html">Dark Sky Sonora</a></td><td>Tonight's sky over Scottsdale</td><td>Real astronomy maths, drawn on a canvas</td></tr>
+            <tr><td><a href="../dos-gatos-books/index.html">Dos Gatos Books</a></td><td>A shelf of forty invented books</td><td>Editorial typography and a browsable catalog</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>The director's review</h2>
+      <p>
+        When the builders reported back, the director rendered every site again with the same tool and looked at each one at both
+        sizes before anything was published. All six came back with no console errors, no sideways scrolling and their own fonts
+        loaded. One fix was made at this stage: the notice bar on the stargazing site wrapped awkwardly on a phone.
+      </p>
+
+      <h2>Every site documents itself</h2>
+      <p>
+        Each site has its own guide, written in its own visual language: the palette, the typefaces, how the signature moment
+        works with a piece of the real code, what each critique pass found, and one honest limitation. Start with
+        <a href="../dark-sky-sonora/guide/index.html">the star chart's</a>, <a href="../ocotillo-records/guide/index.html">the turntable's</a>
+        or <a href="../monsoon-clay/guide/index.html">the potter's wheel's</a>.
+      </p>
+
+      <h2>Repeat it</h2>
+      <ol>
+        <li>Write a build standard that is not negotiable, and keep it short enough to be read.</li>
+        <li>Write real briefs: a business, an errand, a palette, typefaces, one signature moment, one thing to prove.</li>
+        <li>Give each builder one brief and one folder. Share nothing between them.</li>
+        <li>Make looking at screenshots mandatory, three times, with fixes each time.</li>
+        <li>Review every result yourself, at phone and desktop size, before publishing.</li>
+        <li>Ship plain static files.</li>
+      </ol>
+
+      <h2>What is and isn't real</h2>
+      <p class="note">
+        The businesses, people, records and books are invented, and no order or booking is sent anywhere. The astronomy is real
+        and computed on the page, with its accuracy stated in that site's guide. The record shop's music was checked by measuring
+        levels, not by ear, because the build machine has no speakers. The sites were built by AI agents from briefs; a site made
+        for a real client starts with a conversation and is designed and built with that client.
+      </p>
+    </main>
+
+    <footer class="foot">
+      <p>The gallery is a set of concepts directed by Maui Tinevra, a web designer and developer in Scottsdale, Arizona.</p>
+      <nav aria-label="More">
+        <a href="../index.html">Back to the gallery</a>
+        <a href="https://mauitinevra.com/work">More of Maui's work</a>
+        <a href="https://mauitinevra.com/#contact">Start a project</a>
+      </nav>
+    </footer>
+  </body>
+</html>

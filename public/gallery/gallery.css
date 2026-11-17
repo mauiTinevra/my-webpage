@@ -1,0 +1,74 @@
+/* The gallery's own look: a contact sheet. Paper, ink, and one yellow from Maui's own site.
+   Archivo only, wide for headlines. The six sites supply all the color. */
+@font-face {
+  font-family: 'Archivo';
+  src: url('fonts/archivo-latin-wdth-normal.woff2') format('woff2');
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  font-display: swap;
+}
+:root {
+  --paper: #f3f1ec;
+  --ink: #121a3a;
+  --muted: #565c74;
+  --yellow: #f2cb3a;
+  --edge: clamp(1.25rem, 5vw, 4.5rem);
+}
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 400 1.0625rem/1.6 'Archivo', Arial, sans-serif; }
+a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1.5px; }
+:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+h1, h2, h3, p { margin: 0; }
+
+.top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.5rem 2rem; padding: 1rem var(--edge); border-bottom: 2px solid var(--ink); }
+.top a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 700; text-decoration: none; }
+.top a:hover { text-decoration: underline; }
+.top nav { display: flex; gap: 0.25rem 1.5rem; flex-wrap: wrap; }
+.top [aria-current] { text-decoration: underline; text-decoration-color: var(--yellow); text-decoration-thickness: 4px; }
+
+.intro { padding: clamp(2.5rem, 7vw, 5.5rem) var(--edge) clamp(2rem, 5vw, 3.5rem); }
+.intro h1 { max-width: 18ch; font-weight: 800; font-stretch: 122%; font-size: clamp(2.5rem, 7vw, 5.5rem); line-height: 0.98; letter-spacing: -0.02em; }
+.intro p { max-width: 40rem; margin-top: 1.5rem; font-size: clamp(1.1rem, 1.8vw, 1.3rem); line-height: 1.5; }
+.intro .btn { margin-top: 1.75rem; }
+.btn { display: inline-flex; align-items: center; min-height: 3rem; padding: 0.6rem 1.3rem; border: 2px solid var(--ink); background: var(--yellow); font-weight: 800; text-decoration: none; }
+.btn:hover { background: var(--ink); color: var(--yellow); }
+
+.sheet { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(1.5rem, 3.5vw, 3rem); padding: 0 var(--edge) clamp(3rem, 7vw, 5rem); margin: 0; list-style: none; }
+.frame a.shot { display: block; border: 2px solid var(--ink); background: var(--ink); }
+.frame img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; }
+.frame a.shot:hover img { opacity: 0.9; }
+.meta { display: grid; grid-template-columns: auto 1fr; gap: 0.25rem 1rem; align-items: baseline; margin-top: 0.9rem; }
+.num { font-weight: 800; font-stretch: 122%; font-variant-numeric: tabular-nums; }
+.frame h2 { font-weight: 800; font-stretch: 112%; font-size: clamp(1.3rem, 2.2vw, 1.7rem); line-height: 1.1; }
+.frame h2 a { text-decoration: none; }
+.frame h2 a:hover { text-decoration: underline; }
+.frame p { grid-column: 2; color: var(--muted); max-width: 34rem; }
+.frame .proof { color: var(--ink); font-weight: 600; }
+.frame .links { grid-column: 2; display: flex; gap: 1.5rem; flex-wrap: wrap; }
+.frame .links a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 700; }
+
+.foot { padding: 2.5rem var(--edge) 3rem; background: var(--ink); color: var(--paper); }
+.foot p { max-width: 44rem; }
+.foot nav { display: flex; flex-wrap: wrap; gap: 0.25rem 1.75rem; margin-top: 1rem; }
+.foot a { display: inline-flex; align-items: center; min-height: 44px; }
+.foot :focus-visible { outline-color: var(--yellow); }
+
+/* The guide: one reading column. */
+.guide { padding: clamp(2.5rem, 7vw, 5rem) var(--edge) clamp(3rem, 7vw, 5rem); }
+.guide > * { max-width: 44rem; }
+.guide h1 { max-width: 20ch; font-weight: 800; font-stretch: 122%; font-size: clamp(2.3rem, 6vw, 4.5rem); line-height: 1; letter-spacing: -0.02em; }
+.guide .lede { margin-top: 1.5rem; font-size: clamp(1.15rem, 1.8vw, 1.35rem); line-height: 1.5; }
+.guide h2 { margin-top: 3.5rem; padding-top: 1.25rem; border-top: 2px solid var(--ink); font-weight: 800; font-stretch: 112%; font-size: clamp(1.5rem, 3vw, 2.1rem); line-height: 1.1; }
+.guide p, .guide ol, .guide ul { margin-top: 1rem; }
+.guide ol, .guide ul { padding-left: 1.3rem; display: grid; gap: 0.5rem; }
+.guide pre { max-width: 52rem; margin: 1.25rem 0 0; padding: 1.1rem 1.25rem; overflow-x: auto; background: var(--ink); color: var(--paper); font: 0.9rem/1.55 ui-monospace, 'SF Mono', Menlo, Consolas, monospace; }
+.guide code { font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 0.92em; }
+.guide .table { max-width: 60rem; margin-top: 1.25rem; overflow-x: auto; }
+.guide table { width: 100%; min-width: 34rem; border-collapse: collapse; font-size: 0.98rem; }
+.guide th, .guide td { padding: 0.65rem 1rem 0.65rem 0; border-bottom: 1px solid rgb(18 26 58 / 0.3); text-align: left; vertical-align: top; }
+.guide th { border-bottom: 2px solid var(--ink); font-weight: 800; }
+.guide .note { margin-top: 1.5rem; padding: 1rem 1.25rem; border: 2px solid var(--ink); background: var(--yellow); }
+
+@media (max-width: 760px) {
+  .sheet { grid-template-columns: 1fr; }
+}

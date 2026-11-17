@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How Monsoon Clay was made</title>
+<meta name="description" content="The brief, palette, typefaces, technique and critique log behind the Monsoon Clay concept site.">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/guide.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to the guide</a>
+<p class="concept-bar">An imaginary business. A concept site by <a href="../../">Maui Tinevra</a>.</p>
+
+<header class="masthead">
+  <div class="wrap masthead-in">
+    <a class="wordmark" href="../index.html" aria-label="Monsoon Clay, back to the site">
+      <svg viewBox="0 0 28 28" aria-hidden="true" focusable="false"><path d="M9.5 4.5h9M10.5 4.5c0 3-5 5.5-5 11.5 0 4 3.2 7.5 8.5 7.5s8.5-3.5 8.5-7.5c0-6-5-8.5-5-11.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M7 15.5h14" stroke="#a4472a" stroke-width="1.5"/></svg>
+      <span>Monsoon Clay</span>
+    </a>
+    <nav class="site-nav is-open guide-nav" aria-label="Guide">
+      <a class="nav-cta" href="../index.html">Back to the site</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<section class="wrap guide-head">
+  <p class="label">How this was made</p>
+  <h1>A pottery studio you can try before you book.</h1>
+  <p class="lede">The brief: a quiet studio catalog for a wheel-throwing studio in Tempe, where the first job is class dates, prices and a seat. The proof point is a pot the visitor shapes by hand, drawn as generated SVG and named from its proportions.</p>
+  <a class="link" href="../index.html">Go and throw one</a>
+</section>
+
+<section class="band wrap" aria-labelledby="g-look">
+  <div class="band-label"><p class="no">No. 01</p><p class="label">Look</p></div>
+  <div class="band-body">
+    <h2 id="g-look">Three colors, split roughly sixty, thirty, ten.</h2>
+    <div class="prose">
+      <p>Celadon carries the page. Iron black is the text, the rules, the wheel head and two full-width bands. Oxide rust is saved for the clay itself and for the small italic numerals, so the pot is the only large warm thing on the page.</p>
+      <p>Rust on celadon measures 4.3 to 1, a little short of the 4.5 needed for small text, so rust is only ever used for drawing or for type at 24 pixels and larger. Body text is iron black at 11.7 to 1. The quieter grey is the same black at 74 percent, 5.7 to 1.</p>
+    </div>
+    <div class="swatches" role="img" aria-label="Palette: glaze celadon, iron black and oxide rust in proportion">
+      <div class="swatch sw-celadon"><b>Glaze celadon</b>#cfe0d4, with a paler tint #dde9e0 for panels</div>
+      <div class="swatch sw-ink"><b>Iron black</b>#23211f</div>
+      <div class="swatch sw-rust">Oxide rust #a4472a</div>
+    </div>
+    <div class="specimens">
+      <div>
+        <p class="label">Display</p>
+        <p class="spec-display">Cormorant <i>Garamond</i></p>
+        <p>Weights 400, 500 and 600 with two italics. Used for headings, class names and every number that matters, set with lining figures so prices read like entries in a kiln log.</p>
+      </div>
+      <div>
+        <p class="label">Text</p>
+        <p class="spec-text">Karla, the variable cut</p>
+        <p>One file covers every weight. Running text is 17 pixels. Labels are 12 pixels, uppercase, tracked out. Both families are self-hosted from Fontsource, Latin subset only.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band wrap" aria-labelledby="g-how">
+  <div class="band-label"><p class="no">No. 02</p><p class="label">The pot</p></div>
+  <div class="band-body">
+    <h2 id="g-how">Four points, one curve, seven bands.</h2>
+    <div class="how">
+      <figure>
+        <svg viewBox="0 0 300 330" role="img" aria-label="Diagram of a vase profile with four control points: foot, belly, shoulder and lip">
+          <line class="fig-thin" x1="150" y1="20" x2="150" y2="300"/>
+          <path class="fig-line" d="M106 290 C104 260 62 240 62 200 C62 160 104 130 108 96 C110 76 112 60 110 40"/>
+          <path class="fig-thin" d="M194 290 C196 260 238 240 238 200 C238 160 196 130 192 96 C190 76 188 60 190 40"/>
+          <ellipse class="fig-thin" cx="150" cy="200" rx="88" ry="17"/>
+          <ellipse class="fig-thin" cx="150" cy="40" rx="40" ry="8"/>
+          <g fill="#dde9e0" stroke="#23211f" stroke-width="1.5"><circle cx="106" cy="290" r="6"/><circle cx="62" cy="200" r="6"/><circle cx="108" cy="96" r="6"/><circle cx="110" cy="40" r="6"/></g>
+          <g class="fig-text"><text x="92" y="312" text-anchor="end">foot</text><text x="50" y="186" text-anchor="end">belly</text><text x="96" y="92" text-anchor="end">shoulder</text><text x="98" y="36" text-anchor="end">lip</text><text x="156" y="26">centre line</text></g>
+        </svg>
+        <figcaption>The model is one side of the pot: a radius at each of four heights.</figcaption>
+      </figure>
+      <div>
+        <ol>
+          <li><span>The state is seven numbers in centimetres: four radii, the height, and how far up the belly and shoulder sit. Dragging a handle or pressing an arrow key changes one or two of them inside sensible limits.</span></li>
+          <li><span>A monotone cubic (Fritsch and Carlson) is fitted through the four points and sampled 45 times. It never overshoots a control point, so the wall cannot bulge past a handle.</span></li>
+          <li><span>The profile is turned round the centre line. Each ring is drawn as an ellipse squashed to a fifth, as if seen from a little above. A band is the part of the front surface from one fraction of the radius across to the right edge. Seven bands in seven tones of the clay color are painted over each other from left to right.</span></li>
+          <li><span>A perfectly round pot looks the same at every angle, so the turning is shown by things that are not symmetrical: a spiral throwing line, eighteen iron specks and two bat pins on the wheel head. Only those are redrawn on each frame.</span></li>
+          <li><span>The name comes from two ratios, height to width and rim to widest point, plus the real height. The clay weight is the surface area times a 7 millimetre wall, plus a base, at 1.75 grams per cubic centimetre, with a quarter added for trimming.</span></li>
+        </ol>
+<pre tabindex="0" aria-label="Code excerpt from the pot shaper"><code>// A point on the lathed surface. u runs from -1 (left edge)
+// to 1 (right edge) across the front of the pot.
+function pt(r, y, u) {
+  return [CX + u * r * S,
+          BASE - y * S + K * r * S * Math.sqrt(1 - u * u)];
+}
+
+// One shaded band: from u0 across to the right edge.
+function bandPath(u0) {
+  var pts = [], top = prof[N], bot = prof[0], i, u;
+  for (i = 0; i &lt;= N; i++) pts.push(pt(prof[i][0], prof[i][1], u0));
+  for (i = 1; i &lt;= 10; i++) { u = u0 + (1 - u0) * i / 10;
+                             pts.push(pt(top[0], top[1], u)); }
+  for (i = N - 1; i &gt;= 0; i--) pts.push(pt(prof[i][0], prof[i][1], 1));
+  for (i = 1; i &lt; 10; i++) { u = 1 - (1 - u0) * i / 10;
+                            pts.push(pt(bot[0], bot[1], u)); }
+  return 'M' + pts.map(xy).join('L') + 'Z';
+}</code></pre>
+      </div>
+    </div>
+    <div class="prose" style="margin-top:28px">
+      <p>Each handle is a focusable SVG group with a slider role and a spoken value such as "6 in across, 4½ in above the wheel". Pointer events cover mouse, pen and touch, and only the handles block scrolling, so a thumb can still move the page past the drawing. The wheel turns while the clay is being shaped and stops soon after. With reduced motion switched on it stays still unless the visitor presses "Keep the wheel turning".</p>
+    </div>
+  </div>
+</section>
+
+<section class="band wrap" aria-labelledby="g-crit">
+  <div class="band-label"><p class="no">No. 03</p><p class="label">Critique</p></div>
+  <div class="band-body">
+    <h2 id="g-crit">Three passes with fresh screenshots.</h2>
+    <div class="passes">
+      <article class="pass">
+        <h3>Pass one</h3>
+        <div><p class="label">Found</p><p>Font preloads threw errors when the page was opened from disk. The booking button sat below the first screen. The drawing floated in a tall empty frame. Handle labels vanished where they crossed the pot. A plate looked like a dark hole.</p></div>
+        <div><p class="label">Changed</p><p>Removed the preloads. Moved the button up under the opening paragraph. Enlarged the pot and stood the drawing on the bottom of its frame. Gave labels a pale outline. Upgrade: the inside of the pot now lightens as the form gets shallower, so a plate faces the light.</p></div>
+      </article>
+      <article class="pass">
+        <h3>Pass two</h3>
+        <div><p class="label">Found</p><p>The class table wrapped "6 weeks" on to two lines. The firing chart was small with a void beneath it. A stray rule showed under the dark band. The footer email ran past its column.</p></div>
+        <div><p class="label">Changed</p><p>Rebalanced the table columns. Enlarged the chart type and added this week's firings below it. Removed the rule and widened the last footer column. Upgrade: a dotted hairline now runs from the inch ruler to the lip, the way a catalog plate marks a height.</p></div>
+      </article>
+      <article class="pass">
+        <h3>Pass three</h3>
+        <div><p class="label">Found</p><p>On a phone the class times ran into the seats column, the chart labels were about 7 pixels tall, the menu button touched the header rule and the footer email broke in the middle of a word. Two rust numerals were under the size where rust has enough contrast.</p></div>
+        <div><p class="label">Changed</p><p>Laid out each class as its own small grid on phones, scaled the chart type up, padded the header and gave the footer contact list a full row. Raised the numerals to 24 pixels. Upgrade: the wheel head carries a faint reflection of the foot of the pot, because a working wheel is wet.</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="band wrap" aria-labelledby="g-limit">
+  <div class="band-label"><p class="no">No. 04</p><p class="label">Limits</p></div>
+  <div class="band-body">
+    <h2 id="g-limit">One honest limitation.</h2>
+    <div class="prose">
+      <p>The page only knows five names. A squat form with a closed-in rim is really a jar, and here it is called a bowl. The drawing is also a shortcut: the outline is the profile itself, not the true outline of a turned solid seen from above, which shows on very wide, shallow forms where the handles also sit close together.</p>
+      <p>The booking form checks what you type and prints a slip, but it sends nothing. Class dates are worked out from the visitor's clock in Phoenix time, and seat counts are fixed numbers.</p>
+    </div>
+    <p class="fine"><a class="link" href="../index.html">Back to Monsoon Clay</a></p>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p class="foot-mark">Monsoon Clay</p>
+    <p class="colophon"><a href="../../">Concept by Maui Tinevra</a><a href="../index.html">Back to the site</a></p>
+  </div>
+</footer>
+</body>
+</html>

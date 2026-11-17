@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paloma Flores, a florist in Melrose, Phoenix</title>
+<meta name="description" content="Paloma Flores is a flower shop on 7th Avenue in the Melrose district of Phoenix. Build a bouquet stem by stem and order it for pickup or delivery today.">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+<a class="skip" href="#bouquet">Skip to the bouquet builder</a>
+<p class="concept-bar">An imaginary business. A concept site by <a href="../">Maui Tinevra</a>.</p>
+
+<header class="masthead wrap">
+  <a class="wordmark" href="#top" aria-label="Paloma Flores, home">
+    <svg class="dove" viewBox="0 0 64 48" aria-hidden="true" focusable="false">
+      <path d="M4 22 18 14 30 20 44 30 60 34 46 42 26 42 14 36Z" fill="#e8452c"/>
+      <path d="M24 22 30 4 42 2 48 14 44 30Z" fill="#2d5a3d"/>
+      <path d="M4 22 0 26 8 25Z" fill="#2d5a3d"/>
+    </svg>
+    <span>Paloma Flores</span>
+  </a>
+  <nav aria-label="Main">
+    <ul>
+      <li><a href="#bouquet">Build a bouquet</a></li>
+      <li><a href="#daily">Today's three</a></li>
+      <li><a href="#weddings">Weddings</a></li>
+      <li><a href="#flower-bar">Flower bar</a></li>
+      <li><a href="#visit">Visit</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="top">
+
+<section class="hero wrap">
+  <div class="hero-text">
+    <p class="where">A flower shop on 7th Avenue in Melrose, Phoenix</p>
+    <h1>Fresh bouquets for pickup or delivery today.</h1>
+    <p class="lede">Pick the stems yourself and watch the bunch come together. We tie it, wrap it and have it on the counter within the hour, or at your door before six.</p>
+    <div class="hero-actions">
+      <a class="btn btn-poppy" href="#bouquet">Build a bouquet</a>
+      <a class="btn btn-plain" href="#daily">Or take one of today's three</a>
+    </div>
+    <dl class="facts">
+      <div><dt>Today</dt><dd id="open-status">Tuesday to Friday 9 to 6</dd></div>
+      <div><dt>Shop</dt><dd>4212 N 7th Ave, Phoenix</dd></div>
+      <div><dt>Phone</dt><dd><a href="tel:+16025550142">602-555-0142</a></dd></div>
+    </dl>
+  </div>
+  <div class="hero-art" id="hero-art" aria-hidden="true"></div>
+</section>
+
+<section class="builder" id="bouquet" aria-labelledby="bouquet-h">
+  <div class="wrap">
+    <header class="section-head">
+      <h2 id="bouquet-h">Build a bouquet</h2>
+      <p>Three stems make a posy, seven a bouquet, thirteen an armful. Wrap and twine are included.</p>
+    </header>
+
+    <div class="bench">
+      <div class="stage" id="stage">
+        <div class="stage-art">
+          <svg id="vase" viewBox="0 0 440 504" role="img" aria-labelledby="vase-title">
+            <title id="vase-title">An empty vase</title>
+            <g id="layer-back"></g>
+            <g id="layer-wrap"></g>
+            <clipPath id="above-rim"><rect x="-300" y="-300" width="1040" height="656"/></clipPath>
+            <g id="layer-stems" clip-path="url(#above-rim)"></g>
+            <g id="layer-vase"></g>
+          </svg>
+        </div>
+        <div class="tally">
+          <p class="tally-size"><span id="size-name">An empty vase</span></p>
+          <p class="tally-note" id="size-note">Add three stems to begin.</p>
+          <p class="tally-price"><span class="visually-hidden">Price so far </span><span id="price">$0</span></p>
+          <div class="ruler" aria-hidden="true">
+            <div class="ruler-track"><span class="ruler-fill" id="ruler-fill"></span></div>
+            <ol>
+              <li data-size="posy">Posy<small>3 to 6</small></li>
+              <li data-size="bouquet">Bouquet<small>7 to 12</small></li>
+              <li data-size="armful">Armful<small>13 to 20</small></li>
+            </ol>
+          </div>
+          <button type="button" class="link-btn" id="clear" hidden>Empty the vase</button>
+        </div>
+      </div>
+
+      <div class="picker">
+        <h3><span class="step">1</span>Pick your stems</h3>
+        <ul class="stems" id="stems"></ul>
+        <p class="limit" id="limit" hidden>Twenty stems is as many as one vase holds.</p>
+
+        <fieldset class="wraps">
+          <legend><span class="step">2</span>Choose a wrap</legend>
+          <div class="wrap-options">
+            <label class="wrap-opt"><input type="radio" name="wrap" value="kraft" checked><span class="swatch swatch-kraft" aria-hidden="true"></span><span>Kraft</span></label>
+            <label class="wrap-opt"><input type="radio" name="wrap" value="leaf"><span class="swatch swatch-leaf" aria-hidden="true"></span><span>Leaf green</span></label>
+            <label class="wrap-opt"><input type="radio" name="wrap" value="poppy"><span class="swatch swatch-poppy" aria-hidden="true"></span><span>Poppy</span></label>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+    <p class="visually-hidden" id="announce" aria-live="polite"></p>
+
+    <div class="sheet order" id="order">
+      <form id="order-form" novalidate>
+        <h3><span class="step">3</span>Pickup or delivery</h3>
+        <div class="order-grid">
+          <div class="fields">
+            <fieldset class="mode">
+              <legend class="visually-hidden">How would you like to get it</legend>
+              <label><input type="radio" name="mode" value="pickup" checked><span>Pickup<small>Free, at the shop</small></span></label>
+              <label><input type="radio" name="mode" value="delivery"><span>Delivery<small>$9, within six miles</small></span></label>
+            </fieldset>
+
+            <div class="row two">
+              <div class="field">
+                <label for="day">Day</label>
+                <select id="day" name="day"></select>
+              </div>
+              <div class="field">
+                <label for="time" id="time-label">Pickup time</label>
+                <select id="time" name="time"></select>
+              </div>
+            </div>
+            <p class="hint" id="slot-hint"></p>
+
+            <div id="delivery-fields" hidden>
+              <div class="row address">
+                <div class="field">
+                  <label for="street">Street address</label>
+                  <input id="street" name="street" type="text" autocomplete="street-address" aria-describedby="street-err">
+                  <p class="err" id="street-err" hidden></p>
+                </div>
+                <div class="field">
+                  <label for="zip">ZIP code</label>
+                  <input id="zip" name="zip" type="text" inputmode="numeric" autocomplete="postal-code" maxlength="5" aria-describedby="zip-err">
+                  <p class="err" id="zip-err" hidden></p>
+                </div>
+              </div>
+            </div>
+
+            <div class="row two">
+              <div class="field">
+                <label for="name">Your name</label>
+                <input id="name" name="name" type="text" autocomplete="name" aria-describedby="name-err">
+                <p class="err" id="name-err" hidden></p>
+              </div>
+              <div class="field">
+                <label for="phone">Phone number</label>
+                <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="602-555-0100" aria-describedby="phone-err">
+                <p class="err" id="phone-err" hidden></p>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="note">A line for the card <span class="optional">(optional)</span></label>
+              <textarea id="note" name="note" rows="2" maxlength="140" aria-describedby="note-count"></textarea>
+              <p class="hint" id="note-count">140 characters left</p>
+            </div>
+          </div>
+
+          <aside class="slip" aria-labelledby="slip-h">
+            <h4 id="slip-h">Your order</h4>
+            <ul id="slip-lines"></ul>
+            <p class="slip-total"><span>Total</span><strong id="slip-total">$0</strong></p>
+            <p class="err form-err" id="stems-err" hidden></p>
+            <button class="btn btn-poppy btn-wide" type="submit" id="place">Place order for pickup</button>
+            <p class="fine">This is a concept site. Nothing is sent and no one is charged.</p>
+          </aside>
+        </div>
+      </form>
+
+      <div class="confirm" id="confirm" hidden>
+        <div class="confirm-art" id="confirm-art"></div>
+        <div class="confirm-text">
+          <p class="confirm-no" id="confirm-no"></p>
+          <h3 id="confirm-h" tabindex="-1"></h3>
+          <p id="confirm-body"></p>
+          <dl id="confirm-facts"></dl>
+          <p class="fine">This is a concept site, so the order stops here. Nothing was sent and no one was charged.</p>
+          <div class="confirm-actions">
+            <button type="button" class="btn btn-paper" id="change">Change this order</button>
+            <button type="button" class="btn btn-ghost" id="restart">Start a new bouquet</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="daily wrap" id="daily" aria-labelledby="daily-h">
+  <header class="section-head">
+    <h2 id="daily-h">Today's three</h2>
+    <p>Paloma ties three bunches every morning from whatever came in best. Take one as it is, or load it into the vase and change it.</p>
+  </header>
+  <ul class="daily-list" id="daily-list"></ul>
+</section>
+
+<section class="weddings" id="weddings" aria-labelledby="weddings-h">
+  <div class="wrap sheet weddings-sheet">
+    <div class="weddings-text">
+      <h2 id="weddings-h">Weddings, two a weekend</h2>
+      <p>We take two weddings each weekend and no more, so the person who met you in March is the one tying your bouquet in October. Most of what we use is grown within forty miles, which means the flowers follow the season and not a catalog.</p>
+      <p>Start with a free half hour at the shop. Bring a photo of the room and one of something you love.</p>
+      <p><a class="btn btn-paper" href="mailto:weddings@palomaflores.example?subject=Our%20wedding%20date">Write to us with your date</a></p>
+    </div>
+    <table class="prices">
+      <caption>Where prices begin</caption>
+      <tbody>
+        <tr><th scope="row">Bridal bouquet</th><td>$165</td></tr>
+        <tr><th scope="row">Boutonniere</th><td>$14</td></tr>
+        <tr><th scope="row">Table arrangement</th><td>$58</td></tr>
+        <tr><th scope="row">Ceremony arch</th><td>$650</td></tr>
+        <tr><th scope="row">Everything, delivered and set up</th><td>$1,800</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="bar wrap" id="flower-bar" aria-labelledby="bar-h">
+  <div class="bar-art" id="bar-art" aria-hidden="true"></div>
+  <div class="bar-text">
+    <h2 id="bar-h">The Saturday flower bar</h2>
+    <p>Every Saturday from 8 to 1 we roll the buckets out onto the sidewalk and sell by the stem. Walk the row, pull what you like, and we wrap it at the counter for nothing extra.</p>
+    <ul class="plain-list">
+      <li>Stems run $2 to $6. Most people leave with about $20 of flowers.</li>
+      <li>Bring your own vase and we will arrange into it while you wait.</li>
+      <li>Kids get one marigold free, their pick.</li>
+    </ul>
+    <p class="aside">No ordering ahead for the bar. It is first come, and the snapdragons go early.</p>
+  </div>
+</section>
+
+<section class="visit wrap" id="visit" aria-labelledby="visit-h">
+  <header class="section-head">
+    <h2 id="visit-h">Visit the shop</h2>
+  </header>
+  <div class="visit-grid">
+    <div class="visit-info">
+      <address>
+        Paloma Flores<br>
+        4212 N 7th Ave<br>
+        Phoenix, AZ 85013
+      </address>
+      <p>On the west side of the avenue, two doors north of the curve. Park behind the building, off the alley.</p>
+      <p><a href="tel:+16025550142">602-555-0142</a><br><a href="mailto:hola@palomaflores.example">hola@palomaflores.example</a></p>
+      <table class="hours">
+        <caption>Hours</caption>
+        <tbody>
+          <tr data-dow="1"><th scope="row">Monday</th><td>Closed</td></tr>
+          <tr data-dow="2"><th scope="row">Tuesday</th><td>9 to 6</td></tr>
+          <tr data-dow="3"><th scope="row">Wednesday</th><td>9 to 6</td></tr>
+          <tr data-dow="4"><th scope="row">Thursday</th><td>9 to 6</td></tr>
+          <tr data-dow="5"><th scope="row">Friday</th><td>9 to 6</td></tr>
+          <tr data-dow="6"><th scope="row">Saturday</th><td>8 to 4, flower bar until 1</td></tr>
+          <tr data-dow="0"><th scope="row">Sunday</th><td>10 to 2</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <figure class="map">
+      <svg viewBox="0 0 560 420" role="img" aria-labelledby="map-title map-desc">
+        <title id="map-title">Map of the shop and delivery area</title>
+        <desc id="map-desc">The shop sits on 7th Avenue between Indian School Road and Camelback Road. Delivery covers central Phoenix around it.</desc>
+        <g class="cut"><path d="M6 10 280 4 554 12 550 414 300 408 10 416Z" fill="#fbf3cf"/></g>
+        <g class="cut"><path d="M70 60 210 34 380 44 498 92 522 220 486 340 350 386 180 378 74 316 44 190Z" fill="#9dbb90"/></g>
+        <g fill="#fffaf0">
+          <path d="M0 96 560 88 560 106 0 114Z"/>
+          <path d="M0 316 560 310 560 328 0 334Z"/>
+          <path d="M236 0 254 0 250 150 226 250 232 420 214 420 208 248 232 148Z"/>
+          <path d="M398 0 414 0 418 420 402 420Z"/>
+          <path d="M0 204 560 200 560 210 0 214Z" opacity=".7"/>
+        </g>
+        <g class="cut"><path d="M190 168 214 160 220 186 196 194Z" fill="#2d5a3d"/></g>
+        <g id="map-pin"></g>
+        <g class="map-labels">
+          <text x="24" y="82">Camelback Rd</text>
+          <text x="24" y="302">Indian School Rd</text>
+          <text x="262" y="402">7th Ave</text>
+          <text x="426" y="402">Central Ave</text>
+          <text x="24" y="194">Campbell Ave</text>
+          <text class="map-shop" x="40" y="150">Paloma Flores</text>
+          <text class="map-zone" x="300" y="266">We deliver inside the green</text>
+        </g>
+      </svg>
+      <figcaption>Delivery is $9 to ZIP codes 85003, 85004, 85006, 85007, 85012, 85013, 85014, 85015 and 85016.</figcaption>
+    </figure>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <p class="foot-mark">Paloma Flores</p>
+      <p>4212 N 7th Ave, Phoenix, AZ 85013<br>602-555-0142</p>
+    </div>
+    <nav aria-label="Sitemap">
+      <h2>Order</h2>
+      <ul>
+        <li><a href="#bouquet">Build a bouquet</a></li>
+        <li><a href="#daily">Today's three</a></li>
+        <li><a href="#order">Pickup and delivery</a></li>
+      </ul>
+    </nav>
+    <nav aria-label="Sitemap, continued">
+      <h2>The shop</h2>
+      <ul>
+        <li><a href="#weddings">Weddings</a></li>
+        <li><a href="#flower-bar">Saturday flower bar</a></li>
+        <li><a href="#visit">Hours and map</a></li>
+      </ul>
+    </nav>
+  </div>
+  <p class="wrap credit"><a href="../">Concept by Maui Tinevra</a><a href="guide/index.html">How this was made</a></p>
+</footer>
+
+<script src="js/paper.js"></script>
+<script src="js/site.js"></script>
+</body>
+</html>

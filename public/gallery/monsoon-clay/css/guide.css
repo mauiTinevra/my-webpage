@@ -1,0 +1,47 @@
+/* The guide page borrows the site's stylesheet and adds a few things of its own. */
+.guide-head { padding-top: clamp(40px, 6vw, 88px); padding-bottom: clamp(40px, 5vw, 72px); }
+.guide-head h1 { max-width: 14em; }
+.guide-head .lede { max-width: 40em; }
+.guide-head .link { margin-top: 18px; }
+.prose { max-width: 42em; }
+.prose p + p { margin-top: 14px; }
+.prose p { color: var(--soft); }
+.band h2 + .prose { margin-top: 20px; }
+.swatches { display: grid; grid-template-columns: 6fr 3fr 1fr; margin-top: 36px; border: 1px solid var(--ink); }
+.swatch { min-height: 150px; padding: 14px 16px; display: flex; flex-direction: column; justify-content: flex-end; font-size: 0.875rem; line-height: 1.35; }
+.swatch b { font-family: var(--display); font-weight: 500; font-size: 1.5rem; line-height: 1.1; }
+.sw-celadon { background: var(--celadon-pale); }
+.sw-ink { background: var(--ink); color: var(--celadon); }
+.sw-rust { background: var(--rust); color: #fff; padding: 14px 8px; writing-mode: vertical-rl; justify-content: flex-start; }
+.specimens { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 4vw, 64px); margin-top: 44px; }
+.specimens > div { border-top: 1px solid var(--ink); padding-top: 14px; }
+.spec-display { font-family: var(--display); font-weight: 500; font-size: clamp(2.6rem, 5vw, 4rem); line-height: 1; margin-top: 12px; }
+.spec-display i { font-weight: 500; }
+.spec-text { font-size: 1.5rem; font-weight: 500; margin-top: 12px; line-height: 1.2; }
+.specimens p:last-child { margin-top: 12px; color: var(--soft); font-size: 0.9375rem; }
+.how { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(24px, 4vw, 64px); margin-top: 36px; align-items: start; }
+.how > * { min-width: 0; }
+.guide-nav.is-open { display: flex; flex-basis: auto; flex-direction: row; padding: 0; }
+.guide-nav .nav-cta { border: 1px solid var(--ink); padding: 0 16px; font-weight: 400; }
+.how figure { background: var(--celadon-pale); border: 1px solid var(--rule); }
+.how figure svg { display: block; width: 100%; height: auto; }
+.how figcaption { font-size: 0.875rem; color: var(--soft); padding: 10px 14px 12px; border-top: 1px solid var(--rule); }
+.how ol { counter-reset: s; display: grid; gap: 14px; }
+.how ol li { counter-increment: s; display: grid; grid-template-columns: 2rem 1fr; }
+.how ol li::before { content: counter(s); font-family: var(--display); font-style: italic; font-size: 1.5rem; line-height: 1.1; color: var(--rust); }
+pre { margin: 28px 0 0; padding: 20px 22px; background: var(--ink); color: var(--celadon); font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 0.8125rem; line-height: 1.6; overflow-x: auto; max-width: 100%; }
+.passes { margin-top: 36px; border-top: 1px solid var(--ink); }
+.pass { display: grid; grid-template-columns: 7rem 1fr 1fr; gap: 12px clamp(20px, 3vw, 48px); padding: 22px 0; border-bottom: 1px solid var(--rule); }
+.pass h3 { font-family: var(--display); font-style: italic; font-weight: 500; font-size: 1.75rem; line-height: 1.1; }
+.pass .label { margin-bottom: 6px; }
+.pass p:not(.label) { font-size: 0.9375rem; }
+.fig-line { fill: none; stroke: var(--ink); stroke-width: 1.5; }
+.fig-thin { fill: none; stroke: var(--ink); stroke-width: 1; opacity: 0.45; stroke-dasharray: 2 4; }
+.fig-text { font-family: var(--text); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; fill: var(--ink); }
+@media (max-width: 760px) {
+  .specimens, .how { grid-template-columns: 1fr; }
+  .pass { grid-template-columns: 1fr; }
+  .swatches { grid-template-columns: 5fr 3fr 44px; }
+  pre { font-size: 0.6875rem; padding: 16px 14px; }
+  .guide-head .wrap, .masthead-in { flex-wrap: nowrap; }
+}

@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How the Ocotillo Records site was made</title>
+<meta name="description" content="The brief, palette, typefaces, turntable technique and critique log behind the Ocotillo Records concept site.">
+<link rel="stylesheet" href="../css/site.css">
+<style>
+  .g-main { padding-block: clamp(20px, 3vw, 44px) clamp(64px, 8vw, 110px); }
+  .g-main h1 { font-size: clamp(44px, 6.6vw, 96px); max-width: 12ch; }
+  .g-lede { font-size: clamp(18px, 1.6vw, 22px); line-height: 1.45; max-width: 56ch; margin-top: 26px; }
+  .g-sec { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 8fr); gap: 16px clamp(28px, 5vw, 80px); padding-top: 34px; margin-top: 56px; border-top: 3px solid var(--ink); }
+  .g-sec h2 { font-size: clamp(26px, 2.6vw, 36px); letter-spacing: -.045em; line-height: 1; }
+  .g-sec p, .g-sec li { max-width: 64ch; }
+  .g-sec p + p, .g-sec p + pre, .g-sec pre + p, .g-sec ul + p { margin-top: 14px; }
+  .swatches { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; max-width: 640px; }
+  .sw { font-family: var(--mono); font-size: 13px; line-height: 1.4; }
+  .sw i { display: block; height: 84px; border: 3px solid var(--ink); margin-bottom: 8px; }
+  .sw b { display: block; font-family: var(--grot); font-size: 16px; }
+  .faces { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 640px; margin-top: 30px; }
+  .face-a { font-weight: 700; font-size: 54px; letter-spacing: -.055em; line-height: .9; }
+  .face-b { font-family: var(--mono); font-size: 26px; line-height: 1.15; font-weight: 600; }
+  .faces p { font-size: 15px; margin-top: 8px; }
+  pre { background: var(--ink); color: var(--paper); font: 400 13.5px/1.55 var(--mono); padding: 20px 22px; overflow-x: auto; box-shadow: 8px 8px 0 var(--hot); max-width: 100%; tab-size: 2; }
+  code { font-family: var(--mono); font-size: .92em; }
+  .log { counter-reset: pass; }
+  .log li { counter-increment: pass; display: grid; grid-template-columns: 58px 1fr; padding: 18px 0; border-bottom: 1px solid var(--rule); }
+  .log li:first-child { padding-top: 0; }
+  .log li::before { content: counter(pass); font: 700 44px/.9 var(--grot); letter-spacing: -.05em; text-shadow: .05em .04em 0 var(--hot); }
+  .log b { display: block; margin-top: 8px; }
+  .back { margin-top: 56px; }
+  @media (max-width: 760px) {
+    .g-sec { grid-template-columns: minmax(0, 1fr); }
+    .swatches { grid-template-columns: 1fr 1fr; }
+    .faces { grid-template-columns: 1fr; }
+    pre { font-size: 12px; padding: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<p class="concept">An imaginary business. A concept site by <a href="../../">Maui Tinevra</a>.</p>
+
+<header class="mast wrap">
+  <a class="mark" href="../index.html" aria-label="Ocotillo Records, back to the site">
+    <svg viewBox="0 0 56 56" width="46" height="46" aria-hidden="true" focusable="false">
+      <g fill="none" stroke="#1f2f6b" stroke-width="3.4" stroke-linecap="round">
+        <path d="M28 52 C24 36 14 22 6 12"/><path d="M28 52 C26 34 22 18 19 5"/><path d="M28 52 C29 34 32 18 34 4"/><path d="M28 52 C32 36 42 24 51 14"/>
+      </g>
+      <g fill="#ff5a36" style="mix-blend-mode:multiply">
+        <ellipse cx="7.5" cy="12" rx="3.4" ry="6.6" transform="rotate(-38 7.5 12)"/><ellipse cx="20.5" cy="6" rx="3.4" ry="6.6" transform="rotate(-12 20.5 6)"/><ellipse cx="35.5" cy="5" rx="3.4" ry="6.6" transform="rotate(8 35.5 5)"/><ellipse cx="52" cy="15" rx="3.4" ry="6.6" transform="rotate(40 52 15)"/>
+      </g>
+    </svg>
+    <span class="mark-name">Ocotillo<br>Records</span>
+  </a>
+  <nav class="nav" aria-label="Guide">
+    <a href="../index.html">Back to the site</a>
+  </nav>
+</header>
+
+<main class="g-main wrap">
+  <h1 class="mis">How this was made</h1>
+  <p class="g-lede">Ocotillo Records is an invented used vinyl shop on Roosevelt Row in Phoenix. The site had to tell a customer today's hours, where the shop is and what came in this week, look like a two-color risograph poster, and let you put a record on a turntable and hear it with no audio files at all.</p>
+
+  <section class="g-sec" aria-labelledby="g-look">
+    <h2 id="g-look">Two inks and paper</h2>
+    <div>
+      <div class="swatches">
+        <div class="sw"><i style="background:#efe6d2"></i><b>Paper</b>#efe6d2<br>about 60 percent</div>
+        <div class="sw"><i style="background:#1f2f6b"></i><b>Ink blue</b>#1f2f6b<br>about 30 percent</div>
+        <div class="sw"><i style="background:#ff5a36"></i><b>Orange-red</b>#ff5a36<br>about 10 percent</div>
+        <div class="sw"><i style="background:#1f1117"></i><b>Overprint</b>#1f1117<br>both inks at once</div>
+      </div>
+      <p style="margin-top:22px">The fourth swatch is not a third ink. It is what you get when blue is multiplied over orange, so it only appears where the two plates overlap: the vinyl itself, the saguaro crossing the sun, the headphones over their halftone. Body text is blue on paper at 10.1 to 1. Orange never carries small text; on blue it reaches 4.0 to 1, so it is kept to the large step numerals and to shapes.</p>
+      <p>Misregistration is done three ways: an orange copy of each big heading set a few hundredths of an em down and right, orange blocks sitting a few pixels off the blue ones they belong to, and panels turned by less than a degree. The halftones are real dot screens. Small ones are SVG patterns at a 45 degree screen angle; the sun behind the turntable is generated dot by dot, each dot sized by the tone at that point.</p>
+      <div class="faces">
+        <div><div class="face-a">Space Grotesk</div><p>Display and text, weight 700 for headings with tracking pulled in to about minus five percent. One variable font file.</p></div>
+        <div><div class="face-b">IBM Plex Mono<br>OCO-0417 $18</div><p>Prices, catalog numbers, grades, hours and anything else you would read off a sticker. Two weights.</p></div>
+      </div>
+      <p>Both are self-hosted from the Fontsource packages, Latin subset only, about 52 KB in total.</p>
+    </div>
+  </section>
+
+  <section class="g-sec" aria-labelledby="g-deck">
+    <h2 id="g-deck">The turntable</h2>
+    <div>
+      <p>The deck is one inline SVG. The record lives in two nested groups: the outer one is animated when a record drops onto the platter, the inner one is rotated every frame, and the sheen sits outside the spinning group so the light stays still while the label turns. The platter has weight: its speed eases toward 200 degrees a second (33 and a third turns a minute) and eases back to zero, so it spins up and coasts down. The tonearm is a group rotated about its pivot. The cue angle, 39.2 degrees, was worked out from the pivot position and arm length so the stylus lands on the first groove, and it creeps inward while a side plays.</p>
+      <p>The sound starts when the arm lands, not when you press the button. Every note is built at that moment from oscillators and filtered noise. Each record is two bars of sixteen steps written as plain text, and a scheduler looks a little way ahead on the audio clock and books each step at an exact time:</p>
+<pre><code>// one record: x hit, o soft hit, O open hat, . rest
+kick:  'x.....x...x.....x.....x..x.x....',
+bass:  'E2 - - E2 - - G2 - A2 - - A2 B2 - D3 - ...',
+
+function pump() {
+  for (;;) {
+    var t = s.loopStart + stepTime(rec, s.step, stepDur); // swing delays the off steps
+    if (t > ctx.currentTime + .14) break;                  // only book 140 ms ahead
+    scheduleStep(rec, voices, s.step, t, stepDur);
+    visualQueue.push({ step: s.step, t: t });              // the dot grid reads this
+    if (++s.step === 32) { s.step = 0; s.loopStart += 32 * stepDur; }
+  }
+}
+timer = setInterval(pump, 25);</code></pre>
+      <p>A kick is a sine wave falling from 150 to 46 hertz in a tenth of a second. A snare is band-passed noise with a short triangle tone under it; the brushed one on the slow record is noise alone with a soft attack. The four leads are a filtered square wave, a two-operator FM electric piano, three sine drawbars with a slow wobble, and a resonant saw pluck with a dotted-eighth echo.</p>
+      <p>Then everything goes through a chain that stands in for the pressing: gentle saturation, the top rolled off near 8 kilohertz, and a delay line whose length drifts once per turn, which bends the pitch very slightly the way an off-centre record does. The crackle is a noise buffer exactly three turns long, 5.4 seconds, with one tick written at the same place in each turn, so the scratch comes round in time with the label. Its level follows the grade on the sticker: the near mint copy is quiet, the VG one is not.</p>
+<pre><code>// surface noise: three turns of a 33 1/3 record, one scratch per turn
+var turn = Math.round(sr * 1.8), buf = ctx.createBuffer(1, turn * 3, sr);
+for (var i = 0; i &lt; d.length; i++) {
+  d[i] = (Math.random() * 2 - 1) * .012;                       // hiss
+  if (Math.random() &lt; .00042) pop(i, .12 + Math.random() * .5); // dust
+}
+for (var t = 0; t &lt; 3; t++) pop(t * turn + sr * .7, .75);       // the scratch</code></pre>
+      <p>The controls are ordinary buttons and a range input, so the keyboard works without extra code. Pause lifts the arm and fades the output in 60 milliseconds. Picking another record while one is playing lifts the arm, swaps the disc and starts the new groove. With reduced motion switched on, the record appears in place, the arm moves without a swing, the platter does not turn, and the sound still plays. The hours panel reads the clock in Phoenix time, whatever time zone the visitor is in, and knows about the late first Friday.</p>
+    </div>
+  </section>
+
+  <section class="g-sec" aria-labelledby="g-log">
+    <h2 id="g-log">Three critique passes</h2>
+    <ol class="log">
+      <li><div>The halftone sun pushed the phone layout sideways and sat behind the crate's intro text, making it hard to read. Pressing play scrolled the deck out of view because the button was below the sleeves. A font preload raised a console error when the page was opened from disk. On the phone the concept bar wrapped with a stray full stop, the menu took two rows, and the arrivals list had ragged columns. The map labels collided, the ocotillo drawing was clipped, and an offline render showed two grooves peaking above full scale. All fixed: the sun was resized and moved, play went directly under the deck, the now-playing slip became a full-width strip, levels were rebalanced.
+        <b>Upgrade: the tonearm now tracks inward as the record plays.</b></div></li>
+      <li><div>Picking the fourth sleeve on a phone brought the sideways overflow back, so the hero now clips it properly. The playhead in the dot grid was a row of tiny orange specks nobody would notice; it became a solid orange column with the sounding dots enlarged. The headline was trimmed slightly so today's hours sit higher on the first screen.
+        <b>Upgrade: each centre label carries its title and catalog number set on a circle, inside a paper rim, like a real pressing.</b></div></li>
+      <li><div>Map lettering came out under 9 pixels on a phone and was enlarged there. Play and volume now share one row on small screens. Checked by script rather than by eye: the hours panel at seven different moments including a first Friday and a Monday, the whole play, pause and swap sequence by keyboard, reduced motion, and every link and control for a 44 pixel tap height.
+        <b>Upgrade: surface noise follows the grade on the sticker, so the listening station tells you something the price tag does.</b></div></li>
+    </ol>
+  </section>
+
+  <section class="g-sec" aria-labelledby="g-limit">
+    <h2 id="g-limit">One honest limitation</h2>
+    <div>
+      <p>The grooves were balanced with measurements, not ears. The build machine had no speakers, so each record was rendered offline and checked for peak and average level. They are simple two-bar loops and they sound like a small drum machine and three synthesizers, not like a band in a room. A real shop would be better served by short clips of the actual records, which this technique could sit alongside.</p>
+      <p>Two smaller ones: phones with the silent switch on will show everything moving and play nothing, and the loop pauses if you leave the tab, because browsers slow background timers.</p>
+      <p class="back"><a class="btn" href="../index.html">Back to Ocotillo Records</a></p>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p class="foot-name">Ocotillo Records</p>
+    <p class="foot-last"><a href="../../">Concept by Maui Tinevra</a> <a href="../index.html">Back to the site</a></p>
+  </div>
+</footer>
+
+</body>
+</html>

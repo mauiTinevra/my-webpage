@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ocotillo Records. Used vinyl on Roosevelt Row, Phoenix</title>
+<meta name="description" content="Ocotillo Records is a used vinyl shop on Roosevelt Row in Phoenix. Today's hours, this week's crate, and how to sell us your collection.">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+
+<!-- Shared halftone screens. Every drawing on the page pulls its dots from here. -->
+<svg class="defs" width="0" height="0" aria-hidden="true" focusable="false">
+  <defs>
+    <pattern id="ht-ink" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><circle cx="4.5" cy="4.5" r="2.7" fill="#1f2f6b"/></pattern>
+    <pattern id="ht-ink-light" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><circle cx="4.5" cy="4.5" r="1.5" fill="#1f2f6b"/></pattern>
+    <pattern id="ht-hot" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(15)"><circle cx="4.5" cy="4.5" r="2.7" fill="#ff5a36"/></pattern>
+    <pattern id="ht-paper" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><circle cx="4.5" cy="4.5" r="2.2" fill="#efe6d2"/></pattern>
+    <pattern id="rain" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(62)"><rect width="9" height="2.6" fill="#efe6d2"/></pattern>
+  </defs>
+</svg>
+
+<p class="concept">An imaginary business. A concept site by <a href="../">Maui Tinevra</a>.</p>
+
+<header class="mast wrap">
+  <a class="mark" href="#top" aria-label="Ocotillo Records, back to top">
+    <svg viewBox="0 0 56 56" width="46" height="46" aria-hidden="true" focusable="false">
+      <g fill="none" stroke="#1f2f6b" stroke-width="3.4" stroke-linecap="round">
+        <path d="M28 52 C24 36 14 22 6 12"/><path d="M28 52 C26 34 22 18 19 5"/><path d="M28 52 C29 34 32 18 34 4"/><path d="M28 52 C32 36 42 24 51 14"/>
+      </g>
+      <g fill="#ff5a36" style="mix-blend-mode:multiply">
+        <ellipse cx="7.5" cy="12" rx="3.4" ry="6.6" transform="rotate(-38 7.5 12)"/><ellipse cx="20.5" cy="6" rx="3.4" ry="6.6" transform="rotate(-12 20.5 6)"/><ellipse cx="35.5" cy="5" rx="3.4" ry="6.6" transform="rotate(8 35.5 5)"/><ellipse cx="52" cy="15" rx="3.4" ry="6.6" transform="rotate(40 52 15)"/>
+      </g>
+    </svg>
+    <span class="mark-name">Ocotillo<br>Records</span>
+  </a>
+  <nav class="nav" aria-label="Main">
+    <a href="#crate"><span class="long">This week's crate</span><span class="short">Crate</span></a>
+    <a href="#arrivals"><span class="long">New arrivals</span><span class="short">Arrivals</span></a>
+    <a href="#sell"><span class="long">Sell records</span><span class="short">Sell</span></a>
+    <a href="#visit"><span class="long">Hours and directions</span><span class="short">Hours</span></a>
+  </nav>
+</header>
+
+<main id="top">
+
+<section class="hero">
+  <div class="wrap hero-grid">
+
+    <div class="hero-copy">
+      <h1 class="mis">Used vinyl on Roosevelt Row.</h1>
+      <p class="lede">We buy record collections around Phoenix and sell what we dig out of them. There are two turntables by the front window if you want to hear one first.</p>
+
+      <div class="today" aria-labelledby="today-h">
+        <h2 id="today-h" class="today-label">Today</h2>
+        <p class="today-status" id="status" aria-live="polite">Tuesday to Thursday 11 to 7, Friday and Saturday 11 to 9, Sunday 12 to 5. Closed Monday.</p>
+        <p class="today-where">614 E Roosevelt St, Phoenix<br><a class="tel" href="tel:+16025550142">602-555-0142</a></p>
+        <div class="today-actions">
+          <a class="btn" href="#arrivals">See what came in this week</a>
+          <a class="btn btn-line" href="#visit">Get directions</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="station" id="crate" aria-labelledby="crate-h">
+      <svg class="sun" id="sun" viewBox="0 0 560 560" aria-hidden="true" focusable="false"></svg>
+
+      <div class="station-head">
+        <h2 id="crate-h">This week's crate</h2>
+        <p><span id="week">Four from this week.</span> Pick one and press play. The sound is made in your browser as it spins.</p>
+      </div>
+
+      <div class="deck" id="deck" data-state="empty">
+        <svg viewBox="0 0 640 460" role="img" aria-labelledby="deck-title" focusable="false">
+          <title id="deck-title">A turntable seen from above</title>
+          <defs>
+            <clipPath id="disc-clip"><circle cx="250" cy="228" r="166"/></clipPath>
+          </defs>
+          <!-- plinth, with the orange plate printed a little off -->
+          <rect x="27" y="31" width="600" height="420" rx="16" fill="#ff5a36"/>
+          <rect x="14" y="16" width="600" height="420" rx="16" fill="#1f2f6b"/>
+          <rect x="14" y="16" width="600" height="420" rx="16" fill="url(#ht-paper)" opacity=".07"/>
+
+          <!-- platter -->
+          <circle cx="250" cy="228" r="189" fill="#efe6d2"/>
+          <g id="strobe" class="turns"></g>
+          <circle cx="250" cy="228" r="170" fill="#1f2f6b"/>
+          <g fill="none" stroke="#efe6d2" stroke-opacity=".28" stroke-width="1.5">
+            <circle cx="250" cy="228" r="150"/><circle cx="250" cy="228" r="120"/><circle cx="250" cy="228" r="90"/><circle cx="250" cy="228" r="60"/>
+          </g>
+          <text id="mat-hint" x="250" y="318" text-anchor="middle" class="deck-hint">no record on the platter</text>
+
+          <!-- the record: outer group drops, inner group spins, sheen stays put -->
+          <g id="rec" class="rec" opacity="0">
+            <g id="spin" class="turns">
+              <circle cx="250" cy="228" r="166" fill="#1f1117"/>
+              <g id="grooves" fill="none" stroke="#efe6d2"></g>
+              <g id="label" transform="translate(250 228)"></g>
+            </g>
+            <g clip-path="url(#disc-clip)" fill="#efe6d2" opacity=".13">
+              <path d="M250 228 L96 60 L156 22 Z"/><path d="M250 228 L404 396 L344 434 Z"/>
+            </g>
+          </g>
+          <circle cx="250" cy="228" r="5.5" fill="#efe6d2"/>
+
+          <!-- speed and start, drawn on the plinth -->
+          <g transform="translate(64 392)">
+            <circle r="17" fill="#efe6d2"/><text y="5" text-anchor="middle" class="deck-33">33</text>
+          </g>
+          <circle id="lamp" class="lamp" cx="104" cy="392" r="6"/>
+          <text x="596" y="424" text-anchor="end" class="deck-plate">listening station no. 2</text>
+
+          <!-- tonearm -->
+          <rect x="532" y="282" width="26" height="12" rx="3" fill="#efe6d2"/>
+          <g id="arm-shadow" class="arm-shadow">
+            <g class="arm-rot">
+              <path d="M545 96 L545 334" stroke="#101a44" stroke-width="9" stroke-linecap="round" fill="none"/>
+              <rect x="531" y="330" width="28" height="46" rx="4" fill="#101a44" transform="rotate(-18 545 334)"/>
+              <rect x="533" y="34" width="24" height="44" rx="5" fill="#101a44"/>
+            </g>
+          </g>
+          <circle cx="545" cy="96" r="36" fill="#efe6d2"/>
+          <circle cx="545" cy="96" r="36" fill="url(#ht-ink-light)" opacity=".5"/>
+          <g id="arm" class="arm-rot">
+            <rect x="533" y="30" width="24" height="46" rx="5" fill="#efe6d2"/>
+            <path d="M545 62 L545 334" stroke="#efe6d2" stroke-width="8" stroke-linecap="round" fill="none"/>
+            <g transform="rotate(-18 545 334)">
+              <rect x="531" y="328" width="28" height="48" rx="4" fill="#ff5a36"/>
+              <rect x="531" y="328" width="28" height="12" rx="4" fill="#efe6d2"/>
+              <path d="M565 350 h12" stroke="#efe6d2" stroke-width="4" stroke-linecap="round"/>
+            </g>
+          </g>
+          <circle cx="545" cy="96" r="13" fill="#1f2f6b"/>
+          <circle cx="545" cy="96" r="4" fill="#efe6d2"/>
+        </svg>
+      </div>
+
+      <div class="transport">
+        <button type="button" class="btn play" id="play" aria-pressed="false">
+          <svg class="ico" viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false"><path class="ico-play" d="M4 2 L18 10 L4 18Z"/><path class="ico-pause" d="M3 2h5v16H3zM12 2h5v16h-5z"/></svg>
+          <span id="play-text">Play</span>
+        </button>
+        <label class="vol" for="vol">
+          <span>Volume</span>
+          <input type="range" id="vol" min="0" max="100" value="70">
+        </label>
+      </div>
+
+      <div class="crate" role="group" aria-label="Records in this week's crate">
+        <button type="button" class="sleeve" data-i="0" aria-pressed="false">
+          <span class="sleeve-art">
+            <svg viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+              <rect width="200" height="200" fill="#efe6d2"/>
+              <circle cx="122" cy="96" r="62" fill="#ff5a36"/>
+              <rect y="118" width="200" height="82" fill="url(#ht-ink)" style="mix-blend-mode:multiply"/>
+              <g fill="#1f2f6b" style="mix-blend-mode:multiply">
+                <rect x="66" y="52" width="22" height="148" rx="11"/>
+                <path d="M88 132 h18 a11 11 0 0 0 11 -11 v-27 a8 8 0 0 0 -16 0 v20 a2 2 0 0 1 -2 2 h-11z"/>
+                <path d="M66 150 h-16 a11 11 0 0 1 -11 -11 v-31 a8 8 0 0 1 16 0 v24 a2 2 0 0 0 2 2 h9z"/>
+              </g>
+              <text x="14" y="30" class="sv-t" fill="#1f2f6b">Saguaro</text><text x="14" y="50" class="sv-t" fill="#1f2f6b">hour</text>
+              <rect x="1.5" y="1.5" width="197" height="197" fill="none" stroke="#1f2f6b" stroke-width="3"/>
+            </svg>
+          </span>
+          <span class="sleeve-title">Saguaro Hour</span>
+          <span class="sleeve-artist">The Dry Wash Seven</span>
+          <span class="sleeve-meta"><span>OCO-0417</span> <span>$18</span></span>
+        </button>
+
+        <button type="button" class="sleeve" data-i="1" aria-pressed="false">
+          <span class="sleeve-art">
+            <svg viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+              <rect width="200" height="200" fill="#1f2f6b"/>
+              <rect width="200" height="200" fill="url(#rain)" opacity=".85"/>
+              <path d="M0 0 h200 v58 c-18 16 -40 -8 -58 6 c-20 16 -44 -10 -66 4 c-22 14 -50 -6 -76 6z" fill="#1f2f6b"/>
+              <path d="M0 0 h200 v58 c-18 16 -40 -8 -58 6 c-20 16 -44 -10 -66 4 c-22 14 -50 -6 -76 6z" fill="url(#ht-paper)" opacity=".55"/>
+              <path d="M118 52 L82 118 L106 118 L88 176 L140 100 L114 100 L134 52Z" fill="#ff5a36"/>
+              <rect x="10" y="148" width="96" height="42" fill="#1f2f6b"/>
+              <text x="16" y="166" class="sv-t" fill="#efe6d2">Monsoon</text><text x="16" y="185" class="sv-t" fill="#efe6d2">static</text>
+            </svg>
+          </span>
+          <span class="sleeve-title">Monsoon Static</span>
+          <span class="sleeve-artist">Lupe Vantine and the Night Shift</span>
+          <span class="sleeve-meta"><span>OCO-0418</span> <span>$24</span></span>
+        </button>
+
+        <button type="button" class="sleeve" data-i="2" aria-pressed="false">
+          <span class="sleeve-art">
+            <svg viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+              <rect width="200" height="200" fill="#ff5a36"/>
+              <g fill="#1f2f6b" style="mix-blend-mode:multiply">
+                <path d="M100 150 L-20 96 L-20 60Z"/><path d="M100 150 L4 -10 L40 -10Z"/><path d="M100 150 L84 -10 L116 -10Z"/><path d="M100 150 L160 -10 L196 -10Z"/><path d="M100 150 L220 60 L220 96Z"/>
+              </g>
+              <circle cx="100" cy="150" r="46" fill="#efe6d2"/>
+              <circle cx="104" cy="154" r="46" fill="url(#ht-ink)" style="mix-blend-mode:multiply"/>
+              <rect y="150" width="200" height="50" fill="#1f2f6b"/>
+              <text x="14" y="172" class="sv-t" fill="#efe6d2">Copper state</text><text x="14" y="191" class="sv-t" fill="#efe6d2">stomp</text>
+            </svg>
+          </span>
+          <span class="sleeve-title">Copper State Stomp</span>
+          <span class="sleeve-artist">Hal Brisco Trio</span>
+          <span class="sleeve-meta"><span>OCO-0419</span> <span>$15</span></span>
+        </button>
+
+        <button type="button" class="sleeve" data-i="3" aria-pressed="false">
+          <span class="sleeve-art">
+            <svg viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+              <rect width="200" height="200" fill="#efe6d2"/>
+              <rect width="200" height="120" fill="url(#ht-ink-light)"/>
+              <path d="M150 28 a40 40 0 1 0 22 70 a32 32 0 1 1 -22 -70z" fill="#ff5a36" style="mix-blend-mode:multiply"/>
+              <rect y="120" width="200" height="80" fill="#1f2f6b"/>
+              <g stroke="#efe6d2" stroke-width="5" fill="none">
+                <path d="M100 120 L-30 200"/><path d="M100 120 L36 200"/><path d="M100 120 L100 200"/><path d="M100 120 L164 200"/><path d="M100 120 L230 200"/>
+              </g>
+              <rect x="8" y="9" width="92" height="50" fill="#efe6d2"/><text x="14" y="30" class="sv-t" fill="#1f2f6b">Parking</text><text x="14" y="50" class="sv-t" fill="#1f2f6b">lot moon</text>
+              <rect x="1.5" y="1.5" width="197" height="197" fill="none" stroke="#1f2f6b" stroke-width="3"/>
+            </svg>
+          </span>
+          <span class="sleeve-title">Parking Lot Moon</span>
+          <span class="sleeve-artist">Glass Arroyo</span>
+          <span class="sleeve-meta"><span>OCO-0420</span> <span>$21</span></span>
+        </button>
+      </div>
+
+    </div>
+
+    <div class="slip">
+      <div class="slip-what">
+      <p class="slip-now" id="now" aria-live="polite">Nothing on the platter yet. Pick a record above, or press play and we'll pick for you.</p>
+      <dl class="slip-facts" id="facts" hidden>
+        <div><dt>Catalog no.</dt><dd id="f-cat"></dd></div>
+        <div><dt>Label, year</dt><dd id="f-label"></dd></div>
+        <div><dt>Grade</dt><dd id="f-grade"></dd></div>
+        <div><dt>Price</dt><dd id="f-price"></dd></div>
+      </dl>
+      </div>
+      <div class="steps" id="steps" hidden>
+        <p class="steps-cap" id="steps-cap"></p>
+        <div class="steps-grid" id="steps-grid" role="img" aria-label="The drum, bass and lead pattern for this record, sixteen steps to the bar"></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="arrivals" id="arrivals" aria-labelledby="arr-h">
+  <div class="wrap arr-grid">
+    <div class="arr-main">
+      <h2 id="arr-h" class="mis">Also in this week</h2>
+      <p class="sec-lede">Ten boxes from an estate in Sunnyslope and a DJ's garage in Mesa. These went out on the floor Tuesday. One copy of each, so call and we'll hold it until close.</p>
+
+      <table class="list">
+        <caption class="sr">New arrivals this week, with catalog number, bin, format, grade and price</caption>
+        <thead>
+          <tr><th scope="col">No.</th><th scope="col">Artist and title</th><th scope="col">Bin</th><th scope="col">Format</th><th scope="col">Grade</th><th scope="col" class="num">Price</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="c-no">OCO-0421</td><td class="c-what"><b>Orquesta Camino Seco</b> Baile en la Azotea</td><td class="c-bin">Cumbia</td><td class="c-fmt">LP</td><td class="c-gr">VG+</td><td class="c-pr num">$22</td></tr>
+          <tr><td class="c-no">OCO-0422</td><td class="c-what"><b>The Tumbleweed Choir</b> Hymns for a Swamp Cooler</td><td class="c-bin">Gospel</td><td class="c-fmt">LP</td><td class="c-gr">VG</td><td class="c-pr num">$9</td></tr>
+          <tr><td class="c-no">OCO-0423</td><td class="c-what"><b>Marguerite Okafor-Lindt Quartet</b> Seven Easy Storms</td><td class="c-bin">Jazz</td><td class="c-fmt">LP</td><td class="c-gr">NM</td><td class="c-pr num">$34</td></tr>
+          <tr><td class="c-no">OCO-0424</td><td class="c-what"><b>Flat Tire Serenade</b> Shoulder of the 60</td><td class="c-bin">Punk</td><td class="c-fmt">7-inch</td><td class="c-gr">VG+</td><td class="c-pr num">$7</td></tr>
+          <tr><td class="c-no">OCO-0425</td><td class="c-what"><b>Benny Alcaraz y Los Relámpagos</b> Polvo y Neón</td><td class="c-bin">Tejano</td><td class="c-fmt">LP</td><td class="c-gr">VG</td><td class="c-pr num">$14</td></tr>
+          <tr><td class="c-no">OCO-0426</td><td class="c-what"><b>Ines Halvorsen</b> Music for Evaporative Cooling</td><td class="c-bin">Ambient</td><td class="c-fmt">LP</td><td class="c-gr">NM</td><td class="c-pr num">$28</td></tr>
+          <tr><td class="c-no">OCO-0427</td><td class="c-what"><b>The Creosote Brothers</b> After the First Rain</td><td class="c-bin">Country</td><td class="c-fmt">LP</td><td class="c-gr">G+</td><td class="c-pr num">$5</td></tr>
+          <tr><td class="c-no">OCO-0428</td><td class="c-what"><b>Dial Tone Mirage</b> Payphone Weather</td><td class="c-bin">New wave</td><td class="c-fmt">12-inch</td><td class="c-gr">VG+</td><td class="c-pr num">$12</td></tr>
+          <tr><td class="c-no">OCO-0429</td><td class="c-what"><b>Odalys Trejo</b> Canciones del Canal</td><td class="c-bin">Bolero</td><td class="c-fmt">LP</td><td class="c-gr">VG+</td><td class="c-pr num">$19</td></tr>
+          <tr><td class="c-no">OCO-0430</td><td class="c-what"><b>Big Wash Rhythm Unit</b> Low Water Crossing</td><td class="c-bin">Funk</td><td class="c-fmt">LP</td><td class="c-gr">VG</td><td class="c-pr num">$16</td></tr>
+        </tbody>
+      </table>
+      <p class="list-foot">About 140 more went into the bins without a write-up, and the dollar crates by the door were refilled Wednesday.</p>
+    </div>
+
+    <aside class="grades" id="grading" aria-labelledby="gr-h">
+      <h3 id="gr-h">How we grade</h3>
+      <p>We grade the vinyl under a lamp and play anything over $20 before it gets a sticker.</p>
+      <dl>
+        <div><dt>NM</dt><dd>Near mint. Looks unplayed, plays quiet.</dd></div>
+        <div><dt>VG+</dt><dd>A few light marks. You'll hear the music, not the record.</dd></div>
+        <div><dt>VG</dt><dd>Visible wear and some surface noise between songs.</dd></div>
+        <div><dt>G+</dt><dd>Well loved. Plays through without skipping, with crackle.</dd></div>
+      </dl>
+      <p class="grades-note">If a record plays worse at home than its grade, bring it back within 14 days for the price you paid.</p>
+    </aside>
+  </div>
+</section>
+
+<section class="sell" id="sell" aria-labelledby="sell-h">
+  <div class="wrap sell-grid">
+    <div class="sell-art">
+      <svg id="ocotillo" viewBox="0 0 420 520" aria-hidden="true" focusable="false"></svg>
+    </div>
+    <div class="sell-copy">
+      <h2 id="sell-h">We buy records, one box or a whole garage</h2>
+      <p class="sec-lede">We look at every record, tell you what we'd pay for each pile and why, and you're free to say no and take them home.</p>
+      <ol class="how">
+        <li><b>Bring up to two crates to the counter.</b> Any open day before 5, no appointment. It takes about twenty minutes a crate.</li>
+        <li><b>Have more than that? We come to you.</b> Anywhere in the Valley, usually within the week. Call and tell us roughly how many and what kind.</li>
+        <li><b>Get paid the same day.</b> Cash, or 30 percent more as store credit. We pay 40 to 50 percent of what we'll price a record at.</li>
+      </ol>
+      <div class="want">
+        <div>
+          <h3>Always looking for</h3>
+          <p>Soul, jazz, cumbia and Tejano, punk and metal, private-press oddities, anything recorded in Arizona.</p>
+        </div>
+        <div>
+          <h3>Usually pass on</h3>
+          <p>Water-damaged sleeves, warped or deeply scratched records, and most easy-listening box sets.</p>
+        </div>
+      </div>
+      <p class="sell-cta">
+        <a class="btn btn-paper" href="tel:+16025550117">Call the buying line, 602-555-0117</a>
+        <a class="plain" href="mailto:buy@ocotillorecords.example">buy@ocotillorecords.example</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="listen" id="listen" aria-labelledby="listen-h">
+  <div class="wrap listen-grid">
+    <div class="listen-copy">
+      <h2 id="listen-h" class="mis">Hear it before you buy it</h2>
+      <p>Two turntables sit by the front window, each with a pair of headphones. Take up to three records over at a time. If one looks dusty, hand it to us and we'll clean it first.</p>
+      <p>When there's a line, please keep it to fifteen minutes. Sealed records stay sealed.</p>
+    </div>
+    <div class="listen-art">
+      <svg viewBox="0 0 420 300" aria-hidden="true" focusable="false">
+        <circle cx="236" cy="150" r="128" fill="url(#ht-hot)"/>
+        <g style="mix-blend-mode:multiply">
+          <path d="M92 190 V150 a118 118 0 0 1 236 0 V190" fill="none" stroke="#1f2f6b" stroke-width="20" stroke-linecap="round"/>
+          <rect x="62" y="168" width="58" height="104" rx="26" fill="#1f2f6b"/>
+          <rect x="300" y="168" width="58" height="104" rx="26" fill="#1f2f6b"/>
+        </g>
+        <rect x="76" y="182" width="16" height="76" rx="8" fill="#ff5a36"/>
+        <rect x="328" y="182" width="16" height="76" rx="8" fill="#ff5a36"/>
+        <path d="M91 272 c0 30 60 2 60 26" fill="none" stroke="#1f2f6b" stroke-width="5" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="visit" id="visit" aria-labelledby="visit-h">
+  <div class="wrap visit-grid">
+    <div class="visit-hours">
+      <h2 id="visit-h" class="mis">Hours and directions</h2>
+      <table class="hours" id="hours">
+        <caption class="sr">Opening hours by day</caption>
+        <tbody>
+          <tr data-d="1"><th scope="row">Monday</th><td>Closed</td></tr>
+          <tr data-d="2"><th scope="row">Tuesday</th><td>11 am to 7 pm</td></tr>
+          <tr data-d="3"><th scope="row">Wednesday</th><td>11 am to 7 pm</td></tr>
+          <tr data-d="4"><th scope="row">Thursday</th><td>11 am to 7 pm</td></tr>
+          <tr data-d="5"><th scope="row">Friday</th><td>11 am to 9 pm</td></tr>
+          <tr data-d="6"><th scope="row">Saturday</th><td>11 am to 9 pm</td></tr>
+          <tr data-d="0"><th scope="row">Sunday</th><td>12 pm to 5 pm</td></tr>
+        </tbody>
+      </table>
+      <p class="hours-note">On the first Friday of the month we stay open until 10 pm for the art walk.</p>
+    </div>
+
+    <div class="visit-where">
+      <svg class="map" viewBox="0 0 520 340" role="img" aria-labelledby="map-t" focusable="false">
+        <title id="map-t">Map: the shop is on the north side of Roosevelt Street between 6th and 7th Streets, about ten minutes' walk east of the light rail stop at Central Avenue</title>
+        <rect width="520" height="340" fill="#efe6d2"/>
+        <g fill="url(#ht-ink-light)" opacity=".8">
+          <rect x="96" y="20" width="110" height="118"/><rect x="232" y="20" width="110" height="118"/><rect x="368" y="20" width="132" height="118"/>
+          <rect x="96" y="186" width="110" height="134"/><rect x="232" y="186" width="110" height="134"/><rect x="368" y="186" width="132" height="134"/>
+        </g>
+        <rect x="20" y="20" width="50" height="300" fill="url(#ht-ink-light)" opacity=".8"/>
+        <!-- light rail on Central -->
+        <path d="M83 10 V330" stroke="#1f2f6b" stroke-width="4" stroke-dasharray="3 7"/>
+        <rect x="73" y="150" width="20" height="24" fill="#1f2f6b"/>
+        <!-- the walk from the stop, and the shop with its second plate off register -->
+        <path d="M104 172 H392" stroke="#ff5a36" stroke-width="5" stroke-dasharray="1 11" stroke-linecap="round"/>
+        <rect x="397" y="95" width="46" height="42" fill="#ff5a36"/>
+        <rect x="392" y="90" width="46" height="42" fill="#1f2f6b"/>
+        <g class="map-t">
+          <text x="104" y="158">Roosevelt St</text>
+          <text x="50" y="306" transform="rotate(-90 50 306)">Central Ave</text>
+          <text x="224" y="306" transform="rotate(-90 224 306)">3rd St</text>
+          <text x="360" y="306" transform="rotate(-90 360 306)">6th St</text>
+          <text x="104" y="128" class="map-s">light rail stop</text>
+          <text x="450" y="108" class="map-b">We're</text><text x="450" y="126" class="map-b">here</text>
+        </g>
+        <path d="M100 133 L92 146" stroke="#1f2f6b" stroke-width="2"/>
+        <g transform="translate(476 292)">
+          <circle r="17" fill="#efe6d2" stroke="#1f2f6b" stroke-width="2.5"/>
+          <path d="M0 -11 L6 3 L0 0 L-6 3Z" fill="#1f2f6b"/>
+          <text y="13" text-anchor="middle" class="map-n">N</text>
+        </g>
+      </svg>
+      <div class="where-facts">
+        <address>
+          <b>Ocotillo Records</b><br>
+          614 E Roosevelt St<br>
+          Phoenix, AZ 85004
+        </address>
+        <p>North side of Roosevelt, between 6th and 7th Streets. Look for the blue door with the orange ocotillo on it.</p>
+        <p>Metered parking out front and on 6th Street. The light rail stops at Roosevelt and Central, a ten minute walk west.</p>
+        <p><a class="plain" href="tel:+16025550142">602-555-0142</a><br><a class="plain" href="mailto:hello@ocotillorecords.example">hello@ocotillorecords.example</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <p class="foot-name">Ocotillo Records</p>
+        <p>Used vinyl, bought and sold on Roosevelt Row since 2014.</p>
+      </div>
+      <nav aria-label="Shop">
+        <h2>Shop</h2>
+        <ul>
+          <li><a href="#crate">This week's crate</a></li>
+          <li><a href="#arrivals">New arrivals</a></li>
+          <li><a href="#grading">How we grade</a></li>
+          <li><a href="#listen">Listening station</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Sell">
+        <h2>Sell</h2>
+        <ul>
+          <li><a href="#sell">How selling works</a></li>
+          <li><a href="tel:+16025550117">Buying line, 602-555-0117</a></li>
+          <li><a href="mailto:buy@ocotillorecords.example">buy@ocotillorecords.example</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Visit">
+        <h2>Visit</h2>
+        <ul>
+          <li><a href="#visit">Hours and directions</a></li>
+          <li><a href="tel:+16025550142">Shop, 602-555-0142</a></li>
+          <li><a href="mailto:hello@ocotillorecords.example">hello@ocotillorecords.example</a></li>
+        </ul>
+      </nav>
+    </div>
+    <p class="foot-last"><a href="../">Concept by Maui Tinevra</a> <a href="guide/index.html">How this was made</a></p>
+  </div>
+</footer>
+
+<script src="js/site.js"></script>
+<script src="js/deck.js"></script>
+</body>
+</html>

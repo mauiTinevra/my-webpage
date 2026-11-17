@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How Dark Sky Sonora was made</title>
+<meta name="description" content="The brief, palette, typefaces, astronomy and critique log behind the Dark Sky Sonora concept site.">
+<link rel="stylesheet" href="../style.css">
+<style>
+  .g { max-width: 860px; margin-inline: auto; padding: 0 var(--gutter) 80px; }
+  .g-head { padding: 44px 0 36px; }
+  .g-head h1 { margin-top: 14px; }
+  .g section { border-top: 1px solid var(--line-strong); padding: 26px 0 44px; }
+  .g h2 { font-weight: 700; font-size: clamp(1.45rem, 2.4vw, 1.9rem); line-height: 1.1; letter-spacing: -.02em; margin-bottom: 16px; }
+  .g p, .g li { max-width: 66ch; }
+  .g p + p { margin-top: 12px; }
+  .g code { font: 400 .86em var(--mono); }
+  .swatches { display: grid; grid-template-columns: 6fr 3fr 1fr; margin: 18px 0 22px; border: 1px solid var(--line-strong); }
+  .swatches div { padding: 14px 12px; min-height: 96px; font: 500 12.5px/1.5 var(--mono); display: flex; flex-direction: column; justify-content: flex-end; }
+  .sw-n { background: #0b1026; color: #e9e2cf; } .sw-b { background: #e9e2cf; color: #0b1026; } .sw-r { background: #d6432a; color: #0b1026; padding-inline: 6px !important; }
+  .spec { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin-top: 8px; }
+  .spec p:first-child { font-size: 34px; line-height: 1.05; font-weight: 700; letter-spacing: -.03em; }
+  .spec .m p:first-child { font: 500 26px/1.2 var(--mono); letter-spacing: 0; }
+  .spec p + p { font: 400 12.5px/1.5 var(--mono); color: var(--soft); margin-top: 8px; }
+  pre { margin: 18px 0; padding: 18px 18px 18px 30px; border: 1px solid var(--line-strong); font: 400 12.5px/1.65 var(--mono); overflow-x: auto; position: relative; white-space: pre; }
+  pre::before { content: ""; position: absolute; left: 12px; top: 0; bottom: 0; border-left: 1px solid var(--red); }
+  .log { counter-reset: pass; }
+  .log li { padding: 14px 0 14px 86px; border-bottom: 1px solid var(--line); position: relative; }
+  .log li::before { counter-increment: pass; content: "Pass " counter(pass); position: absolute; left: 0; top: 17px; font: 500 12.5px/1.3 var(--mono); color: var(--soft); }
+  .log strong { font-weight: 600; }
+  .checks { margin-top: 14px; border-top: 1px solid var(--line); }
+  .checks div { display: grid; grid-template-columns: 200px 1fr; gap: 16px; padding: 9px 0; border-bottom: 1px solid var(--line); }
+  .checks dd { margin: 0; }
+  .back { display: inline-flex; align-items: center; min-height: 44px; font: 500 13.5px/1 var(--mono); }
+  @media (max-width: 640px) { .spec { grid-template-columns: 1fr; } .checks div { grid-template-columns: 1fr; gap: 2px; } .log li { padding-left: 0; padding-top: 38px; } .swatches { grid-template-columns: 5fr 3fr 2fr; } }
+</style>
+</head>
+<body>
+<p class="concept-bar">An imaginary business. A concept site by <a href="../../">Maui Tinevra</a>.</p>
+<main class="g">
+  <header class="g-head">
+    <a class="back" href="../index.html">Back to Dark Sky Sonora</a>
+    <h1>How this was made</h1>
+  </header>
+
+  <section>
+    <h2>The brief</h2>
+    <p>Dark Sky Sonora is an invented stargazing guide who runs small-group telescope tours in the desert north of Scottsdale. A customer arrives with two questions, whether tonight is any good and how to get a seat, so the page answers the first with real astronomy and puts the second one tap away.</p>
+  </section>
+
+  <section>
+    <h2>Palette and type</h2>
+    <p>An observatory logbook at night: mostly dark, ruled with hairlines, and one red lamp. Red is kept for the slider, north on the chart, and small signal dots. It is never used for small text, because on night it only reaches 4.2 to 1. Body text is bone on night at 14.6 to 1, and the quieter grey-bone at about 8 to 1.</p>
+    <div class="swatches" aria-label="Palette">
+      <div class="sw-n">Night<br>#0b1026<br>60</div><div class="sw-b">Bone<br>#e9e2cf<br>30</div><div class="sw-r">Red<br>10</div>
+    </div>
+    <div class="spec">
+      <div><p>Dark until the moon rises</p><p>Syne, variable 400 to 800. Display and reading text.</p></div>
+      <div class="m"><p>22h 40m &nbsp;33.49° N</p><p>JetBrains Mono, variable. Times, coordinates, labels and the chart.</p></div>
+    </div>
+    <p style="margin-top:22px">Both faces are self-hosted from the Fontsource packages, Latin subset only. The Red lamp button in the header turns the whole page, chart included, to red on black, which is how charts are read at a telescope.</p>
+  </section>
+
+  <section>
+    <h2>The signature moment: tonight's sky, computed</h2>
+    <p>Nothing on the chart is a picture and nothing is fetched. <code>astro.js</code> holds about 180 lines of positional astronomy and <code>site.js</code> draws the result on a canvas every time the slider moves.</p>
+    <p>The steps, in order. The visitor's clock gives a moment in UTC, and Phoenix time is that minus seven hours all year. The sun comes from the Astronomical Almanac's low-precision formula. The moon comes from the same book's short series for longitude, latitude and parallax. The planets come from JPL's approximate orbital elements, solved through Kepler's equation. Eighty-odd bright stars sit in a table of right ascension and declination and are moved from the year 2000 to today for precession. Greenwich sidereal time plus the longitude gives local sidereal time, which turns every right ascension into an hour angle, and the latitude turns that into height and compass bearing. A stereographic projection puts the zenith in the middle and the horizon on the rim.</p>
+<pre>// Equatorial to horizon coordinates. Azimuth runs from north through east.
+function altAz(ra, dec, ms) {
+  var H = lst(ms) - ra;                       // hour angle, from local sidereal time
+  var alt = asin(sin(LAT) * sin(dec) + cos(LAT) * cos(dec) * cos(H));
+  var az = atan2(-cos(dec) * sin(H),
+                 sin(dec) * cos(LAT) - cos(dec) * sin(LAT) * cos(H));
+  return { alt: alt, az: norm(az) };
+}
+
+// On the chart: the zenith in the middle, east on the left, as it is overhead.
+function proj(alt, az) {
+  var r = R * Math.tan((90 - alt) / 2 * RAD);
+  return [cx - r * Math.sin(az * RAD), cy - r * Math.cos(az * RAD)];
+}</pre>
+    <p>Sunset, the end of astronomical twilight (sun 18° down), moonrise and moonset are found by stepping through the night two minutes at a time and interpolating each crossing. The verdict is then a plain rule: dark means the sun is more than 18° down and the moon is below the horizon. The moon's lit fraction is (1 − cos elongation) ÷ 2, and it is drawn as a half disc plus or minus an ellipse, rotated so the bright limb faces wherever the sun actually is on the chart.</p>
+    <p>The slider is a native range input, so arrow keys move it five minutes at a time and Page Up and Page Down move it further. It announces the time, the state of the sky and the moon's position as its value. The table beside the chart is the text alternative: the same sky in words, updated with every move.</p>
+  </section>
+
+  <section>
+    <h2>How accurate it is</h2>
+    <p>Good enough to plan an evening, not good enough to point a telescope. Checked for 17 November 2026 and a few other dates against things that are known:</p>
+    <dl class="checks">
+      <div><dt>17 Nov 2026, Scottsdale</dt><dd>Sunset 5:24 PM, fully dark 6:50 PM, moon 56% lit and setting about 12:42 AM. First quarter falls on that date, so just over half lit is right.</dd></div>
+      <div><dt>New and full moons</dt><dd>9 Nov 2026 comes out 1% lit and 24 Nov 2026 comes out 99.5% lit, matching the calendar.</dd></div>
+      <div><dt>Eclipses</dt><dd>8 Apr 2024 (solar) gives 0.2% lit. 14 Mar 2025 (lunar) gives 99.4% lit.</dd></div>
+      <div><dt>Planets</dt><dd>Mars and Jupiter land within two degrees of each other in Leo in mid November 2026, and Saturn sits on the Pisces and Cetus border, as they should.</dd></div>
+    </dl>
+    <p style="margin-top:16px">Expected error: sun times within a minute or two, moon times within about five minutes, the moon's place within about a third of a degree, planets within a small fraction of a degree. Stars ignore proper motion and refraction. The horizon is treated as flat, so the real hills will take a few minutes off every rising and setting.</p>
+  </section>
+
+  <section>
+    <h2>Three critique passes</h2>
+    <ol class="log">
+      <li><strong>Found:</strong> the headline ran to six lines and pushed the verdict down; star and constellation names sat on top of each other and on the figures (Mars and Jupiter are in conjunction this week); the hills on the rim read as a black smear; the red lamp mode turned the bone section into a wall of bright red, which defeats the point; the phone header overflowed. <strong>Fixed:</strong> shorter headline; labels now search for a free spot, brightest first, with a knocked-out halo; a finer ridge line; the bone section goes dark under the lamp; smaller wordmark. <strong>Upgrade:</strong> a ruler under the slider with a tick for every whole hour.</li>
+      <li><strong>Found:</strong> a large empty hole in the left column beside the chart; the play button wrapped onto its own row; section headings at weight 800 were much wider than the headline; the week showed only one of the two tours with no word on the other. <strong>Fixed:</strong> the "above the horizon" table moved into the left column (it still follows the chart on a phone); play joins the jump buttons; headings unified at 700; a line that finds the next moonless evening beyond the week. <strong>Upgrade:</strong> the Milky Way, plotted along the real galactic equator, which only appears once the sky model says it is dark enough and fades out when the moon is up.</li>
+      <li><strong>Found:</strong> invalid form fields did not turn red (a selector lost on specificity); the night picker's text was cut off on a phone; "pavement ends" sat on the route line; two links were under 44px tall; the tour rule called a night moonless when a full moon rose forty minutes into the tour. <strong>Fixed:</strong> all five, and the tour rule now checks the moon across the first three hours. <strong>Upgrade:</strong> pressing Sunset, Moonset or First light turns the sky to that hour instead of snapping to it, and snaps when reduced motion is on.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>One honest limitation</h2>
+    <p>The page knows where the sun and moon are. It knows nothing about cloud, dust, smoke or how bright Phoenix is on a given night. How faint the stars go under twilight and moonlight is a rough model that I tuned by eye, not a measurement. Mercury, meteor showers and the fainter stars are left out, and seats and bookings are invented and kept only in this browser tab.</p>
+    <p>To see another night, add a date to the address: <a href="../index.html#date=2026-12-09">index.html#date=2026-12-09</a>.</p>
+  </section>
+
+  <p class="colophon"><a href="../index.html">Back to Dark Sky Sonora</a><a href="../../">Concept by Maui Tinevra</a></p>
+</main>
+</body>
+</html>
