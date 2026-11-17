@@ -31,31 +31,19 @@ const services = [
   },
 ];
 
-// Selected work: the hand-built projects first, then the six gallery concepts, each in its own
-// color. The gallery sites were built by AI agents from Maui's briefs, and the cards say so.
-const gallery = [
-  { slug: 'ocotillo-records', name: 'Ocotillo Records', kind: 'Record shop', line: 'Pick a record and press play. The music is made live in the browser, with no audio files.' },
-  { slug: 'monsoon-clay', name: 'Monsoon Clay', kind: 'Pottery studio', line: 'Drag four marks to throw a pot, and the page names what you made and the class that teaches it.' },
-  { slug: 'camelback-barber', name: 'Camelback Barber', kind: 'Barbershop', line: 'A chair board on the real Phoenix clock, and a booking that ends in a ticket stub.' },
-  { slug: 'paloma-flores', name: 'Paloma Flores', kind: 'Florist', line: 'Build a bouquet stem by stem. It arranges itself in the vase, and the builder is the order form.' },
-  { slug: 'dark-sky-sonora', name: 'Dark Sky Sonora', kind: 'Stargazing tours', line: 'Tonight\u2019s real sky over Scottsdale, computed: the moon, the planets and when it gets dark.' },
-  { slug: 'dos-gatos-books', name: 'Dos Gatos Books', kind: 'Bookshop', line: 'A shelf of forty invented books. Pull one, read the staff note, and put it on your hold slip.' },
-];
+// Selected work: everything in src/data/work.ts, hand-built first, then the six gallery concepts,
+// each in its own color. The gallery sites were built by AI agents from Maui's briefs; the cards say so.
 const colors = ['var(--orange)', 'var(--yellow)', 'var(--pink)', 'var(--green)', 'var(--lilac)', 'var(--blue)'];
-const cards = [
-  ...work
-    .filter((w) => w.id !== 'gallery')
-    .map((w) => ({ href: w.href, name: w.name, kind: w.kind, line: w.line, image: w.image, alt: w.alt, ai: false })),
-  ...gallery.map((g) => ({
-    href: `/gallery/${g.slug}/`,
-    name: g.name,
-    kind: `${g.kind} concept`,
-    line: g.line,
-    image: `/gallery/thumbs/${g.slug}.jpg`,
-    alt: `The ${g.name} site`,
-    ai: true,
-  })),
-].map((c, i) => ({ ...c, field: colors[i % colors.length] }));
+const cards = work.map((w, i) => ({
+  href: w.ai ? w.links[0].href : w.href,
+  name: w.name,
+  kind: w.kind,
+  line: w.line,
+  image: w.image,
+  alt: w.alt,
+  ai: !!w.ai,
+  field: colors[i % colors.length],
+}));
 ---
 
 <Base bare>

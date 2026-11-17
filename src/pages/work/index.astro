@@ -10,7 +10,7 @@ import { work } from '../../data/work';
     <p class="w-lede">Each project, what it needed, and what I did about it.</p>
   </header>
   {
-    work.map((w) => (
+    work.filter((w) => !w.ai).map((w) => (
       <article class="w-case" id={w.id} aria-labelledby={`${w.id}-title`}>
         <a class="w-shot" href={w.links[0].href}>
           <img src={w.image} alt={w.alt} width="1200" height="750" loading="lazy" />
@@ -21,6 +21,45 @@ import { work } from '../../data/work';
           <h3>The problem</h3>
           <p>{w.problem}</p>
           <h3>What I did</h3>
+          <ul>
+            {w.did.map((d) => (
+              <li>{d}</li>
+            ))}
+          </ul>
+          <p class="w-result">{w.result}</p>
+          <p class="w-links">
+            {w.links.map((l, i) => (
+              <a class={i === 0 ? 'btn btn-primary' : 'btn'} href={l.href}>
+                {l.label}
+              </a>
+            ))}
+          </p>
+        </div>
+      </article>
+    ))
+  }
+  <section class="w-gallery" id="gallery" aria-labelledby="gallery-title">
+    <h2 class="w-name" id="gallery-title">The gallery</h2>
+    <p>
+      Six imaginary businesses around Phoenix, built in an afternoon. I wrote one build standard and six briefs: the business,
+      what its customers come for, a palette, typefaces and one moment that has to really work. AI agents built the six sites in
+      parallel, each one checking screenshots of its own work three times, and I reviewed every one on phone and desktop before
+      publishing.
+    </p>
+    <p class="w-links"><a class="btn btn-primary" href="/gallery/">Open the gallery</a><a class="btn" href="/gallery/guide/">How it was made</a></p>
+  </section>
+  {
+    work.filter((w) => w.ai).map((w) => (
+      <article class="w-case" id={w.id} aria-labelledby={`${w.id}-title`}>
+        <a class="w-shot" href={w.links[0].href}>
+          <img src={w.image} alt={w.alt} width="1200" height="750" loading="lazy" />
+        </a>
+        <div class="w-words">
+          <p class="w-kind">{w.kind}, built with AI agents from my brief</p>
+          <h2 class="w-name" id={`${w.id}-title`}>{w.name}</h2>
+          <h3>The brief</h3>
+          <p>{w.problem}</p>
+          <h3>What was built</h3>
           <ul>
             {w.did.map((d) => (
               <li>{d}</li>
@@ -63,6 +102,14 @@ import { work } from '../../data/work';
   .w-words ul { margin: 0; padding-left: 1.1rem; display: grid; gap: 0.4rem; }
   .w-result { margin-top: 1.25rem !important; font-weight: 600; font-size: 1.15rem; }
   .w-links { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.5rem !important; }
+  .w-gallery { margin: clamp(1.5rem, 3vw, 2.5rem) var(--edge) 0; padding: clamp(2rem, 4vw, 3.5rem); border-radius: 1.4rem; background: var(--ink); color: var(--paper); }
+  .w-gallery p { max-width: 44rem; margin: 1rem 0 0; font-size: 1.1rem; line-height: 1.55; }
+  .w-gallery .w-links { margin-top: 1.5rem; }
+  .w-gallery .btn { border-color: var(--paper); color: var(--paper); }
+  .w-gallery .btn:hover { background: var(--paper); color: var(--ink); }
+  .w-gallery .btn-primary { background: var(--orange); border-color: var(--orange); color: var(--ink); }
+  .w-gallery :focus-visible { outline-color: var(--paper); }
+  .w-case:nth-of-type(4n + 5) .w-shot { background: var(--green); }
   .w-next { margin-top: clamp(2rem, 4vw, 3.5rem); padding: clamp(3rem, 7vw, 6rem) var(--edge); background: var(--yellow); }
   .w-next p { margin: 0.75rem 0 0; font-size: 1.2rem; font-weight: 500; }
   .btn { display: inline-flex; align-items: center; min-height: 3rem; padding: 0.6rem 1.4rem; border: 1.5px solid var(--ink); border-radius: 999px; background: transparent; color: var(--ink); font: 600 1rem var(--reading); text-decoration: none; transition: background-color 0.2s, color 0.2s; }
