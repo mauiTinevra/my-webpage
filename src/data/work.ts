@@ -92,7 +92,7 @@ export const work: Work[] = [
     problem:
       'A used vinyl shop on Roosevelt Row. People want today\u2019s hours, where it is and what came in this week, and a record shop should sound like something.',
     did: [
-      'Printed like a two-color poster: blue and fluorescent orange-red on paper, with overprint where the inks meet.',
+      'Printed like a two-color poster: black and yellow on paper, with overprint where the inks meet.',
       'A turntable drawn in code: pick one of four invented records, it drops on the platter, and the tonearm swings in.',
       'Each record plays its own short groove, synthesized live with the Web Audio API, with crackle that follows the record\u2019s grade.',
       'Today\u2019s hours on Phoenix time, ten new arrivals with grades and prices, and how to sell a collection.',

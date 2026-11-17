@@ -13,9 +13,9 @@
 <!-- Shared halftone screens. Every drawing on the page pulls its dots from here. -->
 <svg class="defs" width="0" height="0" aria-hidden="true" focusable="false">
   <defs>
-    <pattern id="ht-ink" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><circle cx="4.5" cy="4.5" r="2.7" fill="#1f2f6b"/></pattern>
-    <pattern id="ht-ink-light" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><circle cx="4.5" cy="4.5" r="1.5" fill="#1f2f6b"/></pattern>
-    <pattern id="ht-hot" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(15)"><circle cx="4.5" cy="4.5" r="2.7" fill="#ff5a36"/></pattern>
+    <pattern id="ht-ink" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><circle cx="4.5" cy="4.5" r="2.7" fill="#161616"/></pattern>
+    <pattern id="ht-ink-light" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><circle cx="4.5" cy="4.5" r="1.5" fill="#161616"/></pattern>
+    <pattern id="ht-hot" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(15)"><circle cx="4.5" cy="4.5" r="2.7" fill="#ffc61a"/></pattern>
     <pattern id="ht-paper" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><circle cx="4.5" cy="4.5" r="2.2" fill="#efe6d2"/></pattern>
     <pattern id="rain" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(62)"><rect width="9" height="2.6" fill="#efe6d2"/></pattern>
   </defs>
@@ -26,10 +26,10 @@
 <header class="mast wrap">
   <a class="mark" href="#top" aria-label="Ocotillo Records, back to top">
     <svg viewBox="0 0 56 56" width="46" height="46" aria-hidden="true" focusable="false">
-      <g fill="none" stroke="#1f2f6b" stroke-width="3.4" stroke-linecap="round">
+      <g fill="none" stroke="#161616" stroke-width="3.4" stroke-linecap="round">
         <path d="M28 52 C24 36 14 22 6 12"/><path d="M28 52 C26 34 22 18 19 5"/><path d="M28 52 C29 34 32 18 34 4"/><path d="M28 52 C32 36 42 24 51 14"/>
       </g>
-      <g fill="#ff5a36" style="mix-blend-mode:multiply">
+      <g fill="#ffc61a" style="mix-blend-mode:multiply">
         <ellipse cx="7.5" cy="12" rx="3.4" ry="6.6" transform="rotate(-38 7.5 12)"/><ellipse cx="20.5" cy="6" rx="3.4" ry="6.6" transform="rotate(-12 20.5 6)"/><ellipse cx="35.5" cy="5" rx="3.4" ry="6.6" transform="rotate(8 35.5 5)"/><ellipse cx="52" cy="15" rx="3.4" ry="6.6" transform="rotate(40 52 15)"/>
       </g>
     </svg>
@@ -77,15 +77,15 @@
           <defs>
             <clipPath id="disc-clip"><circle cx="250" cy="228" r="166"/></clipPath>
           </defs>
-          <!-- plinth, with the orange plate printed a little off -->
-          <rect x="27" y="31" width="600" height="420" rx="16" fill="#ff5a36"/>
-          <rect x="14" y="16" width="600" height="420" rx="16" fill="#1f2f6b"/>
+          <!-- plinth, with the yellow plate printed a little off -->
+          <rect x="27" y="31" width="600" height="420" rx="16" fill="#ffc61a"/>
+          <rect x="14" y="16" width="600" height="420" rx="16" fill="#161616"/>
           <rect x="14" y="16" width="600" height="420" rx="16" fill="url(#ht-paper)" opacity=".07"/>
 
           <!-- platter -->
           <circle cx="250" cy="228" r="189" fill="#efe6d2"/>
           <g id="strobe" class="turns"></g>
-          <circle cx="250" cy="228" r="170" fill="#1f2f6b"/>
+          <circle cx="250" cy="228" r="170" fill="#161616"/>
           <g fill="none" stroke="#efe6d2" stroke-opacity=".28" stroke-width="1.5">
             <circle cx="250" cy="228" r="150"/><circle cx="250" cy="228" r="120"/><circle cx="250" cy="228" r="90"/><circle cx="250" cy="228" r="60"/>
           </g>
@@ -94,7 +94,7 @@
           <!-- the record: outer group drops, inner group spins, sheen stays put -->
           <g id="rec" class="rec" opacity="0">
             <g id="spin" class="turns">
-              <circle cx="250" cy="228" r="166" fill="#1f1117"/>
+              <circle cx="250" cy="228" r="166" fill="#0a0a0a"/>
               <g id="grooves" fill="none" stroke="#efe6d2"></g>
               <g id="label" transform="translate(250 228)"></g>
             </g>
@@ -115,9 +115,9 @@
           <rect x="532" y="282" width="26" height="12" rx="3" fill="#efe6d2"/>
           <g id="arm-shadow" class="arm-shadow">
             <g class="arm-rot">
-              <path d="M545 96 L545 334" stroke="#101a44" stroke-width="9" stroke-linecap="round" fill="none"/>
-              <rect x="531" y="330" width="28" height="46" rx="4" fill="#101a44" transform="rotate(-18 545 334)"/>
-              <rect x="533" y="34" width="24" height="44" rx="5" fill="#101a44"/>
+              <path d="M545 96 L545 334" stroke="#3a3a3a" stroke-width="9" stroke-linecap="round" fill="none"/>
+              <rect x="531" y="330" width="28" height="46" rx="4" fill="#3a3a3a" transform="rotate(-18 545 334)"/>
+              <rect x="533" y="34" width="24" height="44" rx="5" fill="#3a3a3a"/>
             </g>
           </g>
           <circle cx="545" cy="96" r="36" fill="#efe6d2"/>
@@ -126,12 +126,12 @@
             <rect x="533" y="30" width="24" height="46" rx="5" fill="#efe6d2"/>
             <path d="M545 62 L545 334" stroke="#efe6d2" stroke-width="8" stroke-linecap="round" fill="none"/>
             <g transform="rotate(-18 545 334)">
-              <rect x="531" y="328" width="28" height="48" rx="4" fill="#ff5a36"/>
+              <rect x="531" y="328" width="28" height="48" rx="4" fill="#ffc61a"/>
               <rect x="531" y="328" width="28" height="12" rx="4" fill="#efe6d2"/>
               <path d="M565 350 h12" stroke="#efe6d2" stroke-width="4" stroke-linecap="round"/>
             </g>
           </g>
-          <circle cx="545" cy="96" r="13" fill="#1f2f6b"/>
+          <circle cx="545" cy="96" r="13" fill="#161616"/>
           <circle cx="545" cy="96" r="4" fill="#efe6d2"/>
         </svg>
       </div>
@@ -152,15 +152,15 @@
           <span class="sleeve-art">
             <svg viewBox="0 0 200 200" aria-hidden="true" focusable="false">
               <rect width="200" height="200" fill="#efe6d2"/>
-              <circle cx="122" cy="96" r="62" fill="#ff5a36"/>
+              <circle cx="122" cy="96" r="62" fill="#ffc61a"/>
               <rect y="118" width="200" height="82" fill="url(#ht-ink)" style="mix-blend-mode:multiply"/>
-              <g fill="#1f2f6b" style="mix-blend-mode:multiply">
+              <g fill="#161616" style="mix-blend-mode:multiply">
                 <rect x="66" y="52" width="22" height="148" rx="11"/>
                 <path d="M88 132 h18 a11 11 0 0 0 11 -11 v-27 a8 8 0 0 0 -16 0 v20 a2 2 0 0 1 -2 2 h-11z"/>
                 <path d="M66 150 h-16 a11 11 0 0 1 -11 -11 v-31 a8 8 0 0 1 16 0 v24 a2 2 0 0 0 2 2 h9z"/>
               </g>
-              <text x="14" y="30" class="sv-t" fill="#1f2f6b">Saguaro</text><text x="14" y="50" class="sv-t" fill="#1f2f6b">hour</text>
-              <rect x="1.5" y="1.5" width="197" height="197" fill="none" stroke="#1f2f6b" stroke-width="3"/>
+              <text x="14" y="30" class="sv-t" fill="#161616">Saguaro</text><text x="14" y="50" class="sv-t" fill="#161616">hour</text>
+              <rect x="1.5" y="1.5" width="197" height="197" fill="none" stroke="#161616" stroke-width="3"/>
             </svg>
           </span>
           <span class="sleeve-title">Saguaro Hour</span>
@@ -171,12 +171,12 @@
         <button type="button" class="sleeve" data-i="1" aria-pressed="false">
           <span class="sleeve-art">
             <svg viewBox="0 0 200 200" aria-hidden="true" focusable="false">
-              <rect width="200" height="200" fill="#1f2f6b"/>
+              <rect width="200" height="200" fill="#161616"/>
               <rect width="200" height="200" fill="url(#rain)" opacity=".85"/>
-              <path d="M0 0 h200 v58 c-18 16 -40 -8 -58 6 c-20 16 -44 -10 -66 4 c-22 14 -50 -6 -76 6z" fill="#1f2f6b"/>
+              <path d="M0 0 h200 v58 c-18 16 -40 -8 -58 6 c-20 16 -44 -10 -66 4 c-22 14 -50 -6 -76 6z" fill="#161616"/>
               <path d="M0 0 h200 v58 c-18 16 -40 -8 -58 6 c-20 16 -44 -10 -66 4 c-22 14 -50 -6 -76 6z" fill="url(#ht-paper)" opacity=".55"/>
-              <path d="M118 52 L82 118 L106 118 L88 176 L140 100 L114 100 L134 52Z" fill="#ff5a36"/>
-              <rect x="10" y="148" width="96" height="42" fill="#1f2f6b"/>
+              <path d="M118 52 L82 118 L106 118 L88 176 L140 100 L114 100 L134 52Z" fill="#ffc61a"/>
+              <rect x="10" y="148" width="96" height="42" fill="#161616"/>
               <text x="16" y="166" class="sv-t" fill="#efe6d2">Monsoon</text><text x="16" y="185" class="sv-t" fill="#efe6d2">static</text>
             </svg>
           </span>
@@ -188,13 +188,13 @@
         <button type="button" class="sleeve" data-i="2" aria-pressed="false">
           <span class="sleeve-art">
             <svg viewBox="0 0 200 200" aria-hidden="true" focusable="false">
-              <rect width="200" height="200" fill="#ff5a36"/>
-              <g fill="#1f2f6b" style="mix-blend-mode:multiply">
+              <rect width="200" height="200" fill="#ffc61a"/>
+              <g fill="#161616" style="mix-blend-mode:multiply">
                 <path d="M100 150 L-20 96 L-20 60Z"/><path d="M100 150 L4 -10 L40 -10Z"/><path d="M100 150 L84 -10 L116 -10Z"/><path d="M100 150 L160 -10 L196 -10Z"/><path d="M100 150 L220 60 L220 96Z"/>
               </g>
               <circle cx="100" cy="150" r="46" fill="#efe6d2"/>
               <circle cx="104" cy="154" r="46" fill="url(#ht-ink)" style="mix-blend-mode:multiply"/>
-              <rect y="150" width="200" height="50" fill="#1f2f6b"/>
+              <rect y="150" width="200" height="50" fill="#161616"/>
               <text x="14" y="172" class="sv-t" fill="#efe6d2">Copper state</text><text x="14" y="191" class="sv-t" fill="#efe6d2">stomp</text>
             </svg>
           </span>
@@ -208,13 +208,13 @@
             <svg viewBox="0 0 200 200" aria-hidden="true" focusable="false">
               <rect width="200" height="200" fill="#efe6d2"/>
               <rect width="200" height="120" fill="url(#ht-ink-light)"/>
-              <path d="M150 28 a40 40 0 1 0 22 70 a32 32 0 1 1 -22 -70z" fill="#ff5a36" style="mix-blend-mode:multiply"/>
-              <rect y="120" width="200" height="80" fill="#1f2f6b"/>
+              <path d="M150 28 a40 40 0 1 0 22 70 a32 32 0 1 1 -22 -70z" fill="#ffc61a" style="mix-blend-mode:multiply"/>
+              <rect y="120" width="200" height="80" fill="#161616"/>
               <g stroke="#efe6d2" stroke-width="5" fill="none">
                 <path d="M100 120 L-30 200"/><path d="M100 120 L36 200"/><path d="M100 120 L100 200"/><path d="M100 120 L164 200"/><path d="M100 120 L230 200"/>
               </g>
-              <rect x="8" y="9" width="92" height="50" fill="#efe6d2"/><text x="14" y="30" class="sv-t" fill="#1f2f6b">Parking</text><text x="14" y="50" class="sv-t" fill="#1f2f6b">lot moon</text>
-              <rect x="1.5" y="1.5" width="197" height="197" fill="none" stroke="#1f2f6b" stroke-width="3"/>
+              <rect x="8" y="9" width="92" height="50" fill="#efe6d2"/><text x="14" y="30" class="sv-t" fill="#161616">Parking</text><text x="14" y="50" class="sv-t" fill="#161616">lot moon</text>
+              <rect x="1.5" y="1.5" width="197" height="197" fill="none" stroke="#161616" stroke-width="3"/>
             </svg>
           </span>
           <span class="sleeve-title">Parking Lot Moon</span>
@@ -327,13 +327,13 @@
       <svg viewBox="0 0 420 300" aria-hidden="true" focusable="false">
         <circle cx="236" cy="150" r="128" fill="url(#ht-hot)"/>
         <g style="mix-blend-mode:multiply">
-          <path d="M92 190 V150 a118 118 0 0 1 236 0 V190" fill="none" stroke="#1f2f6b" stroke-width="20" stroke-linecap="round"/>
-          <rect x="62" y="168" width="58" height="104" rx="26" fill="#1f2f6b"/>
-          <rect x="300" y="168" width="58" height="104" rx="26" fill="#1f2f6b"/>
+          <path d="M92 190 V150 a118 118 0 0 1 236 0 V190" fill="none" stroke="#161616" stroke-width="20" stroke-linecap="round"/>
+          <rect x="62" y="168" width="58" height="104" rx="26" fill="#161616"/>
+          <rect x="300" y="168" width="58" height="104" rx="26" fill="#161616"/>
         </g>
-        <rect x="76" y="182" width="16" height="76" rx="8" fill="#ff5a36"/>
-        <rect x="328" y="182" width="16" height="76" rx="8" fill="#ff5a36"/>
-        <path d="M91 272 c0 30 60 2 60 26" fill="none" stroke="#1f2f6b" stroke-width="5" stroke-linecap="round"/>
+        <rect x="76" y="182" width="16" height="76" rx="8" fill="#ffc61a"/>
+        <rect x="328" y="182" width="16" height="76" rx="8" fill="#ffc61a"/>
+        <path d="M91 272 c0 30 60 2 60 26" fill="none" stroke="#161616" stroke-width="5" stroke-linecap="round"/>
       </svg>
     </div>
   </div>
@@ -368,12 +368,12 @@
         </g>
         <rect x="20" y="20" width="50" height="300" fill="url(#ht-ink-light)" opacity=".8"/>
         <!-- light rail on Central -->
-        <path d="M83 10 V330" stroke="#1f2f6b" stroke-width="4" stroke-dasharray="3 7"/>
-        <rect x="73" y="150" width="20" height="24" fill="#1f2f6b"/>
+        <path d="M83 10 V330" stroke="#161616" stroke-width="4" stroke-dasharray="3 7"/>
+        <rect x="73" y="150" width="20" height="24" fill="#161616"/>
         <!-- the walk from the stop, and the shop with its second plate off register -->
-        <path d="M104 172 H392" stroke="#ff5a36" stroke-width="5" stroke-dasharray="1 11" stroke-linecap="round"/>
-        <rect x="397" y="95" width="46" height="42" fill="#ff5a36"/>
-        <rect x="392" y="90" width="46" height="42" fill="#1f2f6b"/>
+        <path d="M104 172 H392" stroke="#ffc61a" stroke-width="5" stroke-dasharray="1 11" stroke-linecap="round"/>
+        <rect x="397" y="95" width="46" height="42" fill="#ffc61a"/>
+        <rect x="392" y="90" width="46" height="42" fill="#161616"/>
         <g class="map-t">
           <text x="104" y="158">Roosevelt St</text>
           <text x="50" y="306" transform="rotate(-90 50 306)">Central Ave</text>
@@ -382,10 +382,10 @@
           <text x="104" y="128" class="map-s">light rail stop</text>
           <text x="450" y="108" class="map-b">We're</text><text x="450" y="126" class="map-b">here</text>
         </g>
-        <path d="M100 133 L92 146" stroke="#1f2f6b" stroke-width="2"/>
+        <path d="M100 133 L92 146" stroke="#161616" stroke-width="2"/>
         <g transform="translate(476 292)">
-          <circle r="17" fill="#efe6d2" stroke="#1f2f6b" stroke-width="2.5"/>
-          <path d="M0 -11 L6 3 L0 0 L-6 3Z" fill="#1f2f6b"/>
+          <circle r="17" fill="#efe6d2" stroke="#161616" stroke-width="2.5"/>
+          <path d="M0 -11 L6 3 L0 0 L-6 3Z" fill="#161616"/>
           <text y="13" text-anchor="middle" class="map-n">N</text>
         </g>
       </svg>
@@ -395,7 +395,7 @@
           614 E Roosevelt St<br>
           Phoenix, AZ 85004
         </address>
-        <p>North side of Roosevelt, between 6th and 7th Streets. Look for the blue door with the orange ocotillo on it.</p>
+        <p>North side of Roosevelt, between 6th and 7th Streets. Look for the black door with the yellow ocotillo on it.</p>
         <p>Metered parking out front and on 6th Street. The light rail stops at Roosevelt and Central, a ten minute walk west.</p>
         <p><a class="plain" href="tel:+16025550142">602-555-0142</a><br><a class="plain" href="mailto:hello@ocotillorecords.example">hello@ocotillorecords.example</a></p>
       </div>

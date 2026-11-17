@@ -2,7 +2,7 @@
 (function () {
   'use strict';
   var NS = 'http://www.w3.org/2000/svg';
-  var INK = '#1f2f6b', HOT = '#ff5a36';
+  var INK = '#161616', HOT = '#ffc61a';
 
   /* ---------- today's hours, on the shop's clock ---------- */
   // [open, close] in 24h, indexed by day of week (0 = Sunday). Monday is closed.
