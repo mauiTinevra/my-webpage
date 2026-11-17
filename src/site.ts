@@ -9,7 +9,7 @@ export const site = {
   tagline: 'Web designer in Scottsdale, Arizona',
   description:
     'Web designer in Scottsdale, Arizona. Custom websites for restaurants, studios and shops in Scottsdale and Phoenix, from $3,500, with ordering and booking built in.',
-  email: 'sam.tinevra@gmail.com',
+  email: 'mauitinevra@gmail.com',
   // Add or remove links freely, e.g. { label: 'Instagram', href: 'https://instagram.com/yourname' }
   links: [
     { label: 'Instagram', href: 'https://www.instagram.com/maui_tinevra/' },
