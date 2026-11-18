@@ -54,25 +54,21 @@ const colors = ['var(--orange)', 'var(--yellow)', 'var(--pink)', 'var(--green)',
 
 <style>
   .w-head { padding: clamp(2.5rem, 6vw, 5rem) var(--edge) 1rem; }
-  .w-title { margin: 0; font-size: clamp(3.4rem, 12vw, 10rem); line-height: 0.86; letter-spacing: -0.045em; font-stretch: 120%; }
-  .w-lede { margin: 1.25rem 0 0; font-size: 1.25rem; font-weight: 500; }
+  .w-title { margin: 0; font-size: clamp(3.4rem, 12vw, 10rem); line-height: 0.98; letter-spacing: -0.045em; font-stretch: 120%; }
+  .w-lede { margin: 1.25rem 0 0; font-size: 1.25rem; font-weight: 380; }
   .w-case { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 4rem); padding: clamp(2rem, 4vw, 3.5rem) var(--edge); scroll-margin-top: 5rem; }
   .w-shot { display: block; align-self: start; padding: clamp(1.25rem, 3vw, 2.5rem) clamp(1.25rem, 3vw, 2.5rem) 0; border-radius: 1.4rem; background: var(--field); overflow: hidden; }
   .w-shot img { display: block; width: 100%; height: auto; border-radius: 0.7rem 0.7rem 0 0; box-shadow: 0 10px 30px -14px rgb(0 0 0 / 0.35); }
-  .w-kind { margin: 0; font-weight: 500; color: var(--muted); }
-  .w-name { margin: 0.35rem 0 0; font-size: clamp(2rem, 4vw, 3.2rem); line-height: 0.95; }
+  .w-kind { margin: 0; font-weight: 450; color: var(--muted); }
+  .w-name { margin: 0.35rem 0 0; font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.04; }
   .w-words h3 { margin: 1.6rem 0 0.4rem; font-family: var(--reading); font-stretch: normal; font-weight: 700; font-size: 1rem; letter-spacing: 0; }
   .w-words p, .w-words li { max-width: 36rem; line-height: 1.55; }
   .w-words p { margin: 0; }
   .w-words ul { margin: 0; padding-left: 1.1rem; display: grid; gap: 0.4rem; }
-  .w-result { margin-top: 1.25rem !important; font-weight: 600; font-size: 1.15rem; }
+  .w-result { margin-top: 1.25rem !important; font-weight: 550; font-size: 1.15rem; }
   .w-links { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.5rem !important; }
   .w-next { margin-top: clamp(2rem, 4vw, 3.5rem); padding: clamp(3rem, 7vw, 6rem) var(--edge); background: var(--blue); color: var(--paper); }
-  .w-next p { margin: 0.75rem 0 0; font-size: 1.2rem; font-weight: 500; }
-  .btn { display: inline-flex; align-items: center; min-height: 3rem; padding: 0.6rem 1.4rem; border: 1.5px solid var(--ink); border-radius: 999px; background: transparent; color: var(--ink); font: 600 1rem var(--reading); text-decoration: none; transition: background-color 0.2s, color 0.2s; }
-  .btn:hover { background: var(--ink); color: var(--paper); }
-  .btn-primary { background: var(--ink); color: var(--paper); }
-  .btn-primary:hover { background: var(--blue); border-color: var(--blue); color: var(--paper); }
+  .w-next p { margin: 0.75rem 0 0; font-size: 1.2rem; font-weight: 380; }
   .w-next .btn { border-color: var(--paper); color: var(--paper); }
   .w-next .btn:hover { background: var(--paper); color: var(--ink); }
   .w-next .btn-primary { background: var(--paper); color: var(--ink); }

@@ -1600,17 +1600,57 @@ time { font-family: var(--display); font-weight: 600; font-size: 0.95rem; color:
   --accent: var(--ink);
   --rule: rgb(17 17 17 / 0.16);
   --display: 'Archivo Variable', 'Arial Black', system-ui, sans-serif;
-  --reading: 'Inter Tight Variable', 'Helvetica Neue', Arial, sans-serif;
+  --reading: 'Geist Variable', 'Helvetica Neue', Arial, sans-serif;
   font-size: 1.0625rem;
 }
+.is-bold { font-family: var(--reading); font-weight: 380; }
 .is-bold h1, .is-bold h2, .is-bold h3 { font-stretch: 118%; letter-spacing: -0.03em; }
 .is-bold a { text-decoration-thickness: 1.5px; }
 .is-bold :focus-visible, .is-bold .cta:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
-.is-bold .site-header { align-items: center; padding-block: 1.1rem; font-family: var(--reading); }
-.is-bold .wordmark { font-family: var(--reading); font-weight: 700; font-stretch: normal; font-size: 1.05rem; }
+.is-bold .site-header { align-items: center; padding-block: 0.9rem; font-family: var(--reading); transition: translate 0.32s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.2s; }
+.is-bold .site-header.is-hidden { translate: 0 -105%; }
+/* The name: the yoga mark beside the name set heavy and wide, the mark tips on hover. */
+.is-bold .wordmark { display: inline-flex; align-items: center; gap: 0.6rem; font-family: var(--display); font-weight: 900; font-stretch: 125%; font-size: 1.35rem; letter-spacing: -0.04em; line-height: 1; }
+.is-bold .wordmark-mark { width: 2.25rem; height: 2.25rem; border-radius: 0.6rem; transition: rotate 0.35s cubic-bezier(0.3, 1.6, 0.5, 1); }
+.is-bold .wordmark:hover .wordmark-mark { rotate: -8deg; }
+.is-bold .wordmark-name { padding-bottom: 0.08em; background: linear-gradient(var(--pink), var(--pink)) 0 100% / 0 0.22em no-repeat; transition: background-size 0.3s; }
+.is-bold .wordmark:hover .wordmark-name { background-size: 100% 0.22em; }
+
+/* Local time with a hand-drawn cactus: tap it and it wiggles, then the sheet opens. */
+.is-bold .clock { display: inline-flex; align-items: center; gap: 0.35rem; min-height: 2.75rem; padding: 0.2rem 0.7rem 0.2rem 0.35rem; border: 0; border-radius: 999px; background: transparent; color: var(--ink); font: 400 0.92rem var(--reading); font-variant-numeric: tabular-nums; cursor: pointer; transition: background-color 0.2s; }
+.is-bold .clock:hover { background: rgb(17 17 17 / 0.06); }
+.is-bold .clock-cactus { color: #138a57; transform-origin: 50% 90%; }
+.is-bold .clock.is-wiggling .clock-cactus { animation: wiggle 0.5s cubic-bezier(0.3, 1.5, 0.5, 1); }
+@keyframes wiggle { 20% { rotate: -14deg; } 45% { rotate: 11deg; } 70% { rotate: -6deg; } 100% { rotate: 0deg; } }
+
+/* The bottom sheet. */
+.sheet { width: min(100%, 34rem); max-width: none; margin: auto auto 0; padding: 0.75rem clamp(1.5rem, 5vw, 2.5rem) clamp(1.75rem, 5vw, 2.5rem); border: 0; border-radius: 1.6rem 1.6rem 0 0; background: var(--paper); color: var(--ink); font-family: var(--reading); }
+.sheet[open] { animation: sheet-up 0.38s cubic-bezier(0.2, 0.9, 0.25, 1); }
+.sheet.is-closing { animation: sheet-down 0.22s ease-in forwards; }
+.sheet::backdrop { background: rgb(17 17 17 / 0.45); }
+.sheet-grip { width: 2.75rem; height: 0.3rem; margin: 0 auto 1.25rem; border-radius: 9px; background: rgb(17 17 17 / 0.2); }
+.sheet-cactus { color: #138a57; }
+.sheet-title { margin: 0.75rem 0 0; font-family: var(--display); font-weight: 800; font-stretch: 118%; font-size: 1.9rem; line-height: 1.05; letter-spacing: -0.03em; }
+.sheet-now { margin: 0.6rem 0 0; font-size: 1.15rem; font-variant-numeric: tabular-nums; }
+.sheet-line { margin: 0.75rem 0 0; color: var(--muted); line-height: 1.55; }
+.sheet-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.5rem; }
+@keyframes sheet-up { from { translate: 0 100%; } }
+@keyframes sheet-down { to { translate: 0 100%; } }
+
+/* Buttons: bigger, with a hard ink shadow that lifts on hover and presses flat on click. */
+.is-bold .btn { position: relative; display: inline-flex; align-items: center; gap: 0.55rem; min-height: 3.6rem; padding: 0.7rem 1.75rem; border: 2px solid var(--ink); border-radius: 999px; background: var(--paper); color: var(--ink); font: 600 1.06rem var(--reading); text-decoration: none; cursor: pointer; box-shadow: 0 0 0 var(--ink); transition: translate 0.18s cubic-bezier(0.3, 1.4, 0.5, 1), box-shadow 0.18s cubic-bezier(0.3, 1.4, 0.5, 1), background-color 0.2s, color 0.2s; }
+.is-bold .btn:hover { translate: -2px -3px; box-shadow: 4px 5px 0 var(--ink); }
+.is-bold .btn:active { translate: 1px 2px; box-shadow: 0 0 0 var(--ink); transition-duration: 0.06s; }
+.is-bold .btn .doodle { transition: translate 0.25s cubic-bezier(0.3, 1.5, 0.5, 1); }
+.is-bold .btn:hover .doodle { translate: 4px 0; }
+.is-bold .btn-dark { background: var(--ink); color: var(--paper); }
+.is-bold .btn-dark:hover { background: var(--blue); box-shadow: 4px 5px 0 var(--ink); }
+.is-bold .btn-primary { background: var(--ink); color: var(--paper); }
+.is-bold .btn-primary:hover { background: var(--blue); }
 .is-bold .site-header nav a { font-weight: 500; border-bottom-width: 2px; padding: 0.5rem 0 0.15rem; }
-.is-bold .cta { background: var(--ink); color: var(--paper); border: 0; border-radius: 999px; font-weight: 600; font-size: 0.95rem; padding: 0.7rem 1.15rem; }
-.is-bold .cta:hover { background: var(--blue); color: var(--paper); }
+.is-bold .cta { border: 2px solid var(--ink); min-height: 2.9rem; display: inline-flex; align-items: center; box-shadow: 0 0 0 var(--ink); transition: translate 0.18s cubic-bezier(0.3, 1.4, 0.5, 1), box-shadow 0.18s, background-color 0.2s; background: var(--ink); color: var(--paper); border-radius: 999px; font-weight: 600; font-size: 1rem; padding: 0.7rem 1.15rem; }
+.is-bold .cta:hover { background: var(--blue); color: var(--paper); translate: -2px -3px; box-shadow: 4px 5px 0 var(--ink); }
+.is-bold .cta:active { translate: 1px 2px; box-shadow: 0 0 0 var(--ink); }
 .is-bold .site-footer { background: var(--ink); color: var(--paper); font-family: var(--reading); }
 .is-bold .site-footer a:hover { text-decoration-color: var(--blue); }
 .is-bold .footer-grid h2 { font-family: var(--reading); font-stretch: normal; font-weight: 600; font-size: 0.95rem; letter-spacing: 0; opacity: 0.6; }
@@ -1622,3 +1662,21 @@ time { font-family: var(--display); font-weight: 600; font-size: 0.95rem; color:
   .site-header ul { flex-wrap: wrap; gap: 0.15rem 1.1rem; }
   .site-header nav a { white-space: nowrap; display: inline-block; padding-block: 0.55rem 0.3rem; }
 }
+
+@media (max-width: 640px) {
+  .is-bold .site-header { gap: 0.2rem 1rem; padding-block: 0.7rem 0.4rem; }
+  .is-bold .site-header .cta { display: none; }
+  .is-bold .clock { margin-left: auto; }
+  .is-bold .clock-where { display: none; }
+  .is-bold .wordmark { font-size: 1.15rem; }
+  .is-bold .wordmark-mark { width: 1.9rem; height: 1.9rem; }
+  .is-bold .clock { font-size: 0.85rem; padding-right: 0.4rem; }
+  .is-bold .btn { min-height: 3.4rem; padding-inline: 1.5rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .is-bold .site-header, .is-bold .btn, .is-bold .cta, .is-bold .wordmark-mark, .is-bold .wordmark-name { transition: none; }
+  .is-bold .btn:hover, .is-bold .cta:hover { translate: 0 0; }
+}
+/* Headlines: enough line height that wrapped lines never touch (descenders vs. the next line's caps). */
+.is-bold .page-head .rotulo { line-height: 1.02; }
+.is-bold .prose h2, .is-bold .prose h3 { line-height: 1.15; }

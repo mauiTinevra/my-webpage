@@ -1,9 +1,10 @@
 ---
 import '@fontsource-variable/archivo/wdth.css';
 import '@fontsource-variable/archivo/wdth-italic.css';
-import '@fontsource-variable/inter-tight/wght.css';
+import '@fontsource-variable/geist/wght.css';
 import '../styles/global.css';
 import { site, type Place } from '../site';
+import Doodle from '../components/Doodle.astro';
 
 interface Props {
   title?: string;
@@ -78,10 +79,9 @@ const business = {
 // What a visitor came for, in the order they look for it.
 const nav = [
   { href: '/work', label: 'Work' },
-  { href: '/web-design', label: 'Services & pricing' },
+  { href: '/web-design', label: 'Services' },
   { href: '/#about', label: 'About' },
   { href: '/#contact', label: 'Contact' },
-  { href: '/street', label: 'Interactive site' },
 ];
 const bodyClass = [place && `at-${place}`, street && 'is-street', bare && 'is-bare', !street && 'is-bold', !street && path === '/' && 'is-home'].filter(Boolean).join(' ');
 ---
@@ -116,7 +116,18 @@ const bodyClass = [place && `at-${place}`, street && 'is-street', bare && 'is-ba
   <body class={bodyClass || undefined}>
     <a class="skip" href="#main">Skip to content</a>
     <header class="site-header">
-      <a class="wordmark" href="/" aria-current={isCurrent('/') ? 'page' : undefined}>{site.name}</a>
+      <a class="wordmark" href="/" aria-current={isCurrent('/') ? 'page' : undefined}>
+        {!street && <img class="wordmark-mark" src="/favicon.svg" alt="" width="36" height="36" />}
+        <span class="wordmark-name">{site.name}</span>
+      </a>
+      {
+        !street && (
+          <button type="button" class="clock" id="clock" aria-haspopup="dialog" aria-controls="here-sheet">
+            <Doodle name="cactus" size="1.6em" class="clock-cactus" />
+            <span class="clock-time" id="clock-time">Scottsdale, AZ</span>
+          </button>
+        )
+      }
       <nav aria-label="Sections">
         <ul>
           {
@@ -136,6 +147,24 @@ const bodyClass = [place && `at-${place}`, street && 'is-street', bare && 'is-ba
     <main id="main">
       <slot />
     </main>
+    {
+      !street && (
+        <dialog class="sheet" id="here-sheet" aria-labelledby="sheet-title">
+          <div class="sheet-grip" aria-hidden="true" />
+          <Doodle name="cactus" size="3.25rem" class="sheet-cactus" />
+          <h2 class="sheet-title" id="sheet-title">Scottsdale, Arizona</h2>
+          <p class="sheet-now" id="sheet-now">Right now in Scottsdale.</p>
+          <p class="sheet-line">
+            I work from here, meet clients around Scottsdale and Phoenix, and work with anyone else over video calls. I answer
+            within a day.
+          </p>
+          <div class="sheet-actions">
+            <a class="btn btn-dark" href="/#contact">Start a project</a>
+            <button type="button" class="btn" id="sheet-close">Close</button>
+          </div>
+        </dialog>
+      )
+    }
     <footer class="site-footer">
       <div class="footer-grid">
         <div class="footer-about">
@@ -182,5 +211,83 @@ const bodyClass = [place && `at-${place}`, street && 'is-street', bare && 'is-ba
       </div>
       <p class="footer-legal">{site.name}, {new Date().getFullYear()}. Designed and built by hand.</p>
     </footer>
+<script>
+  import { nowAt, nextSun, formatHour } from '../lib/sky';
+  import { here } from '../site';
+
+  const header = document.querySelector<HTMLElement>('.site-header');
+  const clock = document.getElementById('clock');
+  const sheet = document.getElementById('here-sheet') as HTMLDialogElement | null;
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // The local time in the header, and the same with the sunset in the sheet.
+  if (clock && sheet) {
+    const tell = () => {
+      const now = nowAt(here);
+      const t = formatHour(now.hour);
+      const sun = nextSun(now.hour, now.day, here, now.offset);
+      const h = Math.floor(sun.in);
+      const m = Math.round((sun.in - h) * 60);
+      document.getElementById('clock-time')!.innerHTML = `${t.time} ${t.half}<span class="clock-where"> in Scottsdale</span>`;
+      document.getElementById('sheet-now')!.textContent =
+        `It\u2019s ${t.time} ${t.half} here. ${sun.event} in ${h ? `${h} h ${m} min` : `${m} min`}.`;
+    };
+    tell();
+    setInterval(tell, 30_000);
+
+    // Tapping the cactus makes it wiggle, then opens the sheet.
+    clock.addEventListener('click', () => {
+      if (!calm) {
+        clock.classList.remove('is-wiggling');
+        void clock.offsetWidth;
+        clock.classList.add('is-wiggling');
+      }
+      window.setTimeout(() => sheet.showModal(), calm ? 0 : 260);
+    });
+    const close = () => {
+      if (calm) return sheet.close();
+      sheet.classList.add('is-closing');
+      window.setTimeout(() => {
+        sheet.classList.remove('is-closing');
+        sheet.close();
+      }, 220);
+    };
+    document.getElementById('sheet-close')!.addEventListener('click', close);
+    sheet.addEventListener('click', (e) => {
+      if (e.target === sheet) close();
+    });
+    sheet.addEventListener('cancel', (e) => {
+      e.preventDefault();
+      close();
+    });
+    sheet.querySelector('a')!.addEventListener('click', () => sheet.close());
+  }
+
+  // The header slides away while you scroll down and comes back when you scroll up. It stays put
+  // near the top of the page, while it holds keyboard focus, and on the street, which runs its own.
+  if (header && document.body.classList.contains('is-bold')) {
+    let last = scrollY;
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const y = scrollY;
+      const down = y > last + 4;
+      const up = y < last - 4;
+      if (y < header.offsetHeight + 40 || header.querySelector(':focus-visible') || sheet?.open) header.classList.remove('is-hidden');
+      else if (down) header.classList.add('is-hidden');
+      else if (up) header.classList.remove('is-hidden');
+      if (down || up) last = y;
+    };
+    addEventListener('scroll', () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    }, { passive: true });
+    header.addEventListener('focusin', () => {
+      if (header.querySelector(':focus-visible')) header.classList.remove('is-hidden');
+    });
+  }
+</script>
   </body>
 </html>

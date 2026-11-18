@@ -4,6 +4,7 @@
 // a paper page where every project gets its own flat color. Archivo wide and Inter Tight.
 // The one moving thing is the figure practising Ashtanga in the opening.
 import { Image } from 'astro:assets';
+import Doodle from '../components/Doodle.astro';
 import Base from '../layouts/Base.astro';
 import { site } from '../site';
 import { work } from '../data/work';
@@ -13,18 +14,21 @@ import crow from '../assets/photos/crow.jpg';
 const services = [
   {
     name: 'Website',
+    icon: 'browser' as const,
     price: 'From $3,500',
     time: 'Two to three weeks',
     what: ['A design made for you, sketched before any code', 'Built by hand, fast on phones and desktops', 'Launched on your domain and handed over'],
   },
   {
     name: 'Interactive extras',
+    icon: 'sparkle' as const,
     price: 'Quoted per idea',
     time: 'Added to a build',
     what: ['Ordering, booking or a live schedule', 'A signature moment made for your business', 'Illustrations drawn for your site'],
   },
   {
     name: 'Care plan',
+    icon: 'heart' as const,
     price: 'From $150 a month',
     time: 'Cancel anytime',
     what: ['Text and photo updates', 'Hosting, domain and security kept current', 'A small change each month'],
@@ -33,6 +37,23 @@ const services = [
 
 // Selected work: every project in src/data/work.ts, each in its own color.
 const colors = ['var(--orange)', 'var(--yellow)', 'var(--pink)', 'var(--green)', 'var(--lilac)', 'var(--blue)'];
+// The email button opens a draft with the subject filled in and a few prompts to answer.
+const draft = `mailto:${site.email}?subject=${encodeURIComponent('New website project')}&body=${encodeURIComponent(
+  [
+    'Hi Maui,',
+    '',
+    'My name is ... and my business is ...',
+    '',
+    'What we do:',
+    'Our website now (if we have one):',
+    'What we want the new site to do:',
+    'When we would like to launch:',
+    'Budget:',
+    '',
+    'Thanks,',
+  ].join('\n'),
+)}`;
+
 // The home page's own order. El Único is left off here; it stays on the Work page.
 const homeOrder = ['dos-gatos-books', 'ocotillo-records', 'paloma-flores', 'dark-sky-sonora', 'monsoon-clay', 'camelback-barber', 'saguaro', 'this-site'];
 const cards = homeOrder.map((id) => work.find((w) => w.id === id)!).map((w, i) => ({
@@ -53,10 +74,9 @@ const cards = homeOrder.map((id) => work.find((w) => w.id === id)!).map((w, i) =
       <h1 class="b-name" id="hero-title">Striking, colorful, elegant design.</h1>
       <p class="b-offer">By Maui Tinevra. Based in Scottsdale, Arizona.</p>
       <div class="b-actions">
-        <a class="btn btn-dark" href="#contact">Start a project</a>
+        <a class="btn btn-dark" href="#contact">Start a project <Doodle name="arrow" size="1.3em" /></a>
         <a class="btn" href="#work">See my work</a>
       </div>
-      <p class="b-now" id="now">Scottsdale, Arizona</p>
     </div>
     <div class="b-blocks">
       <figure class="b-stage">
@@ -106,7 +126,7 @@ const cards = homeOrder.map((id) => work.find((w) => w.id === id)!).map((w, i) =
       {
         services.map((s) => (
           <li class="b-service">
-            <h3>{s.name}</h3>
+            <h3><Doodle name={s.icon} size="2.4rem" class="b-icon" /> {s.name}</h3>
             <p class="b-price">{s.price}</p>
             <p class="b-time">{s.time}</p>
             <ul role="list">
@@ -135,13 +155,32 @@ const cards = homeOrder.map((id) => work.find((w) => w.id === id)!).map((w, i) =
     </div>
   </section>
 
+  <section class="b-section b-street" id="interactive" aria-labelledby="street-title">
+    <div class="b-street-words">
+      <Doodle name="sun" size="3rem" class="b-street-icon" />
+      <h2 class="b-title" id="street-title">Take the long way</h2>
+      <p class="b-lead">
+        A whole neighborhood drawn in code: walk down the street, watch the sun go down over Scottsdale, and see a yoga practice
+        from the inside. My playground, and the most fun way to see what I can build.
+      </p>
+      <a class="btn btn-dark" href="/street">Walk the street <Doodle name="arrow" size="1.3em" /></a>
+    </div>
+    <a class="b-street-shot" href="/street" tabindex="-1" aria-hidden="true">
+      <img src="/work/street-walk.jpg" alt="" width="1200" height="750" loading="lazy" />
+    </a>
+  </section>
+
   <section class="b-section b-contact" id="contact" aria-labelledby="contact-title">
+    <Doodle name="envelope" size="3rem" class="b-contact-icon" />
     <h2 class="b-title" id="contact-title">Start a project</h2>
     <p class="b-lead">Tell me who you are, what you make, and when you'd like to launch. I answer within a day.</p>
     <div class="b-mail">
-      <a class="b-address" href={`mailto:${site.email}?subject=${encodeURIComponent('A website for me')}`}>{site.email}</a>
-      <button type="button" class="btn btn-dark" id="copy-email" data-email={site.email}>Copy email</button>
+      <a class="btn btn-dark btn-big" href={draft}>Email me about your project <Doodle name="arrow" size="1.3em" /></a>
+      <button type="button" class="btn" id="copy-email" data-email={site.email}>Copy my email</button>
     </div>
+    <p class="b-mail-note">
+      Opens your email with a short draft to fill in. Or write to <a href={`mailto:${site.email}`}>{site.email}</a>.
+    </p>
     <p class="b-copied" id="copied" aria-live="polite"></p>
     <p>Prefer messages? <a href={site.links.find((l) => l.label === 'Instagram')?.href}>Send me a DM on Instagram</a>.</p>
   </section>
@@ -149,8 +188,6 @@ const cards = homeOrder.map((id) => work.find((w) => w.id === id)!).map((w, i) =
 
 <script>
   import { poses, practice, blendLag, breathe, drawFlat } from '../lib/yogi';
-  import { nowAt, nextSun, formatHour } from '../lib/sky';
-  import { here } from '../site';
 
   const el = (id: string) => document.getElementById(id)!;
   const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -166,17 +203,6 @@ const cards = homeOrder.map((id) => work.find((w) => w.id === id)!).map((w, i) =
     }
   });
 
-  // The real hour where Maui is.
-  const tell = () => {
-    const now = nowAt(here);
-    const clock = formatHour(now.hour);
-    const sun = nextSun(now.hour, now.day, here, now.offset);
-    const hours = Math.floor(sun.in);
-    const mins = Math.round((sun.in - hours) * 60);
-    el('now').textContent = `${clock.time} ${clock.half} in Scottsdale. ${sun.event} in ${hours ? `${hours} h ${mins} min` : `${mins} min`}.`;
-  };
-  tell();
-  setInterval(tell, 60_000);
 
   // The practice. Each pose is a set of joint angles; a move runs every joint on its own slightly
   // late clock so the body travels in a wave, and a held pose breathes. The near hand leaves a
@@ -242,10 +268,9 @@ const cards = homeOrder.map((id) => work.find((w) => w.id === id)!).map((w, i) =
   /* The opening: words on paper, beside a wall of flat color blocks. The figure practises in the blue one. */
   .b-hero { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); min-height: calc(100svh - 4.6rem); }
   .b-words { display: flex; flex-direction: column; justify-content: flex-end; padding: clamp(2rem, 5vw, 4rem) var(--edge) clamp(2rem, 4vw, 3.5rem); }
-  .b-name { margin: 0; max-width: 9ch; font-weight: 800; font-stretch: 118%; font-size: clamp(3rem, 6.6vw, 6.75rem); line-height: 0.92; letter-spacing: -0.04em; }
-  .b-offer { margin: 1.75rem 0 0; max-width: 27rem; color: var(--muted); font-size: clamp(1.15rem, 1.6vw, 1.4rem); line-height: 1.35; font-weight: 500; }
+  .b-name { margin: 0; max-width: 9ch; font-weight: 800; font-stretch: 118%; font-size: clamp(3rem, 6.6vw, 6.75rem); line-height: 1.02; letter-spacing: -0.04em; }
+  .b-offer { margin: 1.75rem 0 0; max-width: 27rem; color: var(--muted); font-size: clamp(1.15rem, 1.6vw, 1.4rem); line-height: 1.35; font-weight: 380; }
   .b-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 2rem; }
-  .b-now { margin: 1.5rem 0 0; color: var(--muted); font-size: 0.92rem; font-variant-numeric: tabular-nums; }
   .b-blocks { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1.2fr 1fr 1fr; min-height: 26rem; }
   .b-stage { grid-row: span 2; position: relative; display: flex; flex-direction: column; justify-content: flex-end; margin: 0; padding: 1.25rem 1.25rem 0; background: var(--blue); color: var(--paper); overflow: hidden; }
   .b-scene { display: block; width: 100%; max-height: 82%; height: auto; overflow: visible; margin-bottom: 1.5rem; }
@@ -253,25 +278,20 @@ const cards = homeOrder.map((id) => work.find((w) => w.id === id)!).map((w, i) =
   .b-mat { stroke: var(--pink); stroke-width: 5; stroke-linecap: round; }
   .b-stage :focus-visible { outline-color: var(--paper); }
 
-  .btn { display: inline-flex; align-items: center; min-height: 3rem; padding: 0.6rem 1.4rem; border: 1.5px solid var(--ink); border-radius: 999px; background: transparent; color: var(--ink); font: 600 1rem var(--reading); text-decoration: none; cursor: pointer; transition: background-color 0.2s, color 0.2s, border-color 0.2s; }
-  .btn:hover { background: var(--ink); color: var(--paper); }
-  .btn-dark { background: var(--ink); color: var(--paper); }
-  .btn-dark:hover { background: var(--orange); border-color: var(--orange); color: var(--ink); }
-  .b-contact .btn-dark:hover { background: var(--paper); border-color: var(--paper); }
 
   .b-section { padding: clamp(3.5rem, 8vw, 7rem) var(--edge); }
   .b-section a:not(.btn):not(.b-card):not(.b-mini) { color: inherit; text-underline-offset: 0.2em; }
   .b-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.5rem 2rem; }
   .b-head a { font-weight: 600; }
-  .b-title { margin: 0; font-size: clamp(2.6rem, 6.4vw, 5.5rem); line-height: 0.92; letter-spacing: -0.04em; }
-  .b-lead { max-width: 40rem; font-size: clamp(1.25rem, 2vw, 1.6rem); line-height: 1.35; font-weight: 500; }
+  .b-title { margin: 0; font-size: clamp(2.6rem, 6.4vw, 5.5rem); line-height: 1.02; letter-spacing: -0.04em; }
+  .b-lead { max-width: 40rem; font-size: clamp(1.25rem, 2vw, 1.6rem); line-height: 1.4; font-weight: 380; }
 
   .b-work { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(0.9rem, 1.6vw, 1.4rem); margin: clamp(2rem, 4vw, 3.5rem) 0 0; padding: 0; list-style: none; }
   .b-work li { display: grid; }
   .b-card { display: flex; flex-direction: column; gap: 0.6rem; padding: clamp(1.25rem, 2vw, 1.75rem) clamp(1.25rem, 2vw, 1.75rem) 0; border-radius: 1.4rem; background: var(--field); color: var(--ink); text-decoration: none; overflow: hidden; }
   .b-card-top { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
-  .b-card-name { font-family: var(--display); font-weight: 800; font-stretch: 118%; font-size: clamp(1.5rem, 2.3vw, 2.1rem); line-height: 1; letter-spacing: -0.03em; }
-  .b-kind { font-size: 0.9rem; font-weight: 500; white-space: nowrap; }
+  .b-card-name { font-family: var(--display); font-weight: 800; font-stretch: 118%; font-size: clamp(1.5rem, 2.3vw, 2.1rem); line-height: 1.04; letter-spacing: -0.03em; }
+  .b-kind { font-size: 0.9rem; font-weight: 450; white-space: nowrap; }
   .b-card-line { max-width: 28rem; line-height: 1.45; }
   .b-card img { display: block; width: 100%; height: auto; margin-top: auto; padding-top: 0; border-radius: 0.7rem 0.7rem 0 0; translate: 0 0.6rem; transition: translate 0.25s; }
   .b-card:hover img { translate: 0 0; }
@@ -285,8 +305,8 @@ const cards = homeOrder.map((id) => work.find((w) => w.id === id)!).map((w, i) =
   .b-services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem 3rem; margin: clamp(2rem, 4vw, 3.5rem) 0 0; padding: 0; list-style: none; }
   .b-service { padding-top: 1.25rem; border-top: 2px solid var(--ink); }
   .b-service h3 { margin: 0; font-family: var(--reading); font-stretch: normal; font-weight: 600; font-size: 1.05rem; letter-spacing: 0; }
-  .b-price { margin: 0.6rem 0 0; font-family: var(--display); font-weight: 800; font-stretch: 118%; font-size: clamp(1.9rem, 3.2vw, 2.9rem); line-height: 1; letter-spacing: -0.035em; }
-  .b-time { margin: 0.5rem 0 0; font-weight: 500; }
+  .b-price { margin: 0.6rem 0 0; font-family: var(--display); font-weight: 800; font-stretch: 118%; font-size: clamp(1.9rem, 3.2vw, 2.9rem); line-height: 1.04; letter-spacing: -0.035em; }
+  .b-time { margin: 0.5rem 0 0; font-weight: 450; }
   .b-service ul { margin: 1.1rem 0 0; padding: 0 0 0 1.1rem; display: grid; gap: 0.4rem; line-height: 1.45; }
 
   .b-about { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(16rem, 1fr); gap: clamp(2rem, 6vw, 5rem); align-items: start; }
@@ -302,14 +322,22 @@ const cards = homeOrder.map((id) => work.find((w) => w.id === id)!).map((w, i) =
   .b-contact p { max-width: 40rem; }
   .b-contact .b-lead { margin: 1.5rem 0 0; }
   .b-mail { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.5rem; margin: 2rem 0 0; }
-  .b-address { font-family: var(--display); font-weight: 800; font-stretch: 112%; font-size: clamp(1.5rem, 5vw, 4rem); line-height: 1; letter-spacing: -0.035em; overflow-wrap: anywhere; text-decoration-thickness: 3px !important; }
+  .b-mail-note { margin: 0.9rem 0 0; font-size: 0.95rem; }
+  .b-contact-icon, .b-street-icon { display: block; margin-bottom: 1rem; }
+  .btn-big { min-height: 4.2rem; padding-inline: 2.1rem; font-size: clamp(1.1rem, 1.6vw, 1.3rem); }
+  .b-icon { margin-right: 0.35rem; vertical-align: -0.65em; }
+  .b-street { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: center; background: var(--green); }
+  .b-street-shot { display: block; border-radius: 1rem; overflow: hidden; border: 2px solid var(--ink); box-shadow: 8px 10px 0 var(--ink); transition: translate 0.25s cubic-bezier(0.3, 1.4, 0.5, 1), box-shadow 0.25s; }
+  .b-street-shot:hover { translate: -3px -4px; box-shadow: 12px 14px 0 var(--ink); }
+  .b-street-shot img { display: block; width: 100%; height: auto; }
+  .b-street-words .b-lead { margin: 1.25rem 0 1.75rem; }
   .b-copied { min-height: 1.5rem; margin: 0.5rem 0 0; font-weight: 600; }
 
   @media (max-width: 900px) {
     .b-hero { grid-template-columns: 1fr; min-height: 0; }
     .b-blocks { min-height: 34rem; }
       .b-work, .b-services { grid-template-columns: 1fr; }
-    .b-about { grid-template-columns: 1fr; }
+    .b-about, .b-street { grid-template-columns: 1fr; }
     .b-photos { max-width: 26rem; }
   }
   @media (prefers-reduced-motion: reduce) {
