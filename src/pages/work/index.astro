@@ -10,14 +10,14 @@ const colors = ['var(--orange)', 'var(--yellow)', 'var(--pink)', 'var(--green)',
 <Base
   bare
   title="Website portfolio: restaurants, studios, shops"
-  description="Nine websites by Maui Tinevra, a web designer in Scottsdale, Arizona: a taqueria, a yoga studio, a barber, a florist and more, with what each one needed."
+  description="Websites by Maui Tinevra, a web designer in Scottsdale, Arizona: a bookshop, a record shop, a florist, a barber, a yoga studio and more, with what each one needed."
 >
   <header class="w-head">
     <h1 class="w-title">Work</h1>
     <p class="w-lede">Websites for restaurants, studios and shops. Each project, what it needed, and what I did about it.</p>
   </header>
   {
-    work.map((w, i) => (
+    work.filter((w) => w.id !== 'el-unico').map((w, i) => (
       <article class="w-case" id={w.id} aria-labelledby={`${w.id}-title`}>
         <a class="w-shot" href={w.links[0].href} style={`--field: ${colors[i % colors.length]}`}>
           <img src={w.image} alt={w.alt} width="1200" height="750" loading="lazy" />
