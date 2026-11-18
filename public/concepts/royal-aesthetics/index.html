@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Royal Aesthetics &amp; Injectables — Website Concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--royal:#1f4f7d;--royal2:#305c80;--blue:#417bab;--sky:#e8f0f7;--gold:#d9ad3f;--gold-l:#f3dd9b;--ink:#14212e;--mut:#5d6b78;--line:#d8e2ec;--white:#fff}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#fbfcfe;color:var(--ink);font-family:"Poppins",system-ui,sans-serif;font-size:16.5px;line-height:1.7;font-weight:300}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{font-family:"Libre Baskerville",Georgia,serif;font-weight:400;line-height:1.15;margin:0}
+.concept{background:var(--ink);color:#c9d6e3;font-size:12.5px;text-align:center;padding:7px 16px}
+.concept a{color:var(--gold-l)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.eyebrow{display:flex;align-items:center;gap:12px;font-size:12px;letter-spacing:.28em;text-transform:uppercase;font-weight:600;color:var(--blue)}
+.eyebrow:before{content:"";width:26px;height:2px;background:var(--gold)}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 26px;border-radius:6px;background:var(--gold);color:var(--ink);text-decoration:none;font-weight:600;font-size:15px;border:2px solid var(--gold);transition:.2s;cursor:pointer;font-family:inherit}
+.btn:hover{background:var(--gold-l);border-color:var(--gold-l)}
+.btn.out{background:transparent;color:#fff;border-color:rgba(255,255,255,.6)}
+.btn.out:hover{background:#fff;color:var(--royal)}
+.btn.blue{background:var(--royal);border-color:var(--royal);color:#fff}
+.btn.blue:hover{background:var(--blue);border-color:var(--blue)}
+.topline{background:var(--royal);color:#dbe7f2;font-size:13.5px}
+.topline .wrap{display:flex;justify-content:space-between;gap:16px;padding-top:8px;padding-bottom:8px}
+.topline a{color:var(--gold-l);text-decoration:none;font-weight:500}
+header{position:sticky;top:0;z-index:30;background:#fff;box-shadow:0 1px 0 var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:84px;gap:20px}
+.bar img{height:64px;width:auto}
+nav{display:flex;gap:28px;font-size:14.5px;font-weight:500}
+nav a{text-decoration:none}
+nav a:hover{color:var(--blue)}
+/* hero */
+.hero{background:linear-gradient(120deg,var(--royal) 0%,var(--royal2) 55%,var(--blue) 100%);color:#fff;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;inset:auto -120px -160px auto;width:520px;height:520px;border:1px solid rgba(243,221,155,.25);border-radius:50%}
+.hero .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:50px;align-items:center;padding:70px 24px 0}
+.hero h1{font-size:clamp(38px,5vw,64px)}
+.hero h1 em{color:var(--gold-l)}
+.hero p{color:#d8e5f1;font-size:18px;max-width:520px;margin:22px 0 30px}
+.hero .ctas{display:flex;gap:12px;flex-wrap:wrap;padding-bottom:70px}
+.hero .photo{align-self:end;position:relative}
+.hero .photo img{width:100%;max-height:600px;object-fit:cover;object-position:top;border-radius:220px 220px 0 0;border:6px solid rgba(255,255,255,.12);border-bottom:0}
+.new{display:inline-block;background:rgba(255,255,255,.12);border:1px solid rgba(243,221,155,.5);color:var(--gold-l);padding:6px 14px;border-radius:999px;font-size:13px;margin-bottom:20px}
+/* honors */
+.honors{background:var(--sky)}
+.honors .wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+.honors .wrap>div{padding:26px 22px;display:flex;gap:16px;align-items:center;border-right:1px solid var(--line)}
+.honors .wrap>div:last-child{border-right:0}
+.honors svg{flex:none}
+.honors b{display:block;font-family:"Libre Baskerville",serif;font-weight:400;font-size:17px;color:var(--royal)}
+.honors span{font-size:14px;color:var(--mut)}
+section{padding:100px 0}
+.center{text-align:center;max-width:760px;margin:0 auto 60px}
+.center .eyebrow{justify-content:center}
+.center h2{font-size:clamp(34px,4.4vw,52px);margin:14px 0 18px;color:var(--royal)}
+.center p{color:var(--mut);margin:0}
+/* welcome */
+.welcome .grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:60px;align-items:center}
+.welcome img{border-radius:14px;width:100%;aspect-ratio:4/3;object-fit:cover}
+.welcome h2{font-size:clamp(32px,4vw,46px);color:var(--royal);margin:14px 0 20px}
+.welcome p{color:#3e4b58}
+.sig{font-family:"Libre Baskerville",serif;font-style:italic;color:var(--royal);margin-top:24px}
+/* services */
+.services{background:#fff}
+.svc{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.s{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fbfcfe;display:flex;flex-direction:column}
+.s img{width:100%;height:260px;object-fit:cover;object-position:top}
+.s .b{padding:28px 26px 30px;display:flex;flex-direction:column;flex:1}
+.s h3{font-size:26px;color:var(--royal);margin-bottom:12px}
+.s p{color:#3e4b58;font-size:15.5px;margin:0 0 18px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}
+.tags span{background:var(--sky);color:var(--royal);font-size:13px;font-weight:500;padding:5px 12px;border-radius:999px}
+/* team */
+.team{background:var(--royal);color:#fff}
+.team .grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.team h2{font-size:clamp(32px,4vw,48px);margin:14px 0 20px}
+.team .eyebrow{color:var(--gold-l)}
+.team p{color:#d8e5f1}
+.roster{list-style:none;margin:28px 0 0;padding:0;display:grid;gap:10px}
+.roster li{display:flex;justify-content:space-between;gap:16px;padding:14px 18px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:10px}
+.roster b{font-weight:500}
+.roster span{color:var(--gold-l);font-size:14px;text-align:right}
+.team img{border-radius:14px;width:100%;aspect-ratio:4/5;object-fit:cover}
+/* founder */
+.founder .grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:60px;align-items:center}
+.founder img{border-radius:14px;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:top}
+.founder h2{font-size:clamp(30px,3.6vw,42px);color:var(--royal);margin:14px 0 18px}
+.crest{background:var(--sky);border-radius:14px;aspect-ratio:4/5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:40px}
+.crest img{width:70%;aspect-ratio:auto}
+.crest p{margin:0;font-family:"Libre Baskerville",serif;font-style:italic;color:var(--royal)}
+.founder blockquote{margin:26px 0 0;padding:22px 26px;border-left:3px solid var(--gold);background:var(--sky);font-family:"Libre Baskerville",serif;font-style:italic;font-size:17px;color:var(--royal);border-radius:0 10px 10px 0}
+/* membership */
+.mem{background:var(--sky)}
+.mgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.m{background:#fff;border-radius:16px;padding:32px 28px;border-top:4px solid var(--gold)}
+.m h3{font-size:24px;color:var(--royal);margin-bottom:12px}
+.m p{color:#3e4b58;font-size:15.5px;margin:0}
+.extras{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:22px}
+.x{background:var(--royal);color:#fff;border-radius:16px;padding:30px 28px;display:flex;justify-content:space-between;gap:20px;align-items:center;flex-wrap:wrap}
+.x h3{font-size:22px}
+.x p{margin:4px 0 0;color:#d8e5f1;font-size:15px}
+/* visit */
+.visit .grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.card{border:1px solid var(--line);border-radius:16px;padding:36px;background:#fff}
+.card h3{font-size:26px;color:var(--royal);margin-bottom:16px}
+form{display:grid;gap:12px}
+input,textarea{font:inherit;font-size:15px;padding:13px 14px;border:1px solid var(--line);border-radius:8px;background:#fbfcfe}
+.demo{display:none;color:var(--blue);font-size:14px;margin:0}
+footer{background:var(--ink);color:#aebdcc;padding:44px 0 120px;font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+footer a{color:var(--gold-l)}
+.sticky{display:none}
+@media (max-width:960px){
+ nav{display:none}
+ .hero .grid,.welcome .grid,.team .grid,.founder .grid,.visit .grid{grid-template-columns:1fr}
+ .hero .photo{max-width:460px;margin:0 auto}
+ .hero .ctas{padding-bottom:10px}
+ .svc,.mgrid{grid-template-columns:1fr 1fr}
+ .honors .wrap{grid-template-columns:1fr}
+ .honors .wrap>div{border-right:0;border-bottom:1px solid var(--line)}
+ .extras{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+ body{font-size:16px}
+ .wrap{padding:0 18px}
+ .topline .hide{display:none}
+ .bar{height:70px}.bar img{height:52px}
+ .bar .btn{padding:10px 16px;font-size:14px}
+ .hero .grid{padding:46px 18px 0}
+ section{padding:70px 0}
+ .svc,.mgrid{grid-template-columns:1fr}
+ .card{padding:26px 20px}
+ .roster li{flex-direction:column;gap:2px}
+ .roster span{text-align:left}
+ .sticky{display:flex;position:fixed;left:12px;right:12px;bottom:12px;z-index:40;gap:10px}
+ .sticky a{flex:1;text-align:center;padding:15px 10px;border-radius:10px;font-weight:600;text-decoration:none;box-shadow:0 10px 24px rgba(20,33,46,.3)}
+ .sticky .c{background:var(--royal);color:#fff}
+ .sticky .k{background:var(--gold);color:var(--ink)}
+}
+</style>
+</head>
+<body>
+<div class="concept">Website concept prepared by Maui Tinevra (<a href="https://mauitinevra.com">mauitinevra.com</a>) for Royal Aesthetics &amp; Injectables. Not affiliated with or the official site of this business.</div>
+<div class="topline"><div class="wrap"><span>Accepting new clients for all services <span class="hide">— filler, Botox and skin treatments</span></span><a href="tel:+16027305767">Text/Call 602-730-5767</a></div></div>
+<header>
+ <div class="wrap bar">
+  <a href="#top"><img src="assets/logo.png" alt="Royal Aesthetics &amp; Injectables"></a>
+  <nav><a href="#services">Services</a><a href="#team">The Team</a><a href="#membership">Membership</a><a href="#visit">Location</a></nav>
+  <a class="btn" href="https://chmnz.myaestheticrecord.com/online-booking" target="_blank" rel="noopener">Book now</a>
+ </div>
+</header>
+
+<main id="top">
+ <section class="hero" style="padding:0">
+  <div class="grid wrap">
+   <div>
+    <span class="new">Phoenix · 609 E. Oregon Ave</span>
+    <h1>You're already beautiful, <em>we'll make you Royal!</em></h1>
+    <p>A full service medical spa catering to all skin types and aesthetic concerns — injectables, skin health and laser, with a Royal experience for every guest.</p>
+    <div class="ctas"><a class="btn" href="https://chmnz.myaestheticrecord.com/online-booking" target="_blank" rel="noopener">Schedule Now</a><a class="btn out" href="tel:+16027305767">Call 602-730-5767</a></div>
+   </div>
+   <div class="photo"><img src="assets/r-67.jpg" alt="The Royal Aesthetics &amp; Injectables team"></div>
+  </div>
+ </section>
+
+ <div class="honors"><div class="wrap">
+  <div><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#d9ad3f" stroke-width="1.4"><path d="M3 18h18M4 18l-1-10 5 4 4-7 4 7 5-4-1 10"/></svg><div><b>Best of the Valley 2024</b><span>Listed among the top med spas in Phoenix</span></div></div>
+  <div><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#d9ad3f" stroke-width="1.4"><circle cx="12" cy="9" r="6"/><path d="M8.5 14 7 22l5-3 5 3-1.5-8"/></svg><div><b>Top 10 for Best Botox</b><span>Listed in the top 10 med spas</span></div></div>
+  <div><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#d9ad3f" stroke-width="1.4"><path d="M12 21s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.6-7 10-7 10z"/></svg><div><b>RN injectors &amp; licensed estheticians</b><span>Educated, empowered, confident care</span></div></div>
+ </div></div>
+
+ <section class="welcome">
+  <div class="wrap grid">
+   <img src="assets/img_1937.jpg" alt="Two Royal providers in the studio">
+   <div>
+    <span class="eyebrow">Welcome to Royal</span>
+    <h2>Quality treatments that suit your individual needs.</h2>
+    <p>We strive to provide an environment where all of our guests receive a Royal experience — quality treatments that suit their individual needs, and feeling delighted when leaving. Each client can feel confident that their treatment and plan of care are directed to achieve their desired results in a safe and thorough manner.</p>
+    <p>We safely administer toxins (Botox, Dysport, Jeuveau, Daxxify) and dermal fillers (Juvéderm, Restylane, RHA) as well as Sculptra &amp; Radiesse, and carry medical-grade skin care for beautiful, glowing esthetic treatments.</p>
+    <p class="sig">With love and beauty, Deborah Peraza, RN — Injector/CLT &amp; Founder</p>
+   </div>
+  </div>
+ </section>
+
+ <section class="services" id="services">
+  <div class="wrap">
+   <div class="center"><span class="eyebrow">Royal Services</span><h2>Injectables, skin health &amp; laser</h2><p>Every plan begins with a thoughtful consultation, so we select what your skin needs — nothing more, nothing less.</p></div>
+   <div class="svc">
+    <div class="s"><img src="assets/img_1994.jpg" alt="Royal membership board"><div class="b"><h3>Injectables</h3><p>Subtle, balanced enhancements that look like you — only fresher. Wrinkle relaxers, dermal fillers, biostimulators and PRF EZ Gel, placed with precise, anatomy-guided technique.</p><div class="tags"><span>Botox®</span><span>Daxxify®</span><span>Jeuveau®</span><span>RHA®</span><span>Juvéderm®</span><span>Restylane®</span><span>Sculptra®</span><span>Radiesse®</span><span>IV Hydration / B-12 &amp; MICC</span></div></div></div>
+    <div class="s"><img src="assets/img_4368.jpg" alt="LASERme skin resurfacing at Royal"><div class="b"><h3>Skin Health</h3><p>Skin health is the foundation of every glow. Personalized plans with advanced, non-invasive treatments to refine texture, even tone and boost radiance, supported by medical-grade skincare.</p><div class="tags"><span>DiamondGlow®</span><span>SkinPen® Microneedling</span><span>VI Peel®</span><span>Dermaplaning</span><span>LED Light Therapy</span><span>Facials</span></div></div></div>
+    <div class="s"><img src="assets/img_2031.jpg" alt="Royal's laser technicians with their lasers"><div class="b"><h3>Laser &amp; RF</h3><p>Medical-grade laser hair removal for all skin types, from delicate areas like the face and underarms to legs and back — plus laser facials with pigment removal and RF microneedling.</p><div class="tags"><span>Laser Hair Removal</span><span>Laser Facials</span><span>RF Microneedling</span><span>LASERme</span></div></div></div>
+   </div>
+  </div>
+ </section>
+
+ <section class="team" id="team">
+  <div class="wrap grid">
+   <div>
+    <span class="eyebrow">Royal's Team</span>
+    <h2>Experienced, skilled professionals.</h2>
+    <p>Our mission is to provide the highest quality aesthetic treatments and injectables in a luxurious and welcoming environment, delivering personalized and natural-looking results that enhance your natural beauty.</p>
+    <ul class="roster">
+     <li><b>Deborah Peraza</b><span>RN Injector/CLT &amp; Founder</span></li>
+     <li><b>Sarah Kiernan</b><span>RN Injector/CLT</span></li>
+     <li><b>Rylee Chalmers</b><span>RN Injector/CLT</span></li>
+     <li><b>Jessica Dugan</b><span>Esthetician/CLT</span></li>
+     <li><b>Danielle Hanson</b><span>Esthetician/CLT</span></li>
+    </ul>
+   </div>
+   <img src="assets/r-61.jpg" alt="Royal Aesthetics team" style="object-position:center">
+  </div>
+ </section>
+
+ <section class="founder">
+  <div class="wrap grid">
+   <div class="crest"><img src="assets/logo.png" alt="Royal Aesthetics crown logo"><p>Founded 2019 · Phoenix, Arizona</p></div>
+   <div>
+    <span class="eyebrow">Meet the founder</span>
+    <h2>Deborah Peraza, RN</h2>
+    <p>Deborah embarked on her nursing career over 19 years ago and takes great pride in being a 4th generation Arizonian. In 2018 she transitioned from RN Administrator to Aesthetic Nurse Injector, and in 2019 she founded Royal Aesthetics with a vision to create a medspa that exuded luxury and relaxation.</p>
+    <p>Deborah also offers training programs for injectors — a Foundations Injector Course, an Advanced Injector Course, and an RN Injector Apprenticeship.</p>
+    <blockquote>“The decision to become an RN Injector has been a true blessing, as I am driven by my desire to provide each patient with results that make them feel cherished and valued.”</blockquote>
+   </div>
+  </div>
+ </section>
+
+ <section class="mem" id="membership">
+  <div class="wrap">
+   <div class="center"><span class="eyebrow">Royal Monthly Membership</span><h2>Make your glow a routine</h2><p>Ask us which membership fits your skin goals.</p></div>
+   <div class="mgrid">
+    <div class="m"><h3>Platinum</h3><p>An hour-long treatment each month with two customized services in one facial — plus savings on Botox, Jeuveau and Daxxify.</p></div>
+    <div class="m"><h3>Diamond Glow</h3><p>The medical-grade DiamondGlow facial, 10% off retail skincare, and savings on Botox, Jeuveau or Daxxify treatments.</p></div>
+    <div class="m"><h3>Laser</h3><p>Our Clarity laser for hair removal, vascular lesion removal, hyperpigmentation and facial treatments — customized monthly.</p></div>
+   </div>
+   <div class="extras">
+    <div class="x"><div><h3>Gift Cards</h3><p>E-cards and traditional cards, any increment, honored for all services.</p></div><a class="btn" href="https://squareup.com/gift/1EF5K270K73YX/order" target="_blank" rel="noopener">Buy now</a></div>
+    <div class="x"><div><h3>Financing with Cherry</h3><p>A 6 month payment option, no hard credit inquiry.</p></div><a class="btn out" href="tel:+16027305767">Ask us</a></div>
+   </div>
+  </div>
+ </section>
+
+ <section class="visit" id="visit">
+  <div class="wrap grid">
+   <div class="card">
+    <h3>Visit Royal</h3>
+    <p style="margin:0 0 6px"><b style="font-weight:600">Royal Aesthetics &amp; Injectables</b></p>
+    <p style="margin:0 0 16px">609 East Oregon Avenue, Ste 100<br>Phoenix, AZ 85014</p>
+    <p style="margin:0 0 22px">Text or call <a href="tel:+16027305767">602-730-5767</a><br>Appointment times are shown in online booking</p>
+    <p style="display:flex;gap:10px;flex-wrap:wrap;margin:0"><a class="btn blue" href="https://chmnz.myaestheticrecord.com/online-booking" target="_blank" rel="noopener">Book online</a><a class="btn" style="background:#fff" href="https://www.google.com/maps/search/?api=1&query=609+E+Oregon+Ave+Ste+100+Phoenix+AZ" target="_blank" rel="noopener">Get directions</a></p>
+    <p style="margin:22px 0 0;font-size:14px;color:var(--mut)">Sister location: Royal Med Spa &amp; Wellness, 13980 West Avalon Drive, Goodyear. Follow <a href="https://www.instagram.com/royalaestheticsaz" target="_blank" rel="noopener">@royalaestheticsaz</a>.</p>
+   </div>
+   <div class="card">
+    <h3>Contact us</h3>
+    <form onsubmit="event.preventDefault();this.querySelector('.demo').style.display='block'">
+     <input placeholder="Name" aria-label="Name"><input type="email" placeholder="Email*" aria-label="Email"><textarea rows="4" placeholder="How can we help?" aria-label="Message"></textarea>
+     <button class="btn blue" type="submit">Send</button>
+     <p class="demo">Demo form in a website concept — nothing was sent. Please text/call 602-730-5767.</p>
+    </form>
+   </div>
+  </div>
+ </section>
+</main>
+
+<footer>
+ <div class="wrap"><span>Royal Aesthetics &amp; Injectables · 609 E. Oregon Ave, Phoenix, AZ 85014 · (602) 730-5767</span><span>Concept by <a href="https://mauitinevra.com">Maui Tinevra</a></span></div>
+</footer>
+<div class="sticky"><a class="c" href="tel:+16027305767">Call</a><a class="k" href="https://chmnz.myaestheticrecord.com/online-booking" target="_blank" rel="noopener">Book now</a></div>
+</body>
+</html>

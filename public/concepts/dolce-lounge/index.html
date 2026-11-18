@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Dolce Lounge aesthetics+wellness — Website Concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Josefin+Sans:wght@300;400;600&family=Allura&display=swap" rel="stylesheet">
+<style>
+:root{--blush:#f3c3b0;--blush-l:#fbe9e1;--blush-xl:#fdf5f1;--rose:#c98b74;--ink:#111;--ink2:#3a3330;--mut:#7d716c;--line:#ecd9cf}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--blush-xl);color:var(--ink);font-family:"Josefin Sans",system-ui,sans-serif;font-size:17px;line-height:1.65;font-weight:300}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{font-family:"Italiana",Georgia,serif;font-weight:400;margin:0;line-height:1.08}
+.concept{background:var(--ink);color:#f4ddd2;font-size:12.5px;text-align:center;padding:7px 16px}
+.concept a{color:var(--blush)}
+.wrap{max-width:1200px;margin:0 auto;padding:0 26px}
+.script{font-family:"Allura",cursive;color:var(--rose);font-size:44px;line-height:1}
+.cap{font-size:12px;letter-spacing:.34em;text-transform:uppercase;font-weight:600}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 28px;border-radius:999px;background:var(--ink);color:#fff;text-decoration:none;font-size:13px;letter-spacing:.22em;text-transform:uppercase;font-weight:600;border:0;cursor:pointer;font-family:inherit}
+.btn:hover{background:var(--rose)}
+.btn.soft{background:var(--blush);color:var(--ink)}
+.btn.soft:hover{background:#eab29b}
+header{position:sticky;top:0;z-index:30;background:rgba(253,245,241,.92);backdrop-filter:blur(10px)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:78px;gap:20px}
+.bar img{height:34px;width:auto}
+nav{display:flex;gap:30px;font-size:13px;letter-spacing:.2em;text-transform:uppercase;font-weight:400}
+nav a{text-decoration:none}
+nav a:hover{color:var(--rose)}
+/* hero */
+.hero{position:relative;overflow:hidden;padding:56px 0 90px}
+.hero:before{content:"Dolce";position:absolute;right:-40px;top:-30px;font-family:"Allura",cursive;font-size:clamp(220px,34vw,460px);color:rgba(243,195,176,.35);line-height:1;pointer-events:none}
+.hero .grid{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.hero h1{font-size:clamp(46px,6.6vw,90px)}
+.hero h1 span{display:block;font-family:"Josefin Sans",sans-serif;font-size:.2em;letter-spacing:.42em;text-transform:uppercase;font-weight:400;margin-top:16px;color:var(--ink2)}
+.hero p.lead{font-size:19px;max-width:520px;margin:26px 0 34px;color:var(--ink2)}
+.hero .ctas{display:flex;gap:12px;flex-wrap:wrap}
+.arch{position:relative}
+.arch img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:999px 999px 18px 18px}
+.arch .chip{position:absolute;left:-26px;bottom:44px;background:#fff;border-radius:18px;padding:18px 22px;box-shadow:0 18px 40px rgba(90,50,35,.14);max-width:250px}
+.arch .chip b{display:block;font-family:"Italiana",serif;font-size:26px;font-weight:400}
+.arch .chip span{font-size:14px;color:var(--mut)}
+/* ribbon */
+.ribbon{background:var(--ink);color:var(--blush);overflow:hidden;white-space:nowrap;padding:16px 0;font-family:"Italiana",serif;font-size:24px}
+.ribbon div{display:inline-block;animation:slide 36s linear infinite}
+.ribbon span{margin:0 26px}
+.ribbon i{font-style:normal;color:#fff;font-size:14px}
+@keyframes slide{to{transform:translateX(-50%)}}
+section{padding:104px 0}
+.sh{text-align:center;max-width:680px;margin:0 auto 54px}
+.sh h2{font-size:clamp(40px,5vw,64px);margin:6px 0 16px}
+.sh p{margin:0;color:var(--ink2)}
+/* services */
+.svc{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.card{background:#fff;border-radius:22px;padding:26px 24px 24px;border:1px solid var(--line);transition:.25s;display:flex;flex-direction:column}
+.card:hover{transform:translateY(-4px);box-shadow:0 16px 34px rgba(120,70,50,.12);border-color:var(--blush)}
+.card .n{font-size:12px;letter-spacing:.24em;color:var(--rose);font-weight:600}
+.card h3{font-size:27px;margin:10px 0 10px}
+.card p{font-size:15px;color:var(--ink2);margin:0}
+.card.feature{grid-column:span 2;background:var(--blush);border-color:var(--blush);flex-direction:row;gap:22px;align-items:center;padding:0;overflow:hidden}
+.card.feature img{width:45%;height:100%;min-height:240px;object-fit:cover}
+.card.feature div{padding:24px 24px 24px 0}
+/* cherry */
+.cherry{background:var(--blush-l);border-radius:32px;padding:56px;display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:center}
+.cherry h2{font-size:clamp(34px,4.2vw,52px)}
+.cherry p{color:var(--ink2)}
+/* about */
+.about .grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px;align-items:center}
+.about .pics{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.about .pics img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:18px}
+.about .pics img:last-child{margin-top:48px}
+.about h2{font-size:clamp(38px,4.6vw,58px);margin:6px 0 20px}
+.about p{color:var(--ink2)}
+/* reviews */
+.reviews{background:var(--ink);color:#f6e9e2}
+.reviews .sh h2{color:#fff}
+.reviews .sh p{color:#cdb8ae}
+.rv{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.rv figure{margin:0;background:#1d1a19;border:1px solid #2e2826;border-radius:22px;padding:30px}
+.rv blockquote{margin:0;font-size:16.5px;line-height:1.7}
+.rv figcaption{margin-top:16px;font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--blush)}
+/* visit */
+.visit .grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.panel{background:#fff;border-radius:26px;padding:38px;border:1px solid var(--line)}
+.panel h3{font-size:34px;margin-bottom:18px}
+.hours{list-style:none;padding:0;margin:0}
+.hours li{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px dashed var(--line)}
+.hours li.x{color:var(--mut)}
+form{display:grid;gap:12px;margin-top:22px}
+input,textarea{font:inherit;font-size:15px;padding:14px 16px;border-radius:14px;border:1px solid var(--line);background:var(--blush-xl)}
+.demo{display:none;color:var(--rose);font-size:14px;margin:0}
+footer{padding:50px 0 120px;text-align:center;color:var(--mut);font-size:14px}
+footer img{height:120px;margin:0 auto 14px}
+.sticky{display:none}
+@media (max-width:980px){
+ nav{display:none}
+ .hero .grid,.about .grid,.cherry,.visit .grid{grid-template-columns:1fr}
+ .svc{grid-template-columns:1fr 1fr}
+ .arch{max-width:460px}
+ .rv{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+ body{font-size:16px}
+ .wrap{padding:0 18px}
+ .bar{height:62px}.bar img{height:26px}
+ .bar .btn{display:none}
+ .hero{padding:34px 0 64px}
+ .arch .chip{left:12px;bottom:18px}
+ section{padding:72px 0}
+ .svc{grid-template-columns:1fr}
+ .card.feature{grid-column:auto;flex-direction:column}
+ .card.feature img{width:100%;min-height:200px}
+ .card.feature div{padding:0 22px 24px}
+ .cherry{padding:34px 24px;border-radius:24px}
+ .panel{padding:28px 22px}
+ .sticky{display:flex;position:fixed;left:12px;right:12px;bottom:12px;z-index:40;gap:10px}
+ .sticky a{flex:1;text-align:center;padding:15px;border-radius:999px;background:var(--ink);color:#fff;text-decoration:none;font-size:13px;letter-spacing:.18em;text-transform:uppercase;font-weight:600;box-shadow:0 10px 26px rgba(0,0,0,.25)}
+ .sticky a.b{background:var(--blush);color:var(--ink)}
+}
+</style>
+</head>
+<body>
+<div class="concept">Website concept prepared by Maui Tinevra (<a href="https://mauitinevra.com">mauitinevra.com</a>) for Dolce Lounge aesthetics+wellness. Not affiliated with or the official site of this business.</div>
+
+<header>
+ <div class="wrap bar">
+  <a href="#top"><img src="assets/wordmark.png" alt="Dolce Lounge aesthetics + wellness"></a>
+  <nav><a href="#services">Services</a><a href="#about">About</a><a href="#hours">Hours</a><a href="#reviews">Testimonials</a></nav>
+  <a class="btn" href="tel:+14804392000">Book Appointment</a>
+ </div>
+</header>
+
+<main id="top">
+ <section class="hero">
+  <div class="wrap grid">
+   <div>
+    <p class="script">Chandler, Arizona</p>
+    <h1>Elevate your aesthetics<span>Dolce Lounge · aesthetics + wellness</span></h1>
+    <p class="lead">Injectables, laser treatments, CoolSculpting and much more — a full range of high-end, top-quality services using the best products and techniques.</p>
+    <div class="ctas"><a class="btn" href="tel:+14804392000">Book Appointment</a><a class="btn soft" href="#services">View All Services</a></div>
+   </div>
+   <div class="arch">
+    <img src="assets/clinic.jpg" alt="Inside Dolce Lounge in Chandler">
+    <div class="chip"><b>Treat now, pay later</b><span>Monthly installments with Cherry</span></div>
+   </div>
+  </div>
+ </section>
+
+ <div class="ribbon" aria-hidden="true"><div>
+  <span>Injectables</span><i>✦</i><span>Laser Hair Reduction</span><i>✦</i><span>Microneedling</span><i>✦</i><span>Body Contouring</span><i>✦</i><span>Celluma Light Therapy</span><i>✦</i><span>PRF Hair Treatment</span><i>✦</i><span>Weight Loss</span><i>✦</i>
+  <span>Injectables</span><i>✦</i><span>Laser Hair Reduction</span><i>✦</i><span>Microneedling</span><i>✦</i><span>Body Contouring</span><i>✦</i><span>Celluma Light Therapy</span><i>✦</i><span>PRF Hair Treatment</span><i>✦</i><span>Weight Loss</span><i>✦</i>
+ </div></div>
+
+ <section id="services">
+  <div class="wrap">
+   <div class="sh"><p class="script">our menu</p><h2>Services</h2><p>We offer a full range of high-end, top-quality services using the best products and techniques.</p></div>
+   <div class="svc">
+    <div class="card feature"><img src="assets/injectables.jpg" alt="Injectable treatment"><div><span class="n">01</span><h3>Injectables</h3><p>Cosmetic injectables including neuromodulators and fillers used to smooth wrinkles, enhance features, or reduce sweating in targeted areas.</p></div></div>
+    <div class="card"><span class="n">02</span><h3>Cheek or Lip Plumpers &amp; more</h3><p>Injectable treatments designed to enhance facial volume, contour cheeks, plump lips, or dissolve fat under the chin.</p></div>
+    <div class="card"><span class="n">03</span><h3>Microneedling</h3><p>Skin rejuvenation using fine needles or RF technology to improve texture, tone, scars and fine lines.</p></div>
+    <div class="card"><span class="n">04</span><h3>Laser Hair Reduction</h3><p>Laser-based treatments for hair reduction, targeting small to large areas of the body.</p></div>
+    <div class="card"><span class="n">05</span><h3>Skin Treatments</h3><p>Facial and topical therapies to hydrate, brighten, cleanse, exfoliate and rejuvenate the skin.</p></div>
+    <div class="card feature"><img src="assets/celluma.jpg" alt="Celluma LED light therapy"><div><span class="n">06</span><h3>Celluma Light Therapy</h3><p>LED light therapy sessions using Celluma devices to address acne, signs of aging, or muscle and joint pain.</p></div></div>
+    <div class="card"><span class="n">07</span><h3>Weight Loss</h3><p>Prescription-based weight loss injectable services using Semaglutide, offered as part of wellness or VIP programs.</p></div>
+    <div class="card"><span class="n">08</span><h3>Under Eye Treatment</h3><p>Specialized treatments for the under-eye area — puffiness, dark circles, fine lines and texture.</p></div>
+    <div class="card"><span class="n">09</span><h3>Skin Rejuvenation</h3><p>Advanced laser and non-laser procedures for pigmentation, acne and signs of aging.</p></div>
+    <div class="card"><span class="n">10</span><h3>Wellness Injections</h3><p>Vitamin or antioxidant boosters that support wellness, immunity, energy and detoxification.</p></div>
+    <div class="card"><span class="n">11</span><h3>PRF Hair Treatment</h3><p>Platelet-Rich Fibrin hair restoration therapies for natural regrowth and scalp health.</p></div>
+    <div class="card"><span class="n">12</span><h3>Body Contouring</h3><p>Non-surgical procedures designed to tone, sculpt and reduce fat in specific areas.</p></div>
+    <div class="card"><span class="n">13</span><h3>Packages &amp; Add-Ons</h3><p>Bundled services and optional enhancements for more comprehensive results and convenience.</p></div>
+    <div class="card"><span class="n">14</span><h3>Dolce Membership</h3><p>VIP access, preferred pricing, and exclusive services or perks — plus VIP pricing on select treatments.</p></div>
+   </div>
+  </div>
+ </section>
+
+ <div class="wrap">
+  <div class="cherry">
+   <div><p class="cap" style="color:var(--rose)">Financing</p><h2>Treat Now, Pay Later with Cherry &amp; Dolce Laser Lounge</h2><p>Buy now. Pay monthly. Let your money go further and take better control of your cash flow with smaller, more manageable monthly installments.</p></div>
+   <div><a class="btn" href="tel:+14804392000">Ask us about Cherry</a></div>
+  </div>
+ </div>
+
+ <section class="about" id="about">
+  <div class="wrap grid">
+   <div class="pics"><img src="assets/facial.jpg" alt="Facial treatment at Dolce Lounge"><img src="assets/portrait.jpg" alt="Glowing skin"></div>
+   <div>
+    <p class="script">about us</p>
+    <h2>Everyone deserves to look and feel their best.</h2>
+    <p>Welcome to our Chandler, AZ Med Spa. Our team of highly trained professionals is dedicated to providing you with the most effective and cutting-edge treatments available. Whether you're looking to enhance your natural beauty, relax and rejuvenate, or address specific concerns, we're here to help.</p>
+    <p>We take a personalized approach to each patient, carefully listening to your needs and goals to create a customized treatment plan that's tailored just for you — using only the highest quality products and equipment.</p>
+    <p style="margin-top:28px"><a class="btn" href="tel:+14804392000">Call to schedule</a></p>
+   </div>
+  </div>
+ </section>
+
+ <section class="reviews" id="reviews">
+  <div class="wrap">
+   <div class="sh"><p class="script" style="color:var(--blush)">testimonials</p><h2>Hear from our clients</h2><p>Google reviews shared on Dolce Lounge's website.</p></div>
+   <div class="rv">
+    <figure><blockquote>“Roxana did my Botox and Restylane today. She numbed my lips and I barely felt anything. Lips look great and not overdone… She's the ultimate professional and very knowledgeable.”</blockquote><figcaption>Deb W.</figcaption></figure>
+    <figure><blockquote>“Amazing!! Just the best med spa in Chandler/Gilbert area. So glad I found them. Dr. Joe is the best. He explains every detail of what he's doing. Christina's facial made my skin glow like never before.”</blockquote><figcaption>Chika O.</figcaption></figure>
+    <figure><blockquote>“From the front desk reception Destiny, Coordinator Sheena and Doctor Joe… every single staff member here is 100% dedicated to patient comfort and care.”</blockquote><figcaption>Tesla N.</figcaption></figure>
+    <figure><blockquote>“Roxana is my favorite! I have never once bruised and won't use anyone else.”</blockquote><figcaption>Christina V.</figcaption></figure>
+   </div>
+  </div>
+ </section>
+
+ <section class="visit" id="hours">
+  <div class="wrap grid">
+   <div class="panel">
+    <h3>Hours of Operation</h3>
+    <ul class="hours"><li><span>Monday</span><span>9 AM – 5 PM</span></li><li class="x"><span>Tuesday</span><span>Closed</span></li><li><span>Wednesday</span><span>9 AM – 5 PM</span></li><li><span>Thursday</span><span>9 AM – 5 PM</span></li><li><span>Friday</span><span>9 AM – 5 PM</span></li><li><span>Saturday</span><span>9 AM – 5 PM</span></li><li class="x"><span>Sunday</span><span>Closed</span></li></ul>
+    <p style="margin:26px 0 6px"><b style="font-weight:600">1900 W Germann Rd Ste 14</b><br>Chandler, AZ 85286</p>
+    <p style="margin:0"><a href="tel:+14804392000">(480) 439-2000</a> · <a href="mailto:hello@dolce-lounge.com">hello@dolce-lounge.com</a> · <a href="https://www.instagram.com/dolce.laserlounge/" target="_blank" rel="noopener">@dolce.laserlounge</a></p>
+   </div>
+   <div class="panel" style="background:var(--blush)">
+    <h3>Subscribe for exclusive updates</h3>
+    <p style="margin:0">Get the latest wellness tips, special promotions, and exclusive offers from Dolce Lounge. Unsubscribe anytime!</p>
+    <form onsubmit="event.preventDefault();this.querySelector('.demo').style.display='block'">
+     <input placeholder="Your name" aria-label="Name"><input type="email" placeholder="Email address" aria-label="Email">
+     <button class="btn" type="submit">Subscribe Now</button>
+     <p class="demo">Demo form in a website concept — nothing was sent.</p>
+    </form>
+   </div>
+  </div>
+ </section>
+</main>
+
+<footer>
+ <img src="assets/logo.png" alt="Dolce Lounge">
+ <div>1900 W Germann Rd Ste 14, Chandler, AZ 85286 · (480) 439-2000</div>
+ <div style="margin-top:8px">Concept by <a href="https://mauitinevra.com">Maui Tinevra</a></div>
+</footer>
+<div class="sticky"><a href="tel:+14804392000">Call</a><a class="b" href="tel:+14804392000">Book now</a></div>
+</body>
+</html>

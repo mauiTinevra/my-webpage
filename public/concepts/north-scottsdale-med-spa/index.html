@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>North Scottsdale Med Spa — Website Concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ivory:#faf7f0;--cream:#f2ecdf;--ink:#1b1916;--ink2:#3b3732;--mut:#77706a;--gold:#d1b146;--gold-d:#9c8128;--gold-l:#ffe9a0;--line:#e4dccb}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--ivory);color:var(--ink);font-family:"Jost",system-ui,sans-serif;font-weight:400;font-size:17px;line-height:1.65}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;line-height:1.05;margin:0}
+.concept{background:var(--ink);color:#d9d2c3;font-size:12.5px;text-align:center;padding:7px 16px;letter-spacing:.02em}
+.concept a{color:var(--gold-l)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.kicker{font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold-d);font-weight:500}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 30px;background:var(--ink);color:var(--ivory);text-decoration:none;font-size:13px;letter-spacing:.2em;text-transform:uppercase;font-weight:500;border:1px solid var(--ink);transition:.2s}
+.btn:hover{background:var(--gold-d);border-color:var(--gold-d)}
+.btn.line{background:transparent;color:var(--ink)}
+.btn.line:hover{background:var(--ink);color:var(--ivory)}
+/* header */
+header{position:sticky;top:0;z-index:30;background:rgba(250,247,240,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:74px}
+.bar .logo img{height:50px;width:auto}
+nav ul{display:flex;gap:34px;list-style:none;margin:0;padding:0;font-size:13px;letter-spacing:.18em;text-transform:uppercase}
+nav a{text-decoration:none}
+nav a:hover{color:var(--gold-d)}
+.bar .call{font-size:14px;text-decoration:none;letter-spacing:.06em;border-bottom:1px solid var(--gold);padding-bottom:2px}
+/* hero */
+.hero{text-align:center;padding:78px 0 0}
+.hero .mono{width:min(300px,62vw);margin:0 auto 34px}
+.hero h1{font-size:clamp(44px,7.4vw,96px);letter-spacing:-.01em}
+.hero h1 em{font-style:italic;color:var(--gold-d)}
+.hero p{max-width:600px;margin:22px auto 34px;color:var(--ink2);font-size:18px;font-weight:300}
+.hero .ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.hero-img{margin-top:64px;position:relative}
+.hero-img img{width:100%;height:min(62vh,620px);object-fit:cover;object-position:center 12%}
+.hero-img .tag{position:absolute;left:24px;bottom:-26px;background:var(--ivory);padding:18px 26px;border:1px solid var(--line);font-family:"Cormorant Garamond",serif;font-size:22px;font-style:italic}
+/* perks */
+.perks{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line);margin-top:60px}
+.perks div{padding:30px 26px;border-right:1px solid var(--line)}
+.perks div:last-child{border-right:0}
+.perks b{display:block;font-family:"Cormorant Garamond",serif;font-size:25px;font-weight:500;margin-bottom:4px}
+.perks span{font-size:14px;color:var(--mut)}
+section{padding:110px 0}
+.head{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:56px}
+.head h2{font-size:clamp(38px,5vw,64px)}
+.head p{color:var(--ink2);font-weight:300;margin:0}
+/* services */
+.menu{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--ink)}
+.col{padding:30px 26px 34px;border-right:1px solid var(--line)}
+.col:last-child{border-right:0}
+.col .num{font-family:"Cormorant Garamond",serif;font-style:italic;color:var(--gold-d);font-size:20px}
+.col h3{font-size:34px;margin:6px 0 18px}
+.col ul{list-style:none;margin:0;padding:0}
+.col li{padding:9px 0;border-bottom:1px solid var(--line);font-size:15.5px;display:flex;justify-content:space-between}
+.col li:after{content:"›";color:var(--gold)}
+.brands{margin-top:46px;display:flex;flex-wrap:wrap;gap:12px 34px;align-items:center;color:var(--mut);font-size:14px;letter-spacing:.14em;text-transform:uppercase}
+.brands b{color:var(--ink);font-weight:500;letter-spacing:.3em;font-size:12px}
+/* practice */
+.practice{background:var(--ink);color:#ece6d9}
+.practice .kicker{color:var(--gold)}
+.practice .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:70px;align-items:center}
+.practice h2{font-size:clamp(38px,5vw,62px);color:#fff;margin:16px 0 26px}
+.practice h2 em{color:var(--gold)}
+.practice p{font-weight:300;color:#d4cdbf;margin:0 0 18px}
+.mosaic{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:240px 240px;gap:12px}
+.mosaic img{width:100%;height:100%;object-fit:cover}
+.mosaic img:first-child{grid-row:span 2}
+.values{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:80px;border-top:1px solid #3d3832;padding-top:44px}
+.values h3{font-size:28px;color:var(--gold-l);margin-bottom:12px}
+.values p{font-size:15px}
+/* staff */
+.staff{display:grid;grid-template-columns:repeat(4,1fr);gap:28px 22px}
+.person img,.person .ph{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:top;background:var(--cream)}
+.person .ph{display:grid;place-items:center;font-family:"Cormorant Garamond",serif;font-size:64px;color:var(--gold-d);border:1px solid var(--line)}
+.person h3{font-size:24px;margin:14px 0 0}
+/* quotes */
+.quotes{background:var(--cream)}
+.qgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:26px}
+blockquote{margin:0;background:var(--ivory);padding:34px 34px 30px;border-top:2px solid var(--gold);font-family:"Cormorant Garamond",serif;font-size:23px;line-height:1.35;font-style:italic}
+blockquote small{display:block;margin-top:16px;font-family:"Jost",sans-serif;font-style:normal;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--mut)}
+/* visit */
+.visit .grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:50px}
+.visit h3{font-size:30px;margin-bottom:16px}
+.hours{width:100%;border-collapse:collapse;font-size:15.5px}
+.hours td{padding:8px 0;border-bottom:1px solid var(--line)}
+.hours td:last-child{text-align:right}
+.hours .off{color:var(--mut)}
+form{display:grid;gap:12px}
+input,textarea{width:100%;font:inherit;font-size:15px;padding:13px 14px;border:1px solid var(--line);background:#fff;color:var(--ink)}
+textarea{min-height:96px}
+.demo{display:none;font-size:14px;color:var(--gold-d)}
+footer{border-top:1px solid var(--line);padding:46px 0 120px;font-size:14px;color:var(--mut)}
+footer .row{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;align-items:center}
+footer img{height:56px}
+.sticky{display:none}
+@media (max-width:900px){
+ nav{display:none}
+ .perks{grid-template-columns:1fr 1fr}
+ .perks div:nth-child(2){border-right:0}
+ .perks div:nth-child(-n+2){border-bottom:1px solid var(--line)}
+ .head,.practice .grid,.visit .grid{grid-template-columns:1fr;gap:26px}
+ .menu{grid-template-columns:1fr 1fr}
+ .col:nth-child(2){border-right:0}
+ .staff{grid-template-columns:1fr 1fr}
+ .values{grid-template-columns:1fr;gap:26px}
+ .qgrid{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+ body{font-size:16px}
+ .wrap{padding:0 18px}
+ .bar{height:64px}.bar .logo img{height:40px}.bar .call{display:none}
+ .hero{padding-top:48px}
+ .hero-img img{height:340px}
+ .hero-img .tag{left:18px;font-size:18px;padding:12px 18px}
+ section{padding:76px 0}
+ .menu{grid-template-columns:1fr}
+ .col{border-right:0;border-bottom:1px solid var(--line);padding:26px 0}
+ .perks div{padding:22px 16px}
+ .perks b{font-size:21px}
+ .mosaic{grid-template-rows:170px 170px}
+ blockquote{padding:26px 22px;font-size:20px}
+ .sticky{display:flex;position:fixed;left:12px;right:12px;bottom:12px;z-index:40;gap:10px}
+ .sticky a{flex:1;text-align:center;padding:15px 10px;background:var(--ink);color:var(--ivory);text-decoration:none;font-size:13px;letter-spacing:.16em;text-transform:uppercase;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+ .sticky a.g{background:var(--gold);color:var(--ink)}
+}
+</style>
+</head>
+<body>
+<div class="concept">Website concept prepared by Maui Tinevra (<a href="https://mauitinevra.com">mauitinevra.com</a>) for North Scottsdale Med Spa. Not affiliated with or the official site of this business.</div>
+
+<header>
+ <div class="wrap bar">
+  <a class="logo" href="#top" aria-label="North Scottsdale Med Spa"><img src="assets/logo-ink.png" alt="North Scottsdale Med Spa"></a>
+  <nav><ul><li><a href="#services">Services</a></li><li><a href="#practice">Our Practice</a></li><li><a href="#staff">Our Staff</a></li><li><a href="#visit">Contact</a></li></ul></nav>
+  <a class="call" href="tel:+14804199605">(480) 419-9605</a>
+ </div>
+</header>
+
+<main id="top">
+ <section class="hero" style="padding-bottom:0">
+  <div class="wrap">
+   <p class="kicker">North Scottsdale Med Spa · Scottsdale 101</p>
+   <h1>The Evolution of<br><em>Technology &amp; Beauty.</em></h1>
+   <p>Laser treatments, injectables, facials and medical-grade skin care — with same-day appointment options and complimentary consultations.</p>
+   <div class="ctas"><a class="btn" href="tel:+14804199605">Book Appointment</a><a class="btn line" href="#services">Our Services</a></div>
+  </div>
+  <div class="wrap hero-img">
+   <img src="assets/crg_3019.jpg" alt="The North Scottsdale Med Spa team in the spa lounge">
+   <div class="tag">Look Great. Feel Great.</div>
+  </div>
+ </section>
+
+ <div class="wrap perks">
+  <div><b>Same-day</b><span>appointment options</span></div>
+  <div><b>Complimentary</b><span>consultations</span></div>
+  <div><b>Financing</b><span>available — apply now</span></div>
+  <div><b>Monthly</b><span>specials — ask us</span></div>
+ </div>
+
+ <section id="services">
+  <div class="wrap">
+   <div class="head">
+    <div><p class="kicker">Our Aesthetic Services</p><h2>Laser. Skincare.<br>Wellness &amp; Beauty. Injectables.</h2></div>
+    <p>An extensive selection of med spa services, delivered with the most stringent patient safety standards. Employing secure and non-surgical methods, we aim to elevate your innate beauty.</p>
+   </div>
+   <div class="menu">
+    <div class="col"><span class="num">i.</span><h3>Laser</h3><ul><li>Clearlift</li><li>Skin Resurfacing</li><li>Hand Rejuvenation</li><li>IPL Photo Facial</li><li>Laser Hair Removal</li><li>Tattoo Removal</li></ul></div>
+    <div class="col"><span class="num">ii.</span><h3>Injectables</h3><ul><li>Botox</li><li>Dysport</li><li>Juvederm</li><li>Restylane · Defyne · Lyft · Refyne · Silk</li><li>Volbella · Vollure · Voluma XC</li><li>Sculptra</li><li>Skinvive</li><li>Kybella</li><li>PRP Hair Restoration</li></ul></div>
+    <div class="col"><span class="num">iii.</span><h3>Facial</h3><ul><li>Diamond Glow</li><li>Acne Facials</li><li>Brightening Facials</li><li>Dermaplane</li><li>Microdermabrasion</li></ul></div>
+    <div class="col"><span class="num">iv.</span><h3>Wellness &amp; Beauty</h3><ul><li>Wellness &amp; Beauty</li><li>Latisse</li><li>Medical-grade skin care</li><li>Shop our products</li></ul></div>
+   </div>
+   <div class="brands"><b>Products</b><span>ZO Skin Health</span><span>SkinCeuticals</span><span>Epionce</span><span>ColorScience</span><span>SkinMedica</span><span>Latisse</span></div>
+  </div>
+ </section>
+
+ <section class="practice" id="practice">
+  <div class="wrap">
+   <div class="grid">
+    <div>
+     <p class="kicker">Our Practice</p>
+     <h2>A welcoming escape<br>from the <em>outside hustle.</em></h2>
+     <p>Discover an array of medical and cosmetic services catering to your relaxation and self-care requirements at North Scottsdale Med Spa. Benefit from our convenient same-day appointment options and enjoy complimentary consultations.</p>
+     <p>We're conveniently located just off the 101 at the Scottsdale 101 Shopping Center, near the corner of Scottsdale Rd and Mayo Blvd.</p>
+     <p style="margin-top:30px"><a class="btn" style="background:var(--gold);color:var(--ink);border-color:var(--gold)" href="tel:+14804199605">Free Consultation</a></p>
+    </div>
+    <div class="mosaic">
+     <img src="assets/crg_3090.jpg" alt="Facial treatment at North Scottsdale Med Spa">
+     <img src="assets/practice.jpg" alt="North Scottsdale Med Spa storefront">
+     <img src="assets/crg_3101.jpg" alt="Skin analysis station">
+    </div>
+   </div>
+   <div class="values">
+    <div><h3>Med Spa Leadership</h3><p>Leveraging medical expertise and cutting-edge technologies, we address our clients' individual needs with top-notch skin care and body contouring services delivered by skilled professionals.</p></div>
+    <div><h3>Core Values</h3><p>North Scottsdale Med Spa places your beauty and well-being as our utmost concern — earning and upholding your trust is at the forefront of our mission.</p></div>
+    <div><h3>Free Consultation</h3><p>Embrace graceful aging through our all-encompassing med spa services: the latest techniques, compassionate professionals and state-of-the-art equipment.</p></div>
+   </div>
+  </div>
+ </section>
+
+ <section id="staff">
+  <div class="wrap">
+   <div class="head"><div><p class="kicker">Meet Our Staff</p><h2>The people behind<br>your results.</h2></div><p><img src="assets/crg_2989.jpg" alt="The North Scottsdale Med Spa team" style="width:100%;aspect-ratio:16/9;object-fit:cover"></p></div>
+   <div class="staff">
+    <div class="person"><div class="ph">FS</div><h3>Dr. Farshad Salehi</h3></div>
+    <div class="person"><img src="assets/staff-vincent-marino.jpg" alt="Dr. Vincent Marino"><h3>Dr. Vincent Marino</h3></div>
+    <div class="person"><img src="assets/staff-karen.jpg" alt="Karen Minow-Tavary"><h3>Karen Minow-Tavary</h3></div>
+    <div class="person"><img src="assets/staff-colleen.jpg" alt="Colleen Brinkerhoff"><h3>Colleen Brinkerhoff</h3></div>
+    <div class="person"><img src="assets/staff-kristen.jpg" alt="Kristen Tate"><h3>Kristen Tate</h3></div>
+    <div class="person"><img src="assets/staff-ghazal.jpg" alt="Ghazal Khojasteh"><h3>Ghazal Khojasteh</h3></div>
+    <div class="person"><img src="assets/staff-daniella.jpg" alt="Daniella Merchan"><h3>Daniella Merchan</h3></div>
+    <div class="person"><img src="assets/staff-mckenna.jpg" alt="Mckenna Prefach"><h3>Mckenna Prefach</h3></div>
+   </div>
+  </div>
+ </section>
+
+ <section class="quotes">
+  <div class="wrap">
+   <div class="head"><div><p class="kicker">Testimonials</p><h2>In our clients' words.</h2></div><p>Shared by clients on our previous website.</p></div>
+   <div class="qgrid">
+    <blockquote>“I've gone to multiple places for laser hair removal and this one is by far my favorite… This is not near where I live but I'm willing to drive.”<small>Laser hair removal client</small></blockquote>
+    <blockquote>“I visited this spa while I was on vacation and had a great experience. Professional staff and a lovely atmosphere! Highly recommend.”<small>Visiting client</small></blockquote>
+    <blockquote>“Just had my laser hair removal treatment with Tricia and it was so comfortable and painless! Everyone here is very nice and friendly!”<small>Laser hair removal client</small></blockquote>
+    <blockquote>“Very knowledgeable and friendly staff! Explained everything they were doing every step of the way. Clean, beautiful place!”<small>Client</small></blockquote>
+   </div>
+  </div>
+ </section>
+
+ <section class="visit" id="visit">
+  <div class="wrap">
+   <div class="head"><div><p class="kicker">Visit Us</p><h2>Scottsdale 101,<br>off Mayo Blvd.</h2></div><p>For questions regarding treatments or products, call us at (480) 419-9605. If it is after hours, we will return your call the following business day.</p></div>
+   <div class="grid">
+    <div><h3>Business Hours</h3>
+     <table class="hours"><tr class="off"><td>Monday</td><td>Closed</td></tr><tr><td>Tuesday</td><td>9 AM – 5 PM</td></tr><tr><td>Wednesday</td><td>9 AM – 5 PM</td></tr><tr><td>Thursday</td><td>9 AM – 5 PM</td></tr><tr><td>Friday</td><td>9 AM – 5 PM</td></tr><tr><td>Saturday</td><td>9 AM – 3 PM</td></tr><tr class="off"><td>Sunday</td><td>Closed</td></tr></table>
+    </div>
+    <div><h3>Our Location</h3>
+     <p style="margin:0 0 14px">7000 E. Mayo Blvd. #1004<br>Phoenix, AZ 85054</p>
+     <p style="margin:0 0 24px"><a href="tel:+14804199605">(480) 419-9605</a></p>
+     <p style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn line" href="https://www.google.com/maps/search/?api=1&query=7000+E+Mayo+Blvd+%231004+Phoenix+AZ+85054" target="_blank" rel="noopener">Directions</a><a class="btn line" href="https://instagram.com/northscottsdalemedspa/" target="_blank" rel="noopener">Instagram</a></p>
+    </div>
+    <div><h3>Send Us A Message</h3>
+     <form onsubmit="event.preventDefault();this.querySelector('.demo').style.display='block'">
+      <input placeholder="Name" aria-label="Name"><input placeholder="Email" type="email" aria-label="Email"><input placeholder="Phone" aria-label="Phone"><textarea placeholder="Message" aria-label="Message"></textarea>
+      <button class="btn" type="submit">Send Message</button>
+      <p class="demo">This is a demo form in a website concept — nothing was sent. Please call (480) 419-9605.</p>
+     </form>
+    </div>
+   </div>
+  </div>
+ </section>
+</main>
+
+<footer>
+ <div class="wrap row">
+  <img src="assets/logo-ink.png" alt="North Scottsdale Med Spa">
+  <span>7000 E. Mayo Blvd. #1004, Phoenix, AZ 85054 · (480) 419-9605</span>
+  <span>Concept by <a href="https://mauitinevra.com">Maui Tinevra</a></span>
+ </div>
+</footer>
+<div class="sticky"><a href="tel:+14804199605">Call</a><a class="g" href="tel:+14804199605">Book Appointment</a></div>
+</body>
+</html>

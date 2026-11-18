@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Skin Wellness Med Spa — Website Concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600&family=Lora:ital,wght@0,400;1,400;1,500&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--earth:#3d3624;--earth2:#2c2719;--cream:#f0ebde;--taupe:#d5c8b8;--mut:#918782;--paper:#f8f5ee;--line:#d9d0c1}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--earth);font-family:"PT Sans",system-ui,sans-serif;font-size:17px;line-height:1.65}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{font-family:"Exo 2",sans-serif;font-weight:300;text-transform:uppercase;letter-spacing:.04em;line-height:1.02;margin:0}
+.it{font-family:"Lora",Georgia,serif;font-style:italic;text-transform:none;letter-spacing:0;font-weight:400}
+.concept{background:var(--earth2);color:var(--taupe);font-size:12.5px;text-align:center;padding:7px 16px}
+.concept a{color:var(--cream)}
+.wrap{max-width:1240px;margin:0 auto;padding:0 28px}
+.lbl{font-family:"Exo 2",sans-serif;font-size:12px;letter-spacing:.3em;text-transform:uppercase;font-weight:600}
+.btn{display:inline-flex;align-items:center;gap:12px;padding:16px 28px;background:var(--earth);color:var(--cream);text-decoration:none;font-family:"Exo 2",sans-serif;font-size:13px;letter-spacing:.24em;text-transform:uppercase;font-weight:600;border:1px solid var(--earth);cursor:pointer}
+.btn:hover{background:transparent;color:var(--earth)}
+.btn.inv{background:var(--cream);color:var(--earth);border-color:var(--cream)}
+.btn.inv:hover{background:transparent;color:var(--cream)}
+.btn:after{content:"→"}
+.top{position:relative}
+header{position:absolute;left:0;right:0;top:0;z-index:20}
+.bar{display:flex;align-items:center;justify-content:space-between;height:86px}
+.bar img{height:38px;width:auto}
+nav{display:flex;gap:32px;font-family:"Exo 2",sans-serif;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--cream);text-shadow:0 1px 10px rgba(30,25,15,.55)}
+nav a{text-decoration:none}
+/* hero */
+.hero{display:grid;grid-template-columns:1fr 1fr;min-height:92vh;background:var(--earth);color:var(--cream)}
+.hero .txt{display:flex;flex-direction:column;justify-content:flex-end;padding:150px 56px 64px max(28px,calc((100vw - 1240px)/2 + 28px))}
+.hero h1{font-size:clamp(42px,5.4vw,82px)}
+.hero h1 .it{display:block;font-size:.62em;color:var(--taupe);margin-top:14px}
+.hero p{max-width:470px;color:var(--taupe);margin:28px 0 36px}
+.hero .pic{position:relative;overflow:hidden}
+.hero .pic img{width:100%;height:100%;object-fit:cover;object-position:center 20%}
+.hero .pic span{position:absolute;right:22px;bottom:20px;color:var(--cream);font-family:"Lora",serif;font-style:italic;font-size:15px}
+/* intro */
+.intro{padding:110px 0 90px}
+.intro .grid{display:grid;grid-template-columns:.35fr .65fr;gap:60px}
+.intro p.big{font-family:"Lora",serif;font-size:clamp(24px,2.6vw,34px);line-height:1.42;margin:0}
+.intro p.big em{color:var(--mut)}
+/* services */
+.svc{border-top:1px solid var(--earth)}
+.row{display:grid;grid-template-columns:90px 1.1fr 1.3fr 180px;gap:30px;align-items:center;padding:30px 0;border-bottom:1px solid var(--line);text-decoration:none}
+.row .n{font-family:"Exo 2",sans-serif;color:var(--mut);font-size:15px;letter-spacing:.1em}
+.row h3{font-size:clamp(26px,3vw,40px)}
+.row p{margin:0;color:#5e5646}
+.row img{width:180px;height:120px;object-fit:cover;filter:saturate(.9)}
+.row:hover h3{font-family:"Lora",serif;font-style:italic;text-transform:none;letter-spacing:0}
+.more{display:flex;flex-wrap:wrap;gap:10px;margin-top:34px}
+.more span{border:1px solid var(--line);padding:8px 16px;font-size:14px;background:#fff}
+/* pear */
+.pear{background:var(--cream);padding:100px 0}
+.pear .grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
+.pear h2{font-size:clamp(34px,4vw,56px);margin:14px 0 22px}
+.pear p{color:#5e5646}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.duo img{width:100%;aspect-ratio:2/3;object-fit:cover}
+.duo img:last-child{margin-top:60px}
+/* team */
+.team{padding:110px 0}
+.team .head{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:50px}
+.team h2{font-size:clamp(36px,4.6vw,62px)}
+.people{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.pcard{background:#fff;border:1px solid var(--line);padding:38px}
+.pcard h3{font-size:30px}
+.pcard .cred{font-family:"Lora",serif;font-style:italic;color:var(--mut);margin:6px 0 18px}
+.pcard p{margin:0 0 12px;color:#5e5646;font-size:16px}
+.vals{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:60px;border-top:1px solid var(--earth)}
+.vals div{padding:28px 24px 0 0}
+.vals b{font-family:"Exo 2",sans-serif;font-weight:300;font-size:44px;color:var(--taupe);display:block}
+.vals h3{font-size:18px;letter-spacing:.14em;margin:8px 0 10px;font-weight:600}
+.vals p{font-size:15px;margin:0;color:#5e5646}
+/* quotes */
+.quotes{background:var(--earth);color:var(--cream);padding:110px 0}
+.quotes h2{font-size:clamp(32px,4vw,52px);margin:10px 0 50px}
+.qs{display:grid;grid-template-columns:repeat(3,1fr);gap:36px}
+.qs blockquote{margin:0;font-family:"Lora",serif;font-size:18px;line-height:1.6;color:var(--cream)}
+.qs cite{display:block;margin-top:18px;font-style:normal;font-family:"Exo 2",sans-serif;letter-spacing:.3em;font-size:12px;color:var(--taupe)}
+.strip{display:grid;grid-template-columns:repeat(4,1fr)}
+.strip img{width:100%;aspect-ratio:1;object-fit:cover}
+/* contact */
+.contact{padding:110px 0}
+.contact .grid{display:grid;grid-template-columns:1fr 1fr;gap:70px}
+.contact h2{font-size:clamp(36px,4.6vw,64px);margin-bottom:26px}
+.contact dl{margin:0;display:grid;grid-template-columns:130px 1fr;gap:14px 20px;font-size:17px}
+.contact dt{font-family:"Exo 2",sans-serif;font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--mut);padding-top:4px}
+.contact dd{margin:0}
+form{display:grid;gap:14px}
+input,textarea{font:inherit;padding:14px 0;border:0;border-bottom:1px solid var(--earth);background:transparent;color:var(--earth)}
+input:focus,textarea:focus{outline:none;border-color:var(--mut)}
+.demo{display:none;font-size:14px;color:var(--mut)}
+footer{background:var(--earth2);color:var(--taupe);padding:50px 0 120px;font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+footer img{height:34px}
+.sticky{display:none}
+@media (max-width:960px){
+ nav{display:none}
+ .hero{grid-template-columns:1fr;min-height:auto}
+ .hero .txt{padding:140px 28px 56px;order:1}
+ .hero .pic{height:420px;order:2}
+ .intro .grid,.pear .grid,.contact .grid{grid-template-columns:1fr;gap:28px}
+ .row{grid-template-columns:50px 1fr;gap:10px 18px}
+ .row p{grid-column:2}
+ .row img{display:none}
+ .people{grid-template-columns:1fr}
+ .vals{grid-template-columns:1fr 1fr}
+ .qs{grid-template-columns:1fr}
+ .strip{grid-template-columns:1fr 1fr}
+}
+@media (max-width:560px){
+ body{font-size:16px}
+ .wrap{padding:0 18px}
+ .bar img{height:28px}
+ .bar .btn{display:none}
+ .hero .txt{padding:120px 18px 48px}
+ .hero .pic{height:360px}
+ .intro,.team,.contact,.quotes,.pear{padding:72px 0}
+ .pcard{padding:26px 22px}
+ .vals{grid-template-columns:1fr}
+ .vals div{padding-right:0}
+ .contact dl{grid-template-columns:1fr;gap:4px}
+ .contact dd{margin-bottom:14px}
+ .sticky{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:40}
+ .sticky a{flex:1;text-align:center;padding:17px 10px;background:var(--earth);color:var(--cream);text-decoration:none;font-family:"Exo 2",sans-serif;font-size:13px;letter-spacing:.22em;text-transform:uppercase;font-weight:600}
+ .sticky a+a{background:var(--cream);color:var(--earth)}
+}
+</style>
+</head>
+<body>
+<div class="concept">Website concept prepared by Maui Tinevra (<a href="https://mauitinevra.com">mauitinevra.com</a>) for Skin Wellness Med Spa. Not affiliated with or the official site of this business.</div>
+
+<main id="top">
+<div class="top">
+<header>
+ <div class="wrap bar">
+  <a href="#top"><img src="assets/logo-white.png" alt="Skin Wellness Med Spa"></a>
+  <nav><a href="#services">Services</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
+  <a class="btn inv" href="tel:+14803664800">Book a consultation</a>
+ </div>
+</header>
+ <section class="hero">
+  <div class="txt">
+   <p class="lbl" style="color:var(--taupe)">Skin Wellness · Scottsdale</p>
+   <h1>Putting the human back into healing<span class="it">Redefining aesthetics + wellness.</span></h1>
+   <p>At Skin Wellness, we're raising the bar for advanced aesthetics, blending the luxury of a high-end spa with the precision and efficiency of a med spa.</p>
+   <div><a class="btn inv" href="tel:+14803664800">Book a consultation</a></div>
+  </div>
+  <div class="pic"><img src="assets/sw-1627.jpg" alt="Three women of different ages, Skin Wellness brand photography"><span>Total Human Being</span></div>
+ </section>
+</div>
+
+ <section class="intro">
+  <div class="wrap grid">
+   <p class="lbl">Welcome</p>
+   <p class="big">Step into a space where bold innovation meets effortless sophistication. We're all about personalized care, <em>making sure your goals are met with trust, confidence, and an expert touch.</em></p>
+  </div>
+ </section>
+
+ <section id="services" style="padding:0 0 110px">
+  <div class="wrap">
+   <p class="lbl" style="margin-bottom:18px">What we do — Services. <span class="it" style="font-size:16px;letter-spacing:0">Find your path.</span></p>
+   <div class="svc">
+    <a class="row" href="tel:+14803664800"><span class="n">01</span><h3>Injectables</h3><p>Advanced injectables offering a range of non-surgical treatments designed to elevate your natural beauty.</p><img src="assets/sw-1641.jpg" alt=""></a>
+    <a class="row" href="tel:+14803664800"><span class="n">02</span><h3>Skin Care</h3><p>Personalized, medical-grade skincare designed to deliver radiant, scientifically-supported results.</p><img src="assets/sw-2035.jpg" alt=""></a>
+    <a class="row" href="tel:+14803664800"><span class="n">03</span><h3>Laser Treatments</h3><p>Target pigmentation, fine lines, and aging with advanced lasers for glowing, youthful skin.</p><img src="assets/sw-1982.jpg" alt=""></a>
+    <a class="row" href="tel:+14803664800"><span class="n">04</span><h3>Weight Loss</h3><p>Achieve and maintain your ideal weight with customized, medically-supported weight loss programs.</p><img src="assets/sw-2160.jpg" alt=""></a>
+    <a class="row" href="tel:+14803664800"><span class="n">05</span><h3>Wellness</h3><p>Enhance your vitality with holistic services like hormone therapy, IV infusions, peptides, and concierge care.</p><img src="assets/sw-1837.jpg" alt=""></a>
+    <a class="row" href="tel:+14803664800"><span class="n">06</span><h3>Hormone Therapy</h3><p>A comprehensive approach to balanced hormones and lasting vitality.</p><img src="assets/sw-1383.jpg" alt=""></a>
+   </div>
+   <div class="more"><span>Fillers</span><span>Potenza RF Microneedling</span><span>PRF EZ Gel</span><span>Hyperdilute Radiesse</span><span>Peptide Therapy</span><span>ZO Skin Health</span><span>Medical-grade skincare</span></div>
+  </div>
+ </section>
+
+ <section class="pear">
+  <div class="wrap grid">
+   <div>
+    <p class="lbl">Included in every appointment</p>
+    <h2>The Pear 3D <span class="it">Skin Analysis</span></h2>
+    <p>Every appointment begins with the PEAR 3D Skin Analysis. This cutting-edge technology offers a quick, comfortable, and detailed assessment of your skin, revealing what's beneath the surface — like UV damage, wrinkles, and clogged pores.</p>
+    <p>This advanced tool gives us an intimate view of your complexion, allowing us to tailor treatments to you. Watch your skin evolve with every visit.</p>
+    <p style="margin-top:30px"><a class="btn" href="tel:+14803664800">Book a consultation</a></p>
+   </div>
+   <div class="duo"><img src="assets/sw-1062.jpg" alt="Skin Wellness brand portrait"><img src="assets/sw-1934.jpg" alt="Injectable treatment"></div>
+  </div>
+ </section>
+
+ <section class="team" id="about">
+  <div class="wrap">
+   <div class="head"><div><p class="lbl">About us — Embrace your best self</p><h2>Rooted in body wisdom <span class="it">&amp; innovation</span></h2></div></div>
+   <div class="people">
+    <div class="pcard">
+     <h3>Sara Kranke</h3><p class="cred">DNP, ACNP-C · Co-founder</p>
+     <p>Sara is driven by a profound dedication to wellness and illness prevention — the inspiration for a sanctuary where people of all ages can harmonize their inner health and prevent aging externally through a variety of advanced modalities.</p>
+     <p>She speaks at national conventions and trains medical providers of all experience levels. Her doctoral thesis focused on Reiki as an evidence-based non-pharmaceutical intervention for reducing anxiety and pain during injectable treatments.</p>
+    </div>
+    <div class="pcard">
+     <h3>Kira Best</h3><p class="cred">Licensed aesthetician · Certified laser technician</p>
+     <p>Kira has a background in the industry of well over a decade, with experience teaching advanced laser techniques and collaborating with world-renowned plastic surgeons and professionals in the field.</p>
+     <p>As a Key Opinion Leader and Luminary with Sciton, Kira provides expert training and advice to other skin professionals.</p>
+    </div>
+   </div>
+   <div class="vals">
+    <div><b>01</b><h3>Personalized care</h3><p>Each client receives a tailored treatment plan that addresses their unique needs and goals.</p></div>
+    <div><b>02</b><h3>Holistic approach</h3><p>We combine various modalities to treat the whole person, ensuring comprehensive care.</p></div>
+    <div><b>03</b><h3>Continuous learning</h3><p>Our team stays updated with the latest advancements in aesthetics and wellness.</p></div>
+    <div><b>04</b><h3>Safety + trust</h3><p>Your safety and trust are our top priorities.</p></div>
+   </div>
+  </div>
+ </section>
+
+ <section class="quotes">
+  <div class="wrap">
+   <p class="lbl" style="color:var(--taupe)">Testimonials</p>
+   <h2>Glowing <span class="it">client</span> reviews</h2>
+   <div class="qs">
+    <blockquote>“The second you walk into this establishment you get a warm and cozy feeling — a feeling of trust and confidence with the entire staff. Sarah is unbelievably talented, funny, caring and truly inspiring!”<cite>Donna</cite></blockquote>
+    <blockquote>“I instantly felt welcome and comfortable, and all my options and questions were thoroughly explained… If you are thinking of having any work done, I strongly recommend you schedule the consult.”<cite>Tina</cite></blockquote>
+    <blockquote>“Her understanding of anatomy and personalized treatments leave her patients feeling confident, beautiful, and natural… I now fly to Arizona from LA for my Botox and filler.”<cite>Emma</cite></blockquote>
+   </div>
+  </div>
+ </section>
+ <div class="strip"><img src="assets/sw-1252.jpg" alt=""><img src="assets/sw-2035.jpg" alt=""><img src="assets/sw-1383.jpg" alt=""><img src="assets/sw-1641.jpg" alt=""></div>
+
+ <section class="contact" id="contact">
+  <div class="wrap grid">
+   <div>
+    <p class="lbl">Contact</p>
+    <h2>Get started <span class="it">today</span></h2>
+    <dl>
+     <dt>Phone</dt><dd><a href="tel:+14803664800">480.366.4800</a></dd>
+     <dt>Email</dt><dd><a href="mailto:info@skinwellnessmedspa.com">info@skinwellnessmedspa.com</a></dd>
+     <dt>Visit</dt><dd>7600 E Camelback Rd, Suite 7<br>Scottsdale, AZ 85251</dd>
+     <dt>Hours</dt><dd>Monday – Friday, 10a – 6p</dd>
+     <dt>Follow</dt><dd><a href="https://www.instagram.com/skinwellnessmedspa/" target="_blank" rel="noopener">@skinwellnessmedspa</a></dd>
+    </dl>
+   </div>
+   <div>
+    <p class="lbl" style="margin-bottom:10px">Request a consultation</p>
+    <form onsubmit="event.preventDefault();this.querySelector('.demo').style.display='block'">
+     <input placeholder="Name" aria-label="Name"><input type="email" placeholder="Email address" aria-label="Email"><input placeholder="Phone" aria-label="Phone"><textarea rows="3" placeholder="What would you like to treat?" aria-label="Message"></textarea>
+     <div><button class="btn" type="submit">Send request</button></div>
+     <p class="demo">Demo form in a website concept — nothing was sent. Please call 480.366.4800.</p>
+    </form>
+   </div>
+  </div>
+ </section>
+</main>
+
+<footer>
+ <div class="wrap"><img src="assets/logo-white.png" alt="Skin Wellness Med Spa"><span>7600 E Camelback Rd, Suite 7, Scottsdale, AZ 85251 · 480.366.4800</span><span>Concept by <a href="https://mauitinevra.com">Maui Tinevra</a></span></div>
+</footer>
+<div class="sticky"><a href="tel:+14803664800">Call</a><a href="tel:+14803664800">Book a consultation</a></div>
+</body>
+</html>

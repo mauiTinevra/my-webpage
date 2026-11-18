@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Elemental Aesthetics — Website Concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--coral:#f27782;--coral-d:#d9505d;--coral-l:#fde3e5;--char:#212934;--char2:#2d3744;--ink:#1a2028;--mut:#667080;--paper:#f7f6f4;--line:#e2e0dc;--white:#fff}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Manrope",system-ui,sans-serif;font-size:16.5px;line-height:1.65}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{font-family:"DM Serif Display",Georgia,serif;font-weight:400;line-height:1.04;margin:0}
+.concept{background:var(--char);color:#c6ccd5;font-size:12.5px;text-align:center;padding:7px 16px}
+.concept a{color:var(--coral)}
+.wrap{max-width:1220px;margin:0 auto;padding:0 26px}
+.tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--coral-d)}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 24px;border-radius:12px;background:var(--coral-d);color:#fff;text-decoration:none;font-weight:700;font-size:15px;border:0;cursor:pointer;font-family:inherit;transition:.2s}
+.btn:hover{background:#c13e4b}
+.btn.dark{background:var(--char)}
+.btn.dark:hover{background:var(--char2)}
+.btn.ghost{background:transparent;color:var(--char);box-shadow:inset 0 0 0 1.5px var(--char)}
+.btn.ghost:hover{background:var(--char);color:#fff}
+header{position:sticky;top:0;z-index:30;background:rgba(247,246,244,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:76px;gap:20px}
+.bar img{height:46px;width:auto}
+nav{display:flex;gap:28px;font-weight:600;font-size:14.5px}
+nav a{text-decoration:none}
+nav a:hover{color:var(--coral-d)}
+/* hero */
+.hero{padding:70px 0 80px}
+.hero .grid{display:grid;grid-template-columns:1.25fr .75fr;gap:56px;align-items:stretch}
+.hero h1{font-size:clamp(54px,8.4vw,124px);letter-spacing:-.02em}
+.hero h1 i{color:var(--coral)}
+.hero .sub{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:40px;padding-top:28px;border-top:1px solid var(--line)}
+.hero .sub p{margin:0;color:#3b4350}
+.hero .ctas{display:flex;gap:10px;flex-wrap:wrap;margin-top:30px}
+.doc{background:var(--char);color:#fff;border-radius:22px;overflow:hidden;display:flex;flex-direction:column}
+.doc img{width:100%;aspect-ratio:1/1;object-fit:cover;object-position:top}
+.doc .b{padding:22px 24px 26px}
+.doc b{font-family:"DM Serif Display",serif;font-weight:400;font-size:26px;display:block}
+.doc span{color:#b8c0cb;font-size:14px}
+/* facts */
+.facts{display:grid;grid-template-columns:repeat(4,1fr);background:#fff;border:1px solid var(--line);border-radius:20px}
+.facts div{padding:24px 24px;border-right:1px solid var(--line)}
+.facts div:last-child{border-right:0}
+.facts b{display:block;font-family:"DM Serif Display",serif;font-weight:400;font-size:24px;color:var(--char)}
+.facts span{font-size:14px;color:var(--mut)}
+section{padding:100px 0}
+.sh{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:44px}
+.sh h2{font-size:clamp(38px,5vw,64px)}
+.sh p{max-width:440px;color:var(--mut);margin:0}
+/* atlas */
+.atlas{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:18px}
+.area{background:#fff;border:1px solid var(--line);border-radius:20px;padding:28px 28px 30px}
+.area .top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px;border-bottom:1px solid var(--line);padding-bottom:14px}
+.area h3{font-size:34px}
+.area .ct{background:var(--coral-l);color:var(--coral-d);font-weight:700;font-size:13px;padding:4px 10px;border-radius:999px}
+.area ul{list-style:none;margin:0;padding:0;columns:2;column-gap:20px}
+.area li{padding:6px 0;break-inside:avoid;font-weight:500;font-size:15px}
+.area li:before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--coral);margin-right:10px;vertical-align:middle}
+.area.one ul{columns:1}
+.stack{display:grid;gap:18px}
+.area.dark{background:var(--char);color:#fff;border-color:var(--char)}
+.area.dark .top{border-color:#3a4552}
+.area.dark .ct{background:#3a4552;color:#fff}
+/* doctor */
+.drsec{background:var(--char);color:#fff}
+.drsec .grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:64px;align-items:center}
+.drsec img{border-radius:22px;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:top}
+.drsec .tag{color:var(--coral)}
+.drsec h2{font-size:clamp(38px,4.6vw,58px);margin:12px 0 22px}
+.drsec p{color:#c6ccd5}
+.quote{margin:34px 0 0;font-family:"DM Serif Display",serif;font-style:italic;font-size:clamp(22px,2.4vw,30px);line-height:1.3;color:#fff;border-left:4px solid var(--coral);padding-left:24px}
+/* offers */
+.offers{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.offer{border-radius:20px;padding:30px;background:var(--coral-l)}
+.offer:nth-child(2){background:#fff;border:1px solid var(--line)}
+.offer:nth-child(3){background:var(--coral);color:#fff}
+.offer h3{font-size:28px;margin-bottom:10px}
+.offer p{margin:0 0 18px;font-size:15.5px}
+.offer a{font-weight:700}
+/* visit */
+.visit .grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.visit .grid>*{min-width:0}
+.panel{background:#fff;border:1px solid var(--line);border-radius:22px;padding:34px}
+.panel h3{font-size:30px;margin-bottom:18px}
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.day{border-radius:12px;padding:12px 6px;text-align:center;background:var(--coral-l);color:var(--coral-d)}
+.day.off{background:var(--paper);color:#a1a7b0}
+.day b{display:block;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+.day span{font-size:12.5px;font-weight:600;line-height:1.3;display:block;margin-top:4px}
+dl{display:grid;grid-template-columns:90px 1fr;gap:10px 14px;margin:26px 0 0}
+dt{color:var(--mut);font-size:14px;font-weight:600}
+dd{margin:0;font-weight:500}
+form{display:grid;gap:12px}
+input{font:inherit;font-size:15px;padding:13px 14px;border:1px solid var(--line);border-radius:12px;background:var(--paper)}
+.demo{display:none;font-size:14px;color:var(--coral-d);margin:0}
+footer{background:var(--char);color:#aab3bf;padding:44px 0 120px;font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+footer a{color:var(--coral)}
+.sticky{display:none}
+@media (max-width:980px){
+ nav{display:none}
+ .hero .grid,.drsec .grid,.visit .grid{grid-template-columns:1fr}
+ .doc{flex-direction:row;align-items:center}
+ .doc img{width:40%;aspect-ratio:1}
+ .facts{grid-template-columns:1fr 1fr}
+ .facts div:nth-child(2){border-right:0}
+ .facts div:nth-child(-n+2){border-bottom:1px solid var(--line)}
+ .atlas{grid-template-columns:1fr}
+ .offers{grid-template-columns:1fr}
+ .sh{flex-direction:column;align-items:flex-start}
+}
+@media (max-width:560px){
+ body{font-size:16px}
+ .wrap{padding:0 18px}
+ .bar{height:66px}.bar img{height:38px}
+ .bar .btn{display:none}
+ .hero{padding:44px 0 60px}
+ .hero .sub{grid-template-columns:1fr;gap:14px}
+ section{padding:70px 0}
+ .area{padding:22px 20px}
+ .area ul{columns:1}
+ .panel{padding:24px 18px}
+ .week{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+ .facts div{padding:18px 16px}
+ .sticky{display:flex;position:fixed;left:12px;right:12px;bottom:12px;z-index:40;gap:10px}
+ .sticky a{flex:1;text-align:center;padding:15px 10px;border-radius:14px;font-weight:700;text-decoration:none;box-shadow:0 10px 24px rgba(33,41,52,.3)}
+ .sticky .c{background:var(--char);color:#fff}
+ .sticky .k{background:var(--coral-d);color:#fff}
+}
+</style>
+</head>
+<body>
+<div class="concept">Website concept prepared by Maui Tinevra (<a href="https://mauitinevra.com">mauitinevra.com</a>) for Elemental Aesthetics. Not affiliated with or the official site of this business.</div>
+<header>
+ <div class="wrap bar">
+  <a href="#top"><img src="assets/logo.png" alt="Elemental Aesthetics — the art of beauty"></a>
+  <nav><a href="#procedures">Procedures</a><a href="#dr-swanick">Dr. Swanick</a><a href="#offers">Offers</a><a href="#visit">Contact</a></nav>
+  <a class="btn" href="https://www.joinblvd.com/b/elementalaesthetics/widget" target="_blank" rel="noopener">Book Appointment</a>
+ </div>
+</header>
+
+<main id="top">
+ <section class="hero">
+  <div class="wrap grid">
+   <div>
+    <span class="tag">Medspa · Mesa, Arizona</span>
+    <h1>the <i>art</i> of beauty.</h1>
+    <div class="sub">
+     <p>Physician-led medical aesthetics with Dr. Summer Swanick, NMD — Botox, dermal fillers, skin treatments, body contouring and wellness.</p>
+     <p>“It's more than knowing the techniques — it's the eye of the practitioner, it's the art of beauty.”</p>
+    </div>
+    <div class="ctas"><a class="btn" href="https://www.joinblvd.com/b/elementalaesthetics/widget" target="_blank" rel="noopener">Book Appointment</a><a class="btn ghost" href="tel:+14806591390">Call 480-659-1390</a></div>
+   </div>
+   <aside class="doc"><img src="assets/dr-swanick-headshot.jpg" alt="Dr. Summer Swanick, NMD"><div class="b"><b>Dr. Summer Swanick, NMD</b><span>Former Medical Director for one of Arizona's largest corporately owned medical spas</span></div></aside>
+  </div>
+ </section>
+
+ <div class="wrap facts">
+  <div><b>Since 2014</b><span>in private practice</span></div>
+  <div><b>17+ years</b><span>of art &amp; sculpture experience</span></div>
+  <div><b>Alle &amp; Aspire</b><span>offers accepted</span></div>
+  <div><b>Payment plans</b><span>available</span></div>
+ </div>
+
+ <section id="procedures">
+  <div class="wrap">
+   <div class="sh"><div><span class="tag">Procedures</span><h2>Face, body, skin<br>&amp; wellness.</h2></div><p>Every procedure we offer, in one place. Not sure where to start? Book a visit to talk through your goals.</p></div>
+   <div class="atlas">
+    <div class="area"><div class="top"><h3>Face</h3><span class="ct">16</span></div>
+     <ul><li>Botox</li><li>Dysport</li><li>Juvederm Ultra Plus XC</li><li>Kybella</li><li>Latisse</li><li>Radiesse</li><li>Restylane</li><li>Restylane Defyne</li><li>Restylane Lyft</li><li>Restylane Refyne</li><li>Restylane Silk</li><li>Sculptra</li><li>Thread Lift</li><li>Voluma XC Filler</li><li>Volbella XC</li><li>Vollure</li></ul></div>
+    <div class="area"><div class="top"><h3>Skin</h3><span class="ct">8</span></div>
+     <ul style="columns:1"><li>Chemical Peels</li><li>HydroPlus Hydrafacial</li><li>Micro-Needling</li><li>Microdermabrasion</li><li>Photo Facial</li><li>PRP – Platelet Rich Plasma</li><li>Revision Skincare</li><li>Venus Viva</li></ul></div>
+    <div class="stack">
+     <div class="area one"><div class="top"><h3>Body</h3><span class="ct">3</span></div><ul><li>Body Contouring</li><li>hCG Diet</li><li>Laser Hair Reduction</li></ul></div>
+     <div class="area one dark"><div class="top"><h3>Wellness</h3><span class="ct">1</span></div><ul><li>B-12 Fat Burner Shots</li></ul></div>
+    </div>
+   </div>
+   <p style="margin:22px 0 0;color:var(--mut);font-size:15px">Skincare we carry: Alastin · PCA Skincare · Colorescience · SkinMedica</p>
+  </div>
+ </section>
+
+ <section class="drsec" id="dr-swanick">
+  <div class="wrap grid">
+   <img src="assets/dr-swanick-coat.jpg" alt="Dr. Summer Swanick in a white coat">
+   <div>
+    <span class="tag">Meet Dr. Summer Swanick, NMD</span>
+    <h2>Medical experience, an artist's eye.</h2>
+    <p>Dr. Swanick began her medical career as a primary care physician in private practice, working primarily with weight loss and hormone replacement therapy, before developing a strong interest in aesthetic medicine. She went on to serve as medical director for one of Arizona's largest corporately owned medical spas, performing procedures and supervising doctors, nurses and aestheticians across multiple clinics.</p>
+    <p>In 2014 she returned to private practice, integrating her experience with aesthetic medicine as a core part of her practice. With over 17 years of experience in art and sculpture, she brings an artistic edge to treating the aging face with dermal fillers such as Voluma, Restylane and Juvederm.</p>
+    <p class="quote">“The true art of anti-aging medicine is to blend transition, to eliminate the shadows. That's how we soften the signs of aging and maintain a ‘natural’ look.”</p>
+   </div>
+  </div>
+ </section>
+
+ <section id="offers">
+  <div class="wrap">
+   <div class="sh"><div><span class="tag">Offers &amp; extras</span><h2>Make it easy.</h2></div></div>
+   <div class="offers">
+    <div class="offer"><h3>Alle &amp; Aspire</h3><p>Use your Allē and Aspire rewards and coupons on eligible treatments.</p><a href="tel:+14806591390">Ask about current offers →</a></div>
+    <div class="offer"><h3>Gift Cards</h3><p>Give the art of beauty — gift cards are available online.</p><a href="https://blvd.me/elementalaesthetics/gift-cards" target="_blank" rel="noopener">Buy a gift card →</a></div>
+    <div class="offer"><h3>Payment Plans</h3><p>Payment plans are available so you can start your treatment plan now.</p><a href="tel:+14806591390" style="color:#fff">Call to learn more →</a></div>
+   </div>
+  </div>
+ </section>
+
+ <section class="visit" id="visit" style="padding-top:0">
+  <div class="wrap grid">
+   <div class="panel">
+    <h3>Office Hours</h3>
+    <div class="week">
+     <div class="day off"><b>Mon</b><span>Closed</span></div>
+     <div class="day"><b>Tue</b><span>9a–7p</span></div>
+     <div class="day off"><b>Wed</b><span>Closed</span></div>
+     <div class="day"><b>Thu</b><span>9a–7p</span></div>
+     <div class="day"><b>Fri</b><span>9a–7p</span></div>
+     <div class="day"><b>Sat</b><span>9a–4p</span></div>
+     <div class="day off"><b>Sun</b><span>Closed</span></div>
+    </div>
+    <dl>
+     <dt>Address</dt><dd>2222 S Dobson Rd, STE 201<br>Mesa, AZ 85202</dd>
+     <dt>Phone</dt><dd><a href="tel:+14806591390">480-659-1390</a></dd>
+     <dt>Email</dt><dd><a href="mailto:info@elementalaesthetics.com">info@elementalaesthetics.com</a></dd>
+    </dl>
+    <p style="display:flex;gap:10px;flex-wrap:wrap;margin:26px 0 0"><a class="btn" href="https://www.joinblvd.com/b/elementalaesthetics/widget" target="_blank" rel="noopener">Book Appointment</a><a class="btn ghost" href="https://www.google.com/maps/search/?api=1&query=2222+S+Dobson+Rd+STE+201+Mesa+AZ+85202" target="_blank" rel="noopener">Get Directions</a></p>
+   </div>
+   <div class="panel" style="background:var(--coral-l);border-color:var(--coral-l)">
+    <h3>Special deals &amp; events</h3>
+    <p style="margin:0 0 18px">Subscribe to our newsletter for access to special deals, events, and more.</p>
+    <form onsubmit="event.preventDefault();this.querySelector('.demo').style.display='block'">
+     <input placeholder="First name" aria-label="First name"><input placeholder="Last name" aria-label="Last name"><input type="email" placeholder="Email address" aria-label="Email"><input placeholder="SMS phone number (optional)" aria-label="Phone">
+     <button class="btn dark" type="submit">Subscribe</button>
+     <p class="demo">Demo form in a website concept — nothing was sent.</p>
+    </form>
+    <p style="margin:22px 0 0;font-size:14px">Follow <a href="https://www.instagram.com/elementalaesthetics/" target="_blank" rel="noopener">@elementalaesthetics</a> on Instagram.</p>
+   </div>
+  </div>
+ </section>
+</main>
+
+<footer>
+ <div class="wrap"><span>Elemental Aesthetics · 2222 S Dobson Rd STE 201, Mesa, AZ 85202 · 480-659-1390</span><span>Concept by <a href="https://mauitinevra.com">Maui Tinevra</a></span></div>
+</footer>
+<div class="sticky"><a class="c" href="tel:+14806591390">Call</a><a class="k" href="https://www.joinblvd.com/b/elementalaesthetics/widget" target="_blank" rel="noopener">Book now</a></div>
+</body>
+</html>
