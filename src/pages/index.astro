@@ -34,7 +34,7 @@ const services = [
 // Selected work: every project in src/data/work.ts, each in its own color.
 const colors = ['var(--orange)', 'var(--yellow)', 'var(--pink)', 'var(--green)', 'var(--lilac)', 'var(--blue)'];
 // The home page's own order. El Único is left off here; it stays on the Work page.
-const homeOrder = ['dos-gatos-books', 'saguaro', 'paloma-flores', 'dark-sky-sonora', 'ocotillo-records', 'monsoon-clay', 'camelback-barber', 'this-site'];
+const homeOrder = ['dos-gatos-books', 'ocotillo-records', 'paloma-flores', 'dark-sky-sonora', 'monsoon-clay', 'camelback-barber', 'saguaro', 'this-site'];
 const cards = homeOrder.map((id) => work.find((w) => w.id === id)!).map((w, i) => ({
   href: w.ai ? w.links[0].href : w.href,
   name: w.name,
